@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://corhc15om7oo3"]
+
+[ext_resource type="Material" uid="uid://d3mjjyln26m4j" path="res://materials/placeholder.tres" id="1_fiywj"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_525xs"]
+size = Vector2(1, 4)
+orientation = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bf04p"]
+size = Vector2(2, 1)
+orientation = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cymuj"]
+size = Vector3(1, 4, 0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_thuva"]
+size = Vector3(2, 1, 0)
+
+[node name="Door4x4" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+layers = 64
+material_override = ExtResource("1_fiywj")
+mesh = SubResource("PlaneMesh_525xs")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+layers = 64
+material_override = ExtResource("1_fiywj")
+mesh = SubResource("PlaneMesh_525xs")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+layers = 64
+material_override = ExtResource("1_fiywj")
+mesh = SubResource("PlaneMesh_bf04p")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+shape = SubResource("BoxShape3D_cymuj")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+shape = SubResource("BoxShape3D_cymuj")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("BoxShape3D_thuva")

@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://2cwblyjchcsl"]
+
+[ext_resource type="Material" uid="uid://d3mjjyln26m4j" path="res://materials/placeholder.tres" id="1_5y03i"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_525xs"]
+size = Vector2(2, 4)
+orientation = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cymuj"]
+size = Vector3(2, 4, 0)
+
+[sub_resource type="QuadOccluder3D" id="QuadOccluder3D_eptd3"]
+size = Vector2(2, 4)
+
+[node name="Wall2x4" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+layers = 64
+material_override = ExtResource("1_5y03i")
+mesh = SubResource("PlaneMesh_525xs")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_cymuj")
+
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="."]
+occluder = SubResource("QuadOccluder3D_eptd3")

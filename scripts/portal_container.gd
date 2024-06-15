@@ -141,6 +141,8 @@ func _process(_delta):
 ## `target`: node whose persepective is being copied [br]
 ## `from`: node that `target`'s perspective is relative to [br]
 ## `to`: node that the returned transform's perspective is relative to [br]
+## `z_offset`: TODO [br]
+## `z_overwrite`: TODO [br]
 ## Returns: `global_transform: Transform3D` global transform relative to `to`
 func _get_transform(
 	target: Node3D,

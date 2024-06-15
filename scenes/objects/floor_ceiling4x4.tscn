@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://7ycy236dh3nv"]
+
+[ext_resource type="Material" uid="uid://d3mjjyln26m4j" path="res://materials/placeholder.tres" id="1_ix6eh"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_525xs"]
+size = Vector2(4, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cymuj"]
+size = Vector3(4, 0, 4)
+
+[sub_resource type="QuadOccluder3D" id="QuadOccluder3D_eptd3"]
+size = Vector2(4, 4)
+
+[node name="FloorCeiling4x4" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+layers = 64
+material_override = ExtResource("1_ix6eh")
+mesh = SubResource("PlaneMesh_525xs")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_cymuj")
+
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+occluder = SubResource("QuadOccluder3D_eptd3")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 4, 0)
+layers = 64
+material_override = ExtResource("1_ix6eh")
+mesh = SubResource("PlaneMesh_525xs")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 4, 0)
+shape = SubResource("BoxShape3D_cymuj")
+
+[node name="OccluderInstance3D2" type="OccluderInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 5.96046e-08, -1, 0, 1, 5.96046e-08, 0, 4, 0)
+occluder = SubResource("QuadOccluder3D_eptd3")
