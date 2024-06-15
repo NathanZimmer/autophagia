@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://bjem2dfwjedac"]
+
+[ext_resource type="Script" path="res://scripts/player_controller.gd" id="1_y2fp8"]
+[ext_resource type="Script" path="res://scripts/fps_counter.gd" id="2_06lgv"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8l6i1"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_dgi16"]
+
+[node name="player" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_y2fp8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_8l6i1")
+
+[node name="PlayerCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+fov = 90.0
+far = 400.0
+
+[node name="FPS_Counter" type="Label" parent="PlayerCamera"]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("2_06lgv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+layers = 512
+mesh = SubResource("CapsuleMesh_dgi16")
+skeleton = NodePath("")
