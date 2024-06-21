@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://00wbtjo1ycxq"]
 
-[ext_resource type="PackedScene" path="res://scenes/main/player.tscn" id="1_xkulx"]
+[ext_resource type="PackedScene" uid="uid://dnhp4dcugklq6" path="res://scenes/main/player.tscn" id="1_xkulx"]
 [ext_resource type="Environment" uid="uid://b8m3x8yt1n4am" path="res://materials/environments/default_env.tres" id="2_mt32o"]
 [ext_resource type="PackedScene" uid="uid://corhc15om7oo3" path="res://scenes/objects/door_4x4.tscn" id="3_klmoo"]
 [ext_resource type="PackedScene" uid="uid://c2o255sok2daj" path="res://scenes/objects/wall_4x4.tscn" id="4_3upvu"]
@@ -25,8 +25,8 @@ size = Vector3(30, 10, 30)
 [sub_resource type="BoxOccluder3D" id="BoxOccluder3D_be4m6"]
 size = Vector3(30, 10, 30)
 
-[sub_resource type="BoxMesh" id="BoxMesh_eojty"]
-size = Vector3(2, 3, 0.2)
+[sub_resource type="BoxMesh" id="BoxMesh_qgtn2"]
+size = Vector3(4, 4, 0.2)
 
 [node name="TestHouse" type="Node3D"]
 
@@ -111,13 +111,13 @@ cam_1_cull_mask = 65
 [node name="Portal" type="MeshInstance3D" parent="PortalContainer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 layers = 256
-mesh = SubResource("BoxMesh_eojty")
+mesh = SubResource("BoxMesh_qgtn2")
 script = ExtResource("7_2umje")
 
 [node name="Portal2" type="MeshInstance3D" parent="PortalContainer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 1.5, 0.2)
 layers = 512
-mesh = SubResource("BoxMesh_eojty")
+mesh = SubResource("BoxMesh_qgtn2")
 script = ExtResource("7_2umje")
 
 [node name="HouseInt" type="Node3D" parent="."]

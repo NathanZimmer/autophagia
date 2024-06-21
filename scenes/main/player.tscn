@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://bjem2dfwjedac"]
+[gd_scene load_steps=6 format=3 uid="uid://dnhp4dcugklq6"]
 
 [ext_resource type="Script" path="res://scripts/player_controller.gd" id="1_y2fp8"]
 [ext_resource type="Script" path="res://scripts/fps_counter.gd" id="2_06lgv"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8l6i1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_j7o1h"]
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_dgi16"]
 
@@ -23,6 +27,7 @@ far = 400.0
 [node name="FPS_Counter" type="Label" parent="PlayerCamera"]
 offset_right = 40.0
 offset_bottom = 23.0
+label_settings = SubResource("LabelSettings_j7o1h")
 script = ExtResource("2_06lgv")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

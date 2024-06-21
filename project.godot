@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="house_of_leaves"
+run/main_scene="res://scenes/main/main.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -70,4 +71,8 @@ mw_down={
 [rendering]
 
 occlusion_culling/bvh_build_quality=1
+textures/default_filters/anisotropic_filtering_level=3
+anti_aliasing/quality/msaa_3d=2
 occlusion_culling/use_occlusion_culling=true
+environment/screen_space_roughness_limiter/enabled=true
+environment/quality/msaa_3d=2

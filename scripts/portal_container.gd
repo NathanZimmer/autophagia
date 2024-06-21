@@ -28,7 +28,7 @@ var deployed: bool = false
 # var portals_on_screen = false
 
 static var target_cam: Camera3D
-static var box_mesh: BoxMesh = BoxMesh.new()
+var box_mesh: BoxMesh = BoxMesh.new()
 
 ## Size of portal stash
 static var queue_size: int = 1
@@ -174,7 +174,7 @@ func _check_player_can_teleport(portal: Portal) -> bool:
 
 ## Create and initialize `SubViewport` object with desired params [br]
 ## Returns `viewport: Subviewprt`
-func _init_viewport_and_cam(cull_mask: int, portal_render_layer: int) -> SubViewport:
+func _create_viewport_and_cam(cull_mask: int, portal_render_layer: int) -> SubViewport:
 	var texture_size = Vector2i(DisplayServer.screen_get_size() * resolution_scale)
 
 	# Create viewport
@@ -241,10 +241,10 @@ func _create_collider(portal: Portal, mask: int) -> Area3D:
 ## Sets `constructed = true` and `deployed = true`
 func construct() -> void:
 	print('constructed')
-	viewport_0 = _init_viewport_and_cam(cam_0_cull_mask, render_layers.x)
+	viewport_0 = _create_viewport_and_cam(cam_0_cull_mask, render_layers.x)
 	add_child(viewport_0)
 	cam_0 = viewport_0.get_child(0)
-	viewport_1 = _init_viewport_and_cam(cam_1_cull_mask, render_layers.y)
+	viewport_1 = _create_viewport_and_cam(cam_1_cull_mask, render_layers.y)
 	add_child(viewport_1)
 	cam_1 = viewport_1.get_child(0)
 

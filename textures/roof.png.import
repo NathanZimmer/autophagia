@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dccifc56sw183"
-path.bptc="res://.godot/imported/void_outline.png-f54c4c22fda5a43ecf8439ab1af08bbc.bptc.ctex"
+uid="uid://cmh6o1wrmyed2"
+path.s3tc="res://.godot/imported/roof.png-29adfd8c1e5afa7b00c569cbd0106b4a.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,13 +11,13 @@ metadata={
 
 [deps]
 
-source_file="res://textures/void_outline.png"
-dest_files=["res://.godot/imported/void_outline.png-f54c4c22fda5a43ecf8439ab1af08bbc.bptc.ctex"]
+source_file="res://textures/roof.png"
+dest_files=["res://.godot/imported/roof.png-29adfd8c1e5afa7b00c569cbd0106b4a.s3tc.ctex"]
 
 [params]
 
 compress/mode=2
-compress/high_quality=true
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
