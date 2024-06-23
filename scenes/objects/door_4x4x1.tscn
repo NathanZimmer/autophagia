@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b8olsxah00lx4"]
 
 [ext_resource type="PackedScene" uid="uid://bhasctiypp8oy" path="res://models/door_4x4x1.blend" id="1_1xm6u"]
-[ext_resource type="Material" uid="uid://d3mjjyln26m4j" path="res://materials/placeholder.tres" id="1_ah84q"]
+[ext_resource type="Material" uid="uid://y4abhl5eq6vl" path="res://materials/drywall.tres" id="2_bllgc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2r206"]
 size = Vector3(1, 4, 1)
@@ -12,10 +12,10 @@ size = Vector3(2, 1, 1)
 [node name="door_4x4x1" instance=ExtResource("1_1xm6u")]
 
 [node name="DoorExt" parent="." index="0"]
-material_override = ExtResource("1_ah84q")
+material_override = ExtResource("2_bllgc")
 
 [node name="DoorInt" parent="." index="1"]
-material_override = ExtResource("1_ah84q")
+material_override = ExtResource("2_bllgc")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." index="2"]
 

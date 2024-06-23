@@ -15,7 +15,7 @@ var can_move = true
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	# DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 
 func _process(delta):
 	# Press escape to get mouse control

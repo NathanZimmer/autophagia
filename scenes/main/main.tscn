@@ -7,16 +7,16 @@
 [ext_resource type="Script" path="res://scripts/portal_container.gd" id="5_ioo31"]
 [ext_resource type="Script" path="res://scripts/portal.gd" id="6_qrk1t"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_46oeq"]
+[sub_resource type="BoxMesh" id="BoxMesh_csbaw"]
 size = Vector3(4, 4, 0.2)
 
-[sub_resource type="BoxMesh" id="BoxMesh_430en"]
+[sub_resource type="BoxMesh" id="BoxMesh_vn47s"]
 size = Vector3(2, 3, 0.2)
 
-[sub_resource type="BoxMesh" id="BoxMesh_62xi3"]
+[sub_resource type="BoxMesh" id="BoxMesh_6h5yo"]
 size = Vector3(2, 3, 0.2)
 
-[sub_resource type="BoxMesh" id="BoxMesh_f1yd4"]
+[sub_resource type="BoxMesh" id="BoxMesh_li0ih"]
 size = Vector3(2, 3, 0.2)
 
 [node name="Main" type="Node3D"]
@@ -38,28 +38,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 120, 0, 0)
 player = NodePath("../../../player")
 
 [node name="Portal" parent="Rooms/LivingRoom/PortalContainer" index="0"]
-mesh = SubResource("BoxMesh_46oeq")
+mesh = SubResource("BoxMesh_csbaw")
 
 [node name="Portal2" parent="Rooms/LivingRoom/PortalContainer" index="1"]
-mesh = SubResource("BoxMesh_46oeq")
+mesh = SubResource("BoxMesh_csbaw")
 
 [node name="PortalContainer2" parent="Rooms/LivingRoom" index="1" node_paths=PackedStringArray("player")]
 player = NodePath("../../../player")
 
 [node name="Portal" parent="Rooms/LivingRoom/PortalContainer2" index="0"]
-mesh = SubResource("BoxMesh_430en")
+mesh = SubResource("BoxMesh_vn47s")
 
 [node name="Portal2" parent="Rooms/LivingRoom/PortalContainer2" index="1"]
-mesh = SubResource("BoxMesh_430en")
+mesh = SubResource("BoxMesh_vn47s")
 
 [node name="PortalContainer3" parent="Rooms/LivingRoom" index="2" node_paths=PackedStringArray("player")]
 player = NodePath("../../../player")
 
 [node name="Portal" parent="Rooms/LivingRoom/PortalContainer3" index="0"]
-mesh = SubResource("BoxMesh_62xi3")
+mesh = SubResource("BoxMesh_6h5yo")
 
 [node name="Portal2" parent="Rooms/LivingRoom/PortalContainer3" index="1"]
-mesh = SubResource("BoxMesh_62xi3")
+mesh = SubResource("BoxMesh_6h5yo")
 
 [node name="TransitionPortals" type="Node" parent="."]
 
@@ -73,13 +73,13 @@ cam_1_cull_mask = 5
 [node name="EntryPortal0" type="MeshInstance3D" parent="TransitionPortals/EntryPortalContainer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.5, -0.1)
 layers = 256
-mesh = SubResource("BoxMesh_f1yd4")
+mesh = SubResource("BoxMesh_li0ih")
 script = ExtResource("6_qrk1t")
 
 [node name="Entryportal1" type="MeshInstance3D" parent="TransitionPortals/EntryPortalContainer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 140, 1.5, 0.05)
 layers = 512
-mesh = SubResource("BoxMesh_f1yd4")
+mesh = SubResource("BoxMesh_li0ih")
 script = ExtResource("6_qrk1t")
 
 [editable path="Rooms/LivingRoom"]

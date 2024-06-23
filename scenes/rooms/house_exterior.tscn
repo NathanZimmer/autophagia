@@ -89,6 +89,9 @@ shape = SubResource("BoxShape3D_4sxcr")
 [node name="Door4x4" parent="House" instance=ExtResource("4_vk6bk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 0)
 
+[node name="Door" parent="House/Door4x4" index="0"]
+material_override = ExtResource("4_kmowc")
+
 [node name="Wall5" type="MeshInstance3D" parent="House"]
 transform = Transform3D(1, -2.98023e-08, 6.21725e-15, 0, -4.37114e-08, -1, 2.98023e-08, 1, -4.37114e-08, -8, 2, 4)
 layers = 2
@@ -179,3 +182,5 @@ skeleton = NodePath("")
 [node name="OccluderInstance3D" type="OccluderInstance3D" parent="Void"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 occluder = SubResource("BoxOccluder3D_1i3v8")
+
+[editable path="House/Door4x4"]

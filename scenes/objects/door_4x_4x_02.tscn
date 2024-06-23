@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://4nihqe4wu37k"]
 
-[ext_resource type="Material" uid="uid://d3mjjyln26m4j" path="res://materials/placeholder.tres" id="1_pytab"]
+[ext_resource type="Material" uid="uid://y4abhl5eq6vl" path="res://materials/drywall.tres" id="1_il2il"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wexu0"]
 
@@ -43,7 +43,7 @@ size = Vector3(2, 1, 0.2)
 [node name="door_4x4x02" type="StaticBody3D"]
 
 [node name="Door" type="MeshInstance3D" parent="."]
-material_override = ExtResource("1_pytab")
+material_override = ExtResource("1_il2il")
 mesh = SubResource("ArrayMesh_bo3ct")
 skeleton = NodePath("")
 
