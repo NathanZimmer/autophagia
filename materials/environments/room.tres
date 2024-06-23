@@ -1,7 +1,6 @@
 [gd_resource type="Environment" format=3 uid="uid://c2ypgdm0jpj6d"]
 
 [resource]
-background_energy_multiplier = 1.41
 ambient_light_source = 2
 ambient_light_color = Color(0.972549, 0.972549, 0.972549, 1)
 ssao_enabled = true
@@ -12,10 +11,10 @@ ssil_radius = 1.66
 ssil_intensity = 16.0
 ssil_sharpness = 1.0
 ssil_normal_rejection = 0.0
-glow_normalized = true
+glow_enabled = true
 glow_intensity = 0.12
-glow_strength = 0.57
-glow_mix = 0.1
+glow_strength = 1.5
+glow_mix = 0.355
 glow_blend_mode = 4
 fog_light_color = Color(1, 1, 1, 1)
 fog_density = 0.02

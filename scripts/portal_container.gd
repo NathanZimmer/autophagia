@@ -27,11 +27,12 @@ var constructed: bool = false
 var deployed: bool = false
 # var portals_on_screen = false
 
+static var cam_env: Environment
 static var target_cam: Camera3D
 var box_mesh: BoxMesh = BoxMesh.new()
 
 ## Size of portal stash
-static var queue_size: int = 1
+static var queue_size: int = 3
 ## Queue of stashed portals. Portals are destructed when removed from the queue
 static var portal_delete_queue: Array[PortalContainer] = []
 
@@ -41,6 +42,12 @@ var child_count = get_children().size()
 func _ready():
 	box_mesh.size = portal_size
 	var portals = find_children('', 'Portal')
+
+	# Environment
+	var world_env = get_node('/root/Main/WorldEnvironment')
+	if world_env != null and cam_env == null:
+		cam_env = world_env.environment.duplicate()
+		cam_env.glow_enabled = false
 
 	if Engine.is_editor_hint():
 		if portals.size() == 2:
@@ -189,6 +196,7 @@ func _create_viewport_and_cam(cull_mask: int, portal_render_layer: int) -> SubVi
 	cam.fov = target_cam.fov
 	cam.cull_mask = cull_mask
 	cam.set_cull_mask_value(portal_render_layer, false)
+	cam.environment = cam_env
 
 	# Parent camera
 	viewport.add_child(cam)
@@ -291,10 +299,14 @@ func deactivate() -> void:
 	# Deactivate
 	portal_0.remove_material()
 	portal_1.remove_material()
-	viewport_0.set_process(false)
-	viewport_1.set_process(false)
-	cam_0.set_process(false)
-	cam_1.set_process(false)
+	if viewport_0 != null:
+		viewport_0.set_process(false)
+	if viewport_1 != null:
+		viewport_1.set_process(false)
+	if cam_0 != null:
+		cam_0.set_process(false)
+	if cam_1 != null:
+		cam_1.set_process(false)
 
 	deployed = false
 
@@ -303,8 +315,10 @@ func deconstruct() -> void:
 	print('destroyed')
 	viewport_0.queue_free()
 	viewport_0 = null
+	cam_0 = null
 	viewport_1.queue_free()
 	viewport_1 = null
+	cam_1 = null
 
 	constructed = false
 
