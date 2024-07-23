@@ -2,20 +2,13 @@
 class_name PortalContainer extends Node3D
 ## TODO
 
-# TODO:
-	# Add max view distance to portals
-	# Add oblique projection
-	# Give portals a secondary target to use in place of player camera. This allows for single-portal recursion
-	# Fix issue with portal visibility check. Could be race condition. Caused by slow performance
-	# Verify that the destruction and construction work properly
-
 ## Resolution scale of portals. `1.0 = full resolution`
 @export_range(0.1, 1, 0.1) var resolution_scale: float = 1
 ## `CharacterBody3D` with a `Camera3D` child
 @export var player: CharacterBody3D
 ## Width, height, and depth of both portals
 @export var portal_size: Vector3 = Vector3(1, 2, 0.2)
-## Render layer for each portal (by child order). Portal cameras cannot see their own layer
+## Render layer for each portal (by child order). These layers will be disabled for each portal's camera respectively
 @export var render_layers: Vector2i = Vector2i(9, 10)
 ## Layer that portal collision will take place on
 @export var trigger_layer_mask: int = 2
@@ -32,19 +25,21 @@ var cam_0: Camera3D
 var cam_1: Camera3D
 var constructed: bool = false
 var deployed: bool = false
-# var portals_on_screen = false
 
 static var cam_env: Environment
 static var target_cam: Camera3D
-var box_mesh: BoxMesh = BoxMesh.new()
 
 ## Size of portal stash
 static var queue_size: int = 3
-## Queue of stashed portals. Portals are destructed when removed from the queue
+## Queue of stashed portals. Portals are destroyed when removed from the queue
 static var portal_delete_queue: Array[PortalContainer] = []
 
+var box_mesh: BoxMesh = BoxMesh.new() # Needed for viewing the portal meshes in the editor
 ## Editor-only var
 var child_count = get_children().size()
+
+# Constants
+var WORLD_ENV_PATH = '/root/Main/WorldEnvironment'
 
 func _ready():
 	box_mesh.size = portal_size
@@ -58,8 +53,8 @@ func _ready():
 			portal_1.update_mesh(box_mesh, render_layers.y)
 		return
 
-	# Environment
-	var world_env = get_node('/root/Main/WorldEnvironment')
+	# Create camera environment, disable troublesome effects
+	var world_env = get_node(WORLD_ENV_PATH)
 	if world_env != null and cam_env == null:
 		cam_env = world_env.environment.duplicate()
 		cam_env.glow_enabled = false
@@ -68,25 +63,25 @@ func _ready():
 	if target_cam == null:
 		target_cam = player.find_children('', 'Camera3D')[0]
 
-	# init portal 0
+	# Init portal 0
 	portal_0 = portals[0]
 	portal_0.update_mesh(box_mesh, render_layers.x)
 	var area_3d_0 = _create_collider(portal_0, trigger_layer_mask)
 	add_child(area_3d_0)
 	var vis_notif_0 = _create_visibility_notifier(portal_0, render_layers.x)
-	# Connecting signals
+	# Connect signals
 	area_3d_0.connect('body_entered', func(_body): portal_0.player_in_portal = true)
 	area_3d_0.connect('body_exited', func(_body): portal_0.player_in_portal = false)
 	vis_notif_0.connect('screen_entered', func(): portal_0.on_screen = true)
 	vis_notif_0.connect('screen_exited', func(): portal_0.on_screen = false)
 
-	# init portal 1
+	# Init portal 1
 	portal_1 = portals[1]
 	portal_1.update_mesh(box_mesh, render_layers.y)
 	var area_3d_1 = _create_collider(portal_1, trigger_layer_mask)
 	add_child(area_3d_1)
 	var vis_notif_1 = _create_visibility_notifier(portal_1, render_layers.y)
-	# Connecting signals
+	# Connect signals
 	area_3d_1.connect('body_entered', func(_body): portal_1.player_in_portal = true)
 	area_3d_1.connect('body_exited', func(_body): portal_1.player_in_portal = false)
 	vis_notif_1.connect('screen_entered', func(): portal_1.on_screen = true)
@@ -112,6 +107,7 @@ func _process(_delta):
 				portal_1.update_mesh(box_mesh, render_layers.y)
 			return
 
+		# Ensure portal meshes are assigned in the editor
 		if portal_0 != null and portal_0.mesh == null:
 				portal_0.update_mesh(box_mesh, render_layers.x)
 		if portal_1 != null and portal_1.mesh == null:
@@ -139,109 +135,70 @@ func _process(_delta):
 	if _check_player_can_teleport(portal_0, portal_size.z / 2):
 		portal_0.player_in_portal = false
 		portal_1.on_screen = true
-		player.global_transform = _get_transform(
+		player.global_transform = _get_relative_transform(
 			player.global_transform,
 			portal_0.global_transform,
 			portal_1.global_transform,
 			portal_size.z / 2,
 			true,
 		)
-		print('portal 0 entered')
-
 	elif _check_player_can_teleport(portal_1, portal_size.z / 2):
 		portal_1.player_in_portal = false
 		portal_0.on_screen = true
-		player.global_transform = _get_transform(
+		player.global_transform = _get_relative_transform(
 			player.global_transform,
 			portal_1.global_transform,
 			portal_0.global_transform,
 			portal_size.z / 2,
 			true,
 		)
-		print('portal 1 entered')
 
 	# Only move cameras when needed
 	if portal_0.on_screen:
-		cam_1.global_transform = _get_transform(
+		cam_1.global_transform = _get_relative_transform(
 			target_cam.global_transform,
 			portal_0.global_transform,
 			portal_1.global_transform,
 			portal_size.z
 		)
-		# Adjust portal cam oblique position
+		# Disable oblique frustum when the player gets close to prevent flickering issue
 		cam_1.use_oblique_frustum = abs(portal_0.to_local(target_cam.global_position).z) > oblique_cutoff
-		# cam_1.use_oblique_frustum = cam_1.global_position.distance_to(portal_1.global_position) > oblique_cutoff
-		# if cam_relative_to_portal.z > portal_size.z + camera_offset:
-		# 	cam_1.oblique_position = portal_1.global_position + portal_1.basis.z * (portal_size.z / 2)
-		# 	# cam_1.oblique_offset = portal_size.z / 2
-		# elif cam_relative_to_portal.z < -1 * portal_size.z - camera_offset:
-		# 	cam_1.oblique_position = portal_1.global_position - portal_1.basis.z * (portal_size.z / 2)
-		# 	# cam_1.oblique_offset = -1 * portal_size.z / 2
-		# else:
-		# 	cam_1.use_oblique_frustum = false
-		# 	# cam_1.oblique_position = portal_1.global_position + portal_1.basis.z * (cam_relative_to_portal.z * 0.999)
-		# 	# cam_1.oblique_offset = cam_relative_to_portal.z * 0.9
+
 	if portal_1.on_screen:
-		cam_0.global_transform = _get_transform(
+		cam_0.global_transform = _get_relative_transform(
 			target_cam.global_transform,
 			portal_1.global_transform,
 			portal_0.global_transform,
 			portal_size.z
 		)
-		# Adjust portal cam oblique position
+		# Disable oblique frustum when the player gets close to prevent flickering issue
 		cam_0.use_oblique_frustum = abs(portal_1.to_local(target_cam.global_position).z) > oblique_cutoff
-		# cam_0.use_oblique_frustum = abs(cam_relative_to_portal_0.z) > oblique_cutoff
-		# cam_0.use_oblique_frustum = cam_0.global_position.distance_to(portal_0.global_position) > oblique_cutoff
-		# var cam_0_xz = Vector2(cam_0.position.x, cam_0.position.z)
-		# var portal_0_xy = Vector2(portal_0.position.x , portal_0.position.z)
-		# print(cam_0.global_position.distance_to(portal_0.global_position))
-		# if cam_relative_to_portal.z > portal_size.z + camera_offset:
-		# 	cam_0.oblique_position = portal_0.global_position + portal_0.basis.z * (portal_size.z / 2)
-		# 	# cam_0.oblique_offset = portal_size.z / 2
-		# elif cam_relative_to_portal.z < -1 * portal_size.z - camera_offset:
-		# 	cam_0.oblique_position = portal_0.global_position - portal_0.basis.z * (portal_size.z / 2)
-		# 	# cam_0.oblique_offset = -1 * portal_size.z / 2
-		# else:
-		# 	cam_0.use_oblique_frustum = false
-		# 	# cam_0.oblique_position = portal_0.global_position + portal_0.basis.z * (cam_relative_to_portal.z * 0.999)
-		# 	# cam_0.oblique_offset = cam_relative_to_portal.z * 0.9
 
-	if cam_0 != null:
-		# cam_0.use_oblique_frustum = false
-		# cam_0.oblique_position = portal_0.global_position + portal_0.basis.z * (portal_size.z / 2 + 0.0001)
-		# cam_0.oblique_offset = 1 * (portal_size.z / 2 + 0.0001)
-		pass
-	if cam_1 != null:
-		# cam_1.use_oblique_frustum = false
-		# cam_1.oblique_position = portal_1.global_position - portal_1.basis.z * (portal_size.z / 2 + 0.0001)
-		# cam_1.oblique_offset = 1 * (portal_size.z / 2 + 0.0001)
-		pass
-
-## Get the global transform of `target` rotated into `from` basis but relative to `to` basis [br]
-## Useful for copying relative positions/rotations from one node to another [br]
-## `target`: Transform whose persepective is being copied [br]
-## `from`: Transform that `target`'s perspective is relative to [br]
-## `to`: Transform that the returned transform's perspective is relative to [br]
-## `z_offset`: TODO [br]
-## `z_overwrite`: TODO [br]
-## Returns: `global_transform: Transform3D` global transform relative to `to`
-func _get_transform(
+## Calculate gobal transform of `current` relative to `reference`, apply the same offest to `target`.
+## Optionally, apply a z offest/overwrite to the output [br]
+## `current`: The global transform of interest [br]
+## `reference`: The transform that `current` is relative to [br]
+## `target`: The transform that the returned transform's perspective is relative to [br]
+## `z_offset`: Optional z offset to apply before transform is rotated into `target` perspective [br]
+## `z_overwrite`: `if true`, `z_offset` will overwrite the transforms z value [br]
+## Returns `global_transform`: The global transform `current` but now relative to `target`
+func _get_relative_transform(
+	current: Transform3D,
+	reference: Transform3D,
 	target: Transform3D,
-	from: Transform3D,
-	to: Transform3D,
 	z_offset: float = 0,
 	z_overwrite: bool = false,
 ) -> Transform3D:
-	var transform_offset = from.affine_inverse() * target
+	var transform_offset = reference.affine_inverse() * current
 	var offset_sign = -1 * sign(transform_offset.origin.z)
 	if z_overwrite:
 		transform_offset.origin.z = offset_sign * z_offset
 	else:
 		transform_offset.origin.z += offset_sign * z_offset
 
-	return to * transform_offset
+	return target * transform_offset
 
-## Check if `player` is far enough into `portal` to teleport [br]
+## Check if `player`'s `z_offset` from `portal` is close enough to teleport [br]
 ## Returns `player_can_teleport: bool`
 func _check_player_can_teleport(portal: Portal, z_offset) -> bool:
 	if not portal.player_in_portal:
@@ -252,13 +209,22 @@ func _check_player_can_teleport(portal: Portal, z_offset) -> bool:
 	)
 
 	return abs(player_in_portal_frame.z) <= z_offset
+
 ## Create and initialize `SubViewport` and `Camera3D` objects with desired params [br]
-## Returns `viewport: Subviewprt`
+## Returns `viewport: Subviewprt` [br]
+## `cull_mask`: The created camera's cull mask [br]
+## `portal_render_layer`: The render layer the portal will display on,
+## this layer is disabled for the created camera [br]
+## `cam_oblique_normal`: The normal direction of the portal this camera is for [br]
+## `cam_oblique_pos`: The position of the portal this camera is for [br]
+## `cam_far_plane`: Optional, the far plane of the created camera [br]
+## Returns `viewport`: a `Subviewport` with a `Camera3D` child
 func _create_viewport_and_cam(
 	cull_mask: int,
 	portal_render_layer: int,
 	cam_oblique_normal: Vector3,
 	cam_oblique_pos: Vector3,
+	cam_far_plane: float = 500,
 ) -> SubViewport:
 	var texture_size = Vector2i(DisplayServer.screen_get_size() * resolution_scale)
 
@@ -278,6 +244,7 @@ func _create_viewport_and_cam(
 	cam.use_oblique_frustum = true
 	cam.oblique_normal = cam_oblique_normal
 	cam.oblique_position = cam_oblique_pos
+	cam.far = cam_far_plane
 
 	# Parent camera
 	viewport.add_child(cam)
@@ -323,8 +290,8 @@ func _create_collider(portal: Portal, mask: int) -> Area3D:
 
 	return area_3d
 
-## Initializes viewports and cameras. Sets portal material to viewport texture.
-## Sets `constructed = true` and `deployed = true`
+## Initializes viewports and cameras, sets viewport and camera variables,
+## sets portal materials to viewport textures, sets `constructed = true` and `deployed = true`
 func construct() -> void:
 	print('constructed')
 	viewport_0 = _create_viewport_and_cam(
@@ -352,8 +319,8 @@ func construct() -> void:
 	constructed = true
 	deployed = true
 
-## Enables viewports and cameras. Sets portal material to viewport texture.
-## Sets `deployed = true`
+## Enables viewports and cameras, sets portal material to viewport textures,
+## sets `deployed = true`
 func deploy() -> void:
 	print('redeployed')
 	# Enable viewports and cameras
@@ -373,8 +340,8 @@ func deploy() -> void:
 
 	deployed = true
 
-## Disables viewports and cameras. Deletes portal material. Sets `deployed = false`.
-## Removes first element of `portal_delete_queue` and calls its `deconstruct()` function
+## Disables viewports and cameras, deletes portal materials, sets `deployed = false`,
+## removes first element of `portal_delete_queue` and calls its `deconstruct()` function
 func deactivate() -> void:
 	print('deactivated')
 	# Update queue
