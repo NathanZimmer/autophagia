@@ -1,6 +1,6 @@
 @tool
 class_name Portal extends MeshInstance3D
-##
+## Mesh to be manipulated by a `PortalContainer`
 
 var shader_path = 'res://shaders/portal.gdshader'
 var player_in_portal = false

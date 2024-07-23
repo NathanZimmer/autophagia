@@ -1,6 +1,6 @@
 @tool
 class_name PortalContainer extends Node3D
-## TODO
+## Handles connection and displaying of two `Portal` objects
 
 ## Resolution scale of portals. `1.0 = full resolution`
 @export_range(0.1, 1, 0.1) var resolution_scale: float = 1
