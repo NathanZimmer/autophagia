@@ -174,14 +174,14 @@ func _process(_delta):
 		# Disable oblique frustum when the player gets close to prevent flickering issue
 		cam_0.use_oblique_frustum = abs(portal_1.to_local(target_cam.global_position).z) > oblique_cutoff
 
-## Calculate gobal transform of `current` relative to `reference`, apply the same offest to `target`.
-## Optionally, apply a z offest/overwrite to the output [br]
-## `current`: The global transform of interest [br]
-## `reference`: The transform that `current` is relative to [br]
-## `target`: The transform that the returned transform's perspective is relative to [br]
-## `z_offset`: Optional z offset to apply before transform is rotated into `target` perspective [br]
-## `z_overwrite`: `if true`, `z_offset` will overwrite the transforms z value [br]
-## Returns `global_transform`: The global transform `current` but now relative to `target`
+## Calculate the transform (position and rotation) offset from `current` to `reference` and return the
+## transform of that same offset relative to `target`. Optionally, apply a z offest/overwrite to the output [br]
+## `current`: The transform of interest [br]
+## `reference`: The transform to get the offset from [br]
+## `target`: The transform to apply the offest to [br]
+## `z_offset`: Optional, z offset to apply before transform is rotated into `target` perspective [br]
+## `z_overwrite`: `if true`, `z_offset` will overwrite the transform's z value [br]
+## Returns `relative_transform`: The transform with the equivilant offset to `target` as `current` is to `reference`
 func _get_relative_transform(
 	current: Transform3D,
 	reference: Transform3D,
