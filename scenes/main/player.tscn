@@ -21,7 +21,7 @@ shape = SubResource("CapsuleShape3D_8l6i1")
 
 [node name="PlayerCamera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-cull_mask = 1047551
+cull_mask = 1047539
 fov = 90.0
 far = 400.0
 
