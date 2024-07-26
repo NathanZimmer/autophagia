@@ -1,73 +1,112 @@
 extends CharacterBody3D
 ## Handles player movement, jumping, gravity, and interaction with `Rigidbody3D` objects
 
-const SPEED = 3
-const LOOK_SENSITIVITY = 0.25
-const SWAY_SENSITIVITY = 0.015
-const JUMP_VELOCITY = 4.5
+# Copied camera code from:
+# https://yosoyfreeman.github.io/article/godot/tutorial/achieving-better-mouse-input-in-godot-4-the-perfect-camera-controller/
 
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-var mouse_input = Vector2.ZERO
-var speed_mod = 1
-var can_move = true
+@export_group('Settings')
+
+@export_subgroup('Mouse settings')
+@export_range(1, 100, 1) var mouse_sensitivity: int = 50
+
+@export_subgroup('Clamp settings')
+@export var max_pitch: float = 89
+@export var min_pitch: float = -89
+
+@export_subgroup('Player movement settings')
+@export var move_speed: float = 3.0
+@export var jump_velocity: float = 4.5
 
 @onready var camera: Camera3D = $PlayerCamera
 
+var gravity = ProjectSettings.get_setting('physics/3d/default_gravity')
+var speed_mod = 1  # Modifier to player speed that can be adjusted with mouse wheel
+
 func _ready():
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	# DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+    # DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+    # Input.set_use_accumulated_input(false)
+    Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
-func _process(delta):
-	# Press escape to get mouse control
-	if Input.is_action_just_pressed("ui_cancel"):
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE else Input.MOUSE_MODE_VISIBLE
+func _unhandled_input(event) -> void:
+    if event is InputEventKey:
+        if event.is_action_pressed('ui_cancel'):
+            Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE else Input.MOUSE_MODE_VISIBLE
+        elif event.is_action_pressed('fullscreen'):
+            DisplayServer.window_set_mode(
+                DisplayServer.WINDOW_MODE_WINDOWED if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN
+                else DisplayServer.WINDOW_MODE_FULLSCREEN
+            )
 
-	# Move player
-	if not is_on_floor():
-		velocity.y -= gravity * delta
+    elif event is InputEventMouseMotion:
+        if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+            aim_look(event)
 
-	if can_move:
-		walk_and_jump()
-		move_and_slide()
+    speed_mod = speed_mod + Input.get_axis(
+        "mw_down", "mw_up"
+    ) * 0.1
 
-	# Rotate camera
-	rotate_y(mouse_input.x * LOOK_SENSITIVITY * delta)
-	camera.rotate_x(mouse_input.y * LOOK_SENSITIVITY * delta)
-	camera.rotation.x = clamp(camera.rotation.x, -PI/2, PI/2)
+    if speed_mod < 0.1:
+        speed_mod = 0.1
 
-	mouse_input = Vector2.ZERO
+func _process(delta: float) -> void:
+    # Move player
+    if not is_on_floor():
+        velocity.y -= gravity * delta
 
-func _input(event):
-	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		mouse_input = Vector2(
-			-event.relative.x,
-			-event.relative.y
-		)
-	speed_mod = speed_mod + Input.get_axis(
-		"mw_down", "mw_up"
-	) * 0.1
-
-	if speed_mod < 0.1: speed_mod = 0.1
+    walk_and_jump()
+    move_and_slide()
 
 ## Handles player input for walking and jumping using the player_ input actions
 func walk_and_jump():
-	var input_direction = Input.get_vector(
-		"player_left", "player_right", "player_forward", "player_back"
-	)
-	# var height_change = Input.get_axis(
-	# 	"player_down", "player_up"
-	# )
+    var input_direction = Input.get_vector(
+        'player_left', 'player_right', 'player_forward', 'player_back'
+    )
 
-	# var direction = (global_basis * Vector3(input_direction.x, height_change, input_direction.y)).normalized()
-	var direction = (global_basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
-	if direction:
-		velocity.x = direction.x * SPEED * speed_mod
-		# velocity.y = direction.y * SPEED * speed_mod
-		velocity.z = direction.z * SPEED * speed_mod
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED * speed_mod)
-		# velocity.y = move_toward(velocity.y, 0, SPEED * speed_mod)
-		velocity.z = move_toward(velocity.z, 0, SPEED * speed_mod)
+    # var direction = (global_basis * Vector3(input_direction.x, height_change, input_direction.y)).normalized()
+    var direction = (global_basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
+    if direction:
+        velocity.x = direction.x * move_speed * speed_mod
+        velocity.z = direction.z * move_speed * speed_mod
+    else:
+        velocity.x = move_toward(velocity.x, 0, move_speed * speed_mod)
+        velocity.z = move_toward(velocity.z, 0, move_speed * speed_mod)
 
-	if Input.is_action_just_pressed("player_up") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+    if Input.is_action_just_pressed('player_up') and is_on_floor():
+        velocity.y = jump_velocity
+
+# Handles aim look with the mouse.
+func aim_look(event: InputEventMouseMotion) -> void:
+    var viewport_transform: Transform2D = get_tree().root.get_final_transform()
+    var motion: Vector2 = event.xformed_by(viewport_transform).relative
+    var degrees_per_unit: float = 0.001
+
+    motion *= mouse_sensitivity
+    motion *= degrees_per_unit
+
+    add_yaw(motion.x)
+    add_pitch(motion.y)
+    clamp_pitch()
+
+# Rotates the character around the local Y axis by a given amount (In degrees) to achieve yaw
+func add_yaw(amount) -> void:
+    if is_zero_approx(amount):
+        return
+
+    rotate_object_local(Vector3.DOWN, deg_to_rad(amount))
+    orthonormalize()
+
+# Rotates the head around the local x axis by a given amount (In degrees) to achieve pitch
+func add_pitch(amount) -> void:
+    if is_zero_approx(amount):
+        return
+
+    camera.rotate_object_local(Vector3.LEFT, deg_to_rad(amount))
+    camera.orthonormalize()
+
+# Clamps the pitch between min_pitch and max_pitch
+func clamp_pitch() -> void:
+    if camera.rotation.x > deg_to_rad(min_pitch) and camera.rotation.x < deg_to_rad(max_pitch):
+        return
+
+    camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(min_pitch), deg_to_rad(max_pitch))
+    camera.orthonormalize()
