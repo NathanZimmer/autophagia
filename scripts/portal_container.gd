@@ -39,7 +39,11 @@ var box_mesh: BoxMesh = BoxMesh.new() # Needed for viewing the portal meshes in 
 var child_count = get_children().size()
 
 # Constants
-var WORLD_ENV_PATH = '/root/Main/WorldEnvironment'
+const WORLD_ENV_NAME = 'WorldEnvironment'
+const ENV_OVERWRITES = {
+	# 'ssao_enabled': false,
+	'glow_enabled': false,
+}
 
 func _ready():
 	box_mesh.size = portal_size
@@ -54,10 +58,12 @@ func _ready():
 		return
 
 	# Create camera environment, disable troublesome effects
-	var world_env = get_node(WORLD_ENV_PATH)
+	var world_env = get_tree().get_root().get_child(0).get_node(WORLD_ENV_NAME)
 	if world_env != null and cam_env == null:
 		cam_env = world_env.environment.duplicate()
-		cam_env.glow_enabled = false
+		for param in ENV_OVERWRITES:
+			var value = ENV_OVERWRITES[param]
+			cam_env.set(param, value)
 
 	# Set target cam from player
 	if target_cam == null:
