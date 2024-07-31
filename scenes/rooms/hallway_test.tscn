@@ -12,7 +12,8 @@
 [ext_resource type="LightmapGIData" uid="uid://cwpcwb68dja8q" path="res://scenes/rooms/hallway_test_0.lmbake" id="8_yr8n1"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_ul8kd"]
-auto_exposure_enabled = true
+auto_exposure_scale = 0.06
+auto_exposure_max_sensitivity = 100.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_01yqs"]
 size = Vector3(2.9, 3, 0.2)
@@ -89,10 +90,7 @@ add_uv2 = true
 size = Vector3(0.1, 0.1, 6)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qe5dk"]
-albedo_color = Color(0.989788, 1, 0.605754, 1)
-emission_enabled = true
-emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 1.5
+shading_mode = 0
 
 [sub_resource type="SphereMesh" id="SphereMesh_1lbyc"]
 radius = 0.1

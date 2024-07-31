@@ -2,6 +2,7 @@
 
 [resource]
 tonemap_mode = 3
+tonemap_exposure = 0.7
 tonemap_white = 3.0
 ssao_radius = 0.34
 ssao_intensity = 0.29
@@ -12,7 +13,9 @@ ssil_sharpness = 1.0
 ssil_normal_rejection = 0.0
 glow_enabled = true
 glow_normalized = true
-glow_intensity = 1.0
+glow_intensity = 4.65
+glow_strength = 1.82
+glow_mix = 0.511
 glow_blend_mode = 0
 fog_light_color = Color(1, 1, 1, 1)
 fog_density = 0.02

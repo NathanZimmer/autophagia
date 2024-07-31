@@ -42,10 +42,11 @@ const QUEUE_SIZE = 5
 const ENV_OVERWRITES = {
     # 'ssao_enabled': false,
    'glow_enabled': false,
-   'tonemap_mode': Environment.TONE_MAPPER_LINEAR
+   'tonemap_mode': Environment.TONE_MAPPER_LINEAR,
+   'tonemap_exposure': 1.0,
 }
 const CAM_ATTRIB_OVERWRITES = {
-    'auto_exposure_enabled': false
+    # 'auto_exposure_enabled': false,
 }
 
 func _ready():
@@ -63,7 +64,9 @@ func _ready():
     # Create camera environment, disable troublesome effects
     var world_env: WorldEnvironment = get_tree().get_root().get_child(0).get_node(WORLD_ENV_NAME)
     if world_env != null and cam_env == null:
-        cam_env = world_env.duplicate()
+        cam_env = WorldEnvironment.new()
+        cam_env.environment = world_env.environment.duplicate()
+        cam_env.camera_attributes = world_env.camera_attributes.duplicate()
 
         # Set environment overrides
         for param in ENV_OVERWRITES:
@@ -257,7 +260,8 @@ func _create_viewport_and_cam(
     cam.fov = target_cam.fov
     cam.cull_mask = cull_mask
     cam.set_cull_mask_value(portal_render_layer, false)
-    cam.environment = cam_env
+    cam.environment = cam_env.environment
+    cam.attributes = cam_env.camera_attributes
     cam.use_oblique_frustum = true
     cam.oblique_normal = cam_oblique_normal
     cam.oblique_position = cam_oblique_pos
