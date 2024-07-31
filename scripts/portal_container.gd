@@ -26,7 +26,7 @@ var cam_1: Camera3D
 var constructed: bool = false
 var deployed: bool = false
 
-static var cam_env: Environment
+static var cam_env: WorldEnvironment
 static var target_cam: Camera3D
 
 ## Queue of stashed portals. Portals are destroyed when removed from the queue
@@ -41,7 +41,11 @@ const WORLD_ENV_NAME = 'WorldEnvironment'
 const QUEUE_SIZE = 5
 const ENV_OVERWRITES = {
     # 'ssao_enabled': false,
-    'glow_enabled': false,
+   'glow_enabled': false,
+   'tonemap_mode': Environment.TONE_MAPPER_LINEAR
+}
+const CAM_ATTRIB_OVERWRITES = {
+    'auto_exposure_enabled': false
 }
 
 func _ready():
@@ -57,12 +61,19 @@ func _ready():
         return
 
     # Create camera environment, disable troublesome effects
-    var world_env = get_tree().get_root().get_child(0).get_node(WORLD_ENV_NAME)
+    var world_env: WorldEnvironment = get_tree().get_root().get_child(0).get_node(WORLD_ENV_NAME)
     if world_env != null and cam_env == null:
-        cam_env = world_env.environment.duplicate()
+        cam_env = world_env.duplicate()
+
+        # Set environment overrides
         for param in ENV_OVERWRITES:
             var value = ENV_OVERWRITES[param]
-            cam_env.set(param, value)
+            cam_env.environment.set(param, value)
+
+        # Set cam attribute overrides
+        for param in CAM_ATTRIB_OVERWRITES:
+            var value = CAM_ATTRIB_OVERWRITES[param]
+            cam_env.camera_attributes.set(param, value)
 
     # Set target cam from player
     if target_cam == null:
@@ -239,6 +250,7 @@ func _create_viewport_and_cam(
     # NOTE: this might not be optimal
     viewport.render_target_update_mode = SubViewport.UPDATE_WHEN_PARENT_VISIBLE
     viewport.handle_input_locally = true
+    viewport.msaa_3d = ProjectSettings.get_setting('rendering/anti_aliasing/quality/msaa_3d')
 
     # Create camera
     var cam = Camera3D.new()
