@@ -4,16 +4,14 @@ extends CharacterBody3D
 # Copied camera code from:
 # https://yosoyfreeman.github.io/article/godot/tutorial/achieving-better-mouse-input-in-godot-4-the-perfect-camera-controller/
 
-@export_group('Settings')
-
-@export_subgroup('Mouse settings')
+@export_group('Mouse settings')
 @export_range(1, 100, 1) var mouse_sensitivity: int = 50
 
-@export_subgroup('Clamp settings')
+@export_group('Clamp settings')
 @export var max_pitch: float = 89
 @export var min_pitch: float = -89
 
-@export_subgroup('Player movement settings')
+@export_group('Player movement settings')
 @export var move_speed: float = 3.0
 @export var jump_velocity: float = 4.5
 
@@ -23,7 +21,6 @@ var gravity = ProjectSettings.get_setting('physics/3d/default_gravity')
 var speed_mod = 1  # Modifier to player speed that can be adjusted with mouse wheel
 
 func _ready():
-    # DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
     # Input.set_use_accumulated_input(false)
     Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
@@ -55,8 +52,9 @@ func _process(delta: float) -> void:
 
     walk_and_jump()
     move_and_slide()
+    orthonormalize()
 
-## Handles player input for walking and jumping using the player_ input actions
+## Handle player input for walking and jumping using the player_ input actions
 func walk_and_jump():
     var input_direction = Input.get_vector(
         'player_left', 'player_right', 'player_forward', 'player_back'
@@ -74,7 +72,7 @@ func walk_and_jump():
     if Input.is_action_just_pressed('player_up') and is_on_floor():
         velocity.y = jump_velocity
 
-# Handles aim look with the mouse.
+# Handle aim look with the mouse.
 func aim_look(event: InputEventMouseMotion) -> void:
     var viewport_transform: Transform2D = get_tree().root.get_final_transform()
     var motion: Vector2 = event.xformed_by(viewport_transform).relative
@@ -86,27 +84,25 @@ func aim_look(event: InputEventMouseMotion) -> void:
     add_yaw(motion.x)
     add_pitch(motion.y)
     clamp_pitch()
+    camera.orthonormalize()
 
-# Rotates the character around the local Y axis by a given amount (In degrees) to achieve yaw
+# Rotate the character around the local Y axis by a given amount (In degrees) to achieve yaw
 func add_yaw(amount) -> void:
     if is_zero_approx(amount):
         return
 
     rotate_object_local(Vector3.DOWN, deg_to_rad(amount))
-    orthonormalize()
 
-# Rotates the head around the local x axis by a given amount (In degrees) to achieve pitch
+# Rotate the head around the local x axis by a given amount (In degrees) to achieve pitch
 func add_pitch(amount) -> void:
     if is_zero_approx(amount):
         return
 
     camera.rotate_object_local(Vector3.LEFT, deg_to_rad(amount))
-    camera.orthonormalize()
 
-# Clamps the pitch between min_pitch and max_pitch
+# Clamp the pitch between min_pitch and max_pitch
 func clamp_pitch() -> void:
     if camera.rotation.x > deg_to_rad(min_pitch) and camera.rotation.x < deg_to_rad(max_pitch):
         return
 
     camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(min_pitch), deg_to_rad(max_pitch))
-    camera.orthonormalize()
