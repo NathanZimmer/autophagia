@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dnhp4dcugklq6"]
 
 [ext_resource type="Script" path="res://scripts/player_controller.gd" id="1_y2fp8"]
-[ext_resource type="Script" path="res://scripts/fps_counter.gd" id="2_06lgv"]
+[ext_resource type="Script" path="res://scripts/interface_controller.gd" id="2_h56fe"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8l6i1"]
 radius = 0.4
@@ -27,11 +27,27 @@ cull_mask = 1047539
 fov = 90.0
 far = 400.0
 
-[node name="FPS_Counter" type="Label" parent="PlayerCamera"]
+[node name="CanvasLayer" type="CanvasLayer" parent="PlayerCamera"]
+script = ExtResource("2_h56fe")
+
+[node name="FPS_Counter" type="Label" parent="PlayerCamera/CanvasLayer"]
 offset_right = 40.0
 offset_bottom = 23.0
+text = "0"
 label_settings = SubResource("LabelSettings_j7o1h")
-script = ExtResource("2_06lgv")
+
+[node name="BCounter" type="Label" parent="PlayerCamera/CanvasLayer"]
+auto_translate_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -381.0
+offset_right = -36.0
+offset_bottom = 23.0
+grow_horizontal = 0
+text = "Seconds since the \"B\" key has been pressed: "
+label_settings = SubResource("LabelSettings_j7o1h")
+horizontal_alignment = 2
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 layers = 512

@@ -25,18 +25,10 @@ func _ready():
     Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _unhandled_input(event) -> void:
-    if event is InputEventKey:
-        if event.is_action_pressed('ui_cancel'):
+    if event is InputEventKey and event.is_action_pressed('ui_cancel'):
             Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE else Input.MOUSE_MODE_VISIBLE
-        elif event.is_action_pressed('fullscreen'):
-            DisplayServer.window_set_mode(
-                DisplayServer.WINDOW_MODE_WINDOWED if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN
-                else DisplayServer.WINDOW_MODE_FULLSCREEN
-            )
-
-    elif event is InputEventMouseMotion:
-        if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-            aim_look(event)
+    elif event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+        aim_look(event)
 
     speed_mod = speed_mod + Input.get_axis(
         "mw_down", "mw_up"
@@ -50,9 +42,10 @@ func _process(delta: float) -> void:
     if not is_on_floor():
         velocity.y -= gravity * delta
 
-    walk_and_jump()
-    move_and_slide()
-    orthonormalize()
+    if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+        walk_and_jump()
+        move_and_slide()
+        orthonormalize()
 
 ## Handle player input for walking and jumping using the player_ input actions
 func walk_and_jump():
