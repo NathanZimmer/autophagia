@@ -5,11 +5,13 @@ extends CanvasLayer
 
 @onready var fps_counter = $FPS_Counter
 @onready var b_counter = $BCounter
+@onready var pause_menu = $PauseMenuControl
 
 var b_press_time_elapsed: float = 0
 
 func _ready():
-    DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+    # DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+    pause_menu.hide()
 
     if not show_fps:
         fps_counter.hide()
@@ -25,6 +27,11 @@ func _unhandled_input(event) -> void:
             )
         elif event.is_action_pressed('player_b'):
             b_press_time_elapsed = 0
+        elif event.is_action_pressed('ui_cancel'):
+            if pause_menu.is_visible():
+                pause_menu.hide()
+            else:
+                pause_menu.show()
     elif event is InputEventMouseButton and event.is_action_pressed('player_interact'):
             print('left click')
 
