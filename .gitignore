@@ -1,2 +1,5 @@
 # Godot 4+ specific ignores
 .godot/
+
+# TrenchBroom ignores
+maps/autosave

@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dxfo6i18ir4i"]
+
+[ext_resource type="Texture2D" uid="uid://daj6gb5v8dhve" path="res://textures/white_noise.png" id="1_qtguf"]
+
+[resource]
+albedo_color = Color(0.657604, 0.61361, 0.520976, 1)
+albedo_texture = ExtResource("1_qtguf")
+texture_filter = 5

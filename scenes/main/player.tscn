@@ -34,6 +34,7 @@ far = 400.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="PlayerCamera"]
 script = ExtResource("2_h56fe")
+show_b = false
 
 [node name="FPS_Counter" type="Label" parent="PlayerCamera/CanvasLayer"]
 offset_left = 5.0

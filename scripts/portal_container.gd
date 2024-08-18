@@ -6,6 +6,7 @@ const WORLD_ENV_NAME = "WorldEnvironment"
 const QUEUE_SIZE = 5
 const ENV_OVERWRITES = {
 	# 'ssao_enabled': false,
+	# "sdfgi_enabled": false,
 	"glow_enabled": false,
 	"tonemap_mode": Environment.TONE_MAPPER_LINEAR,
 	"tonemap_exposure": 1.0,
