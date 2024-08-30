@@ -21,14 +21,14 @@ float GetBlueNoiseDither( float grayscale, ivec2 pixelCoord, bool noise, vec2 Sc
 	if ( noise == true ) blueNoiseValue4 = 0.0;
     // Version 1
     //return blueNoiseValue < grayscale ? 1.0 : 0.0;
-    
+
     // Version 2
     return (step( blueNoiseValue, grayscale ) + step( blueNoiseValue2, grayscale ) + step( blueNoiseValue3, grayscale ) + step( blueNoiseValue4, grayscale ))/4.0;
 }
 
 mat4 contrastMatrix( float _contrast ){
 	float t = ( 1.0 - _contrast ) / 2.0;
-    return mat4( 
+    return mat4(
 		vec4(_contrast, 0, 0, 0),
 		vec4(0, _contrast, 0, 0),
 		vec4(0, 0, _contrast, 0),
@@ -40,11 +40,11 @@ void fragment() {
 	tex.r = round(tex.r*(colors))/colors;
 	tex.g = round(tex.g*(colors))/colors;
 	tex.b = round(tex.b*(colors))/colors;
-	
+
 	float ditherColorR = GetBlueNoiseDither( tex.r, ivec2( SCREEN_UV.st ), true, SCREEN_UV );
 	float ditherColorG = GetBlueNoiseDither( tex.g, ivec2( SCREEN_UV.st ), true, SCREEN_UV );
 	float ditherColorB = GetBlueNoiseDither( tex.b, ivec2( SCREEN_UV.st ), true, SCREEN_UV );
-	
+
 	COLOR.rgba = tex.rgba * (vec4(ditherColorR,ditherColorG,ditherColorB, 1.0) * contrastMatrix(contrast) + brightness);
 }
 void light() {

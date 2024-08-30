@@ -15,16 +15,16 @@
 auto_exposure_scale = 0.06
 auto_exposure_max_sensitivity = 100.0
 
-[sub_resource type="BoxMesh" id="BoxMesh_3cvk1"]
+[sub_resource type="BoxMesh" id="BoxMesh_52mus"]
 size = Vector3(2.9, 3, 0.2)
 
-[sub_resource type="BoxMesh" id="BoxMesh_5y0nl"]
+[sub_resource type="BoxMesh" id="BoxMesh_mcvug"]
 size = Vector3(2.9, 3, 0.2)
 
-[sub_resource type="BoxMesh" id="BoxMesh_f7r6o"]
+[sub_resource type="BoxMesh" id="BoxMesh_h1wh4"]
 size = Vector3(2.9, 3, 0.2)
 
-[sub_resource type="BoxMesh" id="BoxMesh_48vmu"]
+[sub_resource type="BoxMesh" id="BoxMesh_41c6j"]
 size = Vector3(2.9, 3, 0.2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uwdgj"]
@@ -179,7 +179,7 @@ lightmap_size_hint = Vector2i(22, 62)
 add_uv2 = true
 size = Vector2(4, 12)
 
-[sub_resource type="BoxMesh" id="BoxMesh_1lylr"]
+[sub_resource type="BoxMesh" id="BoxMesh_r4o7m"]
 size = Vector3(4, 4, 0.2)
 
 [node name="HallwayTest" type="Node3D"]
@@ -200,13 +200,13 @@ player = NodePath("../player")
 [node name="Portal" type="MeshInstance3D" parent="PortalContainer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.625, 1.5, -0.1)
 layers = 512
-mesh = SubResource("BoxMesh_3cvk1")
+mesh = SubResource("BoxMesh_52mus")
 script = ExtResource("2_14nvg")
 
 [node name="Portal2" type="MeshInstance3D" parent="PortalContainer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.625, 1.5, -9.9)
 layers = 512
-mesh = SubResource("BoxMesh_3cvk1")
+mesh = SubResource("BoxMesh_52mus")
 script = ExtResource("2_14nvg")
 
 [node name="PortalContainer3" type="Node3D" parent="." node_paths=PackedStringArray("player")]
@@ -218,13 +218,13 @@ player = NodePath("../player")
 [node name="Portal" type="MeshInstance3D" parent="PortalContainer3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.625, 1.5, -0.1)
 layers = 512
-mesh = SubResource("BoxMesh_5y0nl")
+mesh = SubResource("BoxMesh_mcvug")
 script = ExtResource("2_14nvg")
 
 [node name="Portal2" type="MeshInstance3D" parent="PortalContainer3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.625, 1.5, -9.9)
 layers = 512
-mesh = SubResource("BoxMesh_5y0nl")
+mesh = SubResource("BoxMesh_mcvug")
 script = ExtResource("2_14nvg")
 
 [node name="PortalContainer2" type="Node3D" parent="." node_paths=PackedStringArray("player")]
@@ -236,13 +236,13 @@ player = NodePath("../player")
 [node name="Portal" type="MeshInstance3D" parent="PortalContainer2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.625, 1.5, 0.0999994)
 layers = 512
-mesh = SubResource("BoxMesh_f7r6o")
+mesh = SubResource("BoxMesh_h1wh4")
 script = ExtResource("2_14nvg")
 
 [node name="Portal2" type="MeshInstance3D" parent="PortalContainer2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.625, 1.5, -10.1)
 layers = 512
-mesh = SubResource("BoxMesh_f7r6o")
+mesh = SubResource("BoxMesh_h1wh4")
 script = ExtResource("2_14nvg")
 
 [node name="PortalContainer4" type="Node3D" parent="." node_paths=PackedStringArray("player")]
@@ -254,13 +254,13 @@ player = NodePath("../player")
 [node name="Portal" type="MeshInstance3D" parent="PortalContainer4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.625, 1.5, 19.9)
 layers = 512
-mesh = SubResource("BoxMesh_48vmu")
+mesh = SubResource("BoxMesh_41c6j")
 script = ExtResource("2_14nvg")
 
 [node name="Portal2" type="MeshInstance3D" parent="PortalContainer4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.625, 1.5, -9.9)
 layers = 512
-mesh = SubResource("BoxMesh_48vmu")
+mesh = SubResource("BoxMesh_41c6j")
 script = ExtResource("2_14nvg")
 
 [node name="LightMode0" type="Node3D" parent="."]
@@ -1490,11 +1490,11 @@ player = NodePath("../player")
 [node name="Portal" type="MeshInstance3D" parent="PortalContainer5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -0.1)
 layers = 512
-mesh = SubResource("BoxMesh_1lylr")
+mesh = SubResource("BoxMesh_r4o7m")
 script = ExtResource("2_14nvg")
 
 [node name="Portal2" type="MeshInstance3D" parent="PortalContainer5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2, 0.1)
 layers = 512
-mesh = SubResource("BoxMesh_1lylr")
+mesh = SubResource("BoxMesh_r4o7m")
 script = ExtResource("2_14nvg")

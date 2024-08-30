@@ -67,7 +67,6 @@ func _ready():
 
 	# Create camera environment, disable troublesome effects
 	var world_env: WorldEnvironment = get_tree().get_root().get_child(0).get_node(WORLD_ENV_NAME)
-	print(world_env)
 	if world_env != null and cam_env == null:
 		cam_env = WorldEnvironment.new()
 		cam_env.environment = world_env.environment.duplicate()

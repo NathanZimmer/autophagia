@@ -35,7 +35,7 @@ shader_parameter/brightness = 0.5
 shader_parameter/uTime1 = 1.0
 shader_parameter/uTime2 = 3.25
 shader_parameter/uTime3 = 4.2
-shader_parameter/colors = 8.0
+shader_parameter/colors = 32.0
 
 [node name="player" type="CharacterBody3D"]
 collision_layer = 2
