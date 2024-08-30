@@ -6,6 +6,7 @@ const WORLD_ENV_NAME = "WorldEnvironment"
 const QUEUE_SIZE = 5
 const ENV_OVERWRITES = {
 	# 'ssao_enabled': false,
+	# "sdfgi_enabled": false,
 	"glow_enabled": false,
 	"tonemap_mode": Environment.TONE_MAPPER_LINEAR,
 	"tonemap_exposure": 1.0,
@@ -185,6 +186,7 @@ func _process(_delta):
 		cam_1.use_oblique_frustum = (
 			abs(portal_0.to_local(target_cam.global_position).z) > portal_size.z
 		)
+		cam_1.use_oblique_frustum = false
 
 	if portal_1.on_screen:
 		cam_0.global_transform = _get_relative_transform(
@@ -198,6 +200,7 @@ func _process(_delta):
 		cam_0.use_oblique_frustum = (
 			abs(portal_1.to_local(target_cam.global_position).z) > portal_size.z
 		)
+		cam_0.use_oblique_frustum = false
 
 
 ## Calculate the transform (position and rotation) offset from `current` to `reference` and return the
