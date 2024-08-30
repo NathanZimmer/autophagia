@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cthov865yu2ox"]
+
+[ext_resource type="Texture2D" uid="uid://cfifxldcgirbm" path="res://house_of_leaves/textures/drywall.png" id="1_sec0w"]
+
+[resource]
+albedo_texture = ExtResource("1_sec0w")
+metallic_specular = 0.0
+texture_filter = 2
