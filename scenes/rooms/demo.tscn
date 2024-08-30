@@ -30,10 +30,12 @@ background_mode = 2
 sky = SubResource("Sky_80mu3")
 ambient_light_source = 2
 ambient_light_color = Color(0.244777, 0.244776, 0.244776, 1)
+ambient_light_energy = 1.67
 tonemap_mode = 3
 tonemap_exposure = 0.7
 tonemap_white = 3.0
-ssao_intensity = 0.78
+ssao_radius = 0.16
+ssao_intensity = 0.82
 ssao_power = 3.69343
 ssil_radius = 1.66
 ssil_intensity = 16.0
@@ -52,7 +54,7 @@ volumetric_fog_emission = Color(0.548963, 0.548963, 0.548963, 1)
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_7u6tt"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_n6peh"]
+[sub_resource type="BoxMesh" id="BoxMesh_vxp3x"]
 size = Vector3(2, 3, 0.2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a5qbi"]
@@ -619,6 +621,7 @@ spot_range = 6.35705
 spot_angle = 64.0297
 
 [node name="PortalContainer" type="Node3D" parent="." node_paths=PackedStringArray("player")]
+visible = false
 script = ExtResource("32_1vvcr")
 portal_size = Vector3(2, 3, 0.2)
 player = NodePath("../player")
@@ -626,13 +629,13 @@ player = NodePath("../player")
 [node name="Portal" type="MeshInstance3D" parent="PortalContainer"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7.8, 1.5, -2)
 layers = 512
-mesh = SubResource("BoxMesh_n6peh")
+mesh = SubResource("BoxMesh_vxp3x")
 script = ExtResource("33_h8ohm")
 
 [node name="Portal2" type="MeshInstance3D" parent="PortalContainer"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 1.5, 9.5)
 layers = 512
-mesh = SubResource("BoxMesh_n6peh")
+mesh = SubResource("BoxMesh_vxp3x")
 script = ExtResource("33_h8ohm")
 
 [node name="DoItToEm" type="MeshInstance3D" parent="."]
@@ -993,6 +996,7 @@ mesh = SubResource("ArrayMesh_aucii")
 shape = SubResource("ConcavePolygonShape3D_77r3y")
 
 [node name="LightmapGI" type="LightmapGI" parent="."]
+visible = false
 quality = 2
 bounces = 0
 texel_scale = 5.0
