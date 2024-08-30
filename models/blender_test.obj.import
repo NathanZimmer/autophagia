@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cyhpmltdibbhs"
+path="res://.godot/imported/blender_test.obj-4be41418be3a5964565bbd70a525869e.mesh"
+
+[deps]
+
+files=["res://.godot/imported/blender_test.obj-4be41418be3a5964565bbd70a525869e.mesh"]
+
+source_file="res://models/blender_test.obj"
+dest_files=["res://.godot/imported/blender_test.obj-4be41418be3a5964565bbd70a525869e.mesh", "res://.godot/imported/blender_test.obj-4be41418be3a5964565bbd70a525869e.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
