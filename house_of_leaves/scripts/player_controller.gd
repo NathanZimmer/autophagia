@@ -18,10 +18,11 @@ extends CharacterBody3D
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var speed_mod = 1  # Modifier to player speed that can be adjusted with mouse wheel
 
-@onready var camera: Camera3D = $PlayerCamera
+var camera: Camera3D
 
 
 func _ready():
+	camera = find_children("", "Camera3D")[0]
 	# Input.set_use_accumulated_input(false)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 

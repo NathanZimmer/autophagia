@@ -2,7 +2,7 @@
 class_name Portal extends MeshInstance3D
 ## Mesh to be manipulated by a `PortalContainer`
 
-var shader_path = "res://shaders/portal.gdshader"
+var shader_path = "res://house_of_leaves/shaders/portal.gdshader"
 var player_in_portal = false
 var on_screen = false
 

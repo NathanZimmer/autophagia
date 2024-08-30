@@ -69,8 +69,11 @@ func _ready():
 	var world_env: WorldEnvironment = get_tree().get_root().get_child(0).get_node(WORLD_ENV_NAME)
 	if world_env != null and cam_env == null:
 		cam_env = WorldEnvironment.new()
-		cam_env.environment = world_env.environment.duplicate()
-		cam_env.camera_attributes = world_env.camera_attributes.duplicate()
+
+		if world_env.environment != null:
+			cam_env.environment = world_env.environment.duplicate()
+		if world_env.camera_attributes != null:
+			cam_env.camera_attributes = world_env.camera_attributes.duplicate()
 
 		# Set environment overrides
 		for param in ENV_OVERWRITES:
@@ -186,7 +189,6 @@ func _process(_delta):
 		cam_1.use_oblique_frustum = (
 			abs(portal_0.to_local(target_cam.global_position).z) > portal_size.z
 		)
-		cam_1.use_oblique_frustum = false
 
 	if portal_1.on_screen:
 		cam_0.global_transform = _get_relative_transform(
@@ -200,7 +202,6 @@ func _process(_delta):
 		cam_0.use_oblique_frustum = (
 			abs(portal_1.to_local(target_cam.global_position).z) > portal_size.z
 		)
-		cam_0.use_oblique_frustum = false
 
 
 ## Calculate the transform (position and rotation) offset from `current` to `reference` and return the

@@ -42,10 +42,10 @@ collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_y2fp8")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="Collision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_8l6i1")
 
-[node name="PlayerCamera" type="Camera3D" parent="."]
+[node name="Camera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 cull_mask = 1047539
 fov = 90.0
@@ -63,13 +63,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, -0.2)
 visible = false
 material_override = SubResource("ShaderMaterial_1avhh")
 mesh = SubResource("BoxMesh_x3fk3")
-skeleton = NodePath("../PlayerCamera")
+skeleton = NodePath("../Camera")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="GUI" type="CanvasLayer" parent="."]
 script = ExtResource("2_h56fe")
 show_b = false
 
-[node name="FPS_Counter" type="Label" parent="CanvasLayer"]
+[node name="FPS_Counter" type="Label" parent="GUI"]
 offset_left = 5.0
 offset_top = 5.0
 offset_right = 45.0
@@ -77,7 +77,7 @@ offset_bottom = 28.0
 text = "0"
 label_settings = SubResource("LabelSettings_j7o1h")
 
-[node name="BCounter" type="Label" parent="CanvasLayer"]
+[node name="BCounter" type="Label" parent="GUI"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -90,7 +90,7 @@ text = "Seconds since the \"B\" key has been pressed: "
 label_settings = SubResource("LabelSettings_j7o1h")
 horizontal_alignment = 2
 
-[node name="PauseMenuControl" type="Control" parent="CanvasLayer"]
+[node name="PauseMenuControl" type="Control" parent="GUI"]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -104,7 +104,7 @@ offset_bottom = 360.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/PauseMenuControl"]
+[node name="Label" type="Label" parent="GUI/PauseMenuControl"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
