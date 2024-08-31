@@ -6,7 +6,7 @@
 [ext_resource type="Resource" uid="uid://cxy7jnh6d7msn" path="res://addons/func_godot/fgd/func_detail.tres" id="3_fqfww"]
 [ext_resource type="Resource" uid="uid://dg5x44cc7flew" path="res://addons/func_godot/fgd/func_illusionary.tres" id="4_c4ucw"]
 [ext_resource type="Resource" uid="uid://ch3e0dix85uhb" path="res://addons/func_godot/fgd/func_detail_illusionary.tres" id="5_b2q3p"]
-[ext_resource type="Resource" uid="uid://nmsyn5vu46ti" path="res://house_of_leaves/config/func_light.tres" id="6_lgqll"]
+[ext_resource type="Resource" uid="uid://bkvglebbbyxkp" path="res://house_of_leaves/config/func_light.tres" id="6_lgqll"]
 
 [resource]
 script = ExtResource("1_axt3h")

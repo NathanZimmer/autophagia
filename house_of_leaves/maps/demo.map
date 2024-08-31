@@ -1634,14 +1634,8 @@
 }
 // entity 11
 {
-"classname" "func_light"
 "_phong" "1"
-"bake_mode" "0"
-"cast_shadows" "1"
-"color" "255 255 255"
-"create_light" "1"
-"light_node" "1"
-"generate_light_node" "1"
+"classname" "func_light"
 "_tb_group" "8"
 // brush 0
 {
@@ -1892,12 +1886,8 @@
 }
 // entity 18
 {
-"classname" "func_light_cover"
 "_phong" "1"
-"create_light" "1"
-"bake_mode" "0"
-"cast_shadows" "1"
-"light_node" "1"
+"classname" "func_light"
 "_tb_group" "9"
 // brush 0
 {
@@ -2034,12 +2024,18 @@
 }
 // entity 22
 {
-"classname" "func_light_cover"
+"classname" "func_light"
 "_phong" "1"
-"bake_mode" "0"
-"cast_shadows" "1"
-"create_light" "1"
+"light_bake_mode" "0"
+"light_color" "255 255 255"
+"light_energy" "1"
+"generate_light_node" "1"
 "light_node" "1"
+"offset" "0 0 0"
+"omni_range" "10"
+"spot_range" "10"
+"spot_angle" "90"
+"_phong_angle" "89"
 "_tb_group" "10"
 // brush 0
 {

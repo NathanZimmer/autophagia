@@ -1,5 +1,6 @@
 @tool
+class_name FuncGodotFGDLightClass
 extends FuncGodotFGDSolidClass
 
 func _init():
-    print('test')
+    prefix = "@SolidClass"
