@@ -33,6 +33,11 @@ func _unhandled_input(event) -> void:
 		elif event.is_action_pressed("player_b"):
 			b_press_time_elapsed = 0
 		elif event.is_action_pressed("ui_cancel"):
+			Input.mouse_mode = (
+				Input.MOUSE_MODE_CAPTURED
+				if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE
+				else Input.MOUSE_MODE_VISIBLE
+			)
 			if pause_menu.is_visible():
 				pause_menu.hide()
 			else:

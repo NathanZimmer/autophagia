@@ -27,14 +27,8 @@ func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
-func _unhandled_input(event) -> void:
-	if event is InputEventKey and event.is_action_pressed("ui_cancel"):
-		Input.mouse_mode = (
-			Input.MOUSE_MODE_CAPTURED
-			if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE
-			else Input.MOUSE_MODE_VISIBLE
-		)
-	elif event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+func _input(event) -> void:
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		aim_look(event)
 
 	speed_mod = speed_mod + Input.get_axis("mw_down", "mw_up") * 0.1

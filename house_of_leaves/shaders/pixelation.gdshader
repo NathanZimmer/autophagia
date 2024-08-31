@@ -1,3 +1,4 @@
+// Copied from https://godotshaders.com/shader/3d-pixelation-filter/
 shader_type spatial;
 render_mode unshaded;
 uniform sampler2D screen_texture : hint_screen_texture;

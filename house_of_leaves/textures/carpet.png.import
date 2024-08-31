@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmwvn1amnnc4i"
-path.s3tc="res://.godot/imported/carpet.png-2e91a1fb7303009fa07a348eb9aafadd.s3tc.ctex"
+uid="uid://dy6d3bxs4niwb"
+path.bptc="res://.godot/imported/carpet.png-2e91a1fb7303009fa07a348eb9aafadd.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,12 +12,12 @@ metadata={
 [deps]
 
 source_file="res://house_of_leaves/textures/carpet.png"
-dest_files=["res://.godot/imported/carpet.png-2e91a1fb7303009fa07a348eb9aafadd.s3tc.ctex"]
+dest_files=["res://.godot/imported/carpet.png-2e91a1fb7303009fa07a348eb9aafadd.bptc.ctex"]
 
 [params]
 
 compress/mode=2
-compress/high_quality=false
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0

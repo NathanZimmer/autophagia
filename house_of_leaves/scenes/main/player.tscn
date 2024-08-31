@@ -19,6 +19,15 @@ shader = ExtResource("3_4sjwy")
 flip_faces = true
 size = Vector3(2, 2, 2)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q5we3"]
+shader = ExtResource("3_cu3o8")
+shader_parameter/contrast = 2.0
+shader_parameter/brightness = 0.0
+shader_parameter/uTime1 = 1.0
+shader_parameter/uTime2 = 3.25
+shader_parameter/uTime3 = 4.0
+shader_parameter/colors = 16.0
+
 [sub_resource type="LabelSettings" id="LabelSettings_j7o1h"]
 outline_size = 3
 outline_color = Color(0, 0, 0, 1)
@@ -27,15 +36,6 @@ outline_color = Color(0, 0, 0, 1)
 font_size = 50
 outline_size = 6
 outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_q5we3"]
-shader = ExtResource("3_cu3o8")
-shader_parameter/contrast = 1.2
-shader_parameter/brightness = 0.5
-shader_parameter/uTime1 = 1.0
-shader_parameter/uTime2 = 3.25
-shader_parameter/uTime3 = 4.2
-shader_parameter/colors = 32.0
 
 [node name="player" type="CharacterBody3D"]
 collision_layer = 2
@@ -64,6 +64,17 @@ visible = false
 material_override = SubResource("ShaderMaterial_1avhh")
 mesh = SubResource("BoxMesh_x3fk3")
 skeleton = NodePath("../Camera")
+
+[node name="FS_Dithering" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="FS_Dithering"]
+auto_translate_mode = 1
+material = SubResource("ShaderMaterial_q5we3")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="GUI" type="CanvasLayer" parent="."]
 script = ExtResource("2_h56fe")
@@ -119,14 +130,3 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "PAUSE"
 label_settings = SubResource("LabelSettings_3ke4g")
-
-[node name="FSDithering" type="CanvasLayer" parent="."]
-
-[node name="ColorRect" type="ColorRect" parent="FSDithering"]
-auto_translate_mode = 1
-material = SubResource("ShaderMaterial_q5we3")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2

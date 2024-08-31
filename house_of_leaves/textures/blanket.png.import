@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ndyshf5nlk8h"
-path.s3tc="res://.godot/imported/blanket.png-88ed2698abc0f67c704f7e303f97272f.s3tc.ctex"
+uid="uid://bap8i3qdripkl"
+path.bptc="res://.godot/imported/blanket.png-88ed2698abc0f67c704f7e303f97272f.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,12 +12,12 @@ metadata={
 [deps]
 
 source_file="res://house_of_leaves/textures/blanket.png"
-dest_files=["res://.godot/imported/blanket.png-88ed2698abc0f67c704f7e303f97272f.s3tc.ctex"]
+dest_files=["res://.godot/imported/blanket.png-88ed2698abc0f67c704f7e303f97272f.bptc.ctex"]
 
 [params]
 
 compress/mode=2
-compress/high_quality=false
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0

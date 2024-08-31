@@ -1,3 +1,4 @@
+// Copied from https://godotshaders.com/shader/bayer-dithering/
 shader_type canvas_item;
 render_mode unshaded;
 

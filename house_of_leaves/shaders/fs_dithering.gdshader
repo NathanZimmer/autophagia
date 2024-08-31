@@ -1,13 +1,14 @@
+// Copied from https://godotshaders.com/shader/fake-floyd-stienberg-noise-dithering/
 shader_type canvas_item;
 
 uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
 uniform sampler2D  uTexBlueNoise;
-uniform float contrast = 1;
-uniform float brightness = 0;
+uniform float contrast = 1.2;
+uniform float brightness = 0.5;
 uniform float uTime1 = 1;
-uniform float uTime2 = 2;
+uniform float uTime2 = 3.25;
 uniform float uTime3 = 4;
-uniform float colors = 8;
+uniform float colors = 16;
 
 float GetBlueNoiseDither( float grayscale, ivec2 pixelCoord, bool noise, vec2 ScreenUV )
 {
