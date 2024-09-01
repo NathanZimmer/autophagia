@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dgd7goqa0sby4"]
+
+[resource]
+metallic = 1.0
+metallic_specular = 0.0
+roughness = 0.0
+emission = Color(0.187176, 0.187176, 0.187176, 1)
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+texture_filter = 2
