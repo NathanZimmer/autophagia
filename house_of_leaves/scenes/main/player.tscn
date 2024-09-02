@@ -1,9 +1,9 @@
 [gd_scene load_steps=12 format=3 uid="uid://dnhp4dcugklq6"]
 
-[ext_resource type="Script" path="res://house_of_leaves/scripts/player_controller.gd" id="1_y2fp8"]
-[ext_resource type="Script" path="res://house_of_leaves/scripts/interface_controller.gd" id="2_h56fe"]
-[ext_resource type="Shader" path="res://house_of_leaves/shaders/pixelation.gdshader" id="3_4sjwy"]
-[ext_resource type="Shader" path="res://house_of_leaves/shaders/fs_dithering.gdshader" id="3_cu3o8"]
+[ext_resource type="Script" path="res://house_of_leaves/scripts/gameplay/player_controller.gd" id="1_y2fp8"]
+[ext_resource type="Script" path="res://house_of_leaves/scripts/interface/interface_controller.gd" id="2_h56fe"]
+[ext_resource type="Shader" path="res://house_of_leaves/scripts/shaders/pixelation.gdshader" id="3_4sjwy"]
+[ext_resource type="Shader" path="res://house_of_leaves/scripts/shaders/fs_dithering.gdshader" id="3_cu3o8"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8l6i1"]
 radius = 0.4
@@ -37,7 +37,7 @@ font_size = 50
 outline_size = 6
 outline_color = Color(0, 0, 0, 1)
 
-[node name="player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D"]
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_y2fp8")

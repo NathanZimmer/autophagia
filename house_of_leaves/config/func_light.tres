@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="FuncGodotFGDLightClass" load_steps=4 format=3 uid="uid://bkvglebbbyxkp"]
 
 [ext_resource type="Resource" uid="uid://nayxb8n7see2" path="res://addons/func_godot/fgd/phong_base.tres" id="1_le5jl"]
-[ext_resource type="Script" path="res://house_of_leaves/scripts/func_godot_fgd_light_class.gd" id="2_pipy3"]
-[ext_resource type="Script" path="res://house_of_leaves/scripts/func_godot_light_generator.gd" id="3_bl6nn"]
+[ext_resource type="Script" path="res://house_of_leaves/scripts/func_godot/func_godot_fgd_light_class.gd" id="2_pipy3"]
+[ext_resource type="Script" path="res://house_of_leaves/scripts/func_godot/func_godot_light_generator.gd" id="3_bl6nn"]
 
 [resource]
 script = ExtResource("2_pipy3")
