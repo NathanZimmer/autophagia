@@ -1,9 +1,13 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://dgd7goqa0sby4"]
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dgd7goqa0sby4"]
+
+[ext_resource type="Texture2D" uid="uid://bbwk8kl7ugq4" path="res://house_of_leaves/textures/mirror.png" id="1_43pqa"]
 
 [resource]
-metallic = 1.0
+transparency = 1
+albedo_color = Color(0.726226, 0.848892, 0.787526, 0.8)
+albedo_texture = ExtResource("1_43pqa")
 metallic_specular = 0.0
 roughness = 0.0
-emission = Color(0.187176, 0.187176, 0.187176, 1)
+emission = Color(0.427493, 0.427493, 0.427493, 1)
 uv1_scale = Vector3(0.5, 0.5, 0.5)
 texture_filter = 2
