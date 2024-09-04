@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://damvgjihk044u"]
+
+[ext_resource type="Texture2D" uid="uid://doqkpc7my5mjl" path="res://house_of_leaves/textures/Burner.png" id="1_0xgcm"]
+
+[resource]
+albedo_texture = ExtResource("1_0xgcm")
+metallic_specular = 0.0
+emission_enabled = true
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+texture_filter = 2
