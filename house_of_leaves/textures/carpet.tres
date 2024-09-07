@@ -3,8 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://dy6d3bxs4niwb" path="res://house_of_leaves/textures/carpet.png" id="1_ovk20"]
 
 [resource]
-albedo_color = Color(1, 0.898039, 1, 1)
 albedo_texture = ExtResource("1_ovk20")
 metallic_specular = 0.0
-uv1_scale = Vector3(0.5, 0.5, 0.5)
 texture_filter = 2

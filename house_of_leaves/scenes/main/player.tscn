@@ -26,7 +26,7 @@ shader_parameter/brightness = 0.5
 shader_parameter/uTime1 = 1.0
 shader_parameter/uTime2 = 3.1
 shader_parameter/uTime3 = 4.0
-shader_parameter/colors = 16.0
+shader_parameter/colors = 32.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_j7o1h"]
 outline_size = 3

@@ -9,5 +9,4 @@ albedo_texture = ExtResource("1_43pqa")
 metallic_specular = 0.0
 roughness = 0.0
 emission = Color(0.427493, 0.427493, 0.427493, 1)
-uv1_scale = Vector3(0.5, 0.5, 0.5)
 texture_filter = 2
