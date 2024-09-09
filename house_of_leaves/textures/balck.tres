@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b42u2xtru6yng"]
+
+[ext_resource type="Texture2D" uid="uid://dosbi2i1ppk50" path="res://house_of_leaves/textures/balck.png" id="1_uapw6"]
+
+[resource]
+albedo_texture = ExtResource("1_uapw6")
+metallic_specular = 0.0
+texture_filter = 2
