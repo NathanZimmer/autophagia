@@ -24,7 +24,8 @@ description = "Builds a Godot Portal object. Two portals should have the same di
 func_godot_internal = false
 base_classes = Array[Resource]([ExtResource("1_qbih0")])
 class_properties = {
-"portal_id": 0
+"portal_id": 0,
+"rotation": Vector3(0, 0, 0)
 }
 class_property_descriptions = {
 "portal_id": "Give two portals the same id to link them together."

@@ -4,7 +4,7 @@ class_name PortalContainer extends Node3D
 
 const PLAYER_NAME = 'Player'
 const WORLD_ENV_NAME = "WorldEnvironment"
-const QUEUE_SIZE = 5
+const QUEUE_SIZE = 1
 const ENV_OVERWRITES = {
 	# 'ssao_enabled': false,
 	# "sdfgi_enabled": false,
@@ -15,7 +15,7 @@ const ENV_OVERWRITES = {
 const CAM_ATTRIB_OVERWRITES = {
 # 'auto_exposure_enabled': false,
 }
-const PORTAL_CAM_FAR_PLANE = 100
+const PORTAL_CAM_FAR_PLANE = 50
 
 ## Width, height, and depth of both portals
 @export var portal_size: Vector3 = Vector3(1, 2, 0.2)

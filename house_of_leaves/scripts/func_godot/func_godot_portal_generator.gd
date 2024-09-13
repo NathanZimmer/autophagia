@@ -28,11 +28,12 @@ func _func_godot_build_complete():
 	var mesh_size = _get_mesh_size(mesh_instance.mesh)
 	container.portal_size = mesh_size
 
-	# Giving the container a portal with this position
+	# Giving the container a portal with this position and rotation
 	var portal = Portal.new()
 	container.add_child(portal)
 	portal.owner = map_root.owner
 	portal.global_position = mesh_instance.global_position
+	portal.global_rotation = func_godot_properties['rotation'] * PI / 180
 
 	# Hiding placeholder mesh
 	mesh_instance.hide()
