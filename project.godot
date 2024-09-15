@@ -96,10 +96,9 @@ player_b={
 [rendering]
 
 occlusion_culling/bvh_build_quality=1
-renderer/rendering_method.mobile="forward_plus"
-renderer/rendering_method.web="forward_plus"
 textures/default_filters/anisotropic_filtering_level=3
 scaling_3d/fsr_sharpness=0.0
+lightmapping/primitive_meshes/texel_size=0.4
 anti_aliasing/quality/msaa_3d=2
 occlusion_culling/use_occlusion_culling=true
 environment/screen_space_roughness_limiter/enabled=true
