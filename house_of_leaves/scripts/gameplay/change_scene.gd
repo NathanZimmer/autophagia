@@ -15,6 +15,7 @@ func _change_scene(_body):
 	for node in to_free:
 		node.queue_free()
 
+	# TODO: Find better way of doing this, this causes a small hitch in the game whenever it is called
 	var loaded = to_load.instantiate()
 	get_tree().get_root().add_child(loaded)
 	queue_free()

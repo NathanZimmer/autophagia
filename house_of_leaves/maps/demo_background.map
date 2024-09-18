@@ -17,7 +17,7 @@
 }
 // entity 2
 {
-"classname" "func_detail_illusionary"
+"classname" "func_detail_illusionary_occlusion"
 "_tb_group" "95"
 // brush 0
 {
@@ -169,7 +169,7 @@
 }
 // entity 4
 {
-"classname" "func_detail_illusionary"
+"classname" "func_detail_illusionary_occlusion"
 "_tb_group" "96"
 // brush 0
 {
@@ -321,7 +321,7 @@
 }
 // entity 6
 {
-"classname" "func_detail_illusionary"
+"classname" "func_detail_illusionary_occlusion"
 "_tb_group" "94"
 // brush 0
 {
@@ -473,7 +473,7 @@
 }
 // entity 8
 {
-"classname" "func_detail_illusionary"
+"classname" "func_detail_illusionary_occlusion"
 "_tb_group" "92"
 // brush 0
 {
@@ -625,7 +625,7 @@
 }
 // entity 10
 {
-"classname" "func_detail_illusionary"
+"classname" "func_detail_illusionary_occlusion"
 "_tb_group" "93"
 // brush 0
 {
@@ -777,7 +777,7 @@
 }
 // entity 12
 {
-"classname" "func_detail_illusionary"
+"classname" "func_detail_illusionary_occlusion"
 "_tb_group" "97"
 // brush 0
 {
@@ -928,7 +928,7 @@
 }
 // entity 14
 {
-"classname" "func_detail_illusionary"
+"classname" "func_detail_illusionary_occlusion"
 "_tb_group" "91"
 // brush 0
 {
@@ -1071,7 +1071,7 @@
 }
 // entity 15
 {
-"classname" "func_detail_illusionary"
+"classname" "func_detail_illusionary_occlusion"
 // brush 0
 {
 ( -2224 364 112 ) ( -2224 128 236 ) ( -2224 128 104 ) brick [ 0 -1 0 0 ] [ 0 0 -1 0 ] 0 1 1
