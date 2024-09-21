@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://cs2ufftllqo21"]
+
+[ext_resource type="PackedScene" uid="uid://bpv8ilfec4e1m" path="res://house_of_leaves/models/light_fixture.glb" id="1_dhkrl"]
+[ext_resource type="Material" uid="uid://demuma08n5ep6" path="res://house_of_leaves/textures/yellow.tres" id="2_1crpl"]
+[ext_resource type="Material" uid="uid://bs2hwfctie2qd" path="res://house_of_leaves/textures/light_metal.tres" id="3_6dyto"]
+
+[node name="light_fixture" instance=ExtResource("1_dhkrl")]
+
+[node name="Light" parent="." index="0"]
+material_override = ExtResource("2_1crpl")
+
+[node name="Base" parent="." index="1"]
+material_override = ExtResource("3_6dyto")

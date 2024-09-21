@@ -21,6 +21,7 @@ func _func_godot_build_complete():
 			light = SpotLight3D.new()
 	add_child(light)
 	light.owner = owner
+	light.hide()
 
 	light.position = func_godot_properties['offset']
 	light.rotation = func_godot_properties['rotation']

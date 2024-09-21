@@ -23,7 +23,7 @@ const PORTAL_CAM_FAR_PLANE = 50
 
 @export_group("Rendering")
 ## Resolution scale of portals. `1.0 = full resolution`
-@export_range(0.1, 1, 0.1) var resolution_scale: float = 0.5
+@export_range(0.1, 1, 0.1) var resolution_scale: float = 1.0
 ## Render layer for both portals. This layer will be disabled for each portal's camera
 @export var render_layer: int = 10
 ## Cull mask for the camera rendering the first portal's view
