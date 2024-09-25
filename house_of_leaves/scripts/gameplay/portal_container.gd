@@ -43,6 +43,7 @@ var cam_0: Camera3D
 var cam_1: Camera3D
 var constructed: bool = false
 var deployed: bool = false
+var scene_root: Node3D
 var box_mesh: BoxMesh = BoxMesh.new()  # Needed for viewing the portal meshes in the editor
 ## Editor-only var
 var child_count = get_children().size()
@@ -65,9 +66,10 @@ func _ready():
 			portal_0.update_mesh(box_mesh, render_layer)
 			portal_1.update_mesh(box_mesh, render_layer)
 		return
+	scene_root = get_tree().get_root().get_child(1)
 
 	# Create camera environment, disable troublesome effects
-	var world_env: WorldEnvironment = get_tree().get_root().get_child(0).get_node(WORLD_ENV_NAME)
+	var world_env: WorldEnvironment = scene_root.get_node(WORLD_ENV_NAME)
 	if world_env != null and cam_env == null:
 		cam_env = WorldEnvironment.new()
 
@@ -88,7 +90,7 @@ func _ready():
 
 	# Set target cam from player
 	if player == null:
-		player = get_tree().get_root().get_child(0).get_node(PLAYER_NAME)
+		player = scene_root.get_node(PLAYER_NAME)
 		target_cam = player.find_children("", "Camera3D")[0]
 
 	# Init portal 0

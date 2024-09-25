@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cf5vkeyy15f2b"]
+
+[ext_resource type="Texture2D" uid="uid://b2h4agml28n48" path="res://house_of_leaves/textures/light_metal.png" id="1_7gr8m"]
+
+[resource]
+albedo_texture = ExtResource("1_7gr8m")
+metallic = 0.45
+metallic_specular = 0.0
+roughness = 0.3
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+texture_filter = 2
