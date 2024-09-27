@@ -38,6 +38,24 @@ func _func_godot_build_complete():
 	# Hiding placeholder mesh
 	mesh_instance.hide()
 
+	# Connecting show signals
+	if func_godot_properties['attach_signal']:
+		var signal_hide = 'hide_' + str(func_godot_properties['signal_id'])
+		if not Globals.has_user_signal(signal_hide):
+			Globals.add_user_signal(signal_hide)
+
+		Globals.connect(signal_hide, container.hide_portals)
+
+		var signal_show = 'show_' + str(func_godot_properties['signal_id'])
+		if not Globals.has_user_signal(signal_show):
+			Globals.add_user_signal(signal_show)
+
+		Globals.connect(signal_show, container.hide_portals)
+
+	# Applying default visiblity
+	if not func_godot_properties['visible']:
+		container.hide_portals()
+
 
 ## Get the size of the given mesh using `MeshDataTool`
 func _get_mesh_size(mesh: Mesh):

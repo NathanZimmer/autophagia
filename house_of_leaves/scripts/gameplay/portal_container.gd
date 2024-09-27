@@ -43,6 +43,7 @@ var cam_0: Camera3D
 var cam_1: Camera3D
 var constructed: bool = false
 var deployed: bool = false
+var portals_enabled: bool = true
 var scene_root: Node3D
 var box_mesh: BoxMesh = BoxMesh.new()  # Needed for viewing the portal meshes in the editor
 ## Editor-only var
@@ -144,6 +145,9 @@ func _process(_delta):
 		if portal_1 != null and portal_1.mesh == null:
 			portal_1.update_mesh(box_mesh, render_layer)
 
+		return
+
+	if not portals_enabled:
 		return
 
 	var portals_on_screen = portal_0.on_screen or portal_1.on_screen
@@ -410,6 +414,22 @@ func deconstruct() -> void:
 	cam_1 = null
 
 	constructed = false
+
+
+func show_portals() -> void:
+	portals_enabled = true
+	if portal_0 != null:
+		portal_0.show()
+	if portal_1 != null:
+		portal_1.show()
+
+
+func hide_portals() -> void:
+	portals_enabled = false
+	if portal_0 != null:
+		portal_0.hide()
+	if portal_1 != null:
+		portal_1.hide()
 
 
 func _get_configuration_warnings():

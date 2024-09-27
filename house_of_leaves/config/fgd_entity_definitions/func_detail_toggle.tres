@@ -27,7 +27,10 @@ class_properties = {
 "signal_id": 0,
 "visible": true
 }
-class_property_descriptions = {}
+class_property_descriptions = {
+"signal_id": "the ID for the attached Godot hide and show signals.",
+"visible": ["Whether or not the object is initially visible or hidden.", 1]
+}
 meta_properties = {
 "color": Color(0.8, 0.8, 0.8, 1)
 }
