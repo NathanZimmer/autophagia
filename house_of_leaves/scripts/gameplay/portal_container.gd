@@ -19,7 +19,7 @@ const PORTAL_CAM_FAR_PLANE = 50
 
 ## Width, height, and depth of both portals
 @export var portal_size: Vector3 = Vector3(1, 2, 0.2)
-## `CharacterBody3D` with a `Camera3D` child
+@export var portals_enabled: bool = true
 
 @export_group("Rendering")
 ## Resolution scale of portals. `1.0 = full resolution`
@@ -43,7 +43,6 @@ var cam_0: Camera3D
 var cam_1: Camera3D
 var constructed: bool = false
 var deployed: bool = false
-var portals_enabled: bool = true
 var scene_root: Node3D
 var box_mesh: BoxMesh = BoxMesh.new()  # Needed for viewing the portal meshes in the editor
 ## Editor-only var
@@ -67,6 +66,8 @@ func _ready():
 			portal_0.update_mesh(box_mesh, render_layer)
 			portal_1.update_mesh(box_mesh, render_layer)
 		return
+
+	# Portal container expects the root scene to have a world env instance
 	scene_root = get_tree().get_root().get_child(1)
 
 	# Create camera environment, disable troublesome effects
@@ -118,6 +119,10 @@ func _ready():
 	vis_notif_1.connect("screen_entered", func(): portal_1.on_screen = true)
 	vis_notif_1.connect("screen_exited", func(): portal_1.on_screen = false)
 
+	if not portals_enabled:
+		portal_0.hide()
+		portal_1.hide()
+
 
 func _process(_delta):
 	if Engine.is_editor_hint():
@@ -144,6 +149,11 @@ func _process(_delta):
 			portal_0.update_mesh(box_mesh, render_layer)
 		if portal_1 != null and portal_1.mesh == null:
 			portal_1.update_mesh(box_mesh, render_layer)
+
+		# Reflecting visibility in the editor
+		if not portals_enabled:
+			portal_0.hide()
+			portal_1.hide()
 
 		return
 
