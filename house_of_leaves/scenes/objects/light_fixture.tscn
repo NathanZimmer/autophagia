@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cs2ufftllqo21"]
 
 [ext_resource type="PackedScene" uid="uid://bpv8ilfec4e1m" path="res://house_of_leaves/models/light_fixture.glb" id="1_dhkrl"]
-[ext_resource type="Material" uid="uid://demuma08n5ep6" path="res://house_of_leaves/textures/yellow.tres" id="2_1crpl"]
+[ext_resource type="Material" uid="uid://demuma08n5ep6" path="res://house_of_leaves/textures/light.tres" id="2_1crpl"]
 [ext_resource type="Material" uid="uid://cf5vkeyy15f2b" path="res://house_of_leaves/textures/light_metal_tri.tres" id="3_sskxn"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rvsab"]

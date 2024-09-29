@@ -1,0 +1,233 @@
+[gd_scene load_steps=6 format=3 uid="uid://tqkuupdaayio"]
+
+[ext_resource type="PackedScene" uid="uid://ok3skuqshplk" path="res://house_of_leaves/models/ambulance.glb" id="1_o3p0r"]
+[ext_resource type="Script" path="res://house_of_leaves/scripts/gameplay/timed_visbility_toggler.gd" id="2_kuf4n"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r3mtc"]
+emission_enabled = true
+emission = Color(0.516573, 0.633207, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_uj6pd"]
+size = Vector3(0.03, 0.08, 0.225)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u08em"]
+emission_enabled = true
+emission = Color(1, 0.52, 0.52, 1)
+
+[node name="ambulance" instance=ExtResource("1_o3p0r")]
+
+[node name="LightBlocks" type="Node3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.38836, 2.04531, -2.30401)
+
+[node name="Light" type="MeshInstance3D" parent="LightBlocks" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.190345)
+visible = false
+material_override = SubResource("StandardMaterial3D_r3mtc")
+mesh = SubResource("BoxMesh_uj6pd")
+skeleton = NodePath("../..")
+script = ExtResource("2_kuf4n")
+hide_duration = 0.25
+show_duration = 0.25
+
+[node name="OmniLight3D" type="OmniLight3D" parent="LightBlocks/Light" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.01, 0, 0)
+light_color = Color(0, 0.0499997, 1, 1)
+light_energy = 0.701
+omni_range = 6.963
+omni_attenuation = -0.779
+
+[node name="Light2" type="MeshInstance3D" parent="LightBlocks" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.194919)
+material_override = SubResource("StandardMaterial3D_u08em")
+mesh = SubResource("BoxMesh_uj6pd")
+skeleton = NodePath("../..")
+script = ExtResource("2_kuf4n")
+hide_duration = 0.25
+show_duration = 0.25
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="LightBlocks/Light2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.01, 0, 0)
+light_color = Color(1, 0, 0, 1)
+light_energy = 0.701
+omni_range = 6.963
+omni_attenuation = -0.779
+
+[node name="LightBlocks5" type="Node3D" parent="." index="4"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.00062, 2.06751, -1.82498)
+
+[node name="Light" type="MeshInstance3D" parent="LightBlocks5" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.190345)
+material_override = SubResource("StandardMaterial3D_r3mtc")
+mesh = SubResource("BoxMesh_uj6pd")
+skeleton = NodePath("../..")
+script = ExtResource("2_kuf4n")
+hide_duration = 0.25
+show_duration = 0.25
+
+[node name="OmniLight3D" type="OmniLight3D" parent="LightBlocks5/Light" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.01, 0, 0)
+light_color = Color(0, 0.0499997, 1, 1)
+light_energy = 0.701
+omni_range = 6.963
+omni_attenuation = -0.779
+
+[node name="Light2" type="MeshInstance3D" parent="LightBlocks5" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.194919)
+visible = false
+material_override = SubResource("StandardMaterial3D_u08em")
+mesh = SubResource("BoxMesh_uj6pd")
+skeleton = NodePath("../..")
+script = ExtResource("2_kuf4n")
+hide_duration = 0.25
+show_duration = 0.25
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="LightBlocks5/Light2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.01, 0, 0)
+light_color = Color(1, 0, 0, 1)
+light_energy = 0.701
+omni_range = 6.963
+omni_attenuation = -0.779
+
+[node name="LightBlocks6" type="Node3D" parent="." index="5"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.992299, 2.06751, -1.82498)
+
+[node name="Light" type="MeshInstance3D" parent="LightBlocks6" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.168381)
+visible = false
+material_override = SubResource("StandardMaterial3D_r3mtc")
+mesh = SubResource("BoxMesh_uj6pd")
+skeleton = NodePath("../..")
+script = ExtResource("2_kuf4n")
+hide_duration = 0.25
+show_duration = 0.25
+
+[node name="OmniLight3D" type="OmniLight3D" parent="LightBlocks6/Light" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.01, 0, 0)
+light_color = Color(0, 0.0499997, 1, 1)
+light_energy = 0.701
+omni_range = 6.963
+omni_attenuation = -0.779
+
+[node name="Light2" type="MeshInstance3D" parent="LightBlocks6" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.185548)
+material_override = SubResource("StandardMaterial3D_u08em")
+mesh = SubResource("BoxMesh_uj6pd")
+skeleton = NodePath("../..")
+script = ExtResource("2_kuf4n")
+hide_duration = 0.25
+show_duration = 0.25
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="LightBlocks6/Light2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.01, 0, 0)
+light_color = Color(1, 0, 0, 1)
+light_energy = 0.701
+omni_range = 6.963
+omni_attenuation = -0.779
+
+[node name="LightBlocks2" type="Node3D" parent="." index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.38836, 2.02965, -6.45395)
+
+[node name="Light" type="MeshInstance3D" parent="LightBlocks2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.190345)
+material_override = SubResource("StandardMaterial3D_r3mtc")
+mesh = SubResource("BoxMesh_uj6pd")
+skeleton = NodePath("../..")
+script = ExtResource("2_kuf4n")
+hide_duration = 0.25
+show_duration = 0.25
+
+[node name="OmniLight3D" type="OmniLight3D" parent="LightBlocks2/Light" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.01, 0, 0)
+light_color = Color(0, 0.0499997, 1, 1)
+light_energy = 0.701
+omni_range = 6.963
+omni_attenuation = -0.779
+
+[node name="Light2" type="MeshInstance3D" parent="LightBlocks2" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.194919)
+visible = false
+material_override = SubResource("StandardMaterial3D_u08em")
+mesh = SubResource("BoxMesh_uj6pd")
+skeleton = NodePath("../..")
+script = ExtResource("2_kuf4n")
+hide_duration = 0.25
+show_duration = 0.25
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="LightBlocks2/Light2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.01, 0, 0)
+light_color = Color(1, 0, 0, 1)
+light_energy = 0.701
+omni_range = 6.963
+omni_attenuation = -0.779
+
+[node name="LightBlocks3" type="Node3D" parent="." index="7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.38944, 2.04531, -2.30401)
+
+[node name="Light" type="MeshInstance3D" parent="LightBlocks3" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.190345)
+visible = false
+material_override = SubResource("StandardMaterial3D_r3mtc")
+mesh = SubResource("BoxMesh_uj6pd")
+skeleton = NodePath("../..")
+script = ExtResource("2_kuf4n")
+hide_duration = 0.25
+show_duration = 0.25
+
+[node name="OmniLight3D" type="OmniLight3D" parent="LightBlocks3/Light" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.123447, 0, 0)
+light_color = Color(0, 0.0499997, 1, 1)
+light_energy = 0.701
+omni_range = 6.963
+omni_attenuation = -0.779
+
+[node name="Light2" type="MeshInstance3D" parent="LightBlocks3" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.194919)
+material_override = SubResource("StandardMaterial3D_u08em")
+mesh = SubResource("BoxMesh_uj6pd")
+skeleton = NodePath("../..")
+script = ExtResource("2_kuf4n")
+hide_duration = 0.25
+show_duration = 0.25
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="LightBlocks3/Light2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.123447, 0, 0)
+light_color = Color(1, 0, 0, 1)
+light_energy = 0.701
+omni_range = 6.963
+omni_attenuation = -0.779
+
+[node name="LightBlocks4" type="Node3D" parent="." index="8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.38944, 2.02965, -6.45395)
+
+[node name="Light" type="MeshInstance3D" parent="LightBlocks4" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.190345)
+material_override = SubResource("StandardMaterial3D_r3mtc")
+mesh = SubResource("BoxMesh_uj6pd")
+skeleton = NodePath("../..")
+script = ExtResource("2_kuf4n")
+hide_duration = 0.25
+show_duration = 0.25
+
+[node name="OmniLight3D" type="OmniLight3D" parent="LightBlocks4/Light" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.123447, 0, 0)
+light_color = Color(0, 0.0499997, 1, 1)
+light_energy = 0.701
+omni_range = 6.963
+omni_attenuation = -0.779
+
+[node name="Light2" type="MeshInstance3D" parent="LightBlocks4" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.194919)
+visible = false
+material_override = SubResource("StandardMaterial3D_u08em")
+mesh = SubResource("BoxMesh_uj6pd")
+skeleton = NodePath("../..")
+script = ExtResource("2_kuf4n")
+hide_duration = 0.25
+show_duration = 0.25
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="LightBlocks4/Light2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.123447, 0, 0)
+light_color = Color(1, 0, 0, 1)
+light_energy = 0.701
+omni_range = 6.963
+omni_attenuation = -0.779
