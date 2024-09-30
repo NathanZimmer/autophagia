@@ -79,7 +79,6 @@ grow_vertical = 2
 
 [node name="GUI" type="CanvasLayer" parent="."]
 script = ExtResource("2_h56fe")
-show_fps = false
 show_b = false
 
 [node name="FPS_Counter" type="Label" parent="GUI"]

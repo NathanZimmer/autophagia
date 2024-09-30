@@ -1,4 +1,4 @@
-[gd_scene load_steps=351 format=3 uid="uid://xvjkinl8b7ei"]
+[gd_scene load_steps=361 format=3 uid="uid://xvjkinl8b7ei"]
 
 [ext_resource type="LightmapGIData" uid="uid://cbon16wwu1wx2" path="res://house_of_leaves/textures/temp_lightmaps/hallway_01.lmbake" id="2_hb4ss"]
 [ext_resource type="Script" path="res://addons/func_godot/src/map/func_godot_map.gd" id="2_s32hg"]
@@ -34,6 +34,7 @@
 [ext_resource type="Material" uid="uid://c4gjxji3cnrtl" path="res://house_of_leaves/textures/white.tres" id="25_3ol78"]
 [ext_resource type="Material" uid="uid://dh0juxuft1qdk" path="res://house_of_leaves/textures/tan_brick.tres" id="27_caf5e"]
 [ext_resource type="PackedScene" uid="uid://tqkuupdaayio" path="res://house_of_leaves/scenes/objects/ambulance.tscn" id="30_tts1i"]
+[ext_resource type="Texture2D" uid="uid://gxr520r7ukv" path="res://house_of_leaves/textures/smoke.png" id="35_hw3mq"]
 
 [sub_resource type="Environment" id="Environment_sc288"]
 background_mode = 1
@@ -3327,8 +3328,56 @@ _surfaces = [{
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_b5kx4"]
 data = PackedVector3Array(0.5, 0.8125, -0.125, 0.5, -0.8125, -0.125, 4.25, -0.8125, -0.125, 0.5, 0.8125, -0.125, 4.25, -0.8125, -0.125, 4.25, 0.8125, -0.125, 0.5, 0.8125, -0.125, 0.5, 0.8125, 0.125, 0.5, -0.8125, 0.125, 0.5, 0.8125, -0.125, 0.5, -0.8125, 0.125, 0.5, -0.8125, -0.125, 4.25, -0.8125, -0.125, 0.5, -0.8125, -0.125, 0.5, -0.8125, 0.125, 4.25, -0.8125, -0.125, 0.5, -0.8125, 0.125, 4.25, -0.8125, 0.125, 4.25, 0.8125, -0.125, 4.25, 0.8125, 0.125, 0.5, 0.8125, 0.125, 4.25, 0.8125, -0.125, 0.5, 0.8125, 0.125, 0.5, 0.8125, -0.125, 4.25, 0.8125, -0.125, 4.25, -0.8125, -0.125, 4.25, -0.8125, 0.125, 4.25, 0.8125, -0.125, 4.25, -0.8125, 0.125, 4.25, 0.8125, 0.125, 0.5, 0.8125, 0.125, 4.25, 0.8125, 0.125, 4.25, -0.8125, 0.125, 0.5, 0.8125, 0.125, 4.25, -0.8125, 0.125, 0.5, -0.8125, 0.125, -4.25, 0.8125, -0.125, -4.25, -0.8125, -0.125, -0.5, -0.8125, -0.125, -4.25, 0.8125, -0.125, -0.5, -0.8125, -0.125, -0.5, 0.8125, -0.125, -4.25, 0.8125, -0.125, -4.25, 0.8125, 0.125, -4.25, -0.8125, 0.125, -4.25, 0.8125, -0.125, -4.25, -0.8125, 0.125, -4.25, -0.8125, -0.125, -0.5, -0.8125, -0.125, -4.25, -0.8125, -0.125, -4.25, -0.8125, 0.125, -0.5, -0.8125, -0.125, -4.25, -0.8125, 0.125, -0.5, -0.8125, 0.125, -0.5, 0.8125, -0.125, -0.5, 0.8125, 0.125, -4.25, 0.8125, 0.125, -0.5, 0.8125, -0.125, -4.25, 0.8125, 0.125, -4.25, 0.8125, -0.125, -0.5, 0.8125, -0.125, -0.5, -0.8125, -0.125, -0.5, -0.8125, 0.125, -0.5, 0.8125, -0.125, -0.5, -0.8125, 0.125, -0.5, 0.8125, 0.125, -4.25, 0.8125, 0.125, -0.5, 0.8125, 0.125, -0.5, -0.8125, 0.125, -4.25, 0.8125, 0.125, -0.5, -0.8125, 0.125, -4.25, -0.8125, 0.125)
 
-[sub_resource type="BoxMesh" id="BoxMesh_eigo6"]
+[sub_resource type="BoxMesh" id="BoxMesh_8xy3g"]
 size = Vector3(2, 3, 0.25)
+
+[sub_resource type="Curve" id="Curve_fiejg"]
+_data = [Vector2(0, 0.324335), 0.0, 3.45875, 0, 0, Vector2(0.283871, 0.711926), 0.0, 0.0, 0, 0, Vector2(0.584946, 0.167204), -1.80926, -6.7847, 1, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_6vj28"]
+curve = SubResource("Curve_fiejg")
+
+[sub_resource type="Curve" id="Curve_6gvyh"]
+_data = [Vector2(0, -1), 0.0, 0.0, 0, 0, Vector2(0, -1), 0.0, 0.0, 0, 0, Vector2(0.236559, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_6e5au"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.146237, 0.324335), 6.19954, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_l3xmw"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_eatqo"]
+curve_x = SubResource("Curve_6gvyh")
+curve_y = SubResource("Curve_6e5au")
+curve_z = SubResource("Curve_l3xmw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ebfst"]
+emission_shape = 3
+emission_box_extents = Vector3(0, 0, 0.56)
+inherit_velocity_ratio = 1.0
+direction = Vector3(-1, 0, 0)
+spread = 0.0
+directional_velocity_min = 0.499984
+directional_velocity_max = 0.999984
+directional_velocity_curve = SubResource("CurveXYZTexture_eatqo")
+gravity = Vector3(0, 0, 0)
+alpha_curve = SubResource("CurveTexture_6vj28")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jjdr1"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("35_hw3mq")
+emission_enabled = true
+emission = Color(0.427493, 0.427493, 0.427493, 1)
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_w7uvq"]
+material = SubResource("StandardMaterial3D_jjdr1")
+size = Vector2(0.2, 0.2)
 
 [node name="Hallway01" type="Node3D"]
 
@@ -3348,7 +3397,7 @@ light_data = ExtResource("2_hb4ss")
 
 [node name="FuncGodotHallwaysMap" type="Node3D" parent="."]
 script = ExtResource("2_s32hg")
-local_map_file = "res://house_of_leaves/maps/demo_hallway.map"
+local_map_file = "res://house_of_leaves/maps/introduction_hallway.map"
 map_settings = SubResource("Resource_8tf58")
 
 [node name="entity_0_worldspawn" type="StaticBody3D" parent="FuncGodotHallwaysMap"]
@@ -5861,15 +5910,23 @@ portal_size = Vector3(2, 3, 0.25)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, -26.5, -11.625)
 layers = 512
 gi_mode = 0
-mesh = SubResource("BoxMesh_eigo6")
+mesh = SubResource("BoxMesh_8xy3g")
 script = ExtResource("15_5hfkb")
 
 [node name="@MeshInstance3D@102721" type="MeshInstance3D" parent="FuncGodotHallwaysMap/PortalContainer0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, -30.5, -11.375)
 layers = 512
 gi_mode = 0
-mesh = SubResource("BoxMesh_eigo6")
+mesh = SubResource("BoxMesh_8xy3g")
 script = ExtResource("15_5hfkb")
 
 [node name="ambulance" parent="." instance=ExtResource("30_tts1i")]
 transform = Transform3D(-0.322348, 0, 0.946621, 0, 1, 0, -0.946621, 0, -0.322348, 32.3053, -31.0748, -1.82694)
+
+[node name="SmokeParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.015, -31.9641, -12.505)
+gi_mode = 0
+amount = 100
+lifetime = 3.0
+process_material = SubResource("ParticleProcessMaterial_ebfst")
+draw_pass_1 = SubResource("QuadMesh_w7uvq")

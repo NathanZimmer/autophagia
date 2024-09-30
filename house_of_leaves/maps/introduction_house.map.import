@@ -1,0 +1,14 @@
+[remap]
+
+importer="func_godot.map"
+type="Resource"
+uid="uid://b4x8k47yn8s2g"
+path="res://.godot/imported/introduction_house.map-83ad42f96a075f135c89fc88eaf2a64d.tres"
+
+[deps]
+
+source_file="res://house_of_leaves/maps/introduction_house.map"
+dest_files=["res://.godot/imported/introduction_house.map-83ad42f96a075f135c89fc88eaf2a64d.tres"]
+
+[params]
+
