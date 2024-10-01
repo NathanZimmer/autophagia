@@ -58,12 +58,27 @@ func _func_godot_build_complete():
 	var mesh_size = _get_mesh_size(mesh_instance.mesh)
 	container.portal_size = mesh_size
 
+	if func_godot_properties['depth_dir'] == 0:
+		container.portal_size = mesh_size
+	else:
+		# Swapping mesh x and z
+		var x = mesh_size.x
+		mesh_size.x = mesh_size.z
+		mesh_size.z = x
+		container.portal_size = mesh_size
+
 	# Giving the container a portal with this position and rotation
 	var portal = Portal.new()
 	container.add_child(portal)
 	portal.owner = map_root.owner
 	portal.global_position = mesh_instance.global_position
-	portal.global_rotation = func_godot_properties['rotation'] * PI / 180
+
+	# Adjusting for global depth direction
+	if func_godot_properties['depth_dir'] == 0:
+		portal.global_rotation = func_godot_properties['rotation'] * PI / 180
+	else:
+		portal.global_rotation = (func_godot_properties['rotation'] + Vector3(0, 90, 0)) * PI / 180
+
 
 	# Hiding placeholder mesh
 	mesh_instance.hide()

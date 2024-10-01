@@ -25,17 +25,16 @@ func_godot_internal = false
 base_classes = Array[Resource]([ExtResource("1_qbih0")])
 class_properties = {
 "attach_signal": false,
+"depth_dir": 0,
 "portal_id": 0,
 "rotation": Vector3(0, 0, 0),
 "signal_id": 0,
 "visible": true
 }
 class_property_descriptions = {
-"attach_signal": ["Whether or not to attach hide and show signals to the generated portals.", 0],
 "portal_id": "Give two portals the same id to link them together.",
 "rotation": "Portals must always be facing the X direction in the Trenchbroom editor. Set their rotation with this value.",
-"signal_id": "the ID for the attached Godot hide and show signals.",
-"visible": ["Whether or not the object is initially visible or hidden.", 1]
+"signal_id": "the ID for the attached Godot hide and show signals."
 }
 meta_properties = {
 "color": Color(0.8, 0.8, 0.8, 1)
