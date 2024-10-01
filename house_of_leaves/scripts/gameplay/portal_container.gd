@@ -4,7 +4,7 @@ class_name PortalContainer extends Node3D
 
 const PLAYER_NAME = 'Player'
 const WORLD_ENV_NAME = "WorldEnvironment"
-const QUEUE_SIZE = 1
+const QUEUE_SIZE = 10
 const ENV_OVERWRITES = {
 	# 'ssao_enabled': false,
 	# "sdfgi_enabled": false,
@@ -52,7 +52,7 @@ static var player: CharacterBody3D
 static var cam_env: WorldEnvironment
 static var target_cam: Camera3D
 ## Queue of stashed portals. Portals are destroyed when removed from the queue
-static var portal_delete_queue: Array[PortalContainer] = []
+static var portal_delete_queue: Array[WeakRef] = []
 
 
 func _ready():
@@ -383,7 +383,7 @@ func deploy() -> void:
 	portal_0.set_material(viewport_1.get_texture())
 
 	# remove from stash
-	var stash_index = portal_delete_queue.bsearch(self)
+	var stash_index = portal_delete_queue.bsearch(weakref(self))
 	portal_delete_queue.remove_at(stash_index)
 
 	deployed = true
@@ -395,9 +395,10 @@ func deactivate() -> void:
 	# Update queue
 	if portal_delete_queue.size() >= QUEUE_SIZE:
 		var portal_to_del = portal_delete_queue.pop_front()
-		portal_to_del.deconstruct()
+		if portal_to_del.get_ref():
+			portal_to_del.get_ref().deconstruct()
 
-	portal_delete_queue.push_back(self)
+	portal_delete_queue.push_back(weakref(self))
 
 	# Deactivate
 	portal_0.remove_material()

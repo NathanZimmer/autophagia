@@ -6,6 +6,11 @@ extends Node
 
 @export var func_godot_properties: Dictionary
 
+enum {
+	Z,
+	X,
+}
+
 func _ready():
 	if Engine.is_editor_hint():
 		return
@@ -56,16 +61,6 @@ func _func_godot_build_complete():
 	# Setting portal size
 	var mesh_instance = get_child(0)
 	var mesh_size = _get_mesh_size(mesh_instance.mesh)
-	container.portal_size = mesh_size
-
-	if func_godot_properties['depth_dir'] == 0:
-		container.portal_size = mesh_size
-	else:
-		# Swapping mesh x and z
-		var x = mesh_size.x
-		mesh_size.x = mesh_size.z
-		mesh_size.z = x
-		container.portal_size = mesh_size
 
 	# Giving the container a portal with this position and rotation
 	var portal = Portal.new()
@@ -74,9 +69,17 @@ func _func_godot_build_complete():
 	portal.global_position = mesh_instance.global_position
 
 	# Adjusting for global depth direction
-	if func_godot_properties['depth_dir'] == 0:
+	if func_godot_properties['depth_dir'] == Z:
+		container.portal_size = mesh_size
+
 		portal.global_rotation = func_godot_properties['rotation'] * PI / 180
 	else:
+		# Swapping mesh x and z
+		var x = mesh_size.x
+		mesh_size.x = mesh_size.z
+		mesh_size.z = x
+		container.portal_size = mesh_size
+
 		portal.global_rotation = (func_godot_properties['rotation'] + Vector3(0, 90, 0)) * PI / 180
 
 
