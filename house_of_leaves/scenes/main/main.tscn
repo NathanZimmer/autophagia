@@ -1,9 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://djw44m41apg8y"]
+[gd_scene load_steps=6 format=3 uid="uid://djw44m41apg8y"]
 
-[ext_resource type="PackedScene" uid="uid://b4fex1edb0v8m" path="res://house_of_leaves/scenes/levels/introduction/house.tscn" id="2_jd6gx"]
 [ext_resource type="PackedScene" uid="uid://dnhp4dcugklq6" path="res://house_of_leaves/scenes/main/player.tscn" id="26_ufcy0"]
 [ext_resource type="PackedScene" uid="uid://dddnrinkpcqce" path="res://house_of_leaves/scenes/main/house_background.tscn" id="37_ms348"]
-[ext_resource type="Script" path="res://house_of_leaves/scripts/gameplay/change_scene.gd" id="40_nlkhk"]
 [ext_resource type="PackedScene" uid="uid://xvjkinl8b7ei" path="res://house_of_leaves/scenes/levels/introduction/hallway_01.tscn" id="41_orlmv"]
 
 [sub_resource type="Environment" id="Environment_cyvu2"]
@@ -17,9 +15,6 @@ ssr_fade_out = 0.00158643
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_h4noy"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ric08"]
-size = Vector3(1.98572, 2.95963, 0.669434)
-
 [node name="Demo" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -29,18 +24,6 @@ camera_attributes = SubResource("CameraAttributesPractical_h4noy")
 [node name="Player" parent="." instance=ExtResource("26_ufcy0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, -10)
 
-[node name="House" parent="." instance=ExtResource("2_jd6gx")]
-
 [node name="HouseBackground" parent="." instance=ExtResource("37_ms348")]
 
-[node name="LoadTrigger" type="Area3D" parent="." node_paths=PackedStringArray("to_free")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.076, -12.9923, -11.9977)
-collision_layer = 3
-collision_mask = 3
-script = ExtResource("40_nlkhk")
-to_free = [NodePath("../House"), NodePath("../HouseBackground")]
-to_load = ExtResource("41_orlmv")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LoadTrigger"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0718384, 0.498873, 0.165283)
-shape = SubResource("BoxShape3D_ric08")
+[node name="Hallway01" parent="." instance=ExtResource("41_orlmv")]

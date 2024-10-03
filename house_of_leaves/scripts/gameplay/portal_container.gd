@@ -4,7 +4,7 @@ class_name PortalContainer extends Node3D
 
 const PLAYER_NAME = 'Player'
 const WORLD_ENV_NAME = "WorldEnvironment"
-const QUEUE_SIZE = 10
+const QUEUE_SIZE = 1
 const ENV_OVERWRITES = {
 	# 'ssao_enabled': false,
 	# "sdfgi_enabled": false,
