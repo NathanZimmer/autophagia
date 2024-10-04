@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="FuncGodotFGDFile" load_steps=15 format=3 uid="uid://ytgkr1jcr44i"]
+[gd_resource type="Resource" script_class="FuncGodotFGDFile" load_steps=16 format=3 uid="uid://ytgkr1jcr44i"]
 
 [ext_resource type="Resource" uid="uid://nayxb8n7see2" path="res://addons/func_godot/fgd/phong_base.tres" id="1_k41px"]
 [ext_resource type="Resource" uid="uid://bdji3873bg32h" path="res://addons/func_godot/fgd/worldspawn.tres" id="2_dp6gq"]
@@ -14,6 +14,7 @@
 [ext_resource type="Resource" uid="uid://bc3jici71f58a" path="res://house_of_leaves/config/fgd_entity_definitions/point_door.tres" id="11_oijbq"]
 [ext_resource type="Resource" uid="uid://d1b06wsu22kvm" path="res://house_of_leaves/config/fgd_entity_definitions/func_detail_toggle.tres" id="12_7wnrs"]
 [ext_resource type="Resource" uid="uid://boqffw2mvayaw" path="res://house_of_leaves/config/fgd_entity_definitions/func_trigger.tres" id="13_ixng1"]
+[ext_resource type="Resource" uid="uid://p5tvsnup1bbj" path="res://house_of_leaves/config/fgd_entity_definitions/point_puzzle_door.tres" id="14_7jqtq"]
 
 [resource]
 script = ExtResource("11_cfurs")
@@ -21,4 +22,4 @@ export_file = false
 model_key_word_supported = true
 fgd_name = "FuncGodot"
 base_fgd_files = Array[Resource]([])
-entity_definitions = Array[Resource]([ExtResource("1_k41px"), ExtResource("2_dp6gq"), ExtResource("3_xijq3"), ExtResource("4_7scll"), ExtResource("5_4plh2"), ExtResource("6_2neos"), ExtResource("7_duo12"), ExtResource("8_mhmeh"), ExtResource("9_uabn2"), ExtResource("10_igmdb"), ExtResource("11_oijbq"), ExtResource("12_7wnrs"), ExtResource("13_ixng1")])
+entity_definitions = Array[Resource]([ExtResource("1_k41px"), ExtResource("2_dp6gq"), ExtResource("3_xijq3"), ExtResource("4_7scll"), ExtResource("5_4plh2"), ExtResource("6_2neos"), ExtResource("7_duo12"), ExtResource("8_mhmeh"), ExtResource("9_uabn2"), ExtResource("10_igmdb"), ExtResource("11_oijbq"), ExtResource("12_7wnrs"), ExtResource("13_ixng1"), ExtResource("14_7jqtq")])

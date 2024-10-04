@@ -22,7 +22,7 @@ environment = SubResource("Environment_cyvu2")
 camera_attributes = SubResource("CameraAttributesPractical_h4noy")
 
 [node name="Player" parent="." instance=ExtResource("26_ufcy0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, -10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.5781, -25.0158, -15.2414)
 
 [node name="HouseBackground" parent="." instance=ExtResource("37_ms348")]
 
