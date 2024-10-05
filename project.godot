@@ -11,15 +11,20 @@ config_version=5
 [application]
 
 config/name="house_of_leaves"
-run/main_scene="res://house_of_leaves/scenes/rooms/demo.tscn"
+run/main_scene="res://house_of_leaves/scenes/main/main.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://house_of_leaves/textures/icon.svg"
+
+[autoload]
+
+Globals="*res://house_of_leaves/scripts/global/globals.gd"
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
+window/vsync/vsync_mode=0
 
 [editor_plugins]
 
@@ -96,10 +101,9 @@ player_b={
 [rendering]
 
 occlusion_culling/bvh_build_quality=1
-renderer/rendering_method.mobile="forward_plus"
-renderer/rendering_method.web="forward_plus"
 textures/default_filters/anisotropic_filtering_level=3
 scaling_3d/fsr_sharpness=0.0
+lightmapping/primitive_meshes/texel_size=0.4
 anti_aliasing/quality/msaa_3d=2
 occlusion_culling/use_occlusion_culling=true
 environment/screen_space_roughness_limiter/enabled=true

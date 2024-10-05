@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDModelPointClass" load_steps=4 format=3 uid="uid://p5tvsnup1bbj"]
+
+[ext_resource type="PackedScene" uid="uid://csyjk7nadnig4" path="res://house_of_leaves/scenes/objects/door_puzzle.tscn" id="1_vl81s"]
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_model_point_class.gd" id="2_s2kkb"]
+[ext_resource type="Script" path="res://house_of_leaves/scripts/func_godot/func_godot_apply_rotation.gd" id="3_q0rkk"]
+
+[resource]
+script = ExtResource("2_s2kkb")
+target_map_editor = 1
+models_sub_folder = ""
+scale_expression = ""
+generate_size_property = false
+generate_gd_ignore_file = false
+scene_file = ExtResource("1_vl81s")
+script_class = ExtResource("3_q0rkk")
+apply_rotation_on_map_build = true
+classname = "point_wood_puzzle_door"
+description = "player-interactable wooden door. Godot attaches the puzzle to this one."
+func_godot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"locked": false,
+"rotation": Vector3(0, 0, 0)
+}
+class_property_descriptions = {
+"spot_range": "the distance in Godot units that the spot light will travel."
+}
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"model": "\"models/wood_door.glb\""
+}
+node_class = "Node3D"
+name_property = ""

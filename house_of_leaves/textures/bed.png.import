@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mtp32drwp0fb"
-path.s3tc="res://.godot/imported/bed.png-9a802a6ccd4bd9f23d722d6ebe344250.s3tc.ctex"
+uid="uid://bkbfyowmdj6dy"
+path.bptc="res://.godot/imported/bed.png-9a802a6ccd4bd9f23d722d6ebe344250.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,12 +12,12 @@ metadata={
 [deps]
 
 source_file="res://house_of_leaves/textures/bed.png"
-dest_files=["res://.godot/imported/bed.png-9a802a6ccd4bd9f23d722d6ebe344250.s3tc.ctex"]
+dest_files=["res://.godot/imported/bed.png-9a802a6ccd4bd9f23d722d6ebe344250.bptc.ctex"]
 
 [params]
 
 compress/mode=2
-compress/high_quality=false
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0

@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cvxo6d6f5f1k8"]
+
+[ext_resource type="Texture2D" uid="uid://dx8jt3x20ty47" path="res://house_of_leaves/textures/grey_noise.png" id="1_n76s3"]
+
+[resource]
+albedo_color = Color(0.629675, 0.629675, 0.629675, 1)
+albedo_texture = ExtResource("1_n76s3")
+metallic_specular = 0.0
+texture_filter = 2

@@ -38,8 +38,8 @@ func build_def_text(model_key_supported: bool = true) -> String:
 
 func _generate_model() -> void:
 	if not scene_file:
-		return 
-	
+		return
+
 	var gltf_state := GLTFState.new()
 	var path = _get_export_dir()
 	var node = _get_node()
@@ -54,18 +54,18 @@ func _generate_model() -> void:
 			meta_properties[model_key] = '"%s"' % _get_local_path()
 		else:
 			meta_properties[model_key] = '{"path": "%s", "scale": %s }' % [
-				_get_local_path(), 
+				_get_local_path(),
 				scale_expression
 			]
 	else:
 		meta_properties["studio"] = '"%s"' % _get_local_path()
-	
+
 	if generate_size_property:
 		meta_properties["size"] = _generate_size_from_aabb(gltf_state.meshes)
 
 func _get_node() -> Node3D:
 	var node := scene_file.instantiate()
-	if node is Node3D: 
+	if node is Node3D:
 		return node as Node3D
 	node.queue_free()
 	printerr("Scene is not of type 'Node3D'")
@@ -92,9 +92,9 @@ func _create_gltf_file(gltf_state: GLTFState, path: String, node: Node3D) -> boo
 	var global_export_path = path
 	var gltf_document := GLTFDocument.new()
 	gltf_state.create_animations = false
-	
+
 	node.rotate_y(deg_to_rad(-90))
-	
+
 	# With TrenchBroom we can specify a scale expression, but for other editors we need to scale our models manually.
 	if target_map_editor != TargetMapEditor.TRENCHBROOM:
 		var scale_factor: Vector3 = Vector3.ONE
@@ -110,12 +110,12 @@ func _create_gltf_file(gltf_state: GLTFState, path: String, node: Node3D) -> boo
 		if scale_factor.length() == 0:
 			scale_factor = Vector3.ONE # Don't let the node scale into oblivion!
 		node.scale *= scale_factor
-	
+
 	var error: Error = gltf_document.append_from_scene(node, gltf_state)
 	if error != Error.OK:
 		printerr("Failed appending to gltf document", error)
 		return false
-	
+
 	call_deferred("_save_to_file_system", gltf_document, gltf_state, global_export_path)
 	return true
 
@@ -123,12 +123,12 @@ func _save_to_file_system(gltf_document: GLTFDocument, gltf_state: GLTFState, pa
 	var error: Error = DirAccess.make_dir_recursive_absolute(path.get_base_dir())
 	if error != Error.OK:
 		printerr("Failed creating dir", error)
-		return 
-	
+		return
+
 	error = gltf_document.write_to_filesystem(gltf_state, path)
 	if error != OK:
 		printerr("Failed writing to file system", error)
-		return 
+		return
 	print('Exported model to ', path)
 
 func _generate_size_from_aabb(meshes: Array[GLTFMesh]) -> AABB:
@@ -151,7 +151,7 @@ func _generate_size_from_aabb(meshes: Array[GLTFMesh]) -> AABB:
 				scale_factor *= Vector3(scale_arr[0], scale_arr[1], scale_arr[2])
 		elif scale_expression.to_float() > 0:
 			scale_factor *= scale_expression.to_float()
-	
+
 	size_prop.position *= scale_factor
 	size_prop.size *= scale_factor
 	size_prop.size += size_prop.position
