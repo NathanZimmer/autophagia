@@ -1,10 +1,8 @@
-[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://cvla028ir1e68"]
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cvla028ir1e68"]
 
 [ext_resource type="Texture2D" uid="uid://do3rpl27buu5g" path="res://house_of_leaves/textures/grass.png" id="1_nxc16"]
-[ext_resource type="Texture2D" uid="uid://b4pll34fy1u45" path="res://house_of_leaves/textures/grass_normal_map.png" id="2_juv73"]
 
 [resource]
 albedo_texture = ExtResource("1_nxc16")
 metallic_specular = 0.0
-normal_texture = ExtResource("2_juv73")
 texture_filter = 2

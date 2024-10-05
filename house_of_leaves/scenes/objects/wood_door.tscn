@@ -44,11 +44,14 @@ blend_shape_mode = 0
 
 [node name="Door" parent="." index="0"]
 material_override = ExtResource("2_pg3n6")
+gi_mode = 0
 
 [node name="Hinge" parent="." index="1"]
 material_override = ExtResource("3_4ifbq")
+gi_mode = 0
 mesh = SubResource("ArrayMesh_ffb5h")
 
 [node name="Hinge_001" parent="." index="2"]
 material_override = ExtResource("3_4ifbq")
+gi_mode = 0
 mesh = SubResource("ArrayMesh_d2k7w")
