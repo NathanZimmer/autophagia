@@ -4,12 +4,12 @@ extends Node
 ## Gives it a `Portal` child with this object's mesh and position [br]
 ## This is kinda jenky and breaks if the child mesh isn't a rectangle, but I don't want to rewrite my portal code and the show must go on so... ¯\_(ツ)_/¯
 
-@export var func_godot_properties: Dictionary
-
 enum {
 	Z,
 	X,
 }
+
+@export var func_godot_properties: Dictionary
 
 func _ready():
 	if Engine.is_editor_hint():
@@ -23,22 +23,23 @@ func _ready():
 		map_root = get_parent().get_parent()
 
 	# Creating or getting container
-	var container_name = 'PortalContainer' + str(func_godot_properties['portal_id'])
+	var container_name = "PortalContainer" + str(func_godot_properties["portal_id"])
 	var container = map_root.find_child(container_name)
 
 	# Connecting show signals
-	if func_godot_properties['attach_signal']:
-		var signal_hide = 'hide_' + str(func_godot_properties['signal_id'])
+	if func_godot_properties["attach_signal"]:
+		var signal_hide = "hide_" + str(func_godot_properties["signal_id"])
 		if not Globals.has_user_signal(signal_hide):
 			Globals.add_user_signal(signal_hide)
 		if not Globals.is_connected(signal_hide, container.hide_portals):
 			Globals.connect(signal_hide, container.hide_portals)
 
-		var signal_show = 'show_' + str(func_godot_properties['signal_id'])
+		var signal_show = "show_" + str(func_godot_properties["signal_id"])
 		if not Globals.has_user_signal(signal_show):
 			Globals.add_user_signal(signal_show)
 		if not Globals.is_connected(signal_show, container.show_portals):
 			Globals.connect(signal_show, container.show_portals)
+
 
 func _func_godot_build_complete():
 	# Accounting for the two possible group hierarchies
@@ -49,7 +50,7 @@ func _func_godot_build_complete():
 		map_root = get_parent().get_parent()
 
 	# Creating or getting container
-	var container_name = 'PortalContainer' + str(func_godot_properties['portal_id'])
+	var container_name = "PortalContainer" + str(func_godot_properties["portal_id"])
 	var container = map_root.find_child(container_name)
 
 	if container == null:
@@ -69,10 +70,10 @@ func _func_godot_build_complete():
 	portal.global_position = mesh_instance.global_position
 
 	# Adjusting for global depth direction
-	if func_godot_properties['depth_dir'] == Z:
+	if func_godot_properties["depth_dir"] == Z:
 		container.portal_size = mesh_size
 
-		portal.global_rotation = func_godot_properties['rotation'] * PI / 180
+		portal.global_rotation = func_godot_properties["rotation"] * PI / 180
 	else:
 		# Swapping mesh x and z
 		var x = mesh_size.x
@@ -80,15 +81,15 @@ func _func_godot_build_complete():
 		mesh_size.z = x
 		container.portal_size = mesh_size
 
-		portal.global_rotation = (func_godot_properties['rotation'] + Vector3(0, 90, 0)) * PI / 180
-
+		portal.global_rotation = (func_godot_properties["rotation"] + Vector3(0, 90, 0)) * PI / 180
 
 	# Hiding placeholder mesh
 	mesh_instance.hide()
 
 	# Applying default visiblity
-	if not func_godot_properties['visible']:
+	if not func_godot_properties["visible"]:
 		container.hide_portals()
+
 
 ## Get the size of the given mesh using `MeshDataTool`
 func _get_mesh_size(mesh: Mesh):

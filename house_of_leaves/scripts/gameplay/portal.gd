@@ -6,8 +6,10 @@ const SHADER_PATH = "res://house_of_leaves/scripts/shaders/portal.gdshader"
 var player_in_portal = false
 var on_screen = false
 
+
 func _ready():
 	gi_mode = GI_MODE_DISABLED
+
 
 ## Create portal shader object and pass in viewport texture [br]
 ## `viewport_texture`: The viewport to be displayed by the portal's `ShaderMaterial`

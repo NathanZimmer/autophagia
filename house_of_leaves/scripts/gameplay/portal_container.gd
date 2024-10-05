@@ -2,7 +2,7 @@
 class_name PortalContainer extends Node3D
 ## Handles connection, displaying, and teleportation between two `Portal` objects
 
-const PLAYER_NAME = 'Player'
+const PLAYER_NAME = "Player"
 const WORLD_ENV_NAME = "WorldEnvironment"
 const QUEUE_SIZE = 1
 const ENV_OVERWRITES = {

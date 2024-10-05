@@ -8,6 +8,7 @@ extends Node3D
 var wait_start_time: float = 0
 var elapsed_time: float = 0
 
+
 func _process(delta):
 	elapsed_time += delta
 

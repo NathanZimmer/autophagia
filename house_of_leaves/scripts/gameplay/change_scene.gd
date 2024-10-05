@@ -5,7 +5,7 @@ extends Area3D
 
 
 func _ready():
-	connect('body_entered', _change_scene.bind())
+	connect("body_entered", _change_scene.bind())
 
 
 func _change_scene(_body):

@@ -11,15 +11,17 @@ var trigger_0_activated: bool = false
 var trigger_1_activated: bool = false
 var counter: int = 0
 
+
 func _ready():
 	door = $WoodDoor
 	trigger_0 = $Trigger0
 	trigger_1 = $Trigger1
 	var light = $Lights
-	lights = light.find_children('', 'MeshInstance3D')
+	lights = light.find_children("", "MeshInstance3D")
 
-	trigger_0.connect('body_entered', _test.bind(trigger_0))
-	trigger_1.connect('body_entered', _test.bind(trigger_1))
+	trigger_0.connect("body_entered", _test.bind(trigger_0))
+	trigger_1.connect("body_entered", _test.bind(trigger_1))
+
 
 func _test(body, trigger):
 	if not body is CharacterBody3D or counter > 2:
@@ -42,4 +44,4 @@ func _test(body, trigger):
 
 	if counter >= 3:
 		# TODO: call door open function
-		print('Door opened')
+		print("Door opened")
