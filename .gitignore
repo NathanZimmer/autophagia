@@ -2,6 +2,8 @@
 .godot/
 
 # TrenchBroom ignores
-house_of_leaves/maps/autosave
+ouroboros/maps/autosave
 trench_broom
-house_of_leaves/textures/temp_lightmaps
+
+# Lightmaps are large, only commit them when getting ready to merge with master
+ouroboros/textures/temp_lightmaps

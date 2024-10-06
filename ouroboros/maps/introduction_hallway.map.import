@@ -1,0 +1,14 @@
+[remap]
+
+importer="func_godot.map"
+type="Resource"
+uid="uid://b1ayl7wbr0ehk"
+path="res://.godot/imported/introduction_hallway.map-a61c98411d90d6b12174bee8dbd81038.tres"
+
+[deps]
+
+source_file="res://ouroboros/maps/introduction_hallway.map"
+dest_files=["res://.godot/imported/introduction_hallway.map-a61c98411d90d6b12174bee8dbd81038.tres"]
+
+[params]
+

@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://chut0ly25ksrq"]
+
+[ext_resource type="Texture2D" uid="uid://wbb2badi7k8a" path="res://ouroboros/textures/brick.png" id="1_wigxd"]
+
+[resource]
+albedo_texture = ExtResource("1_wigxd")
+metallic_specular = 0.0
+texture_filter = 2

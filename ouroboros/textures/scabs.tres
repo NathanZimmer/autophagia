@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cx7fyrvhdx252"]
+
+[ext_resource type="Texture2D" uid="uid://cu06cbn3yvhws" path="res://ouroboros/textures/scabs.png" id="1_e4uxe"]
+
+[resource]
+albedo_texture = ExtResource("1_e4uxe")
+heightmap_scale = -16.0
+uv1_triplanar_sharpness = 150.0
+uv1_world_triplanar = true
+texture_filter = 2

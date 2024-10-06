@@ -1,0 +1,208 @@
+[gd_scene load_steps=6 format=3 uid="uid://itwjypb3vrfl"]
+
+[ext_resource type="Texture2D" uid="uid://by8wjb3pjw83j" path="res://ouroboros/textures/leaves.png" id="1_ho2bv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rjma0"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+cull_mode = 2
+albedo_texture = ExtResource("1_ho2bv")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_fk1h7"]
+orientation = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sudxa"]
+albedo_color = Color(1.54018e-05, 0.958235, 0, 1)
+albedo_texture = ExtResource("1_ho2bv")
+uv1_scale = Vector3(6, 6, 6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tbhrt"]
+size = Vector3(0.21, 2.645, 6.005)
+
+[node name="Bush" type="Node3D"]
+
+[node name="brush" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.46154, 0, 0.0384616)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="brush"]
+material_override = SubResource("StandardMaterial3D_rjma0")
+mesh = SubResource("PlaneMesh_fk1h7")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="brush"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_rjma0")
+mesh = SubResource("PlaneMesh_fk1h7")
+skeleton = NodePath("../..")
+
+[node name="brush2" type="Node3D" parent="."]
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, -1.46154, 0, 0.0384616)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="brush2"]
+material_override = SubResource("StandardMaterial3D_rjma0")
+mesh = SubResource("PlaneMesh_fk1h7")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="brush2"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_rjma0")
+mesh = SubResource("PlaneMesh_fk1h7")
+skeleton = NodePath("../..")
+
+[node name="brush3" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.461538, 0, 0.0384616)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="brush3"]
+material_override = SubResource("StandardMaterial3D_rjma0")
+mesh = SubResource("PlaneMesh_fk1h7")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="brush3"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_rjma0")
+mesh = SubResource("PlaneMesh_fk1h7")
+skeleton = NodePath("../..")
+
+[node name="brush4" type="Node3D" parent="."]
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 0.538462, 0, 0.0384615)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="brush4"]
+material_override = SubResource("StandardMaterial3D_rjma0")
+mesh = SubResource("PlaneMesh_fk1h7")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="brush4"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_rjma0")
+mesh = SubResource("PlaneMesh_fk1h7")
+skeleton = NodePath("../..")
+
+[node name="brush5" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.53846, 0, 0.0384615)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="brush5"]
+material_override = SubResource("StandardMaterial3D_rjma0")
+mesh = SubResource("PlaneMesh_fk1h7")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="brush5"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_rjma0")
+mesh = SubResource("PlaneMesh_fk1h7")
+skeleton = NodePath("../..")
+
+[node name="brush6" type="Node3D" parent="."]
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 2.53846, 0, 0.0384614)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="brush6"]
+material_override = SubResource("StandardMaterial3D_rjma0")
+mesh = SubResource("PlaneMesh_fk1h7")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="brush6"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_rjma0")
+mesh = SubResource("PlaneMesh_fk1h7")
+skeleton = NodePath("../..")
+
+[node name="brush7" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.53846, 1.37457, 0.0384615)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="brush7"]
+material_override = SubResource("StandardMaterial3D_rjma0")
+mesh = SubResource("PlaneMesh_fk1h7")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="brush7"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_rjma0")
+mesh = SubResource("PlaneMesh_fk1h7")
+skeleton = NodePath("../..")
+
+[node name="brush8" type="Node3D" parent="."]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 1.53846, 1.37457, 0.0384614)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="brush8"]
+material_override = SubResource("StandardMaterial3D_rjma0")
+mesh = SubResource("PlaneMesh_fk1h7")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="brush8"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_rjma0")
+mesh = SubResource("PlaneMesh_fk1h7")
+skeleton = NodePath("../..")
+
+[node name="brush9" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.538462, 1.37457, 0.0384616)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="brush9"]
+material_override = SubResource("StandardMaterial3D_rjma0")
+mesh = SubResource("PlaneMesh_fk1h7")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="brush9"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_rjma0")
+mesh = SubResource("PlaneMesh_fk1h7")
+skeleton = NodePath("../..")
+
+[node name="brush10" type="Node3D" parent="."]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -0.461538, 1.37457, 0.0384615)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="brush10"]
+material_override = SubResource("StandardMaterial3D_rjma0")
+mesh = SubResource("PlaneMesh_fk1h7")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="brush10"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_rjma0")
+mesh = SubResource("PlaneMesh_fk1h7")
+skeleton = NodePath("../..")
+
+[node name="brush11" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.46154, 1.37457, 0.0384617)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="brush11"]
+material_override = SubResource("StandardMaterial3D_rjma0")
+mesh = SubResource("PlaneMesh_fk1h7")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="brush11"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_rjma0")
+mesh = SubResource("PlaneMesh_fk1h7")
+skeleton = NodePath("../..")
+
+[node name="brush12" type="Node3D" parent="."]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -2.46154, 1.37457, 0.0384616)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="brush12"]
+material_override = SubResource("StandardMaterial3D_rjma0")
+mesh = SubResource("PlaneMesh_fk1h7")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="brush12"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_rjma0")
+mesh = SubResource("PlaneMesh_fk1h7")
+skeleton = NodePath("../..")
+
+[node name="body" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0384615, 0.911288, -0.461538)
+material_override = SubResource("StandardMaterial3D_sudxa")
+mesh = SubResource("BoxMesh_tbhrt")
