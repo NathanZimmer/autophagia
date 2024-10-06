@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://djw44m41apg8y"]
+
+[ext_resource type="PackedScene" uid="uid://dnhp4dcugklq6" path="res://ouroboros/scenes/main/player.tscn" id="26_ufcy0"]
+[ext_resource type="PackedScene" uid="uid://dddnrinkpcqce" path="res://ouroboros/scenes/main/house_background.tscn" id="37_ms348"]
+[ext_resource type="PackedScene" uid="uid://xvjkinl8b7ei" path="res://ouroboros/scenes/levels/introduction/hallway_01.tscn" id="41_orlmv"]
+
+[sub_resource type="Environment" id="Environment_cyvu2"]
+background_mode = 1
+background_color = Color(0.738033, 0.568711, 0.570136, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.351562, 0.351563, 0.351562, 1)
+ssr_max_steps = 512
+ssr_fade_in = 1e-05
+ssr_fade_out = 0.00158643
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_h4noy"]
+
+[node name="Demo" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cyvu2")
+camera_attributes = SubResource("CameraAttributesPractical_h4noy")
+
+[node name="Player" parent="." instance=ExtResource("26_ufcy0")]
+transform = Transform3D(-0.0025656, 0, -0.999997, 0, 1, 0, 0.999997, 0, -0.0025656, -1.2387, 0.953943, -1.87602)
+
+[node name="HouseBackground" parent="." instance=ExtResource("37_ms348")]
+
+[node name="Hallway01" parent="." instance=ExtResource("41_orlmv")]

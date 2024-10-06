@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://b6j0or5itp4q3"]
+
+[ext_resource type="PackedScene" uid="uid://hrbpqs4ns7xg" path="res://ouroboros/models/bulb.glb" id="1_h434u"]
+[ext_resource type="Material" uid="uid://demuma08n5ep6" path="res://ouroboros/textures/light.tres" id="2_8s1kn"]
+[ext_resource type="Material" uid="uid://bs2hwfctie2qd" path="res://ouroboros/textures/light_metal.tres" id="3_0k0i8"]
+[ext_resource type="Texture2D" uid="uid://ctp3qa5vbrujj" path="res://ouroboros/textures/chain.png" id="4_ym807"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xw5ea"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_texture = ExtResource("4_ym807")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5k8g6"]
+orientation = 0
+
+[node name="bulb" instance=ExtResource("1_h434u")]
+
+[node name="Bulb" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.310252, 0)
+material_override = ExtResource("2_8s1kn")
+gi_mode = 0
+
+[node name="Base" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.310252, 0)
+material_override = ExtResource("3_0k0i8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="2"]
+transform = Transform3D(0.155, 0, 0, 0, 0.225, 0, 0, 0, 0.155, 0.00530899, -0.158209, 0.0027808)
+material_override = SubResource("StandardMaterial3D_xw5ea")
+mesh = SubResource("PlaneMesh_5k8g6")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." index="3"]
+transform = Transform3D(-6.77527e-09, 0, 0.155, 0, 0.225, 0, -0.155, 0, -6.77527e-09, 0.00530899, -0.158209, 0.0027808)
+material_override = SubResource("StandardMaterial3D_xw5ea")
+mesh = SubResource("PlaneMesh_5k8g6")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.401501, 0)
+visible = false
+light_energy = 2.0
+light_bake_mode = 1
