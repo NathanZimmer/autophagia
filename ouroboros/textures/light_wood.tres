@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cjfn7op4p2mio"]
+
+[ext_resource type="Texture2D" uid="uid://baxe17q37rwtp" path="res://ouroboros/textures/light_wood.png" id="1_24v7l"]
+
+[resource]
+albedo_texture = ExtResource("1_24v7l")
+metallic_specular = 0.0
+texture_filter = 2
