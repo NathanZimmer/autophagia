@@ -1,0 +1,64 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDModelPointClass" load_steps=4 format=3 uid="uid://cuhfrpf81c6ed"]
+
+[ext_resource type="PackedScene" uid="uid://cs2ufftllqo21" path="res://ouroboros/scenes/objects/light_fixture.tscn" id="1_ntdwh"]
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_model_point_class.gd" id="3_egm7m"]
+[ext_resource type="Script" path="res://ouroboros/scripts/func_godot/func_godot_light_generator.gd" id="4_i33jn"]
+
+[resource]
+script = ExtResource("3_egm7m")
+target_map_editor = 1
+models_sub_folder = ""
+scale_expression = ""
+generate_size_property = false
+generate_gd_ignore_file = false
+scene_file = ExtResource("1_ntdwh")
+script_class = ExtResource("4_i33jn")
+apply_rotation_on_map_build = true
+classname = "point_light_fixture"
+description = "Light fixure with settings for a generated Godot Light3D object."
+func_godot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"generate_light_node": {
+"false": 0,
+"true": 1
+},
+"light_bake_mode": {
+"disabled": 0,
+"dynamic": 2,
+"static": 1
+},
+"light_color": Color(1, 1, 1, 1),
+"light_energy": 1.0,
+"light_node": {
+"OmniLight3D": 1,
+"SpotLight3D": 0
+},
+"offset": Vector3(0, 0, 0),
+"omni_range": 10.0,
+"rotation": Vector3(0, 0, 0),
+"shadow_enabled": {
+"false": 0,
+"true": 1
+},
+"spot_angle": 90,
+"spot_range": 10.0
+}
+class_property_descriptions = {
+"generate_light_node": ["Toggle the generation of Godot light node when imported into Godot.", 1],
+"light_bake_mode": ["The type of bake mode the generated light will use.", 0],
+"light_color": "The color of the generated light.",
+"light_energy": "The energy of the generated light.",
+"light_node": ["The type of Godot light node to generate.", 1],
+"offset": "An offset from the origin of this object to apply to the generated light.",
+"omni_range": "the distance in Godot units that the omni light will travel.",
+"shadow_enabled": ["Togle whether or not the light casts shadows.", 1],
+"spot_angle": "the angle of the spot light.",
+"spot_range": "the distance in Godot units that the spot light will travel."
+}
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"model": "\"models/light_fixture.glb\""
+}
+node_class = "StaticBody3D"
+name_property = ""
