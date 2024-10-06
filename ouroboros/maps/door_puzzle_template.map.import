@@ -1,0 +1,14 @@
+[remap]
+
+importer="func_godot.map"
+type="Resource"
+uid="uid://c3cwh8gfqnk0i"
+path="res://.godot/imported/door_puzzle_template.map-ae93afdad2469298063828e01b7750ba.tres"
+
+[deps]
+
+source_file="res://ouroboros/maps/door_puzzle_template.map"
+dest_files=["res://.godot/imported/door_puzzle_template.map-ae93afdad2469298063828e01b7750ba.tres"]
+
+[params]
+

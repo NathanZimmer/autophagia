@@ -1,0 +1,14 @@
+[remap]
+
+importer="func_godot.map"
+type="Resource"
+uid="uid://7nofm4rclk0l"
+path="res://.godot/imported/house_background.map-2b75100c14a3ebe37a4b3a2d2e8371b6.tres"
+
+[deps]
+
+source_file="res://ouroboros/maps/house_background.map"
+dest_files=["res://.godot/imported/house_background.map-2b75100c14a3ebe37a4b3a2d2e8371b6.tres"]
+
+[params]
+
