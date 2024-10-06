@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bl3nmm4bum61k"
-path="res://.godot/imported/obelisk.glb-d10ede1c4bb392d24c5d9a097194e554.scn"
+path="res://.godot/imported/obelisk.glb-db94cf3e381c9c12e490acaf6f9e9225.scn"
 
 [deps]
 
 source_file="res://ouroboros/models/obelisk.glb"
-dest_files=["res://.godot/imported/obelisk.glb-d10ede1c4bb392d24c5d9a097194e554.scn"]
+dest_files=["res://.godot/imported/obelisk.glb-db94cf3e381c9c12e490acaf6f9e9225.scn"]
 
 [params]
 

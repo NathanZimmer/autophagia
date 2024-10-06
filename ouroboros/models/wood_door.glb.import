@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dry32rev1hrgm"
-path="res://.godot/imported/wood_door.glb-79776b2776ce10cef2656d1b2a0b758a.scn"
+path="res://.godot/imported/wood_door.glb-ece48daa5a8ff9e66380e796dc28656b.scn"
 
 [deps]
 
 source_file="res://ouroboros/models/wood_door.glb"
-dest_files=["res://.godot/imported/wood_door.glb-79776b2776ce10cef2656d1b2a0b758a.scn"]
+dest_files=["res://.godot/imported/wood_door.glb-ece48daa5a8ff9e66380e796dc28656b.scn"]
 
 [params]
 

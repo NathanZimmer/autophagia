@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://gmlw5v5dhkqe"
-path="res://.godot/imported/tree_2.glb-8d0b468426bc1925edcb0b1776526958.scn"
+path="res://.godot/imported/tree_2.glb-6f0e09143b908bbf0ecac4054f30de36.scn"
 
 [deps]
 
 source_file="res://ouroboros/models/tree_2.glb"
-dest_files=["res://.godot/imported/tree_2.glb-8d0b468426bc1925edcb0b1776526958.scn"]
+dest_files=["res://.godot/imported/tree_2.glb-6f0e09143b908bbf0ecac4054f30de36.scn"]
 
 [params]
 

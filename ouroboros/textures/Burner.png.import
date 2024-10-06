@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dd1oqeprhvrfe"
-path.bptc="res://.godot/imported/burner.png-04736a6e859c59c8d2756737448136e5.bptc.ctex"
+path.bptc="res://.godot/imported/Burner.png-4f1a6896a438682be64810084c56bc12.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://ouroboros/textures/burner.png"
-dest_files=["res://.godot/imported/burner.png-04736a6e859c59c8d2756737448136e5.bptc.ctex"]
+source_file="res://ouroboros/textures/Burner.png"
+dest_files=["res://.godot/imported/Burner.png-4f1a6896a438682be64810084c56bc12.bptc.ctex"]
 
 [params]
 

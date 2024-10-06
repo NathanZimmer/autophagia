@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://hrbpqs4ns7xg"
-path="res://.godot/imported/bulb.glb-3a5e9d79eb070892deb7f709456ebc4f.scn"
+path="res://.godot/imported/bulb.glb-599c2194b2f0d4aedd423db1c9d04cc7.scn"
 
 [deps]
 
 source_file="res://ouroboros/models/bulb.glb"
-dest_files=["res://.godot/imported/bulb.glb-3a5e9d79eb070892deb7f709456ebc4f.scn"]
+dest_files=["res://.godot/imported/bulb.glb-599c2194b2f0d4aedd423db1c9d04cc7.scn"]
 
 [params]
 
