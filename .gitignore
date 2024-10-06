@@ -2,6 +2,11 @@
 .godot/
 
 # TrenchBroom ignores
+ouroboros/maps/autosave
+trench_broom
+ouroboros/textures/temp_lightmaps
+
+# TrenchBroom ignores
 house_of_leaves/maps/autosave
 trench_broom
 house_of_leaves/textures/temp_lightmaps
