@@ -17,12 +17,15 @@ extends CharacterBody3D
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var speed_mod = 1  # Modifier to player speed that can be adjusted with mouse wheel
+var flying = false
+var collider: CollisionShape3D
 
 var camera: Camera3D
 
 
 func _ready():
 	camera = find_children("", "Camera3D")[0]
+	collider = find_children("", "CollisionShape3D")[0]
 	# Input.set_use_accumulated_input(false)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
@@ -31,15 +34,19 @@ func _input(event) -> void:
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		aim_look(event)
 
-	speed_mod = speed_mod + Input.get_axis("mw_down", "mw_up") * 0.1
+	if event is InputEventKey:
+		if event.is_action_pressed("player_flight_toggle"):
+			flying = not flying
+		elif event.is_action_pressed("player_toggle_collision"):
+			collider.disabled = not collider.disabled
 
+	speed_mod = speed_mod + Input.get_axis("mw_down", "mw_up") * 0.1
 	if speed_mod < 0.1:
 		speed_mod = 0.1
 
-
 func _process(delta: float) -> void:
 	# Move player
-	if not is_on_floor():
+	if not is_on_floor() and not flying:
 		velocity.y -= gravity * delta
 
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -54,16 +61,25 @@ func walk_and_jump():
 		"player_left", "player_right", "player_forward", "player_back"
 	)
 
-	# var direction = (global_basis * Vector3(input_direction.x, height_change, input_direction.y)).normalized()
-	var direction = (global_basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
+	var height_change = Input.get_axis("player_down", "player_up")
+
+	var direction
+	if flying:
+		direction = (global_basis * Vector3(input_direction.x, height_change, input_direction.y)).normalized()
+	else:
+		direction = (global_basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
 	if direction:
 		velocity.x = direction.x * move_speed * speed_mod
+		if flying:
+			velocity.y = direction.y * move_speed * speed_mod
 		velocity.z = direction.z * move_speed * speed_mod
 	else:
 		velocity.x = move_toward(velocity.x, 0, move_speed * speed_mod)
+		if flying:
+			velocity.y = move_toward(velocity.y, 0, move_speed * speed_mod)
 		velocity.z = move_toward(velocity.z, 0, move_speed * speed_mod)
 
-	if Input.is_action_just_pressed("player_up") and is_on_floor():
+	if Input.is_action_just_pressed("player_up") and is_on_floor() and not flying:
 		velocity.y = jump_velocity
 
 

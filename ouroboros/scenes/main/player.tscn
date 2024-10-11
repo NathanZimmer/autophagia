@@ -43,7 +43,7 @@ collision_mask = 3
 safe_margin = 0.01
 script = ExtResource("1_y2fp8")
 
-[node name="Collision" type="CollisionShape3D" parent="."]
+[node name="CollisionShape" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_8l6i1")
 
 [node name="Camera" type="Camera3D" parent="."]
@@ -79,6 +79,7 @@ grow_vertical = 2
 
 [node name="GUI" type="CanvasLayer" parent="."]
 script = ExtResource("2_h56fe")
+show_fps = false
 show_b = false
 
 [node name="FPS_Counter" type="Label" parent="GUI"]
