@@ -10,7 +10,7 @@ var b_press_time_elapsed: float = 0
 @onready var pause_menu = $PauseMenuControl
 
 
-func _ready():
+func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	# DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	pause_menu.hide()
@@ -49,7 +49,7 @@ func _unhandled_input(event) -> void:
 		print("left click")
 
 
-func _process(delta):
+func _process(delta) -> void:
 	if show_b:
 		b_press_time_elapsed += delta
 		b_counter.text = (
