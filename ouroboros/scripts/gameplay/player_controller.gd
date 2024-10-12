@@ -1,24 +1,31 @@
 extends CharacterBody3D
-## Handles player movement, jumping, gravity, and interaction with `Rigidbody3D` objects
+## Handles player movement, jumping, and gravity
 
-# Copied camera code from:
-# https://yosoyfreeman.github.io/article/godot/tutorial/achieving-better-mouse-input-in-godot-4-the-perfect-camera-controller/
+signal bob_head
 
-@export_group("Mouse settings")
+@export_group("Camera settings")
 @export_range(1, 100, 1) var mouse_sensitivity: int = 50
-
-@export_group("Clamp settings")
-@export var max_pitch: float = 89
-@export var min_pitch: float = -89
+@export var max_x_rotation: float = 89
+@export var min_x_rotation: float = -89
+## The angle that the camera will rotate along the z axis when head-bobbing
+@export var bob_angle: int = 45
+## The time it will take for the camera to rotate from 0 degrees to `bob_angle` degrees
+@export var bob_time: float = 0.01
 
 @export_group("Player movement settings")
 @export var move_speed: float = 3.0
 @export var jump_velocity: float = 4.5
 
+@export_group("Dev controls")
+@export var dev_controls_enabled = true
+@export var min_speed: float = 0.1
+@export var max_speed: float = 10
+
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var speed_mod = 1  # Modifier to player speed that can be adjusted with mouse wheel
-var flying = false
+var flying: bool = false
 var collider: CollisionShape3D
+var paused: bool = false
 
 var camera: Camera3D
 
@@ -27,48 +34,102 @@ func _ready():
 	camera = find_children("", "Camera3D")[0]
 	collider = find_children("", "CollisionShape3D")[0]
 	# Input.set_use_accumulated_input(false)
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+	Globals.pause.connect(pause)
+	Globals.unpause.connect(unpause)
+
+	await _bob_head()
 
 
 func _input(event) -> void:
-	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		aim_look(event)
+	if paused:
+		return
+
+	if event is InputEventMouseMotion:
+		_rotate_cam(event)
 
 	if event is InputEventKey:
-		if event.is_action_pressed("player_flight_toggle"):
+		if event.is_action_pressed("player_flight_toggle") and dev_controls_enabled:
 			flying = not flying
-		elif event.is_action_pressed("player_toggle_collision"):
+		elif event.is_action_pressed("player_toggle_collision") and dev_controls_enabled:
 			collider.disabled = not collider.disabled
 
-	speed_mod = speed_mod + Input.get_axis("mw_down", "mw_up") * 0.1
-	if speed_mod < 0.1:
-		speed_mod = 0.1
+	if event is InputEventMouseButton:
+		var mw_input_scale: float = 0.1
+		if event.is_action_pressed("mw_down") and dev_controls_enabled:
+			speed_mod -= mw_input_scale
+			speed_mod = speed_mod if speed_mod > min_speed else min_speed
+		elif event.is_action_pressed("mw_up") and dev_controls_enabled:
+			speed_mod += mw_input_scale
+			speed_mod = speed_mod if speed_mod < max_speed else max_speed
+
 
 func _process(delta: float) -> void:
+	if paused:
+		return
+
 	# Move player
 	if not is_on_floor() and not flying:
 		velocity.y -= gravity * delta
 
-	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		walk_and_jump()
+	if Input.mouse_mode:
+		_walk_and_jump()
 		move_and_slide()
 		orthonormalize()
 
+## Bobs player back and forth while the player is walking
+func _bob_head():
+	var angle: float = deg_to_rad(bob_angle)
+	var state: int = 0 # temp var, 0 = center to left, 1 = left to center, 2 = center to right, 3 = right to center
+	var rotation_test: int = 0
+	while true:
+		match state:
+			0:
+				rotation_test = lerp(rotation_test, bob_angle, bob_time)
+				if rotation_test == bob_angle:
+					state = 1
+			1:
+				rotation_test = lerp(rotation_test, 0, bob_time)
+				if rotation_test == 0:
+					state = 2
+			2:
+				rotation_test = lerp(rotation_test, -1 * bob_angle, bob_time)
+				if rotation_test == -1 * bob_angle:
+					state = 3
+			3:
+				rotation_test = lerp(rotation_test, 0, bob_time)
+				if rotation_test == 0:
+					state = 0
+
+		print(rotation_test)
+		await bob_head
+
 
 ## Handle player input for walking and jumping using the player_ input actions
-func walk_and_jump():
+func _walk_and_jump():
+	# if (
+	# 	Input.is_action_just_released("player_left")
+	# 	or Input.is_action_just_released("player_right")
+	# 	or Input.is_action_just_released("player_forward")
+	# 	or Input.is_action_just_released("player_back")
+	# ):
+	# 	stop_headbob.emit()
+
 	var input_direction = Input.get_vector(
 		"player_left", "player_right", "player_forward", "player_back"
 	)
-
 	var height_change = Input.get_axis("player_down", "player_up")
 
 	var direction
 	if flying:
-		direction = (global_basis * Vector3(input_direction.x, height_change, input_direction.y)).normalized()
+		direction = (
+			(global_basis * Vector3(input_direction.x, height_change, input_direction.y))
+			. normalized()
+		)
 	else:
 		direction = (global_basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
 	if direction:
+		bob_head.emit()
 		velocity.x = direction.x * move_speed * speed_mod
 		if flying:
 			velocity.y = direction.y * move_speed * speed_mod
@@ -83,8 +144,8 @@ func walk_and_jump():
 		velocity.y = jump_velocity
 
 
-# Handle aim look with the mouse.
-func aim_look(event: InputEventMouseMotion) -> void:
+## Handle mouse input for camera rotation
+func _rotate_cam(event: InputEventMouseMotion) -> void:
 	var viewport_transform: Transform2D = get_tree().root.get_final_transform()
 	var motion: Vector2 = event.xformed_by(viewport_transform).relative
 	var degrees_per_unit: float = 0.001
@@ -92,31 +153,18 @@ func aim_look(event: InputEventMouseMotion) -> void:
 	motion *= mouse_sensitivity
 	motion *= degrees_per_unit
 
-	add_yaw(motion.x)
-	add_pitch(motion.y)
-	clamp_pitch()
+	rotate_object_local(Vector3.DOWN, deg_to_rad(motion.x))
+	camera.rotate_object_local(Vector3.LEFT, deg_to_rad(motion.y))
+	camera.rotation.x = clamp(
+		camera.rotation.x, deg_to_rad(min_x_rotation), deg_to_rad(max_x_rotation)
+	)
 	camera.orthonormalize()
 
 
-# Rotate the character around the local Y axis by a given amount (In degrees) to achieve yaw
-func add_yaw(amount) -> void:
-	if is_zero_approx(amount):
-		return
+## Handle global pause signal
+func pause():
+	paused = true
 
-	rotate_object_local(Vector3.DOWN, deg_to_rad(amount))
-
-
-# Rotate the head around the local x axis by a given amount (In degrees) to achieve pitch
-func add_pitch(amount) -> void:
-	if is_zero_approx(amount):
-		return
-
-	camera.rotate_object_local(Vector3.LEFT, deg_to_rad(amount))
-
-
-# Clamp the pitch between min_pitch and max_pitch
-func clamp_pitch() -> void:
-	if camera.rotation.x > deg_to_rad(min_pitch) and camera.rotation.x < deg_to_rad(max_pitch):
-		return
-
-	camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(min_pitch), deg_to_rad(max_pitch))
+## Handle global unpause signal
+func unpause():
+	paused = false

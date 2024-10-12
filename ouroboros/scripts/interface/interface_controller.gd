@@ -11,6 +11,7 @@ var b_press_time_elapsed: float = 0
 
 
 func _ready():
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	# DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	pause_menu.hide()
 
@@ -40,8 +41,10 @@ func _unhandled_input(event) -> void:
 			)
 			if pause_menu.is_visible():
 				pause_menu.hide()
+				Globals.unpause.emit()
 			else:
 				pause_menu.show()
+				Globals.pause.emit()
 	elif event is InputEventMouseButton and event.is_action_pressed("player_interact"):
 		print("left click")
 
