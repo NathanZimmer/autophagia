@@ -204,9 +204,7 @@ func _process(_delta):
 		)
 		cam_1.orthonormalize()
 		# Disable oblique frustum when the player is inside portal to prevent flickering issue
-		cam_1.use_oblique_frustum = (
-			abs(portal_0.to_local(target_cam.global_position).z) > portal_size.z
-		)
+		cam_1.use_oblique_frustum = (abs(portal_0.to_local(target_cam.global_position).z) > portal_size.z)
 
 	if portal_1.on_screen:
 		cam_0.global_transform = _get_relative_transform(
@@ -217,9 +215,7 @@ func _process(_delta):
 		)
 		cam_0.orthonormalize()
 		# Disable oblique frustum when the player is inside portal to prevent flickering issue
-		cam_0.use_oblique_frustum = (
-			abs(portal_1.to_local(target_cam.global_position).z) > portal_size.z
-		)
+		cam_0.use_oblique_frustum = (abs(portal_1.to_local(target_cam.global_position).z) > portal_size.z)
 
 
 ## Calculate the transform (position and rotation) offset from `current` to `reference` and return the
@@ -451,8 +447,6 @@ func _get_configuration_warnings():
 
 	var warnings = []
 	if portal_count != 2:
-		warnings.append(
-			"This node does not have the correct number of Portals. \nPortal count should be 2"
-		)
+		warnings.append("This node does not have the correct number of Portals. \nPortal count should be 2")
 
 	return warnings

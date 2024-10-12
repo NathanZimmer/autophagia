@@ -11,6 +11,7 @@ enum {
 
 @export var func_godot_properties: Dictionary
 
+
 func _ready():
 	if Engine.is_editor_hint():
 		return

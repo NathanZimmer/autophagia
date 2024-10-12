@@ -35,9 +35,7 @@ func _unhandled_input(event) -> void:
 			b_press_time_elapsed = 0
 		elif event.is_action_pressed("ui_cancel"):
 			Input.mouse_mode = (
-				Input.MOUSE_MODE_CAPTURED
-				if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE
-				else Input.MOUSE_MODE_VISIBLE
+				Input.MOUSE_MODE_CAPTURED if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE else Input.MOUSE_MODE_VISIBLE
 			)
 			if pause_menu.is_visible():
 				pause_menu.hide()
@@ -52,9 +50,7 @@ func _unhandled_input(event) -> void:
 func _process(delta) -> void:
 	if show_b:
 		b_press_time_elapsed += delta
-		b_counter.text = (
-			'Seconds since the "B" key has been pressed: %d' % [int(b_press_time_elapsed)]
-		)
+		b_counter.text = ('Seconds since the "B" key has been pressed: %d' % [int(b_press_time_elapsed)])
 
 	if show_fps:
 		fps_counter.text = str(Engine.get_frames_per_second())

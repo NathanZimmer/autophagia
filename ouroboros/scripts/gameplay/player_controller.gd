@@ -76,9 +76,7 @@ func _process(delta: float) -> void:
 
 ## Handle player input for walking and jumping using the player_ input actions
 func _walk_and_jump():
-	var input_dir = Input.get_vector(
-		"player_left", "player_right", "player_forward", "player_back"
-	)
+	var input_dir = Input.get_vector("player_left", "player_right", "player_forward", "player_back")
 	var height_change = Input.get_axis("player_down", "player_up")
 
 	var direction
@@ -116,9 +114,7 @@ func _rotate_cam(event: InputEventMouseMotion) -> void:
 
 	rotate_object_local(Vector3.DOWN, deg_to_rad(motion.x))
 	camera.rotate_object_local(Vector3.LEFT, deg_to_rad(motion.y))
-	camera.rotation.x = clamp(
-		camera.rotation.x, deg_to_rad(min_x_rotation), deg_to_rad(max_x_rotation)
-	)
+	camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(min_x_rotation), deg_to_rad(max_x_rotation))
 	camera.orthonormalize()
 
 
