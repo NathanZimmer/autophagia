@@ -8,7 +8,12 @@ extends CharacterBody3D
 
 @export_group("Player movement settings")
 @export var move_speed: float = 3.0
+## The upward velocity of a jump
 @export var jump_velocity: float = 4.5
+## The percentage of the players walk velocity that caries into a jump
+@export var xz_jump_velocity: float = 0.75
+## The percentage of the players walk velocity to apply when airborne
+@export var xz_air_velocity: float = 0.01
 
 @export_group("Dev controls")
 @export var dev_controls_enabled = true
@@ -64,41 +69,36 @@ func _process(delta: float) -> void:
 	if not is_on_floor() and not flying:
 		velocity.y -= gravity * delta
 
-	if Input.mouse_mode:
-		_walk_and_jump()
-		move_and_slide()
-		orthonormalize()
+	_walk_and_jump()
+	move_and_slide()
+	orthonormalize()
 
 
 ## Handle player input for walking and jumping using the player_ input actions
 func _walk_and_jump():
-	var input_direction = Input.get_vector(
+	var input_dir = Input.get_vector(
 		"player_left", "player_right", "player_forward", "player_back"
 	)
 	var height_change = Input.get_axis("player_down", "player_up")
 
 	var direction
 	if flying:
-		direction = (
-			(global_basis * Vector3(input_direction.x, height_change, input_direction.y))
-			. normalized()
-		)
+		direction = ((global_basis * Vector3(input_dir.x, height_change, input_dir.y)).normalized())
 	else:
-		direction = (global_basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
-
-	if direction and not flying and is_on_floor():
-		camera.bob_head.emit()
+		direction = (global_basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
 	if direction:
 		velocity.x = direction.x * move_speed * speed_mod
+		velocity.z = direction.z * move_speed * speed_mod
 		if flying:
 			velocity.y = direction.y * move_speed * speed_mod
-		velocity.z = direction.z * move_speed * speed_mod
+		else:
+			camera.bob_head.emit()
 	else:
 		velocity.x = move_toward(velocity.x, 0, move_speed * speed_mod)
+		velocity.z = move_toward(velocity.z, 0, move_speed * speed_mod)
 		if flying:
 			velocity.y = move_toward(velocity.y, 0, move_speed * speed_mod)
-		velocity.z = move_toward(velocity.z, 0, move_speed * speed_mod)
 
 	if Input.is_action_just_pressed("player_up") and is_on_floor() and not flying:
 		velocity.y = jump_velocity

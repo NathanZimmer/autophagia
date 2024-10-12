@@ -6,9 +6,9 @@ signal bob_head
 ## The angle that the camera will rotate along the z-axis when head-bobbing
 @export var bob_angle: float = 0.25
 ## The offset the camera will move to along the x-axis when head-bobbing
-@export var bob_offset: float = 0.01
+@export var bob_offset: float = 0.015
 ## The time it will take for the camera to rotate from 0 degrees to `bob_angle` degrees
-@export var bob_duration: float = 0.3
+@export var bob_duration: float = 0.35
 
 
 func _ready() -> void:
