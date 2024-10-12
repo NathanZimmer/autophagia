@@ -19,25 +19,25 @@ func head_bob() -> void:
     var rotation_tween: Tween
     while true:
         await bob_head
-        rotation_tween = _create_rotation_tween(bob_angle, -1 * bob_offset)
+        rotation_tween = _create_tweens(bob_angle, -1 * bob_offset)
         rotation_tween.play()
         await rotation_tween.finished
 
-        rotation_tween = _create_rotation_tween(0, 0)
+        rotation_tween = _create_tweens(0, 0)
         rotation_tween.play()
         await rotation_tween.finished
         await bob_head
 
-        rotation_tween = _create_rotation_tween(-1 * bob_angle, bob_offset)
+        rotation_tween = _create_tweens(-1 * bob_angle, bob_offset)
         rotation_tween.play()
         await rotation_tween.finished
 
-        rotation_tween = _create_rotation_tween(0, 0)
+        rotation_tween = _create_tweens(0, 0)
         rotation_tween.play()
         await rotation_tween.finished
 
-
-func _create_rotation_tween(angle: float, offset: float) -> Tween:
+## Create two tweens to tween this object by `angle` and `offset` over `self.bob_duration`
+func _create_tweens(angle: float, offset: float) -> Tween:
     var rotation_tween: Tween = create_tween()
     rotation_tween.tween_property(self, "rotation:z", deg_to_rad(angle), bob_duration).set_trans(Tween.TRANS_QUAD)
     var movement_tween: Tween = create_tween()
