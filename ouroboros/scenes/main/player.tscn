@@ -1,10 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://dnhp4dcugklq6"]
+[gd_scene load_steps=19 format=3 uid="uid://dnhp4dcugklq6"]
 
 [ext_resource type="Script" path="res://ouroboros/scripts/gameplay/player_controller.gd" id="1_y2fp8"]
 [ext_resource type="Script" path="res://ouroboros/scripts/gameplay/head_bob.gd" id="2_fl0b5"]
-[ext_resource type="Script" path="res://ouroboros/scripts/interface/interface_controller.gd" id="2_h56fe"]
 [ext_resource type="Shader" path="res://ouroboros/scripts/shaders/pixelation.gdshader" id="3_4sjwy"]
 [ext_resource type="Shader" path="res://ouroboros/scripts/shaders/fs_dithering.gdshader" id="3_cu3o8"]
+[ext_resource type="Script" path="res://ouroboros/scripts/interface/hotkeys.gd" id="5_p8slp"]
+[ext_resource type="Script" path="res://ouroboros/scripts/interface/fps_counter.gd" id="6_go600"]
+[ext_resource type="Script" path="res://ouroboros/scripts/interface/b_counter.gd" id="7_v6k10"]
+[ext_resource type="Script" path="res://ouroboros/scripts/interface/pause_menu_control.gd" id="8_bdcit"]
+[ext_resource type="Script" path="res://ouroboros/scripts/interface/swap_menu.gd" id="9_g3648"]
+[ext_resource type="Script" path="res://ouroboros/scripts/interface/quit_menu_control.gd" id="11_ke0nh"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8l6i1"]
 radius = 0.4
@@ -35,6 +40,12 @@ outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_3ke4g"]
 font_size = 50
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rxpjp"]
+line_spacing = 1.0
+font_size = 10
 outline_size = 6
 outline_color = Color(0, 0, 0, 1)
 
@@ -78,10 +89,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="GUI" type="CanvasLayer" parent="."]
-script = ExtResource("2_h56fe")
-show_b = false
+script = ExtResource("5_p8slp")
 
 [node name="FPS_Counter" type="Label" parent="GUI"]
 offset_left = 5.0
@@ -90,8 +101,10 @@ offset_right = 45.0
 offset_bottom = 28.0
 text = "0"
 label_settings = SubResource("LabelSettings_j7o1h")
+script = ExtResource("6_go600")
 
 [node name="BCounter" type="Label" parent="GUI"]
+visible = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -103,8 +116,11 @@ grow_horizontal = 0
 text = "Seconds since the \"B\" key has been pressed: "
 label_settings = SubResource("LabelSettings_j7o1h")
 horizontal_alignment = 2
+script = ExtResource("7_v6k10")
 
 [node name="PauseMenuControl" type="Control" parent="GUI"]
+process_mode = 2
+visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -117,6 +133,7 @@ offset_right = 640.0
 offset_bottom = 360.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("8_bdcit")
 
 [node name="Label" type="Label" parent="GUI/PauseMenuControl"]
 layout_mode = 1
@@ -125,11 +142,194 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -78.0
-offset_top = -260.0
-offset_right = 78.0
-offset_bottom = -191.0
+offset_left = -128.0
+offset_top = -168.0
+offset_right = 128.0
+offset_bottom = -99.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "PAUSE"
 label_settings = SubResource("LabelSettings_3ke4g")
+horizontal_alignment = 1
+
+[node name="VisualsButton" type="Button" parent="GUI/PauseMenuControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -88.0
+offset_right = 64.0
+offset_bottom = -56.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Visuals"
+
+[node name="ControlsButton" type="Button" parent="GUI/PauseMenuControl"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -40.0
+offset_right = 64.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Controls"
+
+[node name="SaveButton" type="Button" parent="GUI/PauseMenuControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = 8.0
+offset_right = 64.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Save/Load"
+
+[node name="ReturnButton" type="Button" parent="GUI/PauseMenuControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = 56.0
+offset_right = 64.0
+offset_bottom = 88.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "RETURN"
+
+[node name="QuitButton" type="Button" parent="GUI/PauseMenuControl" node_paths=PackedStringArray("to_show")]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = 104.0
+offset_right = 64.0
+offset_bottom = 136.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "QUIT"
+script = ExtResource("9_g3648")
+to_show = NodePath("../../QuitMenuControl")
+
+[node name="QuitMenuControl" type="Control" parent="GUI"]
+process_mode = 2
+auto_translate_mode = 1
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -360.0
+offset_right = 640.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("11_ke0nh")
+
+[node name="Label" type="Label" parent="GUI/QuitMenuControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -168.0
+offset_right = 128.0
+offset_bottom = -99.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "QUIT"
+label_settings = SubResource("LabelSettings_3ke4g")
+horizontal_alignment = 1
+
+[node name="WarningLabel" type="Label" parent="GUI/QuitMenuControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -104.0
+offset_right = 128.0
+offset_bottom = -80.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "WARNING: unsaved progress will be lost!"
+label_settings = SubResource("LabelSettings_rxpjp")
+horizontal_alignment = 1
+
+[node name="MainMenuButton" type="Button" parent="GUI/QuitMenuControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -80.0
+offset_right = 64.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Main Menu"
+
+[node name="DesktopButton" type="Button" parent="GUI/QuitMenuControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -32.0
+offset_right = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Desktop"
+
+[node name="BackButton" type="Button" parent="GUI/QuitMenuControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = 16.0
+offset_right = 64.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "BACK"

@@ -24,8 +24,6 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var speed_mod = 1  # Modifier to player speed that can be adjusted with mouse wheel
 var flying: bool = false
 var collider: CollisionShape3D
-var paused: bool = false
-
 var camera: Camera3D
 
 
@@ -34,14 +32,8 @@ func _ready() -> void:
 	collider = find_children("", "CollisionShape3D")[0]
 	# Input.set_use_accumulated_input(false)
 
-	Globals.pause.connect(pause)
-	Globals.unpause.connect(unpause)
-
 
 func _input(event) -> void:
-	if paused:
-		return
-
 	if event is InputEventMouseMotion:
 		_rotate_cam(event)
 
@@ -62,9 +54,6 @@ func _input(event) -> void:
 
 
 func _process(delta: float) -> void:
-	if paused:
-		return
-
 	# Move player
 	if not is_on_floor() and not flying:
 		velocity.y -= gravity * delta
@@ -116,13 +105,3 @@ func _rotate_cam(event: InputEventMouseMotion) -> void:
 	camera.rotate_object_local(Vector3.LEFT, deg_to_rad(motion.y))
 	camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(min_x_rotation), deg_to_rad(max_x_rotation))
 	camera.orthonormalize()
-
-
-## Handle global pause signal
-func pause():
-	paused = true
-
-
-## Handle global unpause signal
-func unpause():
-	paused = false

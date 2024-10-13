@@ -116,5 +116,6 @@ scaling_3d/fsr_sharpness=0.0
 lightmapping/primitive_meshes/texel_size=0.4
 anti_aliasing/quality/msaa_3d=2
 occlusion_culling/use_occlusion_culling=true
+environment/defaults/default_environment="res://ouroboros/config/main_world_env.tres"
 environment/screen_space_roughness_limiter/enabled=true
 environment/quality/msaa_3d=2
