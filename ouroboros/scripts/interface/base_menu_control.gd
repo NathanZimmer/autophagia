@@ -5,5 +5,5 @@ extends MenuControl
 
 
 func _ready() -> void:
-	super._ready()
+	super.ready()
 	return_button.pressed.connect(pause_control.close_menu)

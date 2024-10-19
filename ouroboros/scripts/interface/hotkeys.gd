@@ -1,6 +1,7 @@
 extends Node
 ## Handles hotkeys during gameplay
 
+
 func _unhandled_input(event) -> void:
 	if event is InputEvent:
 		if event.is_action_pressed("ui_cancel"):

@@ -6,7 +6,7 @@ var menu_stack: Array[Control] = []
 var visible_menu: Control
 
 
-func _ready():
+func _ready() -> void:
 	Globals.pause.connect(pause)
 	visible_menu = get_child(0)
 	unpause()
@@ -20,7 +20,7 @@ func _unhandled_input(event) -> void:
 
 
 ## Store currently open menu, hide it, and open `to_show`
-func open_menu(to_show: Control):
+func open_menu(to_show: Control) -> void:
 	visible_menu.hide()
 	menu_stack.push_front(visible_menu)
 
@@ -29,7 +29,7 @@ func open_menu(to_show: Control):
 
 
 ## Close currently open menu, show previous menu
-func close_menu():
+func close_menu() -> void:
 	if len(menu_stack) == 0:
 		unpause()
 		return
@@ -41,13 +41,13 @@ func close_menu():
 
 
 ## Starts a pause state: shows base menu and frees mouse
-func pause():
+func pause() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	show()
 
 
 ## Terminates the pause state: emits a global unpause and captures mouse
-func unpause():
+func unpause() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	hide()
 	get_tree().paused = false

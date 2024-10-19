@@ -2,6 +2,7 @@ extends Label
 
 var b_press_time_elapsed: float = 0
 
+
 func _unhandled_input(event) -> void:
 	if not event is InputEventKey:
 		return
