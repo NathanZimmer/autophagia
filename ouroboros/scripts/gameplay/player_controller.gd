@@ -25,9 +25,13 @@ var speed_mod = 1  # Modifier to player speed that can be adjusted with mouse wh
 var flying: bool = false
 var collider: CollisionShape3D
 var camera: Camera3D
+var invert_mouse: bool = false
 
 
 func _ready() -> void:
+	Globals.mouse_sensitivity_changed.connect(_change_sensitivity)
+	Globals._mouse_invertion_changed.connect(_set_mouse_invertion)
+
 	camera = find_children("", "Camera3D")[0]
 	collider = find_children("", "CollisionShape3D")[0]
 	# Input.set_use_accumulated_input(false)
@@ -102,6 +106,13 @@ func _rotate_cam(event: InputEventMouseMotion) -> void:
 	motion *= degrees_per_unit
 
 	rotate_object_local(Vector3.DOWN, deg_to_rad(motion.x))
-	camera.rotate_object_local(Vector3.LEFT, deg_to_rad(motion.y))
+	camera.rotate_object_local(Vector3.LEFT, deg_to_rad(-1 * motion.y if invert_mouse else motion.y))
 	camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(min_x_rotation), deg_to_rad(max_x_rotation))
 	camera.orthonormalize()
+
+
+func _change_sensitivity(sensitivity: int) -> void:
+	mouse_sensitivity = sensitivity
+
+func _set_mouse_invertion(inverted: bool) -> void:
+	invert_mouse = inverted

@@ -9,7 +9,7 @@ class_name MenuControl extends Control
 var pause_control: PauseControl
 
 
-func ready() -> void:
+func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 

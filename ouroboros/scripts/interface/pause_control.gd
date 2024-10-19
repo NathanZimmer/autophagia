@@ -8,7 +8,13 @@ var visible_menu: Control
 
 func _ready() -> void:
 	Globals.pause.connect(pause)
+	Globals.close_menu.connect(close_menu)
+
+	for child in get_children():
+		child.hide()
+
 	visible_menu = get_child(0)
+	visible_menu.show()
 	unpause()
 
 
@@ -26,6 +32,7 @@ func open_menu(to_show: Control) -> void:
 
 	visible_menu = to_show
 	visible_menu.show()
+	visible_menu.get_child(0).grab_focus()
 
 
 ## Close currently open menu, show previous menu
@@ -38,12 +45,14 @@ func close_menu() -> void:
 	visible_menu = menu_stack.pop_front()
 
 	visible_menu.show()
+	visible_menu.get_child(0).grab_focus()
 
 
 ## Starts a pause state: shows base menu and frees mouse
 func pause() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	show()
+	visible_menu.get_child(0).grab_focus()
 
 
 ## Terminates the pause state: emits a global unpause and captures mouse

@@ -1,0 +1,10 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://dmi20rjo8etdc"]
+
+[ext_resource type="FontFile" uid="uid://cc2yogqgab4qk" path="res://ouroboros/config/interface/berlona-disco.otf" id="1_gb1ip"]
+
+[resource]
+line_spacing = 1.0
+font = ExtResource("1_gb1ip")
+font_size = 18
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)

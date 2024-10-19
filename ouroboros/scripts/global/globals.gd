@@ -2,7 +2,9 @@ extends Node
 ## Stores all global variables, signals, and hotkeys
 
 signal pause
-signal swap_menu
+signal close_menu
+signal mouse_sensitivity_changed
+signal _mouse_invertion_changed
 
 ## Sets certain values to their default
 func _ready() -> void:
