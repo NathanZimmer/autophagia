@@ -3,8 +3,10 @@ extends Node
 
 signal pause
 signal close_menu
-signal mouse_sensitivity_changed
-signal _mouse_invertion_changed
+signal change_mouse_sensitivity
+signal change_mouse_invertion
+signal change_resolution_scale
+signal toggle_fullscreen
 
 ## Sets certain values to their default
 func _ready() -> void:
@@ -25,4 +27,5 @@ func _unhandled_input(event) -> void:
 					else DisplayServer.WINDOW_MODE_FULLSCREEN
 				)
 			)
+            toggle_fullscreen.emit(DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN)
             get_tree().get_root().set_input_as_handled()

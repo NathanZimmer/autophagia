@@ -67,6 +67,11 @@ func _ready():
 			portal_1.update_mesh(box_mesh, render_layer)
 		return
 
+	# Connect signals
+	Globals.change_resolution_scale.connect(_update_viewport_resolution_scale)
+	Globals.toggle_fullscreen.connect(_resize_viewports)
+	get_tree().get_root().size_changed.connect(_resize_viewports)
+
 	# Portal container expects the root scene to have a world env instance
 	scene_root = get_tree().get_root().get_child(1)
 
@@ -437,6 +442,33 @@ func hide_portals() -> void:
 		portal_0.hide()
 	if portal_1 != null:
 		portal_1.hide()
+
+
+func _update_viewport_resolution_scale(scale: int) -> void:
+	if viewport_0 == null or viewport_1 == null:
+		return
+
+	viewport_0.scaling_3d_scale = scale
+	viewport_1.scaling_3d_scale = scale
+
+
+func _resize_viewports() -> void:
+	if viewport_0 == null or viewport_1 == null:
+		return
+
+	var size = get_viewport().size
+	# var expected_ratio = 16.0 / 9.0
+	# var ratio = (size.x * 1.0) / size.y
+
+	# if ratio > expected_ratio:
+	# 	var new_x = int(size.y * expected_ratio)
+	# 	size.x = new_x
+	# elif ratio < expected_ratio:
+	# 	var new_y = int(size.x / expected_ratio)
+	# 	size.y = new_y
+
+	viewport_0.size = size
+	viewport_1.size = size
 
 
 func _get_configuration_warnings():

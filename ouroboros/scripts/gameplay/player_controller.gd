@@ -29,8 +29,8 @@ var invert_mouse: bool = false
 
 
 func _ready() -> void:
-	Globals.mouse_sensitivity_changed.connect(_change_sensitivity)
-	Globals._mouse_invertion_changed.connect(_set_mouse_invertion)
+	Globals.change_mouse_sensitivity.connect(_change_sensitivity)
+	Globals.change_mouse_invertion.connect(_set_mouse_invertion)
 
 	camera = find_children("", "Camera3D")[0]
 	collider = find_children("", "CollisionShape3D")[0]

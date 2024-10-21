@@ -9,7 +9,7 @@ func _ready():
 	mouse_slider.value_changed.connect(_slider_update)
 	mouse_spin_box.value_changed.connect(_text_update)
 	invert_mouse_check_box.toggled.connect(_set_mouse_invertion)
-	Globals.mouse_sensitivity_changed.connect(_change_sensitivity)
+	Globals.change_mouse_sensitivity.connect(_change_sensitivity)
 
 
 func _process(_delta) -> void:
@@ -17,14 +17,14 @@ func _process(_delta) -> void:
 
 
 func _slider_update(value: float) -> void:
-	Globals.mouse_sensitivity_changed.emit(int(value))
+	Globals.change_mouse_sensitivity.emit(int(value))
 
 
 func _text_update(value: float) -> void:
-	Globals.mouse_sensitivity_changed.emit(int(value))
+	Globals.change_mouse_sensitivity.emit(int(value))
 
 func _set_mouse_invertion(inverted: bool) -> void:
-	Globals._mouse_invertion_changed.emit(inverted)
+	Globals.change_mouse_invertion.emit(inverted)
 
 
 func _change_sensitivity(sensitivity: int) -> void:
