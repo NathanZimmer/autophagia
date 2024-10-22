@@ -31,6 +31,7 @@ var invert_mouse: bool = false
 func _ready() -> void:
 	Globals.change_mouse_sensitivity.connect(_change_sensitivity)
 	Globals.change_mouse_invertion.connect(_set_mouse_invertion)
+	Globals.change_fov.connect(_change_fov)
 
 	camera = find_children("", "Camera3D")[0]
 	collider = find_children("", "CollisionShape3D")[0]
@@ -114,5 +115,10 @@ func _rotate_cam(event: InputEventMouseMotion) -> void:
 func _change_sensitivity(sensitivity: int) -> void:
 	mouse_sensitivity = sensitivity
 
+
 func _set_mouse_invertion(inverted: bool) -> void:
 	invert_mouse = inverted
+
+
+func _change_fov(fov: int) -> void:
+	camera.fov = fov

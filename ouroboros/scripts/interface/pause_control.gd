@@ -10,11 +10,11 @@ func _ready() -> void:
 	Globals.pause.connect(pause)
 	Globals.close_menu.connect(close_menu)
 
-	# for child in get_children():
-	# 	child.hide()
-
+	for child in get_children():
+		child.hide()
+	get_child(0).show()
 	visible_menu = get_child(1)
-	# visible_menu.show()
+	visible_menu.show()
 	unpause()
 
 

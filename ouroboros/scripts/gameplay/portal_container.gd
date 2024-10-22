@@ -70,6 +70,7 @@ func _ready():
 	# Connect signals
 	Globals.change_resolution_scale.connect(_update_viewport_resolution_scale)
 	Globals.toggle_fullscreen.connect(_resize_viewports)
+	Globals.change_fov.connect(_change_fov)
 	get_tree().get_root().size_changed.connect(_resize_viewports)
 
 	# Portal container expects the root scene to have a world env instance
@@ -469,6 +470,14 @@ func _resize_viewports() -> void:
 
 	viewport_0.size = size
 	viewport_1.size = size
+
+
+func _change_fov(fov: int) -> void:
+	if cam_0 == null or cam_1 == null:
+		return
+
+	cam_0.fov = fov
+	cam_1.fov = fov
 
 
 func _get_configuration_warnings():

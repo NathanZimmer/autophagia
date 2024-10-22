@@ -7,6 +7,7 @@ signal change_mouse_sensitivity
 signal change_mouse_invertion
 signal change_resolution_scale
 signal toggle_fullscreen
+signal change_fov
 
 ## Sets certain values to their default
 func _ready() -> void:
