@@ -1,0 +1,170 @@
+[gd_scene load_steps=8 format=3 uid="uid://35mj6k1y1wba"]
+
+[ext_resource type="Texture2D" uid="uid://hanp3i6fjtm1" path="res://ouroboros/textures/placeholder.png" id="1_yiv0r"]
+[ext_resource type="Script" path="res://ouroboros/scripts/interface/pause_control.gd" id="2_fpt3t"]
+[ext_resource type="Script" path="res://ouroboros/scripts/interface/main_menu_control.gd" id="3_grosq"]
+[ext_resource type="Theme" uid="uid://bpwxalae1j42b" path="res://ouroboros/config/interface/button_theme.tres" id="4_o6qwy"]
+[ext_resource type="LabelSettings" uid="uid://cslyk2capep48" path="res://ouroboros/config/interface/pause_label_font.tres" id="5_0fq11"]
+[ext_resource type="PackedScene" uid="uid://djed1pkatai3r" path="res://ouroboros/scenes/interface/visual_menu_control.tscn" id="6_holfx"]
+[ext_resource type="PackedScene" uid="uid://cdssagdy1niv2" path="res://ouroboros/scenes/interface/controls_menu_control.tscn" id="7_trqwb"]
+
+[node name="MainMenu" type="Node2D"]
+
+[node name="GUI" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="ManMenuPauseControl" type="Control" parent="GUI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_fpt3t")
+is_main_menu = true
+
+[node name="MainMenuBackground" type="TextureRect" parent="GUI/ManMenuPauseControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_yiv0r")
+stretch_mode = 1
+
+[node name="MainMenuControl" type="Control" parent="GUI/ManMenuPauseControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -360.0
+offset_right = 640.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_grosq")
+main_scene_path = "res://ouroboros/scenes/main/main.tscn"
+swap_list = {
+NodePath("VisualsButton"): NodePath("../VisualMenuControl"),
+NodePath("ControlsButton"): NodePath("../ControlsMenuControl")
+}
+
+[node name="StartGameButton" type="Button" parent="GUI/ManMenuPauseControl/MainMenuControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -208.0
+offset_right = 64.0
+offset_bottom = -163.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_o6qwy")
+text = "Start New Game"
+flat = true
+
+[node name="VisualsButton" type="Button" parent="GUI/ManMenuPauseControl/MainMenuControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -112.0
+offset_right = 64.0
+offset_bottom = -67.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_o6qwy")
+text = "Visuals"
+flat = true
+
+[node name="ControlsButton" type="Button" parent="GUI/ManMenuPauseControl/MainMenuControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_o6qwy")
+text = "Controls"
+flat = true
+
+[node name="LoadButton" type="Button" parent="GUI/ManMenuPauseControl/MainMenuControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -72.0
+offset_top = -160.0
+offset_right = 72.0
+offset_bottom = -115.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_o6qwy")
+text = "Load"
+flat = true
+
+[node name="QuitButton" type="Button" parent="GUI/ManMenuPauseControl/MainMenuControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.5
+offset_top = -16.0
+offset_right = 132.5
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_o6qwy")
+text = "QUIT TO DESKTOP"
+flat = true
+
+[node name="Label" type="Label" parent="GUI/ManMenuPauseControl/MainMenuControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.5
+offset_top = -336.0
+offset_right = 140.5
+offset_bottom = -226.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "autophagia"
+label_settings = ExtResource("5_0fq11")
+horizontal_alignment = 1
+uppercase = true
+
+[node name="VisualMenuControl" parent="GUI/ManMenuPauseControl" instance=ExtResource("6_holfx")]
+layout_mode = 1
+
+[node name="ControlsMenuControl" parent="GUI/ManMenuPauseControl" instance=ExtResource("7_trqwb")]
+layout_mode = 1

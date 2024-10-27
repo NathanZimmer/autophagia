@@ -2,6 +2,7 @@ extends Node
 ## Stores all global variables, signals, and hotkeys
 
 signal pause
+signal unpause
 signal close_menu
 signal change_mouse_sensitivity
 signal change_mouse_invertion
@@ -12,7 +13,7 @@ signal change_fov
 ## Sets certain values to their default
 func _ready() -> void:
     process_mode = PROCESS_MODE_ALWAYS
-    Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+    # Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
     # DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
     pass
 

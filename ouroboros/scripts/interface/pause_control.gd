@@ -1,6 +1,8 @@
 class_name PauseControl extends Control
 ## Class for swapping pause sub-menus and unpausing the game
 
+@export var is_main_menu: bool = false
+
 ## Stores the order we visit menus in so we can properly handle navigating out.
 var menu_stack: Array[Control] = []
 var visible_menu: Control
@@ -8,6 +10,7 @@ var visible_menu: Control
 
 func _ready() -> void:
 	Globals.pause.connect(pause)
+	Globals.unpause.connect(unpause)
 	Globals.close_menu.connect(close_menu)
 
 	for child in get_children():
@@ -15,7 +18,11 @@ func _ready() -> void:
 	get_child(0).show()
 	visible_menu = get_child(1)
 	visible_menu.show()
-	unpause()
+
+	if is_main_menu:
+		pause()
+	else:
+		unpause()
 
 
 func _unhandled_input(event) -> void:
@@ -38,7 +45,8 @@ func open_menu(to_show: Control) -> void:
 ## Close currently open menu, show previous menu
 func close_menu() -> void:
 	if len(menu_stack) == 0:
-		unpause()
+		if not is_main_menu:
+			unpause()
 		return
 
 	visible_menu.hide()

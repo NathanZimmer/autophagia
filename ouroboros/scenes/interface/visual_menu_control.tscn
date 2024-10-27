@@ -1,0 +1,189 @@
+[gd_scene load_steps=7 format=3 uid="uid://djed1pkatai3r"]
+
+[ext_resource type="Script" path="res://ouroboros/scripts/interface/visual_menu_control.gd" id="1_8ia13"]
+[ext_resource type="PackedScene" uid="uid://dv5frgwqebxea" path="res://ouroboros/scenes/interface/paired_slider_and_box.tscn" id="2_x7pwf"]
+[ext_resource type="Theme" uid="uid://bpwxalae1j42b" path="res://ouroboros/config/interface/button_theme.tres" id="3_rsl6q"]
+[ext_resource type="Script" path="res://ouroboros/scripts/interface/back_button.gd" id="4_it7dh"]
+[ext_resource type="LabelSettings" uid="uid://dmi20rjo8etdc" path="res://ouroboros/config/interface/pause_body_font.tres" id="5_syfnv"]
+[ext_resource type="LabelSettings" uid="uid://cslyk2capep48" path="res://ouroboros/config/interface/pause_label_font.tres" id="6_u6ut5"]
+
+[node name="VisualMenuControl" type="Control"]
+auto_translate_mode = 1
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -360.0
+offset_right = 640.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8ia13")
+
+[node name="ResScaleSliderBoxPair" parent="." instance=ExtResource("2_x7pwf")]
+offset_left = 440.0
+offset_top = 144.0
+offset_right = 848.0
+offset_bottom = 184.0
+
+[node name="Slider" parent="ResScaleSliderBoxPair" index="0"]
+value = 100.0
+
+[node name="SpinBox" parent="ResScaleSliderBoxPair" index="1"]
+value = 100.0
+
+[node name="FOVSliderBoxPair" parent="." instance=ExtResource("2_x7pwf")]
+offset_left = 440.0
+offset_top = 200.0
+offset_right = 848.0
+offset_bottom = 240.0
+
+[node name="Slider" parent="FOVSliderBoxPair" index="0"]
+min_value = 40.0
+max_value = 120.0
+value = 90.0
+
+[node name="SpinBox" parent="FOVSliderBoxPair" index="1"]
+min_value = 40.0
+max_value = 120.0
+value = 90.0
+
+[node name="MSAAOptionButton" type="OptionButton" parent="."]
+auto_translate_mode = 1
+layout_mode = 0
+offset_left = 664.0
+offset_top = 248.0
+offset_right = 800.0
+offset_bottom = 286.0
+theme = ExtResource("3_rsl6q")
+selected = 3
+item_count = 4
+popup/item_0/text = "Off"
+popup/item_0/id = 3
+popup/item_1/text = "Low"
+popup/item_1/id = 0
+popup/item_2/text = "Medium"
+popup/item_2/id = 1
+popup/item_3/text = "High"
+popup/item_3/id = 2
+
+[node name="FullscreenCheckBox" type="CheckBox" parent="."]
+auto_translate_mode = 1
+layout_mode = 0
+offset_left = 552.0
+offset_top = 296.0
+offset_right = 728.0
+offset_bottom = 360.0
+theme = ExtResource("3_rsl6q")
+button_pressed = true
+text = "Fullscreen"
+alignment = 2
+
+[node name="ApplyChangesButton" type="Button" parent="."]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_right = 97.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_rsl6q")
+text = "Apply Changes"
+flat = true
+
+[node name="BackButton" type="Button" parent="."]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = 56.0
+offset_right = 64.0
+offset_bottom = 101.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_rsl6q")
+text = "BACK"
+flat = true
+script = ExtResource("4_it7dh")
+
+[node name="ResolutionLabel" type="Label" parent="."]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -232.0
+offset_right = 200.0
+offset_bottom = -207.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Resolution Scale"
+label_settings = ExtResource("5_syfnv")
+horizontal_alignment = 1
+
+[node name="FOVLabel" type="Label" parent="."]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -176.0
+offset_right = 200.0
+offset_bottom = -151.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "FOV"
+label_settings = ExtResource("5_syfnv")
+horizontal_alignment = 1
+
+[node name="AALabel" type="Label" parent="."]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -184.0
+offset_top = -104.5
+offset_right = 8.0
+offset_bottom = -79.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Anti-aliasing quality"
+label_settings = ExtResource("5_syfnv")
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="."]
+auto_translate_mode = 1
+layout_mode = 1
+offset_left = 448.0
+offset_top = 24.0
+offset_right = 832.0
+offset_bottom = 134.0
+text = "visuals"
+label_settings = ExtResource("6_u6ut5")
+horizontal_alignment = 1
+uppercase = true
+
+[editable path="ResScaleSliderBoxPair"]
+[editable path="FOVSliderBoxPair"]
