@@ -1,6 +1,8 @@
 extends Node3D
 ## Handles player head-bobbing
 
+const MIN_RETURN_RATIO = 0.3
+
 signal bob_head
 signal recenter
 
@@ -38,10 +40,14 @@ func recenter_head() -> void:
 	position_tween.stop()
 	position_tween.finished.emit()
 
+	var ratio_x = abs(current_target.x - position.x) / bob_offset_x
+	ratio_x = ratio_x if ratio_x > MIN_RETURN_RATIO  else MIN_RETURN_RATIO
+	var ratio_y = abs(current_target.y - (position.y - position_y)) / (bob_offset_y)
+	ratio_y = ratio_y if ratio_y > MIN_RETURN_RATIO  else MIN_RETURN_RATIO
 	return_tween = create_tween()
 	return_tween.set_parallel()
-	return_tween.tween_property(self, "position:x", 0, bob_duration * 0.5)
-	return_tween.tween_property(self, "position:y", position_y, bob_duration * 0.5)
+	return_tween.tween_property(self, "position:x", 0, bob_duration * ratio_x)
+	return_tween.tween_property(self, "position:y", position_y, bob_duration * ratio_y)
 	return_tween.finished.connect(func(): bobbing = true)
 
 
@@ -80,5 +86,5 @@ func _create_tweens(_angle: float, offset_x: float, offset_y: float) -> void:
 	position_tween = create_tween()
 	position_tween.set_parallel()
 	position_tween.tween_property(self, "position:x", offset_x, bob_duration).set_trans(Tween.TRANS_LINEAR)
-	position_tween.tween_property(self, "position:y", position_y + offset_y, bob_duration).set_trans(Tween.TRANS_LINEAR)
+	position_tween.tween_property(self, "position:y", offset_y + position_y, bob_duration).set_trans(Tween.TRANS_LINEAR)
 	current_target = Vector2(offset_x, offset_y)
