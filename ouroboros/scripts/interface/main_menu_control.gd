@@ -1,5 +1,6 @@
 extends MenuControl
 
+const SCENE_LOADER_PATH: String = "res://ouroboros/scenes/main/scene_loader.tscn"
 
 @export var main_scene_path: String
 
@@ -13,8 +14,9 @@ func _ready() -> void:
 	quot_button.pressed.connect(_quit_game)
 
 func _start_new_game() -> void:
-	Globals.unpause.emit()
-	get_tree().change_scene_to_file(main_scene_path)
+	Globals.scene_to_load_path = main_scene_path
+	var scene_loader: PackedScene = load(SCENE_LOADER_PATH)
+	get_tree().change_scene_to_packed(scene_loader)
 
 
 func _quit_game() -> void:

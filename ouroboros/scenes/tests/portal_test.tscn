@@ -35,7 +35,7 @@ size = Vector2(20, 20)
 [sub_resource type="BoxShape3D" id="BoxShape3D_jid2o"]
 size = Vector3(20, 0, 20)
 
-[sub_resource type="BoxMesh" id="BoxMesh_l546o"]
+[sub_resource type="BoxMesh" id="BoxMesh_1vb0q"]
 size = Vector3(2.25, 2.5, 0.2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_mrsg6"]
@@ -73,7 +73,7 @@ portal_size = Vector3(2.25, 2.5, 0.2)
 transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, -3.5, 1.25, 0.5)
 layers = 512
 gi_mode = 0
-mesh = SubResource("BoxMesh_l546o")
+mesh = SubResource("BoxMesh_1vb0q")
 script = ExtResource("6_bcxya")
 
 [node name="Frame" type="Node3D" parent="PortalContainer/Portal"]
@@ -94,7 +94,7 @@ mesh = SubResource("BoxMesh_mrsg6")
 transform = Transform3D(-1, 0, 1.32126e-07, 0, 1, 0, -1.32126e-07, 0, -1, 3.86323, 1.25, 0.48509)
 layers = 512
 gi_mode = 0
-mesh = SubResource("BoxMesh_l546o")
+mesh = SubResource("BoxMesh_1vb0q")
 script = ExtResource("6_bcxya")
 
 [node name="Frame" type="Node3D" parent="PortalContainer/Portal2"]

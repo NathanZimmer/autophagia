@@ -10,6 +10,10 @@ signal change_resolution_scale
 signal toggle_fullscreen
 signal change_fov
 
+## Path to the scene we want to load. Only used when a `SceneLoader` object is instantiated.
+var scene_to_load_path: String
+
+
 ## Sets certain values to their default
 func _ready() -> void:
     process_mode = PROCESS_MODE_ALWAYS
