@@ -87,6 +87,7 @@ func _walk_and_jump():
 		else:
 			camera.bob_head.emit()
 	else:
+		camera.recenter.emit()
 		velocity.x = move_toward(velocity.x, 0, move_speed * speed_mod)
 		velocity.z = move_toward(velocity.z, 0, move_speed * speed_mod)
 		if flying:
