@@ -85,7 +85,8 @@ label_settings = SubResource("LabelSettings_j7o1h")
 horizontal_alignment = 2
 script = ExtResource("7_v6k10")
 
-[node name="PauseControl" parent="GUI" instance=ExtResource("7_21iqq")]
+[node name="PauseControl" parent="GUI" node_paths=PackedStringArray("starting_menu") instance=ExtResource("7_21iqq")]
+starting_menu = NodePath("BaseMenuControl")
 
 [node name="FS_Dithering" type="CanvasLayer" parent="."]
 process_mode = 3

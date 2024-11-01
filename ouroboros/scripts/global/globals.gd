@@ -17,6 +17,7 @@ var scene_to_load_path: String
 ## Sets certain values to their default
 func _ready() -> void:
     process_mode = PROCESS_MODE_ALWAYS
+    DisplayServer.window_set_min_size(Vector2i(640, 360))
     # Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
     # DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
     pass

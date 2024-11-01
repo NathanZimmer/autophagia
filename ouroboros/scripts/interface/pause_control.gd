@@ -2,6 +2,7 @@ class_name PauseControl extends Control
 ## Class for swapping pause sub-menus and unpausing the game
 
 @export var is_main_menu: bool = false
+@export var starting_menu: Control
 
 ## Stores the order we visit menus in so we can properly handle navigating out.
 var menu_stack: Array[Control] = []
@@ -13,10 +14,11 @@ func _ready() -> void:
 	Globals.unpause.connect(unpause)
 	Globals.close_menu.connect(close_menu)
 
-	for child in get_children():
-		child.hide()
-	get_child(0).show()
-	visible_menu = get_child(1)
+	# for child in get_children():
+	# 	child.hide()
+	# get_child(0).show()
+	# visible_menu = get_child(1)
+	visible_menu = starting_menu
 	visible_menu.show()
 
 	if is_main_menu:

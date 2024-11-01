@@ -5,12 +5,12 @@
 [ext_resource type="LabelSettings" uid="uid://cslyk2capep48" path="res://ouroboros/config/interface/pause_label_font.tres" id="3_36k5q"]
 [ext_resource type="Script" path="res://ouroboros/scripts/interface/back_button.gd" id="3_a2dyc"]
 [ext_resource type="Script" path="res://ouroboros/scripts/interface/quit_menu_control.gd" id="3_vsixm"]
-[ext_resource type="Theme" uid="uid://bpwxalae1j42b" path="res://ouroboros/config/interface/button_theme.tres" id="4_ujg4y"]
+[ext_resource type="Theme" uid="uid://bpwxalae1j42b" path="res://ouroboros/config/interface/menu_theme.tres" id="4_ujg4y"]
 [ext_resource type="PackedScene" uid="uid://djed1pkatai3r" path="res://ouroboros/scenes/interface/visual_menu_control.tscn" id="6_xfgav"]
 [ext_resource type="LabelSettings" uid="uid://dmi20rjo8etdc" path="res://ouroboros/config/interface/pause_body_font.tres" id="6_yghfw"]
 [ext_resource type="PackedScene" uid="uid://cdssagdy1niv2" path="res://ouroboros/scenes/interface/controls_menu_control.tscn" id="7_8s44h"]
 
-[node name="PauseControl" type="Control"]
+[node name="PauseControl" type="Control" node_paths=PackedStringArray("starting_menu")]
 process_mode = 2
 auto_translate_mode = 1
 layout_mode = 3
@@ -20,6 +20,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_07ung")
+starting_menu = NodePath("BaseMenuControl")
 
 [node name="PauseMenuBackground" type="ColorRect" parent="."]
 layout_mode = 1
@@ -156,15 +157,18 @@ offset_right = 140.5
 offset_bottom = -226.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("4_ujg4y")
 text = "pause"
 label_settings = ExtResource("3_36k5q")
 horizontal_alignment = 1
 uppercase = true
 
 [node name="VisualMenuControl" parent="." instance=ExtResource("6_xfgav")]
+visible = false
 layout_mode = 1
 
 [node name="ControlsMenuControl" parent="." instance=ExtResource("7_8s44h")]
+visible = false
 layout_mode = 1
 
 [node name="QuitMenuControl" type="Control" parent="."]
@@ -253,6 +257,7 @@ offset_right = 128.0
 offset_bottom = -226.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("4_ujg4y")
 text = "quit"
 label_settings = ExtResource("3_36k5q")
 horizontal_alignment = 1
@@ -272,6 +277,7 @@ offset_right = 137.0
 offset_bottom = -208.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("4_ujg4y")
 text = "WARNING: unsaved progress will be lost!"
 label_settings = ExtResource("6_yghfw")
 horizontal_alignment = 1

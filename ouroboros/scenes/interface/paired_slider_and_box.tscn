@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dv5frgwqebxea"]
 
 [ext_resource type="Script" path="res://ouroboros/scripts/interface/paired_slider_and_box.gd" id="1_hby0o"]
-[ext_resource type="Theme" uid="uid://bpwxalae1j42b" path="res://ouroboros/config/interface/button_theme.tres" id="1_u757b"]
+[ext_resource type="Theme" uid="uid://bpwxalae1j42b" path="res://ouroboros/config/interface/menu_theme.tres" id="1_u757b"]
 
 [node name="SliderBoxPair" type="Control"]
 auto_translate_mode = 1

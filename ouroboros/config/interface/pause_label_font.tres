@@ -1,9 +1,6 @@
-[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://cslyk2capep48"]
-
-[ext_resource type="FontFile" uid="uid://cc2yogqgab4qk" path="res://ouroboros/config/interface/berlona-disco.otf" id="1_8ueex"]
+[gd_resource type="LabelSettings" format=3 uid="uid://cslyk2capep48"]
 
 [resource]
-font = ExtResource("1_8ueex")
-font_size = 90
+font_size = 100
 outline_size = 6
 outline_color = Color(0, 0, 0, 1)

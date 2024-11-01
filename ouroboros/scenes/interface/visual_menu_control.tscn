@@ -2,14 +2,13 @@
 
 [ext_resource type="Script" path="res://ouroboros/scripts/interface/visual_menu_control.gd" id="1_8ia13"]
 [ext_resource type="PackedScene" uid="uid://dv5frgwqebxea" path="res://ouroboros/scenes/interface/paired_slider_and_box.tscn" id="2_x7pwf"]
-[ext_resource type="Theme" uid="uid://bpwxalae1j42b" path="res://ouroboros/config/interface/button_theme.tres" id="3_rsl6q"]
+[ext_resource type="Theme" uid="uid://bpwxalae1j42b" path="res://ouroboros/config/interface/menu_theme.tres" id="3_rsl6q"]
 [ext_resource type="Script" path="res://ouroboros/scripts/interface/back_button.gd" id="4_it7dh"]
 [ext_resource type="LabelSettings" uid="uid://dmi20rjo8etdc" path="res://ouroboros/config/interface/pause_body_font.tres" id="5_syfnv"]
 [ext_resource type="LabelSettings" uid="uid://cslyk2capep48" path="res://ouroboros/config/interface/pause_label_font.tres" id="6_u6ut5"]
 
 [node name="VisualMenuControl" type="Control"]
 auto_translate_mode = 1
-visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -133,6 +132,7 @@ offset_right = 200.0
 offset_bottom = -207.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_rsl6q")
 text = "Resolution Scale"
 label_settings = ExtResource("5_syfnv")
 horizontal_alignment = 1
@@ -151,6 +151,7 @@ offset_right = 200.0
 offset_bottom = -151.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_rsl6q")
 text = "FOV"
 label_settings = ExtResource("5_syfnv")
 horizontal_alignment = 1
@@ -169,6 +170,7 @@ offset_right = 8.0
 offset_bottom = -79.5
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_rsl6q")
 text = "Anti-aliasing quality"
 label_settings = ExtResource("5_syfnv")
 horizontal_alignment = 1
@@ -180,6 +182,7 @@ offset_left = 448.0
 offset_top = 24.0
 offset_right = 832.0
 offset_bottom = 134.0
+theme = ExtResource("3_rsl6q")
 text = "visuals"
 label_settings = ExtResource("6_u6ut5")
 horizontal_alignment = 1

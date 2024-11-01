@@ -1,19 +1,51 @@
-[gd_scene load_steps=8 format=3 uid="uid://35mj6k1y1wba"]
+[gd_scene load_steps=15 format=3 uid="uid://35mj6k1y1wba"]
 
-[ext_resource type="Texture2D" uid="uid://hanp3i6fjtm1" path="res://ouroboros/textures/placeholder.png" id="1_yiv0r"]
+[ext_resource type="Shader" path="res://ouroboros/scripts/shaders/scroll.gdshader" id="2_ck7xm"]
 [ext_resource type="Script" path="res://ouroboros/scripts/interface/pause_control.gd" id="2_fpt3t"]
+[ext_resource type="Texture2D" uid="uid://bqmo7ufdlgdir" path="res://ouroboros/textures/main_menu_background.png" id="2_l7od0"]
 [ext_resource type="Script" path="res://ouroboros/scripts/interface/main_menu_control.gd" id="3_grosq"]
-[ext_resource type="Theme" uid="uid://bpwxalae1j42b" path="res://ouroboros/config/interface/button_theme.tres" id="4_o6qwy"]
-[ext_resource type="LabelSettings" uid="uid://cslyk2capep48" path="res://ouroboros/config/interface/pause_label_font.tres" id="5_0fq11"]
+[ext_resource type="Theme" uid="uid://bpwxalae1j42b" path="res://ouroboros/config/interface/menu_theme.tres" id="4_o6qwy"]
+[ext_resource type="Texture2D" uid="uid://c7tvcp442hsmi" path="res://ouroboros/textures/main_menu_background_just_text.png" id="4_vjxvy"]
+[ext_resource type="Texture2D" uid="uid://du1j382w3tswu" path="res://ouroboros/textures/vintage.png" id="5_gpkl8"]
 [ext_resource type="PackedScene" uid="uid://djed1pkatai3r" path="res://ouroboros/scenes/interface/visual_menu_control.tscn" id="6_holfx"]
 [ext_resource type="PackedScene" uid="uid://cdssagdy1niv2" path="res://ouroboros/scenes/interface/controls_menu_control.tscn" id="7_trqwb"]
+[ext_resource type="Shader" path="res://ouroboros/scripts/shaders/fs_dithering.gdshader" id="10_f3k61"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pmw1h"]
+shader = ExtResource("2_ck7xm")
+shader_parameter/scroll_speed = Vector2(0.003, -0.015)
+shader_parameter/source_texture = ExtResource("2_l7od0")
+
+[sub_resource type="Shader" id="Shader_w7opq"]
+code = "shader_type canvas_item;
+uniform sampler2D scroll_texture;
+uniform vec2 scroll_speed;
+
+void fragment() {
+	vec2 offset = mod(UV + TIME * scroll_speed, 1.0);
+	COLOR = texture(scroll_texture, offset);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xnwyv"]
+shader = SubResource("Shader_w7opq")
+shader_parameter/scroll_speed = Vector2(0, -0.02)
+shader_parameter/scroll_texture = ExtResource("4_vjxvy")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j0swq"]
+shader = ExtResource("10_f3k61")
+shader_parameter/contrast = 1.2
+shader_parameter/brightness = 0.5
+shader_parameter/uTime1 = 1.0
+shader_parameter/uTime2 = 3.1
+shader_parameter/uTime3 = 4.0
+shader_parameter/colors = 32.0
 
 [node name="MainMenu" type="Node2D"]
 
 [node name="GUI" type="CanvasLayer" parent="."]
 process_mode = 3
 
-[node name="ManMenuPauseControl" type="Control" parent="GUI"]
+[node name="ManMenuPauseControl" type="Control" parent="GUI" node_paths=PackedStringArray("starting_menu")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,16 +54,61 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_fpt3t")
 is_main_menu = true
+starting_menu = NodePath("MainMenuControl")
 
 [node name="MainMenuBackground" type="TextureRect" parent="GUI/ManMenuPauseControl"]
+material = SubResource("ShaderMaterial_pmw1h")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -640.0
+offset_bottom = -360.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+texture = ExtResource("2_l7od0")
+stretch_mode = 1
+
+[node name="MainMenuBackgroundText" type="TextureRect" parent="GUI/ManMenuPauseControl"]
+auto_translate_mode = 1
+material = SubResource("ShaderMaterial_xnwyv")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -720.0
+offset_right = -720.0
+offset_bottom = -360.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+texture = ExtResource("4_vjxvy")
+stretch_mode = 1
+
+[node name="MainMenuBackgroundVintage" type="TextureRect" parent="GUI/ManMenuPauseControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -640.0
+offset_bottom = -360.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+texture = ExtResource("5_gpkl8")
+
+[node name="MainMenuBackgroundDarkness" type="ColorRect" parent="GUI/ManMenuPauseControl"]
+auto_translate_mode = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_yiv0r")
-stretch_mode = 1
+mouse_filter = 2
+color = Color(0.21, 0, 0, 0.380392)
 
 [node name="MainMenuControl" type="Control" parent="GUI/ManMenuPauseControl"]
 auto_translate_mode = 1
@@ -62,10 +139,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -208.0
-offset_right = 64.0
-offset_bottom = -163.0
+offset_left = -113.0
+offset_top = -160.0
+offset_right = 113.0
+offset_bottom = -115.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_o6qwy")
@@ -81,9 +158,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -64.0
-offset_top = -112.0
+offset_top = -64.0
 offset_right = 64.0
-offset_bottom = -67.0
+offset_bottom = -19.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_o6qwy")
@@ -99,9 +176,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -64.0
-offset_top = -64.0
+offset_top = -16.0
 offset_right = 64.0
-offset_bottom = -19.0
+offset_bottom = 29.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_o6qwy")
@@ -117,9 +194,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -72.0
-offset_top = -160.0
+offset_top = -112.0
 offset_right = 72.0
-offset_bottom = -115.0
+offset_bottom = -67.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_o6qwy")
@@ -135,9 +212,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -132.5
-offset_top = -16.0
+offset_top = 32.0
 offset_right = 132.5
-offset_bottom = 29.0
+offset_bottom = 77.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_o6qwy")
@@ -152,19 +229,36 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -140.5
-offset_top = -336.0
-offset_right = 140.5
-offset_bottom = -226.0
+offset_left = -273.0
+offset_top = -288.0
+offset_right = 273.0
+offset_bottom = -178.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("4_o6qwy")
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 150
 text = "autophagia"
-label_settings = ExtResource("5_0fq11")
 horizontal_alignment = 1
 uppercase = true
 
 [node name="VisualMenuControl" parent="GUI/ManMenuPauseControl" instance=ExtResource("6_holfx")]
+visible = false
 layout_mode = 1
 
 [node name="ControlsMenuControl" parent="GUI/ManMenuPauseControl" instance=ExtResource("7_trqwb")]
+visible = false
 layout_mode = 1
+
+[node name="FS_Dithering" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="ColorRect" type="ColorRect" parent="FS_Dithering"]
+auto_translate_mode = 1
+material = SubResource("ShaderMaterial_j0swq")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
