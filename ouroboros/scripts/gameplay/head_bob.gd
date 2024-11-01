@@ -1,10 +1,10 @@
 extends Node3D
 ## Handles player head-bobbing
 
-const MIN_RETURN_RATIO = 0.3
-
 signal bob_head
 signal recenter
+
+const MIN_RETURN_RATIO = 0.3
 
 ## The angle that the camera will rotate along the z-axis when head-bobbing
 @export var bob_angle: float = 0.1
@@ -41,9 +41,9 @@ func recenter_head() -> void:
 	position_tween.finished.emit()
 
 	var ratio_x = abs(current_target.x - position.x) / bob_offset_x
-	ratio_x = ratio_x if ratio_x > MIN_RETURN_RATIO  else MIN_RETURN_RATIO
+	ratio_x = ratio_x if ratio_x > MIN_RETURN_RATIO else MIN_RETURN_RATIO
 	var ratio_y = abs(current_target.y - (position.y - position_y)) / (bob_offset_y)
-	ratio_y = ratio_y if ratio_y > MIN_RETURN_RATIO  else MIN_RETURN_RATIO
+	ratio_y = ratio_y if ratio_y > MIN_RETURN_RATIO else MIN_RETURN_RATIO
 	return_tween = create_tween()
 	return_tween.set_parallel()
 	return_tween.tween_property(self, "position:x", 0, bob_duration * ratio_x)

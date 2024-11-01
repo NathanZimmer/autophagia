@@ -11,6 +11,7 @@ shader_parameter/rotation_speed = -1.0
 shader_parameter/source_texture = ExtResource("3_exhcr")
 
 [node name="SceneLoader" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_67jsv")
 
 [node name="GUI" type="CanvasLayer" parent="."]

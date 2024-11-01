@@ -13,6 +13,7 @@ func _ready() -> void:
 	start_game_button.pressed.connect(_start_new_game)
 	quot_button.pressed.connect(_quit_game)
 
+
 func _start_new_game() -> void:
 	Globals.scene_to_load_path = main_scene_path
 	var scene_loader: PackedScene = load(SCENE_LOADER_PATH)

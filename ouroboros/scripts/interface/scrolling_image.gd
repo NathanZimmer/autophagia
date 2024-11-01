@@ -1,6 +1,5 @@
 extends TextureRect
 
-
 # @export var movement_factor: Vector2
 @export var duration: float
 

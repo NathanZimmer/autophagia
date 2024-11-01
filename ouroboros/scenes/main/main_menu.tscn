@@ -108,7 +108,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.21, 0, 0, 0.380392)
+color = Color(0.21, 0, 0, 0.352941)
 
 [node name="MainMenuControl" type="Control" parent="GUI/ManMenuPauseControl"]
 auto_translate_mode = 1
