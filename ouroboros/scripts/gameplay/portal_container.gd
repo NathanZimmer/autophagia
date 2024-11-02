@@ -67,6 +67,15 @@ func _ready():
 			portal_1.update_mesh(box_mesh, render_layer)
 		return
 
+	# Connect signals
+	Globals.change_resolution_scale.connect(_update_viewport_resolution_scale)
+	Globals.toggle_fullscreen.connect(_resize_viewports)
+	Globals.change_fov.connect(_change_fov)
+	get_tree().get_root().size_changed.connect(_resize_viewports.bind(null))
+
+	# Setting values
+	resolution_scale = get_viewport().scaling_3d_scale
+
 	# Portal container expects the root scene to have a world env instance
 	scene_root = get_tree().get_root().get_child(1)
 
@@ -265,15 +274,14 @@ func _create_viewport_and_cam(
 	cam_oblique_pos: Vector3,
 	cam_far_plane: float = PORTAL_CAM_FAR_PLANE,
 ) -> SubViewport:
-	var texture_size = Vector2i(DisplayServer.screen_get_size() * resolution_scale)
-
 	# Create viewport
 	var viewport = SubViewport.new()
-	viewport.size = texture_size
+	viewport.size = get_viewport().size
 	# NOTE: this might not be optimal
 	viewport.render_target_update_mode = SubViewport.UPDATE_WHEN_PARENT_VISIBLE
 	viewport.handle_input_locally = true
 	viewport.msaa_3d = ProjectSettings.get_setting("rendering/anti_aliasing/quality/msaa_3d")
+	viewport.scaling_3d_scale = resolution_scale
 
 	# Create camera
 	var cam = Camera3D.new()
@@ -437,6 +445,41 @@ func hide_portals() -> void:
 		portal_0.hide()
 	if portal_1 != null:
 		portal_1.hide()
+
+
+func _update_viewport_resolution_scale(viewport_scale: int) -> void:
+	if viewport_0 == null or viewport_1 == null:
+		return
+
+	viewport_0.scaling_3d_scale = viewport_scale
+	viewport_1.scaling_3d_scale = viewport_scale
+
+
+func _resize_viewports(_fullscreen_mode) -> void:
+	if viewport_0 == null or viewport_1 == null:
+		return
+
+	var size = get_viewport().size
+	# var expected_ratio = 16.0 / 9.0
+	# var ratio = (size.x * 1.0) / size.y
+
+	# if ratio > expected_ratio:
+	# 	var new_x = int(size.y * expected_ratio)
+	# 	size.x = new_x
+	# elif ratio < expected_ratio:
+	# 	var new_y = int(size.x / expected_ratio)
+	# 	size.y = new_y
+
+	viewport_0.size = size
+	viewport_1.size = size
+
+
+func _change_fov(fov: int) -> void:
+	if cam_0 == null or cam_1 == null:
+		return
+
+	cam_0.fov = fov
+	cam_1.fov = fov
 
 
 func _get_configuration_warnings():

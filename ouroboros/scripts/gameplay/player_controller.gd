@@ -24,24 +24,21 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var speed_mod = 1  # Modifier to player speed that can be adjusted with mouse wheel
 var flying: bool = false
 var collider: CollisionShape3D
-var paused: bool = false
-
 var camera: Camera3D
+var invert_mouse: bool = false
 
 
 func _ready() -> void:
+	Globals.change_mouse_sensitivity.connect(_change_sensitivity)
+	Globals.change_mouse_invertion.connect(_set_mouse_invertion)
+	Globals.change_fov.connect(_change_fov)
+
 	camera = find_children("", "Camera3D")[0]
 	collider = find_children("", "CollisionShape3D")[0]
 	# Input.set_use_accumulated_input(false)
 
-	Globals.pause.connect(pause)
-	Globals.unpause.connect(unpause)
-
 
 func _input(event) -> void:
-	if paused:
-		return
-
 	if event is InputEventMouseMotion:
 		_rotate_cam(event)
 
@@ -62,9 +59,6 @@ func _input(event) -> void:
 
 
 func _process(delta: float) -> void:
-	if paused:
-		return
-
 	# Move player
 	if not is_on_floor() and not flying:
 		velocity.y -= gravity * delta
@@ -93,6 +87,7 @@ func _walk_and_jump():
 		else:
 			camera.bob_head.emit()
 	else:
+		camera.recenter.emit()
 		velocity.x = move_toward(velocity.x, 0, move_speed * speed_mod)
 		velocity.z = move_toward(velocity.z, 0, move_speed * speed_mod)
 		if flying:
@@ -113,16 +108,18 @@ func _rotate_cam(event: InputEventMouseMotion) -> void:
 	motion *= degrees_per_unit
 
 	rotate_object_local(Vector3.DOWN, deg_to_rad(motion.x))
-	camera.rotate_object_local(Vector3.LEFT, deg_to_rad(motion.y))
+	camera.rotate_object_local(Vector3.LEFT, deg_to_rad(-1 * motion.y if invert_mouse else motion.y))
 	camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(min_x_rotation), deg_to_rad(max_x_rotation))
 	camera.orthonormalize()
 
 
-## Handle global pause signal
-func pause():
-	paused = true
+func _change_sensitivity(sensitivity: int) -> void:
+	mouse_sensitivity = sensitivity
 
 
-## Handle global unpause signal
-func unpause():
-	paused = false
+func _set_mouse_invertion(inverted: bool) -> void:
+	invert_mouse = inverted
+
+
+func _change_fov(fov: int) -> void:
+	camera.fov = fov

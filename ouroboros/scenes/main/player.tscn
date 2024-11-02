@@ -1,10 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://dnhp4dcugklq6"]
+[gd_scene load_steps=12 format=3 uid="uid://dnhp4dcugklq6"]
 
 [ext_resource type="Script" path="res://ouroboros/scripts/gameplay/player_controller.gd" id="1_y2fp8"]
 [ext_resource type="Script" path="res://ouroboros/scripts/gameplay/head_bob.gd" id="2_fl0b5"]
-[ext_resource type="Script" path="res://ouroboros/scripts/interface/interface_controller.gd" id="2_h56fe"]
-[ext_resource type="Shader" path="res://ouroboros/scripts/shaders/pixelation.gdshader" id="3_4sjwy"]
 [ext_resource type="Shader" path="res://ouroboros/scripts/shaders/fs_dithering.gdshader" id="3_cu3o8"]
+[ext_resource type="Script" path="res://ouroboros/scripts/interface/hotkeys.gd" id="5_p8slp"]
+[ext_resource type="Script" path="res://ouroboros/scripts/interface/fps_counter.gd" id="6_go600"]
+[ext_resource type="PackedScene" uid="uid://bbbspt027k0x3" path="res://ouroboros/scenes/interface/pause_control.tscn" id="7_21iqq"]
+[ext_resource type="Script" path="res://ouroboros/scripts/interface/b_counter.gd" id="7_v6k10"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8l6i1"]
 radius = 0.4
@@ -12,13 +14,9 @@ radius = 0.4
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_dgi16"]
 radius = 0.4
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1avhh"]
-render_priority = 0
-shader = ExtResource("3_4sjwy")
-
-[sub_resource type="BoxMesh" id="BoxMesh_x3fk3"]
-flip_faces = true
-size = Vector3(2, 2, 2)
+[sub_resource type="LabelSettings" id="LabelSettings_j7o1h"]
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_q5we3"]
 shader = ExtResource("3_cu3o8")
@@ -28,15 +26,6 @@ shader_parameter/uTime1 = 1.0
 shader_parameter/uTime2 = 3.1
 shader_parameter/uTime3 = 4.0
 shader_parameter/colors = 32.0
-
-[sub_resource type="LabelSettings" id="LabelSettings_j7o1h"]
-outline_size = 3
-outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_3ke4g"]
-font_size = 50
-outline_size = 6
-outline_color = Color(0, 0, 0, 1)
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
@@ -53,6 +42,10 @@ cull_mask = 1047539
 fov = 90.0
 far = 400.0
 script = ExtResource("2_fl0b5")
+bob_angle = 0.0
+bob_offset_x = 0.03
+bob_offset_y = -0.05
+bob_duration = 0.3
 
 [node name="Body" type="MeshInstance3D" parent="."]
 layers = 512
@@ -61,27 +54,12 @@ gi_mode = 0
 mesh = SubResource("CapsuleMesh_dgi16")
 skeleton = NodePath("")
 
-[node name="Pixelation" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, -0.2)
-visible = false
-material_override = SubResource("ShaderMaterial_1avhh")
-mesh = SubResource("BoxMesh_x3fk3")
-skeleton = NodePath("../Camera")
-
-[node name="FS_Dithering" type="CanvasLayer" parent="."]
-
-[node name="ColorRect" type="ColorRect" parent="FS_Dithering"]
-auto_translate_mode = 1
-material = SubResource("ShaderMaterial_q5we3")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Hotkeys" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("5_p8slp")
 
 [node name="GUI" type="CanvasLayer" parent="."]
-script = ExtResource("2_h56fe")
-show_b = false
+process_mode = 3
 
 [node name="FPS_Counter" type="Label" parent="GUI"]
 offset_left = 5.0
@@ -90,8 +68,10 @@ offset_right = 45.0
 offset_bottom = 28.0
 text = "0"
 label_settings = SubResource("LabelSettings_j7o1h")
+script = ExtResource("6_go600")
 
 [node name="BCounter" type="Label" parent="GUI"]
+visible = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -103,33 +83,20 @@ grow_horizontal = 0
 text = "Seconds since the \"B\" key has been pressed: "
 label_settings = SubResource("LabelSettings_j7o1h")
 horizontal_alignment = 2
+script = ExtResource("7_v6k10")
 
-[node name="PauseMenuControl" type="Control" parent="GUI"]
-layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -640.0
-offset_top = -360.0
-offset_right = 640.0
-offset_bottom = 360.0
+[node name="PauseControl" parent="GUI" node_paths=PackedStringArray("starting_menu") instance=ExtResource("7_21iqq")]
+starting_menu = NodePath("BaseMenuControl")
+
+[node name="FS_Dithering" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="ColorRect" type="ColorRect" parent="FS_Dithering"]
+auto_translate_mode = 1
+material = SubResource("ShaderMaterial_q5we3")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Label" type="Label" parent="GUI/PauseMenuControl"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -78.0
-offset_top = -260.0
-offset_right = 78.0
-offset_bottom = -191.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "PAUSE"
-label_settings = SubResource("LabelSettings_3ke4g")
+mouse_filter = 2

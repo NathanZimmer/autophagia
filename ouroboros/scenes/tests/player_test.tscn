@@ -1,8 +1,16 @@
 [gd_scene load_steps=15 format=3 uid="uid://ix8f17owwj2h"]
 
-[ext_resource type="Environment" uid="uid://cjds87pxd2fkq" path="res://ouroboros/config/main_world_env.tres" id="1_g2o84"]
 [ext_resource type="PackedScene" uid="uid://dnhp4dcugklq6" path="res://ouroboros/scenes/main/player.tscn" id="1_thqv5"]
 [ext_resource type="Texture2D" uid="uid://hanp3i6fjtm1" path="res://ouroboros/textures/placeholder.png" id="2_n62g8"]
+
+[sub_resource type="Environment" id="Environment_or6sw"]
+background_mode = 1
+background_color = Color(1, 1, 1, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.351562, 0.351563, 0.351562, 1)
+ssr_max_steps = 512
+ssr_fade_in = 1e-05
+ssr_fade_out = 0.00158643
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5xjgt"]
 albedo_texture = ExtResource("2_n62g8")
@@ -48,7 +56,7 @@ data = PackedVector3Array(-1.5, 0.5, 1, 1.5, 0.5, 1, -1.5, -0.5, 1, 1.5, 0.5, 1,
 [node name="PlayerTest" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource("1_g2o84")
+environment = SubResource("Environment_or6sw")
 
 [node name="player" parent="." instance=ExtResource("1_thqv5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, 6)

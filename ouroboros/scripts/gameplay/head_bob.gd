@@ -2,46 +2,89 @@ extends Node3D
 ## Handles player head-bobbing
 
 signal bob_head
+signal recenter
+
+const MIN_RETURN_RATIO = 0.3
 
 ## The angle that the camera will rotate along the z-axis when head-bobbing
-@export var bob_angle: float = 0.25
-## The offset the camera will move to along the x-axis when head-bobbing
-@export var bob_offset: float = 0.015
+@export var bob_angle: float = 0.1
+## The offset the camera will move to along the x-axis when head-bobbing. Head will bob from 0 to -x to 0 to x
+@export var bob_offset_x: float = 0.01
+## The offset the camera will move to along the y-axis when head-bobbing. Head will bob from 0 to y to 0 to y
+@export var bob_offset_y: float = 0.01
 ## The time it will take for the camera to rotate from 0 degrees to `bob_angle` degrees
-@export var bob_duration: float = 0.35
+@export var bob_duration: float = 0.25
+
+var position_y = position.y
+# var rotation_tween: Tween
+var position_tween: Tween
+var return_tween: Tween
+
+var bobbing: bool = true
+var current_target: Vector2 = Vector2.ZERO
 
 
 func _ready() -> void:
+	recenter.connect(recenter_head)
 	await head_bob()
 
 
+func recenter_head() -> void:
+	if position_tween == null or not position_tween.is_running():
+		return
+
+	bobbing = false
+
+	# rotation_tween.stop()
+	# rotation_tween.finished.emit()
+	position_tween.stop()
+	position_tween.finished.emit()
+
+	var ratio_x = abs(current_target.x - position.x) / bob_offset_x
+	ratio_x = ratio_x if ratio_x > MIN_RETURN_RATIO else MIN_RETURN_RATIO
+	var ratio_y = abs(current_target.y - (position.y - position_y)) / (bob_offset_y)
+	ratio_y = ratio_y if ratio_y > MIN_RETURN_RATIO else MIN_RETURN_RATIO
+	return_tween = create_tween()
+	return_tween.set_parallel()
+	return_tween.tween_property(self, "position:x", 0, bob_duration * ratio_x)
+	return_tween.tween_property(self, "position:y", position_y, bob_duration * ratio_y)
+	return_tween.finished.connect(func(): bobbing = true)
+
+
 func head_bob() -> void:
-	var rotation_tween: Tween
 	while true:
 		await bob_head
-		rotation_tween = _create_tweens(bob_angle, -1 * bob_offset)
-		rotation_tween.play()
-		await rotation_tween.finished
+		if not bobbing:
+			continue
 
-		rotation_tween = _create_tweens(0, 0)
-		rotation_tween.play()
-		await rotation_tween.finished
+		_create_tweens(bob_angle, -1 * bob_offset_x, bob_offset_y)
+		await position_tween.finished
+		if not bobbing:
+			continue
+
+		_create_tweens(0, 0, 0)
+		await position_tween.finished
 		await bob_head
+		if not bobbing:
+			continue
 
-		rotation_tween = _create_tweens(-1 * bob_angle, bob_offset)
-		rotation_tween.play()
-		await rotation_tween.finished
+		_create_tweens(-1 * bob_angle, bob_offset_x, bob_offset_y)
+		await position_tween.finished
+		if not bobbing:
+			continue
 
-		rotation_tween = _create_tweens(0, 0)
-		rotation_tween.play()
-		await rotation_tween.finished
+		_create_tweens(0, 0, 0)
+		await position_tween.finished
+		if not bobbing:
+			continue
 
 
 ## Create two tweens to tween this object by `angle` and `offset` over `self.bob_duration`
-func _create_tweens(angle: float, offset: float) -> Tween:
-	var rotation_tween: Tween = create_tween()
-	rotation_tween.tween_property(self, "rotation:z", deg_to_rad(angle), bob_duration).set_trans(Tween.TRANS_QUAD)
-	var movement_tween: Tween = create_tween()
-	movement_tween.tween_property(self, "position:x", offset, bob_duration).set_trans(Tween.TRANS_LINEAR)
-
-	return rotation_tween
+func _create_tweens(_angle: float, offset_x: float, offset_y: float) -> void:
+	# rotation_tween = create_tween()
+	# rotation_tween.tween_property(self, "rotation:z", deg_to_rad(angle) * 0, bob_duration)
+	position_tween = create_tween()
+	position_tween.set_parallel()
+	position_tween.tween_property(self, "position:x", offset_x, bob_duration).set_trans(Tween.TRANS_LINEAR)
+	position_tween.tween_property(self, "position:y", offset_y + position_y, bob_duration).set_trans(Tween.TRANS_LINEAR)
+	current_target = Vector2(offset_x, offset_y)
