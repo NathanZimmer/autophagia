@@ -6,7 +6,7 @@ extends RayCast3D
 @export var hightlight_color: Color
 
 var can_interact: bool = false
-
+var target
 
 func _input(event):
 	if not event is InputEventMouseButton:
@@ -16,8 +16,7 @@ func _input(event):
 		return
 
 	if can_interact:
-		get_collider().interact.emit()
-
+		target.interact.emit()
 
 
 func _process(_delta):
@@ -26,7 +25,21 @@ func _process(_delta):
 		can_interact = false
 		return
 
-	var target = get_collider()
+	target = get_collider()
+
+	if target.is_in_group("portal"):
+		var portal_container: PortalContainer = target.get_parent()
+		target = portal_container.cast_ray_through_portal(self, target)
+
+		if target == null:
+			reticle.color = default_color
+			can_interact = false
+			return
+
 	if target.is_in_group("interactable"):
 		reticle.color = hightlight_color
 		can_interact = true
+		return
+
+	reticle.color = default_color
+	can_interact = false

@@ -51,6 +51,8 @@ bob_duration = 0.3
 
 [node name="InteractionController" type="RayCast3D" parent="Camera" node_paths=PackedStringArray("reticle")]
 target_position = Vector3(0, 0, -1.75)
+collision_mask = 3
+collide_with_areas = true
 script = ExtResource("2_p6mca")
 reticle = NodePath("../../GUI/ReticleColorRect")
 default_color = Color(0, 0, 0, 0.784314)
