@@ -1,4 +1,4 @@
-extends AnimatableBody3D
+class_name InteractableBody extends AnimatableBody3D
 
 
 signal interact

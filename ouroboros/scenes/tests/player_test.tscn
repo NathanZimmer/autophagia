@@ -1,8 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://ix8f17owwj2h"]
+[gd_scene load_steps=19 format=3 uid="uid://ix8f17owwj2h"]
 
 [ext_resource type="PackedScene" uid="uid://dnhp4dcugklq6" path="res://ouroboros/scenes/main/player.tscn" id="1_thqv5"]
 [ext_resource type="Texture2D" uid="uid://hanp3i6fjtm1" path="res://ouroboros/textures/placeholder.png" id="2_n62g8"]
 [ext_resource type="PackedScene" uid="uid://b7cw7rgnj4764" path="res://ouroboros/scenes/objects/wood_door.tscn" id="3_8on3r"]
+[ext_resource type="Script" path="res://ouroboros/scripts/gameplay/portal_container.gd" id="4_wbdod"]
+[ext_resource type="Script" path="res://ouroboros/scripts/gameplay/portal.gd" id="5_cks11"]
 
 [sub_resource type="Environment" id="Environment_or6sw"]
 background_mode = 1
@@ -54,12 +56,15 @@ data = PackedVector3Array(-1.5, 0.5, 1, 1.5, 0.5, 1, -1.5, -0.5, 1, 1.5, 0.5, 1,
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_7uynn"]
 data = PackedVector3Array(-1.5, 0.5, 1, 1.5, 0.5, 1, -1.5, -0.5, 1, 1.5, 0.5, 1, 1.5, -0.5, 1, -1.5, -0.5, 1, 1.5, 0.5, -1, -1.5, 0.5, -1, 1.5, -0.5, -1, -1.5, 0.5, -1, -1.5, -0.5, -1, 1.5, -0.5, -1, 1.5, 0.5, 1, 1.5, 0.5, -1, 1.5, -0.5, 1, 1.5, 0.5, -1, 1.5, -0.5, -1, 1.5, -0.5, 1, -1.5, 0.5, -1, -1.5, 0.5, 1, -1.5, -0.5, -1, -1.5, 0.5, 1, -1.5, -0.5, 1, -1.5, -0.5, -1, 1.5, 0.5, 1, -1.5, 0.5, 1, 1.5, 0.5, -1, -1.5, 0.5, 1, -1.5, 0.5, -1, 1.5, 0.5, -1, -1.5, -0.5, 1, 1.5, -0.5, 1, -1.5, -0.5, -1, 1.5, -0.5, 1, 1.5, -0.5, -1, -1.5, -0.5, -1)
 
+[sub_resource type="BoxMesh" id="BoxMesh_bxywm"]
+size = Vector3(1.035, 2, 0.2)
+
 [node name="PlayerTest" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_or6sw")
 
-[node name="player" parent="." instance=ExtResource("1_thqv5")]
+[node name="Player" parent="." instance=ExtResource("1_thqv5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, 6)
 
 [node name="Floor" type="StaticBody3D" parent="."]
@@ -145,6 +150,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.25, 1.1, 2.5)
 
 [node name="InteractableBody" parent="WoodDoor2" index="0"]
 locked = true
+
+[node name="PortalContainer" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.25, 0.75, -4)
+script = ExtResource("4_wbdod")
+portal_size = Vector3(1.035, 2, 0.2)
+
+[node name="Portal" type="MeshInstance3D" parent="PortalContainer"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0.194685)
+visible = false
+layers = 512
+gi_mode = 0
+mesh = SubResource("BoxMesh_bxywm")
+script = ExtResource("5_cks11")
+
+[node name="Portal2" type="MeshInstance3D" parent="PortalContainer"]
+layers = 512
+gi_mode = 0
+mesh = SubResource("BoxMesh_bxywm")
+script = ExtResource("5_cks11")
 
 [editable path="WoodDoor2"]
 [editable path="WoodDoor2/InteractableBody/wood_door"]
