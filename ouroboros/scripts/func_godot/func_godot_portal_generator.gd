@@ -91,6 +91,9 @@ func _func_godot_build_complete():
 	if not func_godot_properties["visible"]:
 		container.hide_portals()
 
+	if func_godot_properties["mirror"]:
+		container.mirror = true
+		container.reflection_dir = func_godot_properties["reflection_dir"]
 
 ## Get the size of the given mesh using `MeshDataTool`
 func _get_mesh_size(mesh: Mesh):

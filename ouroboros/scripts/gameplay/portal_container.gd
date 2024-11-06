@@ -30,6 +30,10 @@ const PORTAL_CAM_FAR_PLANE = 50
 @export_flags_3d_render var cam_0_cull_mask = 3
 ## Cull mask for the camera rendering the second portal's view
 @export_flags_3d_render var cam_1_cull_mask = 3
+## Use your portal as a mirror
+@export var mirror: bool = false
+## if `mirror`, the direction the reflection will be in (in global space)
+@export var reflection_dir = Vector3(-1, 0, 0)
 
 @export_group("Collision")
 ## Layer that portal collision will take place on
@@ -216,6 +220,9 @@ func _process(_delta):
 			portal_size.z,
 		)
 		cam_1.orthonormalize()
+		if mirror:
+			cam_1.scale.x = -1
+			cam_1.rotation.y *= -1
 		# Disable oblique frustum when the player is inside portal to prevent flickering issue
 		cam_1.use_oblique_frustum = (abs(portal_0.to_local(target_cam.global_position).z) > portal_size.z)
 
@@ -227,6 +234,10 @@ func _process(_delta):
 			portal_size.z,
 		)
 		cam_0.orthonormalize()
+		if mirror:
+			cam_0.scale.x = -1
+			cam_0.rotation.y *= -1
+			# cam_0.transform.origin.x *= -1
 		# Disable oblique frustum when the player is inside portal to prevent flickering issue
 		cam_0.use_oblique_frustum = (abs(portal_1.to_local(target_cam.global_position).z) > portal_size.z)
 
@@ -245,8 +256,11 @@ func _get_relative_transform(
 	z_offset: float = 0,
 ) -> Transform3D:
 	var transform_offset = reference.affine_inverse() * current  # Get current relative to reference
-	var offset_sign = -1 * sign(transform_offset.origin.z)
+	var offset_sign = -1 * signf(transform_offset.origin.z)
 	transform_offset.origin.z += offset_sign * z_offset
+
+	if mirror:
+		transform_offset.origin *= reflection_dir
 
 	return target * transform_offset  # Return new transform relativate to target
 
@@ -458,6 +472,9 @@ func hide_portals() -> void:
 func _update_viewport_resolution_scale(viewport_scale: float) -> void:
 	if viewport_0 == null or viewport_1 == null:
 		return
+
+	if viewport_scale > 1.0:
+		viewport_scale = 1.0
 
 	viewport_0.scaling_3d_scale = viewport_scale * resolution_scale
 	viewport_1.scaling_3d_scale = viewport_scale * resolution_scale

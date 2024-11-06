@@ -17,8 +17,7 @@ var rotation_tween: Tween
 
 func _ready():
 	if open:
-		door.rotation.y = deg_to_rad(-90)
-		collider.rotation.y = deg_to_rad(-90)
+		set_open()
 
 	if Engine.is_editor_hint():
 		return
@@ -44,3 +43,9 @@ func _open_close_door():
 	rotation_tween.tween_property(door, "rotation:y", deg_to_rad(-90), move_duration).set_trans(TRANS_MODE)
 	rotation_tween.tween_property(collider, "rotation:y", deg_to_rad(-90), move_duration).set_trans(TRANS_MODE)
 	open = true
+
+
+func set_open() -> void:
+	open = true
+	door.rotation.y = deg_to_rad(-90)
+	collider.rotation.y = deg_to_rad(-90)

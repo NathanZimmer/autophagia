@@ -20,6 +20,7 @@ func_godot_internal = false
 base_classes = Array[Resource]([])
 class_properties = {
 "locked": false,
+"open": false,
 "rotation": Vector3(0, 0, 0)
 }
 class_property_descriptions = {}
