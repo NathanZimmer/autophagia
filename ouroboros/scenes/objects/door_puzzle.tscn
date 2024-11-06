@@ -54,3 +54,9 @@ mesh = SubResource("BoxMesh_gmp50")
 
 [node name="WoodDoor" parent="DoorPuzzle" instance=ExtResource("1_d6cg6")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="InteractableBody" parent="DoorPuzzle/WoodDoor" index="0"]
+locked = true
+
+[editable path="DoorPuzzle/WoodDoor"]
+[editable path="DoorPuzzle/WoodDoor/InteractableBody/wood_door"]

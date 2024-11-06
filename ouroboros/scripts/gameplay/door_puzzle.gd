@@ -2,7 +2,7 @@ extends Node3D
 
 @export var activated_mat: StandardMaterial3D
 
-var door: Node3D
+var door: InteractableBody
 var trigger_0: Area3D
 var trigger_1: Area3D
 var lights: Array[Node]
@@ -13,17 +13,18 @@ var counter: int = 0
 
 
 func _ready():
-	door = $WoodDoor
+	var door_node = $WoodDoor
+	door = door_node.get_child(0)
 	trigger_0 = $Trigger0
 	trigger_1 = $Trigger1
 	var light = $Lights
 	lights = light.find_children("", "MeshInstance3D")
 
-	trigger_0.connect("body_entered", _test.bind(trigger_0))
-	trigger_1.connect("body_entered", _test.bind(trigger_1))
+	trigger_0.connect("body_entered", _count_loops.bind(trigger_0))
+	trigger_1.connect("body_entered", _count_loops.bind(trigger_1))
 
 
-func _test(body, trigger):
+func _count_loops(body, trigger):
 	if not body is CharacterBody3D or counter > 2:
 		return
 
@@ -43,5 +44,5 @@ func _test(body, trigger):
 	counter += 1
 
 	if counter >= 3:
-		# TODO: call door open function
+		door.open_close_door(true)
 		print("Door opened")

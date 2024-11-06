@@ -22,11 +22,11 @@ func _ready():
 	if Engine.is_editor_hint():
 		return
 
-	interact.connect(_open_close_door)
+	interact.connect(open_close_door)
 
 
-func _open_close_door():
-	if locked:
+func open_close_door(override: bool = false):
+	if locked and not override:
 		handle_anim_player.play('handle_jiggle')
 		return
 
@@ -49,3 +49,10 @@ func set_open() -> void:
 	open = true
 	door.rotation.y = deg_to_rad(-90)
 	collider.rotation.y = deg_to_rad(-90)
+
+
+func close_and_lock() -> void:
+	if open:
+		open_close_door()
+
+	locked = true

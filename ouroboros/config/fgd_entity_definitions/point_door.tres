@@ -19,6 +19,8 @@ description = "player-interactable wooden door."
 func_godot_internal = false
 base_classes = Array[Resource]([])
 class_properties = {
+"attach_signal": false,
+"close_and_lock_signal": 0,
 "locked": false,
 "open": false,
 "rotation": Vector3(0, 0, 0)
