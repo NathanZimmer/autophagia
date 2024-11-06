@@ -455,7 +455,7 @@ func hide_portals() -> void:
 		portal_1.hide()
 
 
-func _update_viewport_resolution_scale(viewport_scale: int) -> void:
+func _update_viewport_resolution_scale(viewport_scale: float) -> void:
 	if viewport_0 == null or viewport_1 == null:
 		return
 

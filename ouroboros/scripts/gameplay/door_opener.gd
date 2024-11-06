@@ -1,5 +1,6 @@
 class_name InteractableBody extends AnimatableBody3D
 
+const TRANS_MODE = Tween.TRANS_QUAD
 
 signal interact
 
@@ -25,13 +26,13 @@ func _open_close_door():
 	if open:
 		rotation_tween = create_tween()
 		rotation_tween.set_parallel()
-		rotation_tween.tween_property(door, "rotation:y", 0, move_duration)
-		rotation_tween.tween_property(collider, "rotation:y", 0, move_duration)
+		rotation_tween.tween_property(door, "rotation:y", 0, move_duration).set_trans(TRANS_MODE)
+		rotation_tween.tween_property(collider, "rotation:y", 0, move_duration).set_trans(TRANS_MODE)
 		open = false
 		return
 
 	rotation_tween = create_tween()
 	rotation_tween.set_parallel()
-	rotation_tween.tween_property(door, "rotation:y", deg_to_rad(-90), move_duration)
-	rotation_tween.tween_property(collider, "rotation:y", deg_to_rad(-90), move_duration)
+	rotation_tween.tween_property(door, "rotation:y", deg_to_rad(-90), move_duration).set_trans(TRANS_MODE)
+	rotation_tween.tween_property(collider, "rotation:y", deg_to_rad(-90), move_duration).set_trans(TRANS_MODE)
 	open = true

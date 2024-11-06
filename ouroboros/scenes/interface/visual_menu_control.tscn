@@ -51,13 +51,20 @@ min_value = 40.0
 max_value = 120.0
 value = 90.0
 
+[node name="FPSSpinBox" type="SpinBox" parent="."]
+layout_mode = 0
+offset_left = 664.0
+offset_top = 248.0
+offset_right = 816.0
+offset_bottom = 288.0
+
 [node name="MSAAOptionButton" type="OptionButton" parent="."]
 auto_translate_mode = 1
 layout_mode = 0
 offset_left = 664.0
-offset_top = 248.0
+offset_top = 304.0
 offset_right = 800.0
-offset_bottom = 286.0
+offset_bottom = 342.0
 theme = ExtResource("3_rsl6q")
 selected = 3
 item_count = 4
@@ -70,13 +77,24 @@ popup/item_2/id = 1
 popup/item_3/text = "High"
 popup/item_3/id = 2
 
+[node name="VSynchCheckBox" type="CheckBox" parent="."]
+auto_translate_mode = 1
+layout_mode = 0
+offset_left = 464.0
+offset_top = 344.0
+offset_right = 648.0
+offset_bottom = 408.0
+theme = ExtResource("3_rsl6q")
+text = "Enable VSynch"
+alignment = 2
+
 [node name="FullscreenCheckBox" type="CheckBox" parent="."]
 auto_translate_mode = 1
 layout_mode = 0
-offset_left = 552.0
-offset_top = 296.0
-offset_right = 728.0
-offset_bottom = 360.0
+offset_left = 664.0
+offset_top = 344.0
+offset_right = 800.0
+offset_bottom = 408.0
 theme = ExtResource("3_rsl6q")
 button_pressed = true
 text = "Fullscreen"
@@ -91,8 +109,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -104.0
+offset_top = 48.0
 offset_right = 97.0
-offset_bottom = 45.0
+offset_bottom = 93.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_rsl6q")
@@ -108,9 +127,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -64.0
-offset_top = 56.0
+offset_top = 112.0
 offset_right = 64.0
-offset_bottom = 101.0
+offset_bottom = 157.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_rsl6q")
@@ -164,16 +183,35 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -184.0
-offset_top = -104.5
+offset_left = -200.0
+offset_top = -56.0
 offset_right = 8.0
-offset_bottom = -79.5
+offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_rsl6q")
 text = "Anti-aliasing quality"
 label_settings = ExtResource("5_syfnv")
-horizontal_alignment = 1
+horizontal_alignment = 2
+
+[node name="FPSLabel" type="Label" parent="."]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -112.0
+offset_right = 10.0
+offset_bottom = -73.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_rsl6q")
+text = "Max frames per second"
+label_settings = ExtResource("5_syfnv")
+horizontal_alignment = 2
 
 [node name="Label" type="Label" parent="."]
 auto_translate_mode = 1
