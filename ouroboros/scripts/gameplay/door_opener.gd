@@ -1,3 +1,4 @@
+@tool
 class_name InteractableBody extends AnimatableBody3D
 
 const TRANS_MODE = Tween.TRANS_QUAD
@@ -18,6 +19,10 @@ func _ready():
 	if open:
 		door.rotation.y = deg_to_rad(-90)
 		collider.rotation.y = deg_to_rad(-90)
+
+	if Engine.is_editor_hint():
+		return
+
 	interact.connect(_open_close_door)
 
 
