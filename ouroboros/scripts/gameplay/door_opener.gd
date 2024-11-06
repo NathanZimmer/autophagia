@@ -4,6 +4,7 @@ const TRANS_MODE = Tween.TRANS_QUAD
 
 signal interact
 
+@export var open: bool = false
 @export var locked: bool = false
 @export var move_duration: float = 0.5
 
@@ -11,10 +12,12 @@ signal interact
 @onready var collider = $CollisionShape3D
 @onready var handle_anim_player = $HandleAnimationPlayer
 
-var open: bool = false
 var rotation_tween: Tween
 
 func _ready():
+	if open:
+		door.rotation.y = deg_to_rad(-90)
+		collider.rotation.y = deg_to_rad(-90)
 	interact.connect(_open_close_door)
 
 
