@@ -30,13 +30,19 @@ const PORTAL_CAM_FAR_PLANE = 50
 @export_flags_3d_render var cam_0_cull_mask = 3
 ## Cull mask for the camera rendering the second portal's view
 @export_flags_3d_render var cam_1_cull_mask = 3
+## Use your portal as a mirror
+@export var mirror: bool = false
+## if `mirror`, the direction the reflection will be in (in global space)
+@export var reflection_dir = Vector3(-1, 0, 0)
 
 @export_group("Collision")
 ## Layer that portal collision will take place on
-@export var trigger_layer_mask: int = 2
+@export var trigger_mask: int = 2
 
 var portal_0: Portal
 var portal_1: Portal
+var area_3d_0: Area3D
+var area_3d_1: Area3D
 var viewport_0: SubViewport
 var viewport_1: SubViewport
 var cam_0: Camera3D
@@ -74,7 +80,7 @@ func _ready():
 	get_tree().get_root().size_changed.connect(_resize_viewports.bind(null))
 
 	# Setting values
-	resolution_scale = get_viewport().scaling_3d_scale
+	# resolution_scale = get_viewport().scaling_3d_scale
 
 	# Portal container expects the root scene to have a world env instance
 	scene_root = get_tree().get_root().get_child(1)
@@ -107,7 +113,8 @@ func _ready():
 	# Init portal 0
 	portal_0 = portals[0]
 	portal_0.update_mesh(box_mesh, render_layer)
-	var area_3d_0 = _create_collider(portal_0, trigger_layer_mask)
+	portal_0.add_to_group("portal")
+	area_3d_0 = _create_collider(portal_0, trigger_mask)
 	add_child(area_3d_0)
 	var vis_notif_0 = _create_visibility_notifier(portal_0, render_layer)
 	# Connect signals
@@ -119,7 +126,8 @@ func _ready():
 	# Init portal 1
 	portal_1 = portals[1]
 	portal_1.update_mesh(box_mesh, render_layer)
-	var area_3d_1 = _create_collider(portal_1, trigger_layer_mask)
+	portal_1.add_to_group("portal")
+	area_3d_1 = _create_collider(portal_1, trigger_mask)
 	add_child(area_3d_1)
 	var vis_notif_1 = _create_visibility_notifier(portal_1, render_layer)
 	# Connect signals
@@ -212,6 +220,9 @@ func _process(_delta):
 			portal_size.z,
 		)
 		cam_1.orthonormalize()
+		if mirror:
+			cam_1.scale.x = -1
+			cam_1.rotation.y *= -1
 		# Disable oblique frustum when the player is inside portal to prevent flickering issue
 		cam_1.use_oblique_frustum = (abs(portal_0.to_local(target_cam.global_position).z) > portal_size.z)
 
@@ -223,6 +234,10 @@ func _process(_delta):
 			portal_size.z,
 		)
 		cam_0.orthonormalize()
+		if mirror:
+			cam_0.scale.x = -1
+			cam_0.rotation.y *= -1
+			# cam_0.transform.origin.x *= -1
 		# Disable oblique frustum when the player is inside portal to prevent flickering issue
 		cam_0.use_oblique_frustum = (abs(portal_1.to_local(target_cam.global_position).z) > portal_size.z)
 
@@ -241,8 +256,11 @@ func _get_relative_transform(
 	z_offset: float = 0,
 ) -> Transform3D:
 	var transform_offset = reference.affine_inverse() * current  # Get current relative to reference
-	var offset_sign = -1 * sign(transform_offset.origin.z)
+	var offset_sign = -1 * signf(transform_offset.origin.z)
 	transform_offset.origin.z += offset_sign * z_offset
+
+	if mirror:
+		transform_offset.origin *= reflection_dir
 
 	return target * transform_offset  # Return new transform relativate to target
 
@@ -331,6 +349,9 @@ func _create_collider(portal: Portal, mask: int) -> Area3D:
 	for i in range(1, 21):
 		area_3d.set_collision_mask_value(i, false)
 	area_3d.set_collision_mask_value(mask, true)
+	for i in range(1, 21):
+		area_3d.set_collision_layer_value(i, false)
+	area_3d.set_collision_layer_value(mask, true)
 
 	# Create collider
 	var collider = CollisionShape3D.new()
@@ -340,6 +361,7 @@ func _create_collider(portal: Portal, mask: int) -> Area3D:
 	# Parent node
 	area_3d.add_child(collider)
 	area_3d.transform = portal.transform
+	area_3d.add_to_group("portal")
 
 	return area_3d
 
@@ -447,12 +469,15 @@ func hide_portals() -> void:
 		portal_1.hide()
 
 
-func _update_viewport_resolution_scale(viewport_scale: int) -> void:
+func _update_viewport_resolution_scale(viewport_scale: float) -> void:
 	if viewport_0 == null or viewport_1 == null:
 		return
 
-	viewport_0.scaling_3d_scale = viewport_scale
-	viewport_1.scaling_3d_scale = viewport_scale
+	if viewport_scale > 1.0:
+		viewport_scale = 1.0
+
+	viewport_0.scaling_3d_scale = viewport_scale * resolution_scale
+	viewport_1.scaling_3d_scale = viewport_scale * resolution_scale
 
 
 func _resize_viewports(_fullscreen_mode) -> void:
@@ -480,6 +505,35 @@ func _change_fov(fov: int) -> void:
 
 	cam_0.fov = fov
 	cam_1.fov = fov
+
+
+## Duplicates `ray` and sends it through the opposite portal
+func cast_ray_through_portal(ray: RayCast3D, area: Area3D) -> Object:
+	var ref_portal: Portal
+	var target_portal: Portal
+
+	if area == area_3d_0:
+		ref_portal = portal_0
+		target_portal = portal_1
+	else:
+		ref_portal = portal_1
+		target_portal = portal_0
+
+	var original_ray_transform = ray.global_transform
+	ray.global_transform = _get_relative_transform(
+		ray.global_transform,
+		ref_portal.global_transform,
+		target_portal.global_transform,
+		portal_size.z,
+	)
+	ray.set_collision_mask_value(trigger_mask, false)
+	ray.force_raycast_update()
+	var target = ray.get_collider()
+
+	ray.set_collision_mask_value(trigger_mask, true)
+	ray.global_transform = original_ray_transform
+
+	return target
 
 
 func _get_configuration_warnings():

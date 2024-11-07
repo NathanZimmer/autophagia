@@ -5,6 +5,7 @@ background_mode = 1
 background_color = Color(0.738033, 0.568711, 0.570136, 1)
 ambient_light_source = 2
 ambient_light_color = Color(0.351562, 0.351563, 0.351562, 1)
+ambient_light_energy = 2.4
 ssr_max_steps = 512
 ssr_fade_in = 1e-05
 ssr_fade_out = 0.00158643

@@ -26,7 +26,9 @@ base_classes = Array[Resource]([ExtResource("1_qbih0")])
 class_properties = {
 "attach_signal": false,
 "depth_dir": 0,
+"mirror": false,
 "portal_id": 0,
+"reflection_dir": Vector3(1, 1, -1),
 "rotation": Vector3(0, 0, 0),
 "signal_id": 0,
 "visible": true

@@ -31,6 +31,11 @@ window/vsync/vsync_mode=0
 
 enabled=PackedStringArray("res://addons/func_godot/plugin.cfg")
 
+[global_group]
+
+interactable="objects that the player can interact with via the \"interact\" signal"
+portal=""
+
 [input]
 
 mw_up={

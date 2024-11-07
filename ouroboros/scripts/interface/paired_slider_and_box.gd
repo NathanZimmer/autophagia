@@ -34,6 +34,9 @@ func _ready() -> void:
 
 
 func _value_changed(new_value: float) -> void:
+	if new_value == value:
+		return
+
 	if limit_to_int:
 		slider.value = int(new_value)
 		spin_box.value = int(new_value)
