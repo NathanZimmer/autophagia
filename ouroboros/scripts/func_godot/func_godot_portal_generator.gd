@@ -95,6 +95,7 @@ func _func_godot_build_complete():
 		container.mirror = true
 		container.reflection_dir = func_godot_properties["reflection_dir"]
 
+
 ## Get the size of the given mesh using `MeshDataTool`
 func _get_mesh_size(mesh: Mesh):
 	var mdt = MeshDataTool.new()

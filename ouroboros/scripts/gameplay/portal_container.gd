@@ -519,7 +519,6 @@ func cast_ray_through_portal(ray: RayCast3D, area: Area3D) -> Object:
 		ref_portal = portal_1
 		target_portal = portal_0
 
-
 	var original_ray_transform = ray.global_transform
 	ray.global_transform = _get_relative_transform(
 		ray.global_transform,

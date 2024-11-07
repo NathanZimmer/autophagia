@@ -21,7 +21,7 @@ func _ready() -> void:
 	res_scale_slider_box_pair.value = get_viewport().scaling_3d_scale * 100
 	msaa_option_button.selected = get_viewport().msaa_3d
 	fps_spin_box.value = Engine.max_fps
-	vsynch_check_box.button_pressed = (DisplayServer.window_get_vsync_mode() == DisplayServer.VSYNC_ENABLED )
+	vsynch_check_box.button_pressed = (DisplayServer.window_get_vsync_mode() == DisplayServer.VSYNC_ENABLED)
 
 
 func _set_fullscreen(is_fullscreen: bool) -> void:
@@ -44,4 +44,6 @@ func _apply_changes() -> void:
 	Globals.change_fov.emit(fov_slider_box_pair.value)
 	get_viewport().scaling_3d_scale = res_scale_slider_box_pair.value / 100
 	Engine.max_fps = int(fps_spin_box.value)
-	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if vsynch_check_box.button_pressed else DisplayServer.VSYNC_DISABLED)
+	DisplayServer.window_set_vsync_mode(
+		DisplayServer.VSYNC_ENABLED if vsynch_check_box.button_pressed else DisplayServer.VSYNC_DISABLED
+	)

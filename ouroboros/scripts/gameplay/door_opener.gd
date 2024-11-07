@@ -1,19 +1,20 @@
 @tool
 class_name InteractableBody extends AnimatableBody3D
 
-const TRANS_MODE = Tween.TRANS_QUAD
-
 signal interact
+
+const TRANS_MODE = Tween.TRANS_QUAD
 
 @export var open: bool = false
 @export var locked: bool = false
 @export var move_duration: float = 0.5
 
+var rotation_tween: Tween
+
 @onready var door = $wood_door
 @onready var collider = $CollisionShape3D
 @onready var handle_anim_player = $HandleAnimationPlayer
 
-var rotation_tween: Tween
 
 func _ready():
 	if open:
@@ -27,7 +28,7 @@ func _ready():
 
 func open_close_door(override: bool = false):
 	if locked and not override:
-		handle_anim_player.play('handle_jiggle')
+		handle_anim_player.play("handle_jiggle")
 		return
 
 	if open:

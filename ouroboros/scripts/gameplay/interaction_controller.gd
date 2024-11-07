@@ -1,12 +1,12 @@
 extends RayCast3D
 
-
 @export var reticle: ColorRect
 @export var default_color: Color
 @export var hightlight_color: Color
 
 var can_interact: bool = false
 var target
+
 
 func _input(event):
 	if not event is InputEventMouseButton:
