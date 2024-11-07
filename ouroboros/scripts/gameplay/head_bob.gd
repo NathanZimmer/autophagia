@@ -5,6 +5,7 @@ signal bob_head
 signal recenter
 
 const MIN_RETURN_RATIO = 0.3
+const TRANS_MODE = Tween.TRANS_LINEAR
 
 ## The angle that the camera will rotate along the z-axis when head-bobbing
 @export var bob_angle: float = 0.1
@@ -46,8 +47,8 @@ func recenter_head() -> void:
 	ratio_y = ratio_y if ratio_y > MIN_RETURN_RATIO else MIN_RETURN_RATIO
 	return_tween = create_tween()
 	return_tween.set_parallel()
-	return_tween.tween_property(self, "position:x", 0, bob_duration * ratio_x)
-	return_tween.tween_property(self, "position:y", position_y, bob_duration * ratio_y)
+	return_tween.tween_property(self, "position:x", 0, bob_duration * ratio_x).set_trans(TRANS_MODE)
+	return_tween.tween_property(self, "position:y", position_y, bob_duration * ratio_y).set_trans(TRANS_MODE)
 	return_tween.finished.connect(func(): bobbing = true)
 
 
@@ -82,9 +83,11 @@ func head_bob() -> void:
 ## Create two tweens to tween this object by `angle` and `offset` over `self.bob_duration`
 func _create_tweens(_angle: float, offset_x: float, offset_y: float) -> void:
 	# rotation_tween = create_tween()
-	# rotation_tween.tween_property(self, "rotation:z", deg_to_rad(angle) * 0, bob_duration)
+	# rotation_tween.tween_property(self, "rotation:z", deg_to_rad(angle) * 0, bob_duration).set_trans(TRANS_MODE)
 	position_tween = create_tween()
 	position_tween.set_parallel()
-	position_tween.tween_property(self, "position:x", offset_x, bob_duration).set_trans(Tween.TRANS_LINEAR)
+	position_tween.tween_property(self, "position:x", offset_x, bob_duration).set_trans(Tween.TRANS_LINEAR).set_trans(
+		TRANS_MODE
+	)
 	position_tween.tween_property(self, "position:y", offset_y + position_y, bob_duration).set_trans(Tween.TRANS_LINEAR)
 	current_target = Vector2(offset_x, offset_y)
