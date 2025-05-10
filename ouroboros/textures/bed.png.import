@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bkbfyowmdj6dy"
-path.bptc="res://.godot/imported/bed.png-9a802a6ccd4bd9f23d722d6ebe344250.bptc.ctex"
+path.bptc="res://.godot/imported/bed.png-31b68ed3c543442bce68c1264fc182cc.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,7 +12,7 @@ metadata={
 [deps]
 
 source_file="res://ouroboros/textures/bed.png"
-dest_files=["res://.godot/imported/bed.png-9a802a6ccd4bd9f23d722d6ebe344250.bptc.ctex"]
+dest_files=["res://.godot/imported/bed.png-31b68ed3c543442bce68c1264fc182cc.bptc.ctex"]
 
 [params]
 

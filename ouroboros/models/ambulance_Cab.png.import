@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://46pu3bjfrfm7"
-path.s3tc="res://.godot/imported/ambulance_Cab.png-0b31f7d76b86ea3742dc81ad866051d7.s3tc.ctex"
+path.s3tc="res://.godot/imported/ambulance_Cab.png-1fe6faa466638e22d4de80f7b57a7e4a.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -15,7 +15,7 @@ generator_parameters={
 [deps]
 
 source_file="res://ouroboros/models/ambulance_Cab.png"
-dest_files=["res://.godot/imported/ambulance_Cab.png-0b31f7d76b86ea3742dc81ad866051d7.s3tc.ctex"]
+dest_files=["res://.godot/imported/ambulance_Cab.png-1fe6faa466638e22d4de80f7b57a7e4a.s3tc.ctex"]
 
 [params]
 

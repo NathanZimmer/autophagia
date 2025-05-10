@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://bbbspt027k0x3"]
 
-[ext_resource type="Script" path="res://ouroboros/scripts/interface/pause_control.gd" id="1_07ung"]
-[ext_resource type="Script" path="res://ouroboros/scripts/interface/menu_control.gd" id="2_f8c46"]
+[ext_resource type="Script" uid="uid://pgqoh640uaae" path="res://ouroboros/scripts/interface/pause_control.gd" id="1_07ung"]
+[ext_resource type="Script" uid="uid://bto4w2eh0ktsi" path="res://ouroboros/scripts/interface/menu_control.gd" id="2_f8c46"]
 [ext_resource type="LabelSettings" uid="uid://cslyk2capep48" path="res://ouroboros/config/interface/pause_label_font.tres" id="3_36k5q"]
-[ext_resource type="Script" path="res://ouroboros/scripts/interface/back_button.gd" id="3_a2dyc"]
-[ext_resource type="Script" path="res://ouroboros/scripts/interface/quit_menu_control.gd" id="3_vsixm"]
+[ext_resource type="Script" uid="uid://bv12qljihvxob" path="res://ouroboros/scripts/interface/back_button.gd" id="3_a2dyc"]
+[ext_resource type="Script" uid="uid://dlynkk7q513sy" path="res://ouroboros/scripts/interface/quit_menu_control.gd" id="3_vsixm"]
 [ext_resource type="Theme" uid="uid://bpwxalae1j42b" path="res://ouroboros/config/interface/menu_theme.tres" id="4_ujg4y"]
 [ext_resource type="PackedScene" uid="uid://djed1pkatai3r" path="res://ouroboros/scenes/interface/visual_menu_control.tscn" id="6_xfgav"]
 [ext_resource type="LabelSettings" uid="uid://dmi20rjo8etdc" path="res://ouroboros/config/interface/pause_body_font.tres" id="6_yghfw"]
@@ -166,10 +166,18 @@ uppercase = true
 [node name="VisualMenuControl" parent="." instance=ExtResource("6_xfgav")]
 visible = false
 layout_mode = 1
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 1280.0
+offset_bottom = 720.0
 
 [node name="ControlsMenuControl" parent="." instance=ExtResource("7_8s44h")]
 visible = false
 layout_mode = 1
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 1280.0
+offset_bottom = 720.0
 
 [node name="QuitMenuControl" type="Control" parent="."]
 visible = false
@@ -179,10 +187,8 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -640.0
-offset_top = -360.0
-offset_right = 640.0
-offset_bottom = 360.0
+offset_right = 1280.0
+offset_bottom = 720.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_vsixm")

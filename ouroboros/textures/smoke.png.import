@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://gxr520r7ukv"
-path.bptc="res://.godot/imported/smoke.png-c5110d5425ac756881e4f1eec2cca2ba.bptc.ctex"
+path.bptc="res://.godot/imported/smoke.png-603e3c0be221feab87a79a6824019970.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,7 +12,7 @@ metadata={
 [deps]
 
 source_file="res://ouroboros/textures/smoke.png"
-dest_files=["res://.godot/imported/smoke.png-c5110d5425ac756881e4f1eec2cca2ba.bptc.ctex"]
+dest_files=["res://.godot/imported/smoke.png-603e3c0be221feab87a79a6824019970.bptc.ctex"]
 
 [params]
 

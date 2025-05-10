@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dx8jt3x20ty47"
-path.bptc="res://.godot/imported/grey_noise.png-c60aeba851941091f17ec79b46d56d57.bptc.ctex"
+path.bptc="res://.godot/imported/grey_noise.png-42a74f98345d56e6b93f1dbe7907b862.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,7 +12,7 @@ metadata={
 [deps]
 
 source_file="res://ouroboros/textures/grey_noise.png"
-dest_files=["res://.godot/imported/grey_noise.png-c60aeba851941091f17ec79b46d56d57.bptc.ctex"]
+dest_files=["res://.godot/imported/grey_noise.png-42a74f98345d56e6b93f1dbe7907b862.bptc.ctex"]
 
 [params]
 

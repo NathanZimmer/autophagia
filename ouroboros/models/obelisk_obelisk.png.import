@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://qfuthofe6b5d"
-path.s3tc="res://.godot/imported/obelisk_obelisk.png-2ff8e6ece855998cd5a5f58c8925cb11.s3tc.ctex"
+path.s3tc="res://.godot/imported/obelisk_obelisk.png-11c5ac3e6bc5614c2f635623e8bd694a.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -15,7 +15,7 @@ generator_parameters={
 [deps]
 
 source_file="res://ouroboros/models/obelisk_obelisk.png"
-dest_files=["res://.godot/imported/obelisk_obelisk.png-2ff8e6ece855998cd5a5f58c8925cb11.s3tc.ctex"]
+dest_files=["res://.godot/imported/obelisk_obelisk.png-11c5ac3e6bc5614c2f635623e8bd694a.s3tc.ctex"]
 
 [params]
 

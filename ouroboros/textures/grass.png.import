@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://do3rpl27buu5g"
-path.bptc="res://.godot/imported/grass.png-0f2080fe37bc60b11c163a412cc45ff3.bptc.ctex"
+path.bptc="res://.godot/imported/grass.png-8eb5cfdf30ea94a80c63cb14167f6bba.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,7 +12,7 @@ metadata={
 [deps]
 
 source_file="res://ouroboros/textures/grass.png"
-dest_files=["res://.godot/imported/grass.png-0f2080fe37bc60b11c163a412cc45ff3.bptc.ctex"]
+dest_files=["res://.godot/imported/grass.png-8eb5cfdf30ea94a80c63cb14167f6bba.bptc.ctex"]
 
 [params]
 

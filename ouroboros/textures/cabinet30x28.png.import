@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bh6i1e7y8ayif"
-path.bptc="res://.godot/imported/cabinet30x28.png-5458807ce37c78820b0768bbcfe75403.bptc.ctex"
+path.bptc="res://.godot/imported/cabinet30x28.png-cca93e61354f7b589fb5ef86c6113f51.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,7 +12,7 @@ metadata={
 [deps]
 
 source_file="res://ouroboros/textures/cabinet30x28.png"
-dest_files=["res://.godot/imported/cabinet30x28.png-5458807ce37c78820b0768bbcfe75403.bptc.ctex"]
+dest_files=["res://.godot/imported/cabinet30x28.png-cca93e61354f7b589fb5ef86c6113f51.bptc.ctex"]
 
 [params]
 

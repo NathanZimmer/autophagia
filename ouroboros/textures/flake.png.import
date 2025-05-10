@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c7iaiflxn8kkv"
-path.s3tc="res://.godot/imported/flake.png-cb9775cf9d63c1f9a4c2253e1548bc43.s3tc.ctex"
+path.s3tc="res://.godot/imported/flake.png-94bdcb930fef387a1e8e05693ecb68fc.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,7 +12,7 @@ metadata={
 [deps]
 
 source_file="res://ouroboros/textures/flake.png"
-dest_files=["res://.godot/imported/flake.png-cb9775cf9d63c1f9a4c2253e1548bc43.s3tc.ctex"]
+dest_files=["res://.godot/imported/flake.png-94bdcb930fef387a1e8e05693ecb68fc.s3tc.ctex"]
 
 [params]
 

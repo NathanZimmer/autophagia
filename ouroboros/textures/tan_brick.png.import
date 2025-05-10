@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cvfx5nrobpqkg"
-path.bptc="res://.godot/imported/tan_brick.png-64342cdbd2264e2dfed2d8f5b56c1f35.bptc.ctex"
+path.bptc="res://.godot/imported/tan_brick.png-4addc833543be86353ec15405842d39f.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,7 +12,7 @@ metadata={
 [deps]
 
 source_file="res://ouroboros/textures/tan_brick.png"
-dest_files=["res://.godot/imported/tan_brick.png-64342cdbd2264e2dfed2d8f5b56c1f35.bptc.ctex"]
+dest_files=["res://.godot/imported/tan_brick.png-4addc833543be86353ec15405842d39f.bptc.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bbwk8kl7ugq4"
-path.bptc="res://.godot/imported/mirror.png-db4537960003c1b96cf67382d3395776.bptc.ctex"
+path.bptc="res://.godot/imported/mirror.png-80baeac2820e6abaa5e61388ccc9bea4.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,7 +12,7 @@ metadata={
 [deps]
 
 source_file="res://ouroboros/textures/mirror.png"
-dest_files=["res://.godot/imported/mirror.png-db4537960003c1b96cf67382d3395776.bptc.ctex"]
+dest_files=["res://.godot/imported/mirror.png-80baeac2820e6abaa5e61388ccc9bea4.bptc.ctex"]
 
 [params]
 
