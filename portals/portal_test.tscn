@@ -1,0 +1,314 @@
+[gd_scene load_steps=8 format=3 uid="uid://bxni3e6t47b77"]
+
+[ext_resource type="PackedScene" uid="uid://bn2tmn3fg0c2c" path="res://common/test.tscn" id="1_xvypx"]
+[ext_resource type="Script" uid="uid://cp6qrare12hxe" path="res://portals/portal_renderer.gd" id="2_5k0mg"]
+[ext_resource type="Script" uid="uid://6k32ute3x11j" path="res://portals/portal_processor.gd" id="5_wguh8"]
+[ext_resource type="Script" uid="uid://dg7e58q26ojyv" path="res://portals/portal_body.gd" id="6_1mtnw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_03x48"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_mxf2q"]
+size = Vector3(0.5, 3, 1)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_xvypx"]
+points = PackedVector3Array(0.25, 1.5, 0.5, -0.25, 1.5, 0.5, 0.25, -1.5, 0.5, 0.25, 1.5, -0.5, -0.25, 1.5, -0.5, -0.25, -1.5, 0.5, 0.25, -1.5, -0.5, -0.25, -1.5, -0.5)
+
+[node name="PortalTest" instance=ExtResource("1_xvypx")]
+
+[node name="Player" parent="." index="2"]
+collision_layer = 1
+collision_mask = 1
+
+[node name="Cube" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.5, 1.5)
+
+[node name="Cube2" type="MeshInstance3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0.5, 1.5)
+mesh = SubResource("BoxMesh_03x48")
+
+[node name="Cube3" type="MeshInstance3D" parent="." index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.5, -8.5)
+mesh = SubResource("BoxMesh_03x48")
+
+[node name="PortalBodyToPortalBody" type="Node3D" parent="." index="6"]
+
+[node name="PortalFrame" type="StaticBody3D" parent="PortalBodyToPortalBody" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 1.75, 5)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PortalBodyToPortalBody/PortalFrame" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, -0.25, 0)
+layers = 17
+mesh = SubResource("BoxMesh_mxf2q")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="PortalBodyToPortalBody/PortalFrame" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.25, 0)
+layers = 17
+mesh = SubResource("BoxMesh_mxf2q")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="PortalBodyToPortalBody/PortalFrame" index="2"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 1.5, 0)
+layers = 17
+mesh = SubResource("BoxMesh_mxf2q")
+skeleton = NodePath("../../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PortalBodyToPortalBody/PortalFrame" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, -0.25, 0)
+shape = SubResource("ConvexPolygonShape3D_xvypx")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="PortalBodyToPortalBody/PortalFrame" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.25, 0)
+shape = SubResource("ConvexPolygonShape3D_xvypx")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="PortalBodyToPortalBody/PortalFrame" index="5"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("ConvexPolygonShape3D_xvypx")
+
+[node name="PortalFrame2" type="StaticBody3D" parent="PortalBodyToPortalBody" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1.75, 5)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PortalBodyToPortalBody/PortalFrame2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, -0.25, 0)
+layers = 17
+mesh = SubResource("BoxMesh_mxf2q")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="PortalBodyToPortalBody/PortalFrame2" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.25, 0)
+layers = 17
+mesh = SubResource("BoxMesh_mxf2q")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="PortalBodyToPortalBody/PortalFrame2" index="2"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 1.5, 0)
+layers = 17
+mesh = SubResource("BoxMesh_mxf2q")
+skeleton = NodePath("../../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PortalBodyToPortalBody/PortalFrame2" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, -0.25, 0)
+shape = SubResource("ConvexPolygonShape3D_xvypx")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="PortalBodyToPortalBody/PortalFrame2" index="4"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("ConvexPolygonShape3D_xvypx")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="PortalBodyToPortalBody/PortalFrame2" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.25, 0)
+shape = SubResource("ConvexPolygonShape3D_xvypx")
+
+[node name="PortalBody" type="Node3D" parent="PortalBodyToPortalBody" index="2" node_paths=PackedStringArray("teleport_target", "player", "portal_renderers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 1.5, 5)
+script = ExtResource("6_1mtnw")
+size = Vector3(2, 3, 0.5)
+teleport_target = NodePath("../PortalBody2")
+player = NodePath("../../Player")
+portal_renderers = [NodePath("PortalRenderer")]
+metadata/_custom_type_script = "uid://dg7e58q26ojyv"
+
+[node name="PortalRenderer" type="Node" parent="PortalBodyToPortalBody/PortalBody" index="0" node_paths=PackedStringArray("_target_cam", "_target_reference_node", "_reference_node")]
+script = ExtResource("2_5k0mg")
+_target_cam = NodePath("../../../Player/Camera")
+_target_reference_node = NodePath("..")
+_reference_node = NodePath("../../PortalBody2")
+metadata/_custom_type_script = "uid://cp6qrare12hxe"
+
+[node name="PortalBody2" type="Node3D" parent="PortalBodyToPortalBody" index="3" node_paths=PackedStringArray("teleport_target", "player", "portal_renderers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1.5, 5)
+script = ExtResource("6_1mtnw")
+size = Vector3(2, 3, 0.5)
+teleport_target = NodePath("../PortalBody")
+player = NodePath("../../Player")
+portal_renderers = [NodePath("PortalRenderer2")]
+metadata/_custom_type_script = "uid://dg7e58q26ojyv"
+
+[node name="PortalRenderer2" type="Node" parent="PortalBodyToPortalBody/PortalBody2" index="0" node_paths=PackedStringArray("_target_cam", "_target_reference_node", "_reference_node")]
+script = ExtResource("2_5k0mg")
+_target_cam = NodePath("../../../Player/Camera")
+_target_reference_node = NodePath("..")
+_reference_node = NodePath("../../PortalBody")
+metadata/_custom_type_script = "uid://cp6qrare12hxe"
+
+[node name="PortalBodyToNode3D" type="Node3D" parent="." index="7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+
+[node name="PortalFrame" type="StaticBody3D" parent="PortalBodyToNode3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 1.75, 5)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PortalBodyToNode3D/PortalFrame" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, -0.25, 0)
+layers = 17
+mesh = SubResource("BoxMesh_mxf2q")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="PortalBodyToNode3D/PortalFrame" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.25, 0)
+layers = 17
+mesh = SubResource("BoxMesh_mxf2q")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="PortalBodyToNode3D/PortalFrame" index="2"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 1.5, 0)
+layers = 17
+mesh = SubResource("BoxMesh_mxf2q")
+skeleton = NodePath("../../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PortalBodyToNode3D/PortalFrame" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, -0.25, 0)
+shape = SubResource("ConvexPolygonShape3D_xvypx")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="PortalBodyToNode3D/PortalFrame" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.25, 0)
+shape = SubResource("ConvexPolygonShape3D_xvypx")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="PortalBodyToNode3D/PortalFrame" index="5"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("ConvexPolygonShape3D_xvypx")
+
+[node name="PortalFrame2" type="StaticBody3D" parent="PortalBodyToNode3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1.75, 5)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PortalBodyToNode3D/PortalFrame2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, -0.25, 0)
+layers = 17
+mesh = SubResource("BoxMesh_mxf2q")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="PortalBodyToNode3D/PortalFrame2" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.25, 0)
+layers = 17
+mesh = SubResource("BoxMesh_mxf2q")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="PortalBodyToNode3D/PortalFrame2" index="2"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 1.5, 0)
+layers = 17
+mesh = SubResource("BoxMesh_mxf2q")
+skeleton = NodePath("../../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PortalBodyToNode3D/PortalFrame2" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, -0.25, 0)
+shape = SubResource("ConvexPolygonShape3D_xvypx")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="PortalBodyToNode3D/PortalFrame2" index="4"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("ConvexPolygonShape3D_xvypx")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="PortalBodyToNode3D/PortalFrame2" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.25, 0)
+shape = SubResource("ConvexPolygonShape3D_xvypx")
+
+[node name="PortalBody" type="Node3D" parent="PortalBodyToNode3D" index="2" node_paths=PackedStringArray("teleport_target", "player", "portal_renderers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 1.5, 5)
+script = ExtResource("6_1mtnw")
+size = Vector3(2, 3, 0.5)
+teleport_target = NodePath("../Node3D")
+player = NodePath("../../Player")
+portal_renderers = [NodePath("PortalRenderer")]
+metadata/_custom_type_script = "uid://dg7e58q26ojyv"
+
+[node name="PortalRenderer" type="Node" parent="PortalBodyToNode3D/PortalBody" index="0" node_paths=PackedStringArray("_target_cam", "_target_reference_node", "_reference_node")]
+script = ExtResource("2_5k0mg")
+_target_cam = NodePath("../../../Player/Camera")
+_target_reference_node = NodePath("..")
+_reference_node = NodePath("../../Node3D")
+metadata/_custom_type_script = "uid://cp6qrare12hxe"
+
+[node name="Node3D" type="Node3D" parent="PortalBodyToNode3D" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1.5, 5)
+
+[node name="PortalProcessorTest" type="Node3D" parent="." index="8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+
+[node name="PortalFrame" type="StaticBody3D" parent="PortalProcessorTest" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 1.75, 5)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PortalProcessorTest/PortalFrame" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, -0.25, 0)
+layers = 17
+mesh = SubResource("BoxMesh_mxf2q")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="PortalProcessorTest/PortalFrame" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.25, 0)
+layers = 17
+mesh = SubResource("BoxMesh_mxf2q")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="PortalProcessorTest/PortalFrame" index="2"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 1.5, 0)
+layers = 17
+mesh = SubResource("BoxMesh_mxf2q")
+skeleton = NodePath("../../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PortalProcessorTest/PortalFrame" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, -0.25, 0)
+shape = SubResource("ConvexPolygonShape3D_xvypx")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="PortalProcessorTest/PortalFrame" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.25, 0)
+shape = SubResource("ConvexPolygonShape3D_xvypx")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="PortalProcessorTest/PortalFrame" index="5"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("ConvexPolygonShape3D_xvypx")
+
+[node name="PortalFrame2" type="StaticBody3D" parent="PortalProcessorTest" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1.75, 5)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PortalProcessorTest/PortalFrame2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, -0.25, 0)
+layers = 17
+mesh = SubResource("BoxMesh_mxf2q")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="PortalProcessorTest/PortalFrame2" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.25, 0)
+layers = 17
+mesh = SubResource("BoxMesh_mxf2q")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="PortalProcessorTest/PortalFrame2" index="2"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 1.5, 0)
+layers = 17
+mesh = SubResource("BoxMesh_mxf2q")
+skeleton = NodePath("../../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PortalProcessorTest/PortalFrame2" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, -0.25, 0)
+shape = SubResource("ConvexPolygonShape3D_xvypx")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="PortalProcessorTest/PortalFrame2" index="4"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("ConvexPolygonShape3D_xvypx")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="PortalProcessorTest/PortalFrame2" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.25, 0)
+shape = SubResource("ConvexPolygonShape3D_xvypx")
+
+[node name="PortalProcessor" type="Node3D" parent="PortalProcessorTest" index="2"]
+script = ExtResource("5_wguh8")
+override_portal_sizes = true
+size = Vector3(2, 3, 0.5)
+metadata/_custom_type_script = "uid://6k32ute3x11j"
+
+[node name="PortalBody" type="Node3D" parent="PortalProcessorTest/PortalProcessor" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 1.5, 5)
+script = ExtResource("6_1mtnw")
+size = Vector3(2, 3, 0.5)
+metadata/_custom_type_script = "uid://dg7e58q26ojyv"
+
+[node name="PortalBody2" type="Node3D" parent="PortalProcessorTest/PortalProcessor" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1.5, 5)
+script = ExtResource("6_1mtnw")
+size = Vector3(2, 3, 0.5)
+metadata/_custom_type_script = "uid://dg7e58q26ojyv"
+
+[editable path="Player"]
