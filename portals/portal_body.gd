@@ -13,18 +13,18 @@ const RECURSION_PASS_THROUGH_COLOR = Color.MAGENTA
 
 @export_group("Portal Dimensions")
 ## Size of this portal
-@export var _size := Vector3.ONE :
+@export var size := Vector3.ONE :
     set(value):
-        if value == _size:
+        if value == size:
             return
-        _size = value
+        size = value
 
         if Engine.is_editor_hint():
             # _upate_editor_mesh()
             pass
 
     get():
-        return _size
+        return size
 
 @export_group("Reference Targets")
 ## Teleport the player to this node on traveling through this portal
@@ -184,7 +184,7 @@ func reset(
     teleport_target: Node3D,
     player: PhysicsBody3D,
 ) -> void:
-    _size = size
+    size = size
     _renderers = renderers
     for renderer in _renderers:
         add_child(renderer)
@@ -223,7 +223,9 @@ func _setup() -> void:
     _recursion_mesh.layers = _recursion_render_layers
 
     _reset_viewport_shader_param()
-    var current_frame_angle = global_basis.z.dot(global_position - _player.global_position)
+    var current_frame_angle = (
+        0.0 if _player == null else global_basis.z.dot(global_position - _player.global_position)
+    )
     _player_direction_sign = signf(current_frame_angle)
 
     if _teleport_target is PortalBody:
@@ -235,7 +237,7 @@ func _setup() -> void:
 ## Editor.
 func _create_mesh(mesh_material: Material) -> MeshInstance3D:
     var box_mesh = BoxMesh.new()
-    box_mesh.size = Vector3(_size.x, _size.y, _size.z / 2)
+    box_mesh.size = Vector3(size.x, size.y, size.z / 2)
     box_mesh.material = mesh_material
 
     var mesh_instance = MeshInstance3D.new()
@@ -258,7 +260,7 @@ func _create_visiblity_notifier() -> VisibleOnScreenNotifier3D:
     var vis_notifier = VisibleOnScreenNotifier3D.new()
     vis_notifier.layers = _vis_notifier_render_layers
     add_child(vis_notifier)
-    vis_notifier.aabb = AABB(_size / -2, _size)
+    vis_notifier.aabb = AABB(size / -2, size)
 
     vis_notifier.screen_entered.connect(
         func():
@@ -279,12 +281,12 @@ func _create_visiblity_notifier() -> VisibleOnScreenNotifier3D:
 ## Create and configure the Area3D for this portal
 func _create_area_3d() -> Area3D:
     var area_3d = Area3D.new()
-    area_3d._collision_layer = _collision_layer
-    area_3d._collision_mask = _collision_mask
+    area_3d.collision_layer = _collision_layer
+    area_3d.collision_mask = _collision_mask
 
     var collider = CollisionShape3D.new()
     collider.shape = BoxShape3D.new()
-    collider.shape.size = _size
+    collider.shape.size = size
 
     area_3d.add_child(collider)
     add_child(area_3d)
@@ -335,7 +337,7 @@ func _reset_viewport_shader_param() -> void:
 func update_portal_pos() -> void:
     var current_frame_angle = global_basis.z.dot(global_position - _player.global_position)
     var current_direction_sign = signf(current_frame_angle)
-    _mesh.position.z = current_direction_sign * _size.z / 4
+    _mesh.position.z = current_direction_sign * size.z / 4
     _recursion_mesh.position.z = _mesh.position.z
 
 
@@ -381,11 +383,11 @@ func is_player_in_portal() -> bool:
 #         _editor_mesh_1 = _create_mesh(material_1)
 #         await(_editor_mesh_1.ready)
 #     else:
-#         _editor_mesh_0.mesh.size = Vector3(_size.x, _size.y, _size.z / 2)
-#         _editor_mesh_1.mesh.size = Vector3(_size.x, _size.y, _size.z / 2)
+#         _editor_mesh_0.mesh.size = Vector3(size.x, size.y, size.z / 2)
+#         _editor_mesh_1.mesh.size = Vector3(size.x, size.y, size.z / 2)
 
-#     _editor_mesh_0.position.z = _size.z / 4
-#     _editor_mesh_1.position.z = -1 * _size.z / 4
+#     _editor_mesh_0.position.z = size.z / 4
+#     _editor_mesh_1.position.z = -1 * size.z / 4
 
 
 ## Add generated children to scene for debugging. [br]
