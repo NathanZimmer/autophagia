@@ -32,8 +32,6 @@ shader_parameter/uTime3 = 4.0
 shader_parameter/colors = 32.0
 
 [node name="Player" type="CharacterBody3D"]
-collision_layer = 2
-collision_mask = 3
 safe_margin = 0.01
 script = ExtResource("1_y2fp8")
 

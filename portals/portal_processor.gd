@@ -41,7 +41,7 @@ class_name PortalProcessor extends Node3D
 @export_flags_3d_render var _world_render_layers := 1
 ## Layers to render the `PortalBody`s on
 @export_flags_3d_render var _portal_render_layer := 2
-## Layers for the `VisibleOnScreenNotifier3D` to check on
+## Layers for the `VisibleOnScreenNotifier3D`s to check on
 @export_flags_3d_render var _vis_notifier_layers := 0
 
 @export_group("Collision")
@@ -99,7 +99,6 @@ func _setup() -> void:
         _vis_notifier_layers,
         portal_1,
         _target_cam.get_parent(),
-        true,  # TODO: remove _process_self
     )
 
     portal_1.reset(
@@ -112,7 +111,6 @@ func _setup() -> void:
         _vis_notifier_layers,
         portal_0,
         _target_cam.get_parent(),
-        true,  # TODO: remove _process_self
     )
 
 

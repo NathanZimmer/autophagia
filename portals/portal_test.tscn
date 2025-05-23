@@ -15,10 +15,6 @@ points = PackedVector3Array(0.25, 1.5, 0.5, -0.25, 1.5, 0.5, 0.25, -1.5, 0.5, 0.
 
 [node name="PortalTest" instance=ExtResource("1_xvypx")]
 
-[node name="Player" parent="." index="2"]
-collision_layer = 1
-collision_mask = 1
-
 [node name="Cube" parent="." index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.5, 1.5)
 
@@ -100,35 +96,31 @@ shape = SubResource("ConvexPolygonShape3D_xvypx")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.25, 0)
 shape = SubResource("ConvexPolygonShape3D_xvypx")
 
-[node name="PortalBody" type="Node3D" parent="PortalBodyToPortalBody" index="2" node_paths=PackedStringArray("teleport_target", "player", "portal_renderers")]
+[node name="PortalBody" type="Node3D" parent="PortalBodyToPortalBody" index="2" node_paths=PackedStringArray("teleport_target", "player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 1.5, 5)
 script = ExtResource("6_1mtnw")
 size = Vector3(2, 3, 0.5)
 teleport_target = NodePath("../PortalBody2")
 player = NodePath("../../Player")
-portal_renderers = [NodePath("PortalRenderer")]
 metadata/_custom_type_script = "uid://dg7e58q26ojyv"
 
-[node name="PortalRenderer" type="Node" parent="PortalBodyToPortalBody/PortalBody" index="0" node_paths=PackedStringArray("_target_cam", "_target_reference_node", "_reference_node")]
+[node name="PortalRenderer" type="Node" parent="PortalBodyToPortalBody/PortalBody" index="0" node_paths=PackedStringArray("_target_cam", "_reference_node")]
 script = ExtResource("2_5k0mg")
 _target_cam = NodePath("../../../Player/Camera")
-_target_reference_node = NodePath("..")
 _reference_node = NodePath("../../PortalBody2")
 metadata/_custom_type_script = "uid://cp6qrare12hxe"
 
-[node name="PortalBody2" type="Node3D" parent="PortalBodyToPortalBody" index="3" node_paths=PackedStringArray("teleport_target", "player", "portal_renderers")]
+[node name="PortalBody2" type="Node3D" parent="PortalBodyToPortalBody" index="3" node_paths=PackedStringArray("teleport_target", "player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1.5, 5)
 script = ExtResource("6_1mtnw")
 size = Vector3(2, 3, 0.5)
 teleport_target = NodePath("../PortalBody")
 player = NodePath("../../Player")
-portal_renderers = [NodePath("PortalRenderer2")]
 metadata/_custom_type_script = "uid://dg7e58q26ojyv"
 
-[node name="PortalRenderer2" type="Node" parent="PortalBodyToPortalBody/PortalBody2" index="0" node_paths=PackedStringArray("_target_cam", "_target_reference_node", "_reference_node")]
+[node name="PortalRenderer2" type="Node" parent="PortalBodyToPortalBody/PortalBody2" index="0" node_paths=PackedStringArray("_target_cam", "_reference_node")]
 script = ExtResource("2_5k0mg")
 _target_cam = NodePath("../../../Player/Camera")
-_target_reference_node = NodePath("..")
 _reference_node = NodePath("../../PortalBody")
 metadata/_custom_type_script = "uid://cp6qrare12hxe"
 
@@ -203,19 +195,17 @@ shape = SubResource("ConvexPolygonShape3D_xvypx")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.25, 0)
 shape = SubResource("ConvexPolygonShape3D_xvypx")
 
-[node name="PortalBody" type="Node3D" parent="PortalBodyToNode3D" index="2" node_paths=PackedStringArray("teleport_target", "player", "portal_renderers")]
+[node name="PortalBody" type="Node3D" parent="PortalBodyToNode3D" index="2" node_paths=PackedStringArray("teleport_target", "player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 1.5, 5)
 script = ExtResource("6_1mtnw")
 size = Vector3(2, 3, 0.5)
 teleport_target = NodePath("../Node3D")
 player = NodePath("../../Player")
-portal_renderers = [NodePath("PortalRenderer")]
 metadata/_custom_type_script = "uid://dg7e58q26ojyv"
 
-[node name="PortalRenderer" type="Node" parent="PortalBodyToNode3D/PortalBody" index="0" node_paths=PackedStringArray("_target_cam", "_target_reference_node", "_reference_node")]
+[node name="PortalRenderer" type="Node" parent="PortalBodyToNode3D/PortalBody" index="0" node_paths=PackedStringArray("_target_cam", "_reference_node")]
 script = ExtResource("2_5k0mg")
 _target_cam = NodePath("../../../Player/Camera")
-_target_reference_node = NodePath("..")
 _reference_node = NodePath("../../Node3D")
 metadata/_custom_type_script = "uid://cp6qrare12hxe"
 
@@ -293,10 +283,11 @@ shape = SubResource("ConvexPolygonShape3D_xvypx")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.25, 0)
 shape = SubResource("ConvexPolygonShape3D_xvypx")
 
-[node name="PortalProcessor" type="Node3D" parent="PortalProcessorTest" index="2"]
+[node name="PortalProcessor" type="Node3D" parent="PortalProcessorTest" index="2" node_paths=PackedStringArray("_target_cam")]
 script = ExtResource("5_wguh8")
-override_portal_sizes = true
-size = Vector3(2, 3, 0.5)
+_override_portal_sizes = true
+_size = Vector3(2, 3, 0.5)
+_target_cam = NodePath("../../Player/Camera")
 metadata/_custom_type_script = "uid://6k32ute3x11j"
 
 [node name="PortalBody" type="Node3D" parent="PortalProcessorTest/PortalProcessor" index="0"]
