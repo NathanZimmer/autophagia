@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c46rkvbdp5twh"
-path.bptc="res://.godot/imported/tree_2_leaves.png-00c8d449cd9f9348c6ab5c0630992711.bptc.ctex"
+path.bptc="res://.godot/imported/tree_2_leaves.png-3c915c3d7fab7c43399623552fdf59de.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -15,7 +15,7 @@ generator_parameters={
 [deps]
 
 source_file="res://ouroboros/models/tree_2_leaves.png"
-dest_files=["res://.godot/imported/tree_2_leaves.png-00c8d449cd9f9348c6ab5c0630992711.bptc.ctex"]
+dest_files=["res://.godot/imported/tree_2_leaves.png-3c915c3d7fab7c43399623552fdf59de.bptc.ctex"]
 
 [params]
 

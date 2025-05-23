@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bap8i3qdripkl"
-path.bptc="res://.godot/imported/blanket.png-88ed2698abc0f67c704f7e303f97272f.bptc.ctex"
+path.bptc="res://.godot/imported/blanket.png-9493466dd57e91efe2b1eb10f9b271ef.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,7 +12,7 @@ metadata={
 [deps]
 
 source_file="res://ouroboros/textures/blanket.png"
-dest_files=["res://.godot/imported/blanket.png-88ed2698abc0f67c704f7e303f97272f.bptc.ctex"]
+dest_files=["res://.godot/imported/blanket.png-9493466dd57e91efe2b1eb10f9b271ef.bptc.ctex"]
 
 [params]
 

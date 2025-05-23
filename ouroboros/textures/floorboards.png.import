@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://401g5ujv4d8r"
-path.bptc="res://.godot/imported/floorboards.png-e54d424c9dc3c52cbf5f480e385afc13.bptc.ctex"
+path.bptc="res://.godot/imported/floorboards.png-514cca086d1dd7c15ff51509a0d721f3.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,7 +12,7 @@ metadata={
 [deps]
 
 source_file="res://ouroboros/textures/floorboards.png"
-dest_files=["res://.godot/imported/floorboards.png-e54d424c9dc3c52cbf5f480e385afc13.bptc.ctex"]
+dest_files=["res://.godot/imported/floorboards.png-514cca086d1dd7c15ff51509a0d721f3.bptc.ctex"]
 
 [params]
 

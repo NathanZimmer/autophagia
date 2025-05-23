@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ctp3qa5vbrujj"
-path.s3tc="res://.godot/imported/chain.png-0500076cf39a559c9be28969c6c67d78.s3tc.ctex"
+path.s3tc="res://.godot/imported/chain.png-2b6d80e94055a1275433936119878708.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,7 +12,7 @@ metadata={
 [deps]
 
 source_file="res://ouroboros/textures/chain.png"
-dest_files=["res://.godot/imported/chain.png-0500076cf39a559c9be28969c6c67d78.s3tc.ctex"]
+dest_files=["res://.godot/imported/chain.png-2b6d80e94055a1275433936119878708.s3tc.ctex"]
 
 [params]
 

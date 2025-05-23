@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://crex4ty1jry6y"
-path.bptc="res://.godot/imported/diner_tile.png-bacb1bddadb21f1f03e58c63f1950dfb.bptc.ctex"
+path.bptc="res://.godot/imported/diner_tile.png-a74b22872fd4850ffecb941cc4c43782.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,7 +12,7 @@ metadata={
 [deps]
 
 source_file="res://ouroboros/textures/diner_tile.png"
-dest_files=["res://.godot/imported/diner_tile.png-bacb1bddadb21f1f03e58c63f1950dfb.bptc.ctex"]
+dest_files=["res://.godot/imported/diner_tile.png-a74b22872fd4850ffecb941cc4c43782.bptc.ctex"]
 
 [params]
 

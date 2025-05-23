@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b1vxe112uvvc7"
-path.bptc="res://.godot/imported/window.png-269a32546a39122d638076bdbac7416e.bptc.ctex"
+path.bptc="res://.godot/imported/window.png-133da0ba962f2e5e0c075f0f6fed52d7.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,7 +12,7 @@ metadata={
 [deps]
 
 source_file="res://ouroboros/textures/window.png"
-dest_files=["res://.godot/imported/window.png-269a32546a39122d638076bdbac7416e.bptc.ctex"]
+dest_files=["res://.godot/imported/window.png-133da0ba962f2e5e0c075f0f6fed52d7.bptc.ctex"]
 
 [params]
 

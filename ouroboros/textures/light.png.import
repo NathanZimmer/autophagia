@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cwqesmogq65c3"
-path="res://.godot/imported/light.png-df8efb7fdfb7975212492d4293797df6.ctex"
+path="res://.godot/imported/light.png-78cc693fc92e209ec9a7fc06f6a084bc.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://ouroboros/textures/light.png"
-dest_files=["res://.godot/imported/light.png-df8efb7fdfb7975212492d4293797df6.ctex"]
+dest_files=["res://.godot/imported/light.png-78cc693fc92e209ec9a7fc06f6a084bc.ctex"]
 
 [params]
 

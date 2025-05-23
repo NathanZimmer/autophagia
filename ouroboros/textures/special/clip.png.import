@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cwnca725cxtmi"
-path.s3tc="res://.godot/imported/clip.png-0bd19cd4ac0d5e215ffaeead25931c5b.s3tc.ctex"
+path.s3tc="res://.godot/imported/clip.png-bec1f02d183d861c3f30e1f3010369d4.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,7 +12,7 @@ metadata={
 [deps]
 
 source_file="res://ouroboros/textures/special/clip.png"
-dest_files=["res://.godot/imported/clip.png-0bd19cd4ac0d5e215ffaeead25931c5b.s3tc.ctex"]
+dest_files=["res://.godot/imported/clip.png-bec1f02d183d861c3f30e1f3010369d4.s3tc.ctex"]
 
 [params]
 

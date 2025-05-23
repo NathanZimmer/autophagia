@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cu06cbn3yvhws"
-path.bptc="res://.godot/imported/scabs.png-73f8ddd6ec0fd0c1d4729a361d82df45.bptc.ctex"
+path.bptc="res://.godot/imported/scabs.png-a16b6fe9ada385d25d54166de6431854.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,7 +12,7 @@ metadata={
 [deps]
 
 source_file="res://ouroboros/textures/scabs.png"
-dest_files=["res://.godot/imported/scabs.png-73f8ddd6ec0fd0c1d4729a361d82df45.bptc.ctex"]
+dest_files=["res://.godot/imported/scabs.png-a16b6fe9ada385d25d54166de6431854.bptc.ctex"]
 
 [params]
 

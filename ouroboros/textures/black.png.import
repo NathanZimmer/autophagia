@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d4gc2h6vf0t26"
-path.s3tc="res://.godot/imported/black.png-b6acb27be3199688e669262787691f01.s3tc.ctex"
+path.s3tc="res://.godot/imported/black.png-bd7feeb9a85b0407af60a006064a09e9.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,7 +12,7 @@ metadata={
 [deps]
 
 source_file="res://ouroboros/textures/black.png"
-dest_files=["res://.godot/imported/black.png-b6acb27be3199688e669262787691f01.s3tc.ctex"]
+dest_files=["res://.godot/imported/black.png-bd7feeb9a85b0407af60a006064a09e9.s3tc.ctex"]
 
 [params]
 
