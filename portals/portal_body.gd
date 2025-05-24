@@ -1,15 +1,11 @@
 @tool
-## TODO
+## Handle meshing and collision for a single portal. Needs a set of `PortalRenderer`s
+## as children to display
 class_name PortalBody extends Node3D
 
 const MATERIAL_PATH = "uid://b3gfilq0wguq8"
 const VIEWPORT_SHADER_PARAM = "viewport_textures"
 const RECURSION_PASS_THROUGH_COLOR = Color.MAGENTA
-# const EDITOR_DISPLAY_COLOR_0 = Color.BLUE
-# const EDITOR_DISPLAY_COLOR_1 = Color.ORANGE
-# const EDITOR_DISPLAY_ALPHA = 0.25
-
-# @export_tool_button("Enable/Disable editor debug", "Callable") var debug = _run_editor_debug
 
 @export_group("Portal Dimensions")
 ## Size of this portal
@@ -19,9 +15,8 @@ const RECURSION_PASS_THROUGH_COLOR = Color.MAGENTA
             return
         size = value
 
-        if Engine.is_editor_hint():
-            # _upate_editor_mesh()
-            pass
+        if Engine.is_editor_hint() and is_instance_valid(_gizmo):
+            _gizmo.set_size(size)
 
     get():
         return size
@@ -29,7 +24,7 @@ const RECURSION_PASS_THROUGH_COLOR = Color.MAGENTA
 @export_group("Reference Targets")
 ## Teleport the player to this node on traveling through this portal
 @export var _teleport_target: Node3D
-## The player
+## The target for teleportation
 @export var _player: PhysicsBody3D
 @export_group("Rendering")
 ## Layers to render on
@@ -58,7 +53,7 @@ const RECURSION_PASS_THROUGH_COLOR = Color.MAGENTA
     get():
         return _vis_notifier_render_layers
 
-## Layers to render the secondary mesh to. This can be used to indicate when
+## Layers to render the secondary `Mesh` on. This can be used to indicate when
 ## this portal is seen through another portal it shouldn't be or for portal recursion
 @export_flags_3d_render var _recursion_render_layers := 0 :
     set(value):
@@ -74,17 +69,17 @@ const RECURSION_PASS_THROUGH_COLOR = Color.MAGENTA
 
 @export_group("Collision")
 ## Collision layers for this portal's Area3D
-@export_flags_3d_physics var _collision_layer := 1 :
+@export_flags_3d_physics var _collision_layers := 1 :
     set(value):
-        if value == _collision_layer:
+        if value == _collision_layers:
             return
-        _collision_layer = value
+        _collision_layers = value
 
         if not Engine.is_editor_hint() and _area_3d != null:
-            _area_3d._collision_layer = _collision_layer
+            _area_3d._collision_layers = _collision_layers
 
     get():
-        return _collision_layer
+        return _collision_layers
 
 ## Collision mask for this portal's Area3D
 @export_flags_3d_physics var _collision_mask := 1 :
@@ -99,27 +94,21 @@ const RECURSION_PASS_THROUGH_COLOR = Color.MAGENTA
     get():
         return _collision_mask
 
-var _renderers: Array[PortalRenderer]
-
 var _material: ShaderMaterial = preload(MATERIAL_PATH).duplicate()
 var _mesh: MeshInstance3D
-## Mesh for viewing this portal through another portal. Useful
+## `Mesh` for viewing this portal through another portal. Useful
 ## for debugging or portal recursion
 var _recursion_mesh: MeshInstance3D
 var _area_3d: Area3D
 var _vis_notifier: VisibleOnScreenNotifier3D
-
+var _renderers: Array[PortalRenderer]
 var _player_in_portal := false
 var _portal_on_screen := false
-
 ## Whether the player was on the front or back side of this node's
 ## z-plane for the last frame
 var _player_direction_sign: float
 var _player_teleported_last_frame := false
-
-# var _editor_debug = false
-# var _editor_mesh_0: MeshInstance3D = null
-# var _editor_mesh_1: MeshInstance3D = null
+var _gizmo: PortalGizmo
 
 signal portal_entered_screen
 signal portal_exited_screen
@@ -128,18 +117,67 @@ signal player_entered_portal
 signal player_exited_portal
 
 
+## I didn't use the gizmo plugin class here, so editor will yell at me
+## when clicking off the object. Too bad. It's an annoying class to use
+class PortalGizmo extends EditorNode3DGizmo:
+    const COLOR_0 = Color.BLUE
+    const COLOR_1 = Color.ORANGE
+    const ALPHA = 0.25
+
+    var _size := Vector3.ZERO
+    var _mesh_0: BoxMesh
+    var _material_0: StandardMaterial3D
+    var _mesh_1: BoxMesh
+    var _material_1: StandardMaterial3D
+
+
+    func _init(size: Vector3 = Vector3.ZERO, node_3d: Node3D = null) -> void:
+        _size = size
+        set_node_3d(node_3d)
+
+        _mesh_0 = BoxMesh.new()
+        _mesh_0.size = Vector3(_size.x, _size.y, _size.z / 2)
+        _mesh_1 = BoxMesh.new()
+        _mesh_1.size = Vector3(_size.x, _size.y, _size.z / 2)
+
+        _material_0 = StandardMaterial3D.new()
+        _material_0.albedo_color = COLOR_0
+        _material_0.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+        _material_0.albedo_color.a = ALPHA
+        _material_0.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+        _material_1 = StandardMaterial3D.new()
+        _material_1.albedo_color = COLOR_1
+        _material_1.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+        _material_1.albedo_color.a = ALPHA
+        _material_1.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+
+        _redraw()
+
+
+    func set_size(size: Vector3) -> void:
+        _size = size
+        _mesh_0.size = Vector3(_size.x, _size.y, _size.z / 2)
+        _mesh_1.size = Vector3(_size.x, _size.y, _size.z / 2)
+        _redraw()
+
+
+    func _redraw() -> void:
+        clear()
+        var transform_0 = Transform3D.IDENTITY
+        transform_0.origin.z -= _size.z / 4
+        var transform_1 = Transform3D.IDENTITY
+        transform_1.origin.z += _size.z / 4
+        add_mesh(_mesh_0, _material_0, transform_0)
+        add_mesh(_mesh_1, _material_1, transform_1)
+        add_collision_triangles(_mesh_0.generate_triangle_mesh())
+        add_collision_triangles(_mesh_1.generate_triangle_mesh())
+
+
 func _ready() -> void:
     if Engine.is_editor_hint():
-        # _upate_editor_mesh()
+        _gizmo = PortalGizmo.new(size, self)
+        add_gizmo(_gizmo)
         return
-
-    # if teleport_target is PortalBody:
-    #     PortalProcessor.setup_signals(
-    #         portal_renderers[0],
-    #         teleport_target.portal_renderers[0],
-    #         self,
-    #         teleport_target,
-    #     )
 
     _renderers.assign(find_children("*", "PortalRenderer", false))
 
@@ -170,27 +208,35 @@ func _physics_process(_0) -> void:
 
 
 ## Reinitialize with a new set of parameters [br]
-## NOTE: all nodes in `renderers` are saved as children of
-## this node [br]
-## TODO: Param descriptions
+## ## Parameters [br]
+## `size`: Size of this portal [br]
+## `renderers`: The `PortalRenderer`s to display on this node's `Mesh` [br]
+##  [b]Note[/b]: `renderers` will be added to this node's children [br]
+## `render_layers`: Layers to render on [br]
+## `recursion_render_layers`: Layers to render the secondary `Mesh` on [br]
+## `collision_layers`: Collision layers for this node's `Area3D` [br]
+## `collision_mask`: Collision mask for this node's `Area3D` [br]
+## `vis_notifier_render_layers`: Layers for the `VisibleOnScreenNotifier3D` to check on [br]
+## `teleport_target`: Teleport the player to this node on traveling through this portal [br]
+## `player`: The target for teleportation [br]
 func reset(
     size: Vector3,
     renderers: Array[PortalRenderer],
     render_layers: int,
     recursion_render_layers: int,
-    collision_layer: int,
+    collision_layers: int,
     collision_mask: int,
     vis_notifier_render_layers: int,
     teleport_target: Node3D,
     player: PhysicsBody3D,
 ) -> void:
-    size = size
+    self.size = size
     _renderers = renderers
     for renderer in _renderers:
         add_child(renderer)
     _render_layers = render_layers
     _recursion_render_layers = recursion_render_layers
-    _collision_layer = collision_layer
+    _collision_layers = collision_layers
     _collision_mask = collision_mask
     _vis_notifier_render_layers = vis_notifier_render_layers
     _teleport_target = teleport_target
@@ -199,6 +245,8 @@ func reset(
     _setup()
 
 
+## Instantiate `_mesh`, `_area_3d`, and `_vis_notifier` [br]
+## Run setup on passed-in variables [br]
 func _setup() -> void:
     if is_instance_valid(_mesh):
         _mesh.queue_free()
@@ -206,11 +254,6 @@ func _setup() -> void:
         _area_3d.queue_free()
     if is_instance_valid(_vis_notifier):
         _vis_notifier.queue_free()
-
-    if _renderers.size() > 0:
-        _renderers[0]._target_reference_node = self
-        player_entered_portal.connect(func(): _renderers[0].use_oblique_frustum = false)
-        player_exited_portal.connect(func(): _renderers[0].use_oblique_frustum = true)
 
     _mesh = _create_mesh(_material)
     _area_3d = _create_area_3d()
@@ -222,18 +265,24 @@ func _setup() -> void:
     _recursion_mesh = _create_mesh(recursion_pass_material)
     _recursion_mesh.layers = _recursion_render_layers
 
-    _reset_viewport_shader_param()
-    var current_frame_angle = (
-        0.0 if _player == null else global_basis.z.dot(global_position - _player.global_position)
-    )
-    _player_direction_sign = signf(current_frame_angle)
+    if not _renderers.is_empty():
+        _renderers[0]._target_reference_node = self
+        player_entered_portal.connect(func(): _renderers[0].use_oblique_frustum = false)
+        player_exited_portal.connect(func(): _renderers[0].use_oblique_frustum = true)
+        _reset_viewport_shader_param()
+
+    if  is_instance_valid(_player):
+        var current_frame_angle = (
+            0.0 if _player == null else global_basis.z.dot(global_position - _player.global_position)
+        )
+        _player_direction_sign = signf(current_frame_angle)
 
     if _teleport_target is PortalBody:
         player_teleported.connect(_teleport_target.prepare_for_teleport)
 
 
 ## Create and configure the mesh for this portal. [br]
-## NOTE: This mesh is only half the depth of the mesh in the
+## [b]Note[/b]: This mesh is only half the depth of the mesh in the
 ## Editor.
 func _create_mesh(mesh_material: Material) -> MeshInstance3D:
     var box_mesh = BoxMesh.new()
@@ -249,8 +298,6 @@ func _create_mesh(mesh_material: Material) -> MeshInstance3D:
         add_child(mesh_instance)
     mesh_instance.global_transform = global_transform
 
-    # if _editor_debug:
-    #     mesh_instance.owner = get_tree().edited_scene_root
     return mesh_instance
 
 
@@ -273,15 +320,13 @@ func _create_visiblity_notifier() -> VisibleOnScreenNotifier3D:
             portal_exited_screen.emit()
     )
 
-    # if _editor_debug:
-    #     vis_notifier.owner = get_tree().edited_scene_root
     return vis_notifier
 
 
 ## Create and configure the Area3D for this portal
 func _create_area_3d() -> Area3D:
     var area_3d = Area3D.new()
-    area_3d.collision_layer = _collision_layer
+    area_3d.collision_layer = _collision_layers
     area_3d.collision_mask = _collision_mask
 
     var collider = CollisionShape3D.new()
@@ -303,9 +348,6 @@ func _create_area_3d() -> Area3D:
             player_exited_portal.emit()
     )
 
-    # if _editor_debug:
-    #     area_3d.owner = get_tree().edited_scene_root
-    #     collider.owner = get_tree().edited_scene_root
     return area_3d
 
 
@@ -356,60 +398,18 @@ func is_player_in_portal() -> bool:
     return _player_in_portal
 
 
-# FIXME: Make the meshes clickable to allow the user to move portals around
-# more easily
-# func _upate_editor_mesh() -> void:
-#     if _editor_debug:
-#         if _editor_mesh_0 != null:
-#             _editor_mesh_0.queue_free()
-#             _editor_mesh_0 = null
-#             _editor_mesh_1.queue_free()
-#             _editor_mesh_1 = null
-#         return
-
-#     if _editor_mesh_0 == null:
-#         var material_0 = StandardMaterial3D.new()
-#         material_0.albedo_color = EDITOR_DISPLAY_COLOR_0
-#         material_0.albedo_color.a = EDITOR_DISPLAY_ALPHA
-#         material_0.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-#         material_0.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-#         _editor_mesh_0 = _create_mesh(material_0)
-
-#         var material_1 = StandardMaterial3D.new()
-#         material_1.albedo_color = EDITOR_DISPLAY_COLOR_1
-#         material_1.albedo_color.a = EDITOR_DISPLAY_ALPHA
-#         material_1.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-#         material_1.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-#         _editor_mesh_1 = _create_mesh(material_1)
-#         await(_editor_mesh_1.ready)
-#     else:
-#         _editor_mesh_0.mesh.size = Vector3(size.x, size.y, size.z / 2)
-#         _editor_mesh_1.mesh.size = Vector3(size.x, size.y, size.z / 2)
-
-#     _editor_mesh_0.position.z = size.z / 4
-#     _editor_mesh_1.position.z = -1 * size.z / 4
-
-
-## Add generated children to scene for debugging. [br]
-## NOTE: Make sure to turn off debug mode to delete these generated children.
-# func _run_editor_debug() -> void:
-#     _editor_debug = not _editor_debug
-
-#     if _editor_debug:
-#        _setup()
-#     else:
-#         for child in get_children():
-#             if child in [_mesh, _area_3d, _vis_notifier, _recursion_mesh]:
-#                 child.queue_free()
-
-#     # _upate_editor_mesh()
-
-
-# TODO: Docstring
+## Transform `target` from `original_ref` into `new_ref` [br]
+## ## Parameters [br]
+## `target`: The global transform of interest [br]
+## `original_ref`: The global reference transform to convert from [br]
+## `new_ref`: The global reference transform to convert to [br]
+## ## Returns [br]
+## `new_transform`: The global transform of `target` rotated from
+## `original_ref` into `new_ref` [br]
 func _get_relative_transform(
-    target_node: Transform3D,
-    target_ref: Transform3D,
-    this_ref: Transform3D,
+    target: Transform3D,
+    orignal_ref: Transform3D,
+    new_ref: Transform3D,
 ) -> Transform3D:
-    var transform_offset = target_ref.affine_inverse() * target_node  # Get current relative to reference
-    return this_ref * transform_offset  # Return new transform relativate to target
+    var transform_offset = orignal_ref.affine_inverse() * target  # Get offset to orignal reference
+    return new_ref * transform_offset  # Apply offest to new reference
