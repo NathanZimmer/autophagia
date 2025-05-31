@@ -78,7 +78,6 @@ func _setup() -> void:
         portal_0,
         portal_1,
         _world_render_layers & ~_portal_render_layer,
-        true,  # TODO: remove _process_self
     )
 
     var renderer_1 := PortalRenderer.init(
@@ -86,7 +85,6 @@ func _setup() -> void:
         portal_1,
         portal_0,
         _world_render_layers & ~_portal_render_layer,
-        true,  # TODO: remove _process_self
     )
 
     portal_0.reset(

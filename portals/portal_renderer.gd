@@ -1,5 +1,4 @@
-@tool
-## TODO
+## Handle camera positioning and rendering of portal to a `ViewportTexture`
 class_name PortalRenderer extends Node
 
 const ENVIRONMENT_OVERRIDES = {
@@ -9,28 +8,26 @@ const ENVIRONMENT_OVERRIDES = {
 const OBLIQUE_OFFSET = 0.1
 const OBLIQUE_FRUSTUM_ENABLED = true
 
-@export_tool_button("Enable/Disable editor debug", "Callable") var debug = _run_editor_debug
-
 @export_group("Reference Targets")
-## Target to track the transform of
+## Target to track the position of
 @export var _target_cam: Camera3D
-## Node to get the target camera transform relative to
+## Node to track _target_cam relative to
 @export var _target_reference_node: Node3D
-## Node to set this renderer's camera transform relative to
+## Node to position this renderer's camera relative to
 @export var _reference_node: Node3D
 @export_group("Rendering")
 ## Cull maks for this renderer's camera
-@export_flags_3d_render var cull_mask = 1 :
+@export_flags_3d_render var _cull_mask := 1 :
     set(value):
-        if value == cull_mask:
+        if value == _cull_mask:
             return
-        cull_mask = value
+        _cull_mask = value
 
-        if not Engine.is_editor_hint() and _camera != null:
+        if _camera != null:
             _camera.cull_mask = value
 
     get():
-        return cull_mask
+        return _cull_mask
 
 var use_oblique_frustum: bool :
     set(value):
@@ -41,53 +38,56 @@ var use_oblique_frustum: bool :
 var _camera: Camera3D
 var _sub_viewport: SubViewport
 
-var _editor_debug = false
-var _process_self := true
-
 
 func _ready() -> void:
-    if Engine.is_editor_hint() or not _process_self:
-        return
-
     _setup()
 
 
-## TODO
+func _physics_process(_delta) -> void:
+    update_camera_position()
+
+
+## Create new `PortalRenderer`.
+## equivilant to calling `new()` and then `reset(...)` [br]
+## ## Parameters [br]
+## `target_cam`: Target to track the position of [br]
+## `target_reference_node`: Node to track _target_cam relative to [br]
+## `reference_node`: Node to position this renderer's camera relative to [br]
+## `cull_mask`: Cull maks for this renderer's camera [br]
 static func init(
-    new_target_cam: Camera3D,
-    new_target_reference_node: Node3D,
-    new_reference_node: Node3D,
-    new_cull_mask: int,
-    new_process_self: bool,
+    target_cam: Camera3D,
+    target_reference_node: Node3D,
+    reference_node: Node3D,
+    cull_mask: int,
 ) -> PortalRenderer:
-    var pr = PortalRenderer.new()
-    pr.reset(
-        new_target_cam,
-        new_target_reference_node,
-        new_reference_node,
-        new_cull_mask,
-        new_process_self,
+    var renderer = PortalRenderer.new()
+    renderer.reset(
+        target_cam, target_reference_node, reference_node, cull_mask
     )
-    return pr
+    return renderer
 
 
-# TODO: Docstring
+## Reinitialize with a new set of parameters [br]
+## ## Parameters [br]
+## `target_cam`: Target to track the position of [br]
+## `target_reference_node`: Node to track _target_cam relative to [br]
+## `reference_node`: Node to position this renderer's camera relative to [br]
+## `cull_mask`: Cull maks for this renderer's camera [br]
 func reset(
-    new_target_cam: Camera3D,
-    new_target_reference_node: Node3D,
-    new_reference_node: Node3D,
-    new_cull_mask: int,
-    new_process_self: bool,
-):
-    _target_cam = new_target_cam
-    _target_reference_node = new_target_reference_node
-    _reference_node = new_reference_node
-    cull_mask = new_cull_mask
-    _process_self = new_process_self
+    target_cam: Camera3D,
+    target_reference_node: Node3D,
+    reference_node: Node3D,
+    cull_mask: int,
+) -> void:
+    _target_cam = target_cam
+    _target_reference_node = target_reference_node
+    _reference_node = reference_node
+    _cull_mask = cull_mask
 
     _setup()
 
 
+## Initialize `_camera` and `_sub_viewport`
 func _setup():
     if is_instance_valid(_sub_viewport):
         _sub_viewport.queue_free()
@@ -98,29 +98,6 @@ func _setup():
     _sub_viewport.add_child(_camera)
 
 
-func _physics_process(_delta) -> void:
-    if Engine.is_editor_hint() or not _process_self:
-        return
-
-    update_camera_position()
-
-
-## Add generated children to scene for debugging. [br]
-## NOTE: Make sure to turn off debug mode to delete these generated children.
-func _run_editor_debug() -> void:
-    _editor_debug = not _editor_debug
-
-    if _editor_debug:
-        _setup()
-
-        _sub_viewport.owner = get_tree().edited_scene_root
-        _camera.owner = get_tree().edited_scene_root
-    else:
-        for child in get_children():
-            if child == _sub_viewport:
-                child.queue_free()
-
-
 ## Create and configure the camera for this portal renderer.
 ## Does not add it as a child
 func _create_camera() -> Camera3D:
@@ -129,7 +106,7 @@ func _create_camera() -> Camera3D:
     camera.attributes = _target_cam.attributes.duplicate()
     camera.fov = _target_cam.fov
 
-    camera.cull_mask = cull_mask
+    camera.cull_mask = _cull_mask
     if OBLIQUE_FRUSTUM_ENABLED:
         camera.use_oblique_frustum = true
         camera.oblique_normal = _reference_node.global_basis.z
@@ -184,16 +161,6 @@ func update_camera_position() -> void:
     _camera.orthonormalize()
 
 
-# TODO: Docstring
-func _get_relative_transform(
-    target_node: Transform3D,
-    target_ref: Transform3D,
-    this_ref: Transform3D,
-) -> Transform3D:
-    var transform_offset = target_ref.affine_inverse() * target_node  # Get current relative to reference
-    return this_ref * transform_offset  # Return new transform relativate to target
-
-
 ## Get the camera generated by this renderer
 func get_camera() -> Camera3D:
     return _camera
@@ -202,3 +169,20 @@ func get_camera() -> Camera3D:
 ## Get the viewport texture of this renderer's sub-viewport
 func get_viewport_texture() -> ViewportTexture:
     return _sub_viewport.get_texture()
+
+
+## Transform `target` from `original_ref` into `new_ref` [br]
+## ## Parameters [br]
+## `target`: The global transform of interest [br]
+## `original_ref`: The global reference transform to convert from [br]
+## `new_ref`: The global reference transform to convert to [br]
+## ## Returns [br]
+## `new_transform`: The global transform of `target` rotated from
+## `original_ref` into `new_ref` [br]
+func _get_relative_transform(
+    target: Transform3D,
+    orignal_ref: Transform3D,
+    new_ref: Transform3D,
+) -> Transform3D:
+    var transform_offset = orignal_ref.affine_inverse() * target  # Get offset to orignal reference
+    return new_ref * transform_offset  # Apply offest to new reference

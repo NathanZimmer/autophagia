@@ -4,9 +4,9 @@ const COLOR_0 = Color.BLUE
 const COLOR_1 = Color.ORANGE
 const ALPHA = 0.3
 
-
 static var _material_0: StandardMaterial3D
 static var _material_1: StandardMaterial3D
+
 
 func _init() -> void:
     # Creating materials manually instead of using create_material() because

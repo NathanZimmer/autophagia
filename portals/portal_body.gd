@@ -207,7 +207,6 @@ func _setup() -> void:
     _recursion_mesh.layers = _recursion_render_layers
 
     if not _renderers.is_empty():
-        _renderers[0]._target_reference_node = self
         player_entered_portal.connect(func(): _renderers[0].use_oblique_frustum = false)
         player_exited_portal.connect(func(): _renderers[0].use_oblique_frustum = true)
         _reset_viewport_shader_param()
