@@ -27,6 +27,10 @@ window/size/resizable=false
 window/stretch/mode="viewport"
 window/vsync/vsync_mode=0
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/portal_body_gizmo/plugin.cfg")
+
 [global_group]
 
 interactable="objects that the player can interact with via the \"interact\" signal"

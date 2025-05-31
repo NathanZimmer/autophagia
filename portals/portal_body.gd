@@ -15,8 +15,8 @@ const RECURSION_PASS_THROUGH_COLOR = Color.MAGENTA
             return
         size = value
 
-        if Engine.is_editor_hint() and is_instance_valid(_gizmo):
-            _gizmo.set_size(size)
+        if Engine.is_editor_hint():
+            update_gizmos()
 
     get():
         return size
@@ -34,7 +34,7 @@ const RECURSION_PASS_THROUGH_COLOR = Color.MAGENTA
             return
         _render_layers = value
 
-        if not Engine.is_editor_hint() and _mesh != null:
+        if _mesh != null:
             _mesh.layers = _render_layers
 
     get():
@@ -47,7 +47,7 @@ const RECURSION_PASS_THROUGH_COLOR = Color.MAGENTA
             return
         _vis_notifier_render_layers = value
 
-        if not Engine.is_editor_hint() and _vis_notifier != null:
+        if _vis_notifier != null:
             _vis_notifier.layers = _vis_notifier_render_layers
 
     get():
@@ -61,7 +61,7 @@ const RECURSION_PASS_THROUGH_COLOR = Color.MAGENTA
             return
         _recursion_render_layers = value
 
-        if not Engine.is_editor_hint() and _recursion_mesh != null:
+        if _recursion_mesh != null:
             _recursion_mesh.layers = _render_layers
 
     get():
@@ -75,8 +75,8 @@ const RECURSION_PASS_THROUGH_COLOR = Color.MAGENTA
             return
         _collision_layers = value
 
-        if not Engine.is_editor_hint() and _area_3d != null:
-            _area_3d._collision_layers = _collision_layers
+        if _area_3d != null:
+            _area_3d.collision_layer = _collision_layers
 
     get():
         return _collision_layers
@@ -88,8 +88,8 @@ const RECURSION_PASS_THROUGH_COLOR = Color.MAGENTA
             return
         _collision_mask = value
 
-        if not Engine.is_editor_hint() and _area_3d != null:
-            _area_3d._collision_mask = _collision_mask
+        if _area_3d != null:
+            _area_3d.collision_mask = _collision_mask
 
     get():
         return _collision_mask
@@ -108,7 +108,6 @@ var _portal_on_screen := false
 ## z-plane for the last frame
 var _player_direction_sign: float
 var _player_teleported_last_frame := false
-var _gizmo: PortalGizmo
 
 signal portal_entered_screen
 signal portal_exited_screen
@@ -117,66 +116,8 @@ signal player_entered_portal
 signal player_exited_portal
 
 
-## I didn't use the gizmo plugin class here, so editor will yell at me
-## when clicking off the object. Too bad. It's an annoying class to use
-class PortalGizmo extends EditorNode3DGizmo:
-    const COLOR_0 = Color.BLUE
-    const COLOR_1 = Color.ORANGE
-    const ALPHA = 0.25
-
-    var _size := Vector3.ZERO
-    var _mesh_0: BoxMesh
-    var _material_0: StandardMaterial3D
-    var _mesh_1: BoxMesh
-    var _material_1: StandardMaterial3D
-
-
-    func _init(size: Vector3 = Vector3.ZERO, node_3d: Node3D = null) -> void:
-        _size = size
-        set_node_3d(node_3d)
-
-        _mesh_0 = BoxMesh.new()
-        _mesh_0.size = Vector3(_size.x, _size.y, _size.z / 2)
-        _mesh_1 = BoxMesh.new()
-        _mesh_1.size = Vector3(_size.x, _size.y, _size.z / 2)
-
-        _material_0 = StandardMaterial3D.new()
-        _material_0.albedo_color = COLOR_0
-        _material_0.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-        _material_0.albedo_color.a = ALPHA
-        _material_0.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-        _material_1 = StandardMaterial3D.new()
-        _material_1.albedo_color = COLOR_1
-        _material_1.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-        _material_1.albedo_color.a = ALPHA
-        _material_1.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-
-        _redraw()
-
-
-    func set_size(size: Vector3) -> void:
-        _size = size
-        _mesh_0.size = Vector3(_size.x, _size.y, _size.z / 2)
-        _mesh_1.size = Vector3(_size.x, _size.y, _size.z / 2)
-        _redraw()
-
-
-    func _redraw() -> void:
-        clear()
-        var transform_0 = Transform3D.IDENTITY
-        transform_0.origin.z -= _size.z / 4
-        var transform_1 = Transform3D.IDENTITY
-        transform_1.origin.z += _size.z / 4
-        add_mesh(_mesh_0, _material_0, transform_0)
-        add_mesh(_mesh_1, _material_1, transform_1)
-        add_collision_triangles(_mesh_0.generate_triangle_mesh())
-        add_collision_triangles(_mesh_1.generate_triangle_mesh())
-
-
 func _ready() -> void:
     if Engine.is_editor_hint():
-        _gizmo = PortalGizmo.new(size, self)
-        add_gizmo(_gizmo)
         return
 
     _renderers.assign(find_children("*", "PortalRenderer", false))
