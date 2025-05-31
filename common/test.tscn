@@ -1,0 +1,39 @@
+[gd_scene load_steps=8 format=3 uid="uid://bn2tmn3fg0c2c"]
+
+[ext_resource type="Environment" uid="uid://cbgre4uktxw6d" path="res://ouroboros/config/main_world_env.tres" id="1_dxi5e"]
+[ext_resource type="Material" uid="uid://yk4x16701e40" path="res://common/placeholder_triplanar.tres" id="2_h4lmq"]
+[ext_resource type="PackedScene" uid="uid://dnhp4dcugklq6" path="res://ouroboros/scenes/main/player.tscn" id="3_1fe4l"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_e121w"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_e121w"]
+size = Vector2(20, 20)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_03x48"]
+points = PackedVector3Array(-10, 0, -10, -10, 0, 10, 10, 0, -10, 10, 0, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_03x48"]
+
+[node name="Test" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_dxi5e")
+camera_attributes = SubResource("CameraAttributesPractical_e121w")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+material_override = ExtResource("2_h4lmq")
+mesh = SubResource("PlaneMesh_e121w")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_03x48")
+
+[node name="Player" parent="." instance=ExtResource("3_1fe4l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 9)
+
+[node name="Cube" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_03x48")
+
+[editable path="Player"]

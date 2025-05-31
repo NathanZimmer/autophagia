@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b2h4agml28n48"
-path.bptc="res://.godot/imported/light_metal.png-b6a7d52b9243e003f70b2313be4759f8.bptc.ctex"
+path.bptc="res://.godot/imported/light_metal.png-8c56877c4838dc5a30d8555390e00a2f.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,7 +12,7 @@ metadata={
 [deps]
 
 source_file="res://ouroboros/textures/light_metal.png"
-dest_files=["res://.godot/imported/light_metal.png-b6a7d52b9243e003f70b2313be4759f8.bptc.ctex"]
+dest_files=["res://.godot/imported/light_metal.png-8c56877c4838dc5a30d8555390e00a2f.bptc.ctex"]
 
 [params]
 

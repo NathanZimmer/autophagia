@@ -10,10 +10,11 @@ config_version=5
 
 [application]
 
-config/name="ouroboros"
-run/main_scene="res://ouroboros/scenes/main/main_menu.tscn"
-config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://ouroboros/textures/icon.svg"
+config/name="Autophagia"
+run/main_scene="uid://bxni3e6t47b77"
+config/features=PackedStringArray("4.4", "Forward Plus")
+run/max_fps=144
+config/icon="uid://dkfubxlbsae1l"
 
 [autoload]
 
@@ -21,15 +22,15 @@ Globals="*res://ouroboros/scripts/global/globals.gd"
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
-window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
+window/size/viewport_width=640
+window/size/viewport_height=480
+window/size/resizable=false
+window/stretch/mode="viewport"
 window/vsync/vsync_mode=0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/func_godot/plugin.cfg")
+enabled=PackedStringArray("res://addons/portal_body_gizmo/plugin.cfg")
 
 [global_group]
 
@@ -105,21 +106,24 @@ player_b={
 }
 player_flight_toggle={
 "deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":true,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":96,"key_label":0,"unicode":96,"location":0,"echo":false,"script":null)
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":true,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":96,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
 player_toggle_collision={
 "deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":true,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":49,"key_label":0,"unicode":49,"location":0,"echo":false,"script":null)
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":true,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":49,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
+
+[physics]
+
+common/physics_ticks_per_second=288
+3d/physics_engine="Jolt Physics"
 
 [rendering]
 
 scaling_3d/fsr_sharpness=0.0
 lightmapping/primitive_meshes/texel_size=0.4
-anti_aliasing/quality/msaa_3d=2
 occlusion_culling/use_occlusion_culling=true
-environment/defaults/default_environment="res://ouroboros/config/main_world_env.tres"
 environment/screen_space_roughness_limiter/enabled=true
 environment/quality/msaa_3d=2

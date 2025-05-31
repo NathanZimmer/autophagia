@@ -1,20 +1,20 @@
 [gd_scene load_steps=15 format=3 uid="uid://35mj6k1y1wba"]
 
-[ext_resource type="Shader" path="res://ouroboros/scripts/shaders/scroll.gdshader" id="2_ck7xm"]
-[ext_resource type="Script" path="res://ouroboros/scripts/interface/pause_control.gd" id="2_fpt3t"]
+[ext_resource type="Shader" uid="uid://chbp4k4rajogw" path="res://ouroboros/scripts/shaders/scroll.gdshader" id="2_ck7xm"]
+[ext_resource type="Script" uid="uid://pgqoh640uaae" path="res://ouroboros/scripts/interface/pause_control.gd" id="2_fpt3t"]
 [ext_resource type="Texture2D" uid="uid://bqmo7ufdlgdir" path="res://ouroboros/textures/main_menu_background.png" id="2_l7od0"]
-[ext_resource type="Script" path="res://ouroboros/scripts/interface/main_menu_control.gd" id="3_grosq"]
+[ext_resource type="Script" uid="uid://csi5ynnxuvykm" path="res://ouroboros/scripts/interface/main_menu_control.gd" id="3_grosq"]
 [ext_resource type="Theme" uid="uid://bpwxalae1j42b" path="res://ouroboros/config/interface/menu_theme.tres" id="4_o6qwy"]
 [ext_resource type="Texture2D" uid="uid://c7tvcp442hsmi" path="res://ouroboros/textures/main_menu_background_just_text.png" id="4_vjxvy"]
 [ext_resource type="Texture2D" uid="uid://du1j382w3tswu" path="res://ouroboros/textures/vintage.png" id="5_gpkl8"]
 [ext_resource type="PackedScene" uid="uid://djed1pkatai3r" path="res://ouroboros/scenes/interface/visual_menu_control.tscn" id="6_holfx"]
 [ext_resource type="PackedScene" uid="uid://cdssagdy1niv2" path="res://ouroboros/scenes/interface/controls_menu_control.tscn" id="7_trqwb"]
-[ext_resource type="Shader" path="res://ouroboros/scripts/shaders/fs_dithering.gdshader" id="10_f3k61"]
+[ext_resource type="Shader" uid="uid://c7gou5tdd475f" path="res://ouroboros/scripts/shaders/fs_dithering.gdshader" id="10_f3k61"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pmw1h"]
 shader = ExtResource("2_ck7xm")
-shader_parameter/scroll_speed = Vector2(0.003, -0.015)
 shader_parameter/source_texture = ExtResource("2_l7od0")
+shader_parameter/scroll_speed = Vector2(0.003, -0.015)
 
 [sub_resource type="Shader" id="Shader_w7opq"]
 code = "shader_type canvas_item;
@@ -28,8 +28,8 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xnwyv"]
 shader = SubResource("Shader_w7opq")
-shader_parameter/scroll_speed = Vector2(0, -0.02)
 shader_parameter/scroll_texture = ExtResource("4_vjxvy")
+shader_parameter/scroll_speed = Vector2(0, -0.02)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j0swq"]
 shader = ExtResource("10_f3k61")

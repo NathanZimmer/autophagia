@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://rrmegp2voxji"
-path="res://.godot/imported/icon.svg-85b87890ea2bb95b7d845dda50df4ecb.ctex"
+path="res://.godot/imported/icon.svg-1f8503688bf107871efdeba88790a91e.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://ouroboros/textures/icon.svg"
-dest_files=["res://.godot/imported/icon.svg-85b87890ea2bb95b7d845dda50df4ecb.ctex"]
+dest_files=["res://.godot/imported/icon.svg-1f8503688bf107871efdeba88790a91e.ctex"]
 
 [params]
 

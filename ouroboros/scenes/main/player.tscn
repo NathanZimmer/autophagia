@@ -1,16 +1,19 @@
-[gd_scene load_steps=13 format=3 uid="uid://dnhp4dcugklq6"]
+[gd_scene load_steps=15 format=3 uid="uid://dnhp4dcugklq6"]
 
-[ext_resource type="Script" path="res://ouroboros/scripts/gameplay/player_controller.gd" id="1_y2fp8"]
-[ext_resource type="Script" path="res://ouroboros/scripts/gameplay/head_bob.gd" id="2_fl0b5"]
-[ext_resource type="Script" path="res://ouroboros/scripts/gameplay/interaction_controller.gd" id="2_p6mca"]
-[ext_resource type="Shader" path="res://ouroboros/scripts/shaders/fs_dithering.gdshader" id="3_cu3o8"]
-[ext_resource type="Script" path="res://ouroboros/scripts/interface/hotkeys.gd" id="5_p8slp"]
-[ext_resource type="Script" path="res://ouroboros/scripts/interface/fps_counter.gd" id="6_go600"]
+[ext_resource type="Script" uid="uid://c1o8i6ob4hruq" path="res://ouroboros/scripts/gameplay/player_controller.gd" id="1_y2fp8"]
+[ext_resource type="Script" uid="uid://bcpsv2er15k1k" path="res://ouroboros/scripts/gameplay/head_bob.gd" id="2_fl0b5"]
+[ext_resource type="Script" uid="uid://b7kyqhf1tko28" path="res://ouroboros/scripts/gameplay/interaction_controller.gd" id="2_p6mca"]
+[ext_resource type="Environment" uid="uid://cbgre4uktxw6d" path="res://ouroboros/config/main_world_env.tres" id="2_xgxvm"]
+[ext_resource type="Shader" uid="uid://c7gou5tdd475f" path="res://ouroboros/scripts/shaders/fs_dithering.gdshader" id="3_cu3o8"]
+[ext_resource type="Script" uid="uid://cpa6xj35vb43o" path="res://ouroboros/scripts/interface/hotkeys.gd" id="5_p8slp"]
+[ext_resource type="Script" uid="uid://knupv61sxrr0" path="res://ouroboros/scripts/interface/fps_counter.gd" id="6_go600"]
 [ext_resource type="PackedScene" uid="uid://bbbspt027k0x3" path="res://ouroboros/scenes/interface/pause_control.tscn" id="7_21iqq"]
-[ext_resource type="Script" path="res://ouroboros/scripts/interface/b_counter.gd" id="7_v6k10"]
+[ext_resource type="Script" uid="uid://buwi3r1o6ps6s" path="res://ouroboros/scripts/interface/b_counter.gd" id="7_v6k10"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8l6i1"]
 radius = 0.4
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_4juu5"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_dgi16"]
 radius = 0.4
@@ -29,8 +32,6 @@ shader_parameter/uTime3 = 4.0
 shader_parameter/colors = 32.0
 
 [node name="Player" type="CharacterBody3D"]
-collision_layer = 2
-collision_mask = 3
 safe_margin = 0.01
 script = ExtResource("1_y2fp8")
 
@@ -40,6 +41,8 @@ shape = SubResource("CapsuleShape3D_8l6i1")
 [node name="Camera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 cull_mask = 1047539
+environment = ExtResource("2_xgxvm")
+attributes = SubResource("CameraAttributesPractical_4juu5")
 current = true
 fov = 90.0
 far = 400.0
@@ -112,8 +115,7 @@ label_settings = SubResource("LabelSettings_j7o1h")
 horizontal_alignment = 2
 script = ExtResource("7_v6k10")
 
-[node name="PauseControl" parent="GUI" node_paths=PackedStringArray("starting_menu") instance=ExtResource("7_21iqq")]
-starting_menu = NodePath("BaseMenuControl")
+[node name="PauseControl" parent="GUI" instance=ExtResource("7_21iqq")]
 
 [node name="FS_Dithering" type="CanvasLayer" parent="."]
 process_mode = 3

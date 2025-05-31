@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://mvyrvg8a77gd"
-path.s3tc="res://.godot/imported/yellow.png-9aa03c1e347357bfca99f083ed89eada.s3tc.ctex"
+path.s3tc="res://.godot/imported/yellow.png-6edb1c8b06ab3bb57290e91ad14f367a.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,7 +12,7 @@ metadata={
 [deps]
 
 source_file="res://ouroboros/textures/yellow.png"
-dest_files=["res://.godot/imported/yellow.png-9aa03c1e347357bfca99f083ed89eada.s3tc.ctex"]
+dest_files=["res://.godot/imported/yellow.png-6edb1c8b06ab3bb57290e91ad14f367a.s3tc.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dqbaw2fslxax6"
-path.bptc="res://.godot/imported/dark_wood.png-608755451aed593f68b9229fb0174844.bptc.ctex"
+path.bptc="res://.godot/imported/dark_wood.png-7d29685b8b21987e77ec951c74648cfc.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,7 +12,7 @@ metadata={
 [deps]
 
 source_file="res://ouroboros/textures/dark_wood.png"
-dest_files=["res://.godot/imported/dark_wood.png-608755451aed593f68b9229fb0174844.bptc.ctex"]
+dest_files=["res://.godot/imported/dark_wood.png-7d29685b8b21987e77ec951c74648cfc.bptc.ctex"]
 
 [params]
 

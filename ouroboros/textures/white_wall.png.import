@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cj3ld36wb2ted"
-path.bptc="res://.godot/imported/white_wall.png-45f1f02985c2b5e7ec48147f7f57178f.bptc.ctex"
+path.bptc="res://.godot/imported/white_wall.png-440fe64432dfd04023e00cc3dbb55628.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,7 +12,7 @@ metadata={
 [deps]
 
 source_file="res://ouroboros/textures/white_wall.png"
-dest_files=["res://.godot/imported/white_wall.png-45f1f02985c2b5e7ec48147f7f57178f.bptc.ctex"]
+dest_files=["res://.godot/imported/white_wall.png-440fe64432dfd04023e00cc3dbb55628.bptc.ctex"]
 
 [params]
 
