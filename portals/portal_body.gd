@@ -173,8 +173,8 @@ func reset(
 ) -> void:
     self.size = size
     _renderers = renderers
-    for renderer in _renderers:
-        add_child(renderer)
+    # for renderer in _renderers:
+    #     add_child(renderer)
     _render_layers = render_layers
     _recursion_render_layers = recursion_render_layers
     _collision_layers = collision_layers
@@ -186,11 +186,13 @@ func reset(
     _setup()
 
 
-## Instantiate `_mesh`, `_area_3d`, and `_vis_notifier` [br]
+## Instantiate `_mesh`, `_recursion_mesh`, `_area_3d`, and `_vis_notifier`. [br]
 ## Run setup on passed-in variables [br]
 func _setup() -> void:
     if is_instance_valid(_mesh):
         _mesh.queue_free()
+    if is_instance_valid(_recursion_mesh):
+        _recursion_mesh.queue_free()
     if is_instance_valid(_area_3d):
         _area_3d.queue_free()
     if is_instance_valid(_vis_notifier):

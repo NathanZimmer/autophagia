@@ -34,6 +34,8 @@ class_name PortalProcessor extends Node3D
         return _size
 
 @export_group("Reference Target")
+## Target to track the position of. If left blank, will use the base
+## viewport's `Camera3D`
 @export var _target_cam: Camera3D
 
 @export_group("Rendering")
