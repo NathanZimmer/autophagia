@@ -96,11 +96,11 @@ shape = SubResource("ConvexPolygonShape3D_xvypx")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.25, 0)
 shape = SubResource("ConvexPolygonShape3D_xvypx")
 
-[node name="PortalBody" type="Node3D" parent="PortalBodyToPortalBodyTest" index="2" node_paths=PackedStringArray("_teleport_target", "_player")]
+[node name="PortalBody" type="Node3D" parent="PortalBodyToPortalBodyTest" index="2" node_paths=PackedStringArray("teleport_target", "_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 1.5, 5)
 script = ExtResource("6_1mtnw")
 size = Vector3(2, 3, 0.5)
-_teleport_target = NodePath("../PortalBody2")
+teleport_target = NodePath("../PortalBody2")
 _player = NodePath("../../Player")
 metadata/_custom_type_script = "uid://dg7e58q26ojyv"
 
@@ -111,11 +111,11 @@ _target_reference_node = NodePath("..")
 _reference_node = NodePath("../../PortalBody2")
 metadata/_custom_type_script = "uid://cp6qrare12hxe"
 
-[node name="PortalBody2" type="Node3D" parent="PortalBodyToPortalBodyTest" index="3" node_paths=PackedStringArray("_teleport_target", "_player")]
+[node name="PortalBody2" type="Node3D" parent="PortalBodyToPortalBodyTest" index="3" node_paths=PackedStringArray("teleport_target", "_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1.5, 5)
 script = ExtResource("6_1mtnw")
 size = Vector3(2, 3, 0.5)
-_teleport_target = NodePath("../PortalBody")
+teleport_target = NodePath("../PortalBody")
 _player = NodePath("../../Player")
 metadata/_custom_type_script = "uid://dg7e58q26ojyv"
 
@@ -197,11 +197,11 @@ shape = SubResource("ConvexPolygonShape3D_xvypx")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.25, 0)
 shape = SubResource("ConvexPolygonShape3D_xvypx")
 
-[node name="PortalBody" type="Node3D" parent="PortalBodyToNode3DTest" index="2" node_paths=PackedStringArray("_teleport_target", "_player")]
+[node name="PortalBody" type="Node3D" parent="PortalBodyToNode3DTest" index="2" node_paths=PackedStringArray("teleport_target", "_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 1.5, 5)
 script = ExtResource("6_1mtnw")
 size = Vector3(2, 3, 0.5)
-_teleport_target = NodePath("../Node3D")
+teleport_target = NodePath("../Node3D")
 _player = NodePath("../../Player")
 metadata/_custom_type_script = "uid://dg7e58q26ojyv"
 

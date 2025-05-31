@@ -57,7 +57,7 @@ func _setup() -> void:
         # Create recursive renderers
         for j in range(i + 2, portals.size(), 2):
             var renderer := PortalRenderer.init(
-                portal_renderers[-1]._camera,
+                portal_renderers[-1].get_camera(),
                 portals[j],
                 portals[j + 1],
                 (_forward_pass_render_layers | _world_render_layers) & ~_portal_render_layer,
@@ -95,7 +95,7 @@ func _setup() -> void:
         # Create recursive renderers
         for j in range(i - 2, 0, -2):
             var renderer := PortalRenderer.init(
-                portal_renderers[-1]._camera,
+                portal_renderers[-1].get_camera(),
                 portals[j],
                 portals[j - 1],
                 (_back_pass_render_layers | _world_render_layers) & ~_portal_render_layer,

@@ -173,6 +173,11 @@ func get_viewport_texture() -> ViewportTexture:
     return _sub_viewport.get_texture()
 
 
+## Set reference node for this renderer's camera
+func set_reference_node(node: Node3D) -> void:
+    _reference_node = node
+
+
 ## Transform `target` from `original_ref` into `new_ref` [br]
 ## ## Parameters [br]
 ## `target`: The global transform of interest [br]

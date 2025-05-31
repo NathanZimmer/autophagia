@@ -81,6 +81,7 @@ func _setup() -> void:
         portal_1,
         _world_render_layers & ~_portal_render_layer,
     )
+    portal_0.add_child(renderer_0)
 
     var renderer_1 := PortalRenderer.init(
         _target_cam,
@@ -88,6 +89,7 @@ func _setup() -> void:
         portal_0,
         _world_render_layers & ~_portal_render_layer,
     )
+    portal_1.add_child(renderer_1)
 
     portal_0.reset(
         _size if _override_portal_sizes else portal_0.size,

@@ -23,7 +23,7 @@ const RECURSION_PASS_THROUGH_COLOR = Color.MAGENTA
 
 @export_group("Reference Targets")
 ## Teleport the player to this node on traveling through this portal
-@export var _teleport_target: Node3D
+@export var teleport_target: Node3D
 ## The target for teleportation
 @export var _player: PhysicsBody3D
 @export_group("Rendering")
@@ -180,7 +180,7 @@ func reset(
     _collision_layers = collision_layers
     _collision_mask = collision_mask
     _vis_notifier_render_layers = vis_notifier_render_layers
-    _teleport_target = teleport_target
+    self.teleport_target = teleport_target
     _player = player
 
     _setup()
@@ -219,8 +219,8 @@ func _setup() -> void:
         )
         _player_direction_sign = signf(current_frame_angle)
 
-    if _teleport_target is PortalBody:
-        player_teleported.connect(_teleport_target.prepare_for_teleport)
+    if teleport_target is PortalBody:
+        player_teleported.connect(teleport_target.prepare_for_teleport)
 
 
 ## Create and configure the mesh for this portal. [br]
@@ -293,13 +293,13 @@ func _create_area_3d() -> Area3D:
     return area_3d
 
 
-## Teleport player from `self` to `_teleport_target` keeping the same relative
+## Teleport player from `self` to `teleport_target` keeping the same relative
 ## transform
 func _teleport_player() -> void:
     _player.global_transform = _get_relative_transform(
         _player.global_transform,
         global_transform,
-        _teleport_target.global_transform,
+        teleport_target.global_transform,
     )
     player_teleported.emit()
 
