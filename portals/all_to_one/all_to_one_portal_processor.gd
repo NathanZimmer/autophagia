@@ -63,7 +63,6 @@ func _setup():
 
         portal.player_entered_portal.connect(func(): _main_portal.teleport_target = portal)
         portal.player_entered_portal.connect(main_renderer.set_reference_node.bind(portal))
-        portal.player_teleported.connect(_main_portal.prepare_for_teleport)
 
 
 ## Call `prepare_for_teleport` on the current target
