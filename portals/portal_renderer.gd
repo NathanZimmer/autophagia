@@ -7,6 +7,8 @@ const ENVIRONMENT_OVERRIDES = {
 }
 const OBLIQUE_OFFSET = 0.1
 const OBLIQUE_FRUSTUM_ENABLED = true
+# NOTE: Enabling the oblique frustum breaks the depth buffer. this
+# is ok for now because we aren't using it for anything
 
 @export_group("Reference Targets")
 ## Target to track the position of
