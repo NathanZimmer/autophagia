@@ -14,11 +14,15 @@ config/name="Autophagia"
 run/main_scene="uid://bn2tmn3fg0c2c"
 config/features=PackedStringArray("4.4", "Forward Plus")
 run/max_fps=144
-config/icon="uid://dkfubxlbsae1l"
+config/icon="uid://3n2x0n62fk53"
 
 [autoload]
 
 Globals="*res://common/globals.gd"
+
+[debug]
+
+gdscript/warnings/shadowed_variable=0
 
 [display]
 
