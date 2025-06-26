@@ -2,21 +2,22 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3n2x0n62fk53"
-path="res://.godot/imported/snake.png-392902cc9306a7ce4eb91101ddc71c96.ctex"
+uid="uid://c7djmeqvhtpuy"
+path.bptc="res://.godot/imported/keycap.png-91f690c28c12b9f9ad46455e34d1b0dc.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
-source_file="res://snake.png"
-dest_files=["res://.godot/imported/snake.png-392902cc9306a7ce4eb91101ddc71c96.ctex"]
+source_file="res://gui/controls_menu/keycap.png"
+dest_files=["res://.godot/imported/keycap.png-91f690c28c12b9f9ad46455e34d1b0dc.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0

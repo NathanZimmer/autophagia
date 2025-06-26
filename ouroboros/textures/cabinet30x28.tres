@@ -1,8 +1,0 @@
-[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://deydk4uljftmy"]
-
-[ext_resource type="Texture2D" uid="uid://bh6i1e7y8ayif" path="res://ouroboros/textures/cabinet30x28.png" id="1_8mrh8"]
-
-[resource]
-albedo_texture = ExtResource("1_8mrh8")
-metallic_specular = 0.0
-texture_filter = 2

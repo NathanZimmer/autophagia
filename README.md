@@ -1,6 +1,4 @@
-# Ouroboros
-You wake up one morning to discover that your front door now opens to a long, dark hallway. 
+# ~~Ouroboros~~ Autophagia
+You wake up one morning to discover that your front door now opens to a long, dark hallway.
 
-## Requirements (for editing)
-* [This Godot fork](https://github.com/qaptoR/godot/tree/master_oblique_camera) for oblique camera projection
-* Git Bash and 7zip for the [TrenchBroom](https://github.com/TrenchBroom/TrenchBroom/) install script
+<!-- TODO: Add back in that message about using the repo fork. Publish my 4.4 fork? -->

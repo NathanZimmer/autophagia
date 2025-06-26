@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3n2x0n62fk53"
-path="res://.godot/imported/snake.png-392902cc9306a7ce4eb91101ddc71c96.ctex"
+uid="uid://dq288qwgehjb0"
+path="res://.godot/imported/mouse.png-143b1f80c66683d939c296d395ec043b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://snake.png"
-dest_files=["res://.godot/imported/snake.png-392902cc9306a7ce4eb91101ddc71c96.ctex"]
+source_file="res://gui/controls_menu/mouse.png"
+dest_files=["res://.godot/imported/mouse.png-143b1f80c66683d939c296d395ec043b.ctex"]
 
 [params]
 

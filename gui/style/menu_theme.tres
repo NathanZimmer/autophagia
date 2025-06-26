@@ -1,0 +1,27 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://bpwxalae1j42b"]
+
+[ext_resource type="Texture2D" uid="uid://d4gc2h6vf0t26" path="res://gui/common/black.png" id="1_fstix"]
+[ext_resource type="Texture2D" uid="uid://c0piria3rqwmy" path="res://gui/common/empty_box.png" id="2_8reix"]
+[ext_resource type="FontFile" uid="uid://bg0grlkrbfbo1" path="res://gui/style/asvoria-disco-2.otf" id="3_03mi0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_saobw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yxvtd"]
+
+[resource]
+default_font = ExtResource("3_03mi0")
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_focus_color = Color(0.999949, 0.571106, 0.50894, 1)
+Button/colors/font_hover_color = Color(0.861178, 0.688176, 0.736023, 1)
+Button/constants/outline_size = 3
+Button/font_sizes/font_size = 30
+Button/styles/focus = SubResource("StyleBoxEmpty_saobw")
+CheckBox/icons/checked = ExtResource("1_fstix")
+CheckBox/icons/unchecked = ExtResource("2_8reix")
+HSlider/icons/grabber = ExtResource("2_8reix")
+HSlider/icons/grabber_highlight = ExtResource("2_8reix")
+LineEdit/constants/outline_size = 3
+LineEdit/font_sizes/font_size = 20
+LineEdit/styles/normal = SubResource("StyleBoxEmpty_yxvtd")
+OptionButton/font_sizes/font_size = 24
+TextEdit/font_sizes/font_size = 16

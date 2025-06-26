@@ -1,7 +1,6 @@
 @tool
 extends EditorPlugin
 
-
 var _portal_body_gizmo = PortalBodyGizmo.new()
 
 

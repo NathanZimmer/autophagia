@@ -1,0 +1,330 @@
+[gd_scene load_steps=15 format=3 uid="uid://35mj6k1y1wba"]
+
+[ext_resource type="Shader" uid="uid://chbp4k4rajogw" path="res://gui/main_menu/scroll.gdshader" id="2_ck7xm"]
+[ext_resource type="Texture2D" uid="uid://bqmo7ufdlgdir" path="res://gui/main_menu/main_menu_background.png" id="2_l7od0"]
+[ext_resource type="Script" uid="uid://csi5ynnxuvykm" path="res://gui/main_menu/main_menu_control.gd" id="3_grosq"]
+[ext_resource type="Theme" uid="uid://bpwxalae1j42b" path="res://gui/style/menu_theme.tres" id="4_o6qwy"]
+[ext_resource type="Texture2D" uid="uid://c7tvcp442hsmi" path="res://gui/main_menu/main_menu_background_just_text.png" id="4_vjxvy"]
+[ext_resource type="Texture2D" uid="uid://du1j382w3tswu" path="res://gui/main_menu/vignette.png" id="5_gpkl8"]
+[ext_resource type="PackedScene" uid="uid://djed1pkatai3r" path="res://gui/visuals_menu/visual_menu_control.tscn" id="6_holfx"]
+[ext_resource type="PackedScene" uid="uid://cdssagdy1niv2" path="res://gui/controls_menu/controls_menu_control.tscn" id="7_trqwb"]
+[ext_resource type="Shader" uid="uid://c7gou5tdd475f" path="res://player/fs_dithering.gdshader" id="10_f3k61"]
+
+[sub_resource type="GDScript" id="GDScript_bhc4r"]
+script/source = "class_name PauseControl extends Control
+## Class for swapping pause sub-menus and unpausing the game
+
+@export var is_main_menu: bool = false
+@export var starting_menu: Control
+
+## Stores the order we visit menus in so we can properly handle navigating out.
+var menu_stack: Array[Control] = []
+var visible_menu: Control
+
+
+func _ready() -> void:
+	Globals.pause.connect(pause)
+	Globals.unpause.connect(unpause)
+	Globals.close_menu.connect(close_menu)
+
+	# for child in get_children():
+	# 	child.hide()
+	# get_child(0).show()
+	# visible_menu = get_child(1)
+	visible_menu = starting_menu
+	visible_menu.show()
+
+	if is_main_menu:
+		pause()
+	else:
+		unpause()
+
+
+func _unhandled_input(event) -> void:
+	if event is InputEventKey:
+		if event.is_action_pressed(\"ui_cancel\"):
+			close_menu()
+			get_tree().get_root().set_input_as_handled()
+
+
+## Store currently open menu, hide it, and open `to_show`
+func open_menu(to_show: Control) -> void:
+	visible_menu.hide()
+	menu_stack.push_front(visible_menu)
+
+	visible_menu = to_show
+	visible_menu.show()
+	visible_menu.get_child(0).grab_focus()
+
+
+## Close currently open menu, show previous menu
+func close_menu() -> void:
+	if len(menu_stack) == 0:
+		if not is_main_menu:
+			unpause()
+		return
+
+	visible_menu.hide()
+	visible_menu = menu_stack.pop_front()
+
+	visible_menu.show()
+	visible_menu.get_child(0).grab_focus()
+
+
+## Starts a pause state: shows base menu and frees mouse
+func pause() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	show()
+	visible_menu.get_child(0).grab_focus()
+
+
+## Terminates the pause state: emits a global unpause and captures mouse
+func unpause() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	hide()
+	get_tree().paused = false
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pmw1h"]
+shader = ExtResource("2_ck7xm")
+shader_parameter/source_texture = ExtResource("2_l7od0")
+shader_parameter/scroll_speed = Vector2(0.003, -0.015)
+
+[sub_resource type="Shader" id="Shader_w7opq"]
+code = "shader_type canvas_item;
+uniform sampler2D scroll_texture;
+uniform vec2 scroll_speed;
+
+void fragment() {
+	vec2 offset = mod(UV + TIME * scroll_speed, 1.0);
+	COLOR = texture(scroll_texture, offset);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xnwyv"]
+shader = SubResource("Shader_w7opq")
+shader_parameter/scroll_texture = ExtResource("4_vjxvy")
+shader_parameter/scroll_speed = Vector2(0, -0.02)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j0swq"]
+shader = ExtResource("10_f3k61")
+shader_parameter/contrast = 1.2
+shader_parameter/brightness = 0.5
+shader_parameter/uTime1 = 1.0
+shader_parameter/uTime2 = 3.1
+shader_parameter/uTime3 = 4.0
+shader_parameter/colors = 32.0
+
+[node name="MainMenu" type="Node2D"]
+
+[node name="GUI" type="CanvasLayer" parent="."]
+process_mode = 3
+follow_viewport_scale = 0.245
+
+[node name="MainMenuPauseControl" type="Control" parent="GUI" node_paths=PackedStringArray("starting_menu")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_bhc4r")
+is_main_menu = true
+starting_menu = NodePath("MainMenuControl")
+
+[node name="MainMenuBackground" type="TextureRect" parent="GUI/MainMenuPauseControl"]
+material = SubResource("ShaderMaterial_pmw1h")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_l7od0")
+stretch_mode = 1
+
+[node name="MainMenuBackgroundText" type="TextureRect" parent="GUI/MainMenuPauseControl"]
+auto_translate_mode = 1
+material = SubResource("ShaderMaterial_xnwyv")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_vjxvy")
+stretch_mode = 1
+
+[node name="MainMenuBackgroundVignette" type="TextureRect" parent="GUI/MainMenuPauseControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_gpkl8")
+
+[node name="MainMenuBackgroundDarkness" type="ColorRect" parent="GUI/MainMenuPauseControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.21, 0, 0, 0.352941)
+
+[node name="MainMenuControl" type="Control" parent="GUI/MainMenuPauseControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.25
+offset_top = -180.0
+offset_right = 533.75
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.75, 0.75)
+script = ExtResource("3_grosq")
+main_scene_path = "res://common/test.tscn"
+swap_list = {
+NodePath("VisualsButton"): NodePath("../VisualMenuControl"),
+NodePath("ControlsButton"): NodePath("../ControlsMenuControl")
+}
+
+[node name="StartGameButton" type="Button" parent="GUI/MainMenuPauseControl/MainMenuControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -113.0
+offset_top = -160.0
+offset_right = 113.0
+offset_bottom = -115.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_o6qwy")
+text = "Start New Game"
+flat = true
+
+[node name="VisualsButton" type="Button" parent="GUI/MainMenuPauseControl/MainMenuControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_o6qwy")
+text = "Visuals"
+flat = true
+
+[node name="ControlsButton" type="Button" parent="GUI/MainMenuPauseControl/MainMenuControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -16.0
+offset_right = 64.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_o6qwy")
+text = "Controls"
+flat = true
+
+[node name="LoadButton" type="Button" parent="GUI/MainMenuPauseControl/MainMenuControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -72.0
+offset_top = -112.0
+offset_right = 72.0
+offset_bottom = -67.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_o6qwy")
+text = "Load"
+flat = true
+
+[node name="QuitButton" type="Button" parent="GUI/MainMenuPauseControl/MainMenuControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.5
+offset_top = 32.0
+offset_right = 132.5
+offset_bottom = 77.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_o6qwy")
+text = "QUIT TO DESKTOP"
+flat = true
+
+[node name="Label" type="Label" parent="GUI/MainMenuPauseControl/MainMenuControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -273.0
+offset_top = -288.0
+offset_right = 273.0
+offset_bottom = -178.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_o6qwy")
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 150
+text = "autophagia"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="VisualMenuControl" parent="GUI/MainMenuPauseControl" instance=ExtResource("6_holfx")]
+visible = false
+layout_mode = 1
+
+[node name="ControlsMenuControl" parent="GUI/MainMenuPauseControl" instance=ExtResource("7_trqwb")]
+visible = false
+layout_mode = 1
+
+[node name="FS_Dithering" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="ColorRect" type="ColorRect" parent="FS_Dithering"]
+auto_translate_mode = 1
+material = SubResource("ShaderMaterial_j0swq")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

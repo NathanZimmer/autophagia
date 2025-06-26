@@ -1,0 +1,60 @@
+[gd_scene load_steps=6 format=3 uid="uid://bhxwly8gclqls"]
+
+[ext_resource type="Script" uid="uid://bhmlpwff4qg2m" path="res://gui/scene_transition_menu/scene_loader.gd" id="1_4oimj"]
+[ext_resource type="Theme" uid="uid://bpwxalae1j42b" path="res://gui/style/menu_theme.tres" id="2_tt5n6"]
+[ext_resource type="Shader" uid="uid://d0x1vrxdv68xy" path="res://gui/scene_transition_menu/rotate.gdshader" id="3_4ixvr"]
+[ext_resource type="Texture2D" uid="uid://3n2x0n62fk53" path="res://snake.png" id="4_ivnn3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5vymc"]
+shader = ExtResource("3_4ixvr")
+shader_parameter/source_texture = ExtResource("4_ivnn3")
+shader_parameter/rotation_speed = -1.0
+
+[node name="SceneLoader" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_4oimj")
+
+[node name="GUI" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="LoadingBackground" type="ColorRect" parent="GUI"]
+auto_translate_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="GUI"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -360.0
+offset_top = -96.0
+offset_right = 76.0
+offset_bottom = 22.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("2_tt5n6")
+theme_override_font_sizes/font_size = 70
+text = "LOADING..."
+
+[node name="LoadingSpinner" type="TextureRect" parent="GUI"]
+material = SubResource("ShaderMaterial_5vymc")
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -96.0
+offset_top = -88.0
+offset_right = -33.0
+offset_bottom = -25.0
+grow_horizontal = 0
+grow_vertical = 0
+pivot_offset = Vector2(44, 44)
+texture = ExtResource("4_ivnn3")
+expand_mode = 1
