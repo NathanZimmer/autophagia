@@ -7,13 +7,13 @@ extends Control
 
 
 func _ready() -> void:
-	main_menu_button.pressed.connect(_quit_to_menu)
-	desktop_botton.pressed.connect(_quit_game)
+    main_menu_button.pressed.connect(_quit_to_menu)
+    desktop_botton.pressed.connect(_quit_game)
 
 
 func _quit_to_menu() -> void:
-	get_tree().change_scene_to_file(main_menu_scene_path)
+    get_tree().change_scene_to_file(main_menu_scene_path)
 
 
 func _quit_game() -> void:
-	get_tree().quit()
+    get_tree().quit()

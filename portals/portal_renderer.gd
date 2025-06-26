@@ -28,13 +28,13 @@ const OBLIQUE_FRUSTUM_ENABLED = true
         if _camera != null:
             _camera.cull_mask = value
 
-    get():
+    get:
         return _cull_mask
 
 var use_oblique_frustum: bool :
     set(value):
         _camera.use_oblique_frustum = value
-    get():
+    get:
         return _camera.use_oblique_frustum
 
 var _camera: Camera3D

@@ -18,7 +18,7 @@ const RECURSION_PASS_THROUGH_COLOR = Color.MAGENTA
         if Engine.is_editor_hint():
             update_gizmos()
 
-    get():
+    get:
         return size
 
 @export_group("Reference Targets")
@@ -37,7 +37,7 @@ const RECURSION_PASS_THROUGH_COLOR = Color.MAGENTA
         if _mesh != null:
             _mesh.layers = _render_layers
 
-    get():
+    get:
         return _render_layers
 
 ## Layers for the `VisibleOnScreenNotifier3D` to check on
@@ -50,7 +50,7 @@ const RECURSION_PASS_THROUGH_COLOR = Color.MAGENTA
         if _vis_notifier != null:
             _vis_notifier.layers = _vis_notifier_render_layers
 
-    get():
+    get:
         return _vis_notifier_render_layers
 
 ## Layers to render the secondary `Mesh` on. This can be used to indicate when
@@ -64,7 +64,7 @@ const RECURSION_PASS_THROUGH_COLOR = Color.MAGENTA
         if _recursion_mesh != null:
             _recursion_mesh.layers = _render_layers
 
-    get():
+    get:
         return _recursion_render_layers
 
 @export_group("Collision")
@@ -78,7 +78,7 @@ const RECURSION_PASS_THROUGH_COLOR = Color.MAGENTA
         if _area_3d != null:
             _area_3d.collision_layer = _collision_layers
 
-    get():
+    get:
         return _collision_layers
 
 ## Collision mask for this portal's Area3D
@@ -90,8 +90,7 @@ const RECURSION_PASS_THROUGH_COLOR = Color.MAGENTA
 
         if _area_3d != null:
             _area_3d.collision_mask = _collision_mask
-
-    get():
+    get:
         return _collision_mask
 
 var _material: ShaderMaterial = preload(MATERIAL_PATH).duplicate()

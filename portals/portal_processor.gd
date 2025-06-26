@@ -16,7 +16,7 @@ class_name PortalProcessor extends Node3D
             for portal in find_children("*", "PortalBody", false):
                 portal.size = _size
 
-    get():
+    get:
         return _override_portal_sizes
 
 ## Portal size override, only used if `_override_portal_sizes == true`
@@ -30,7 +30,7 @@ class_name PortalProcessor extends Node3D
             for portal in find_children("*", "PortalBody", false):
                 portal.size = _size
 
-    get():
+    get:
         return _size
 
 @export_group("Reference Target")

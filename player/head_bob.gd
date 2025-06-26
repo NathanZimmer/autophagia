@@ -26,68 +26,77 @@ var current_target := Vector2.ZERO
 
 
 func _ready() -> void:
-	recenter.connect(recenter_head)
-	await head_bob()
+    recenter.connect(recenter_head)
+    await head_bob()
 
 
 func recenter_head() -> void:
-	if position_tween == null or not position_tween.is_running():
-		return
+    if position_tween == null or not position_tween.is_running():
+        return
 
-	bobbing = false
+    bobbing = false
 
-	# rotation_tween.stop()
-	# rotation_tween.finished.emit()
-	position_tween.stop()
-	position_tween.finished.emit()
+    # rotation_tween.stop()
+    # rotation_tween.finished.emit()
+    position_tween.stop()
+    position_tween.finished.emit()
 
-	var ratio_x = abs(current_target.x - position.x) / bob_offset_x
-	ratio_x = ratio_x if ratio_x > MIN_RETURN_RATIO else MIN_RETURN_RATIO
-	var ratio_y = abs(current_target.y - (position.y - position_y)) / (bob_offset_y)
-	ratio_y = ratio_y if ratio_y > MIN_RETURN_RATIO else MIN_RETURN_RATIO
-	return_tween = create_tween()
-	return_tween.set_parallel()
-	return_tween.tween_property(self, "position:x", 0, bob_duration * ratio_x).set_trans(TRANS_MODE)
-	return_tween.tween_property(self, "position:y", position_y, bob_duration * ratio_y).set_trans(TRANS_MODE)
-	return_tween.finished.connect(func(): bobbing = true)
+    var ratio_x = abs(current_target.x - position.x) / bob_offset_x
+    ratio_x = ratio_x if ratio_x > MIN_RETURN_RATIO else MIN_RETURN_RATIO
+    var ratio_y = abs(current_target.y - (position.y - position_y)) / (bob_offset_y)
+    ratio_y = ratio_y if ratio_y > MIN_RETURN_RATIO else MIN_RETURN_RATIO
+    return_tween = create_tween()
+    return_tween.set_parallel()
+    return_tween.tween_property(self, "position:x", 0, bob_duration * ratio_x).set_trans(TRANS_MODE)
+    return_tween.tween_property(self, "position:y", position_y, bob_duration * ratio_y).set_trans(
+        TRANS_MODE
+    )
+    return_tween.finished.connect(func(): bobbing = true)
 
 
 func head_bob() -> void:
-	while true:
-		await bob_head
-		if not bobbing:
-			continue
+    while true:
+        await bob_head
+        if not bobbing:
+            continue
 
-		_create_tweens(bob_angle, -1 * bob_offset_x, bob_offset_y)
-		await position_tween.finished
-		if not bobbing:
-			continue
+        _create_tweens(bob_angle, -1 * bob_offset_x, bob_offset_y)
+        await position_tween.finished
+        if not bobbing:
+            continue
 
-		_create_tweens(0, 0, 0)
-		await position_tween.finished
-		await bob_head
-		if not bobbing:
-			continue
+        _create_tweens(0, 0, 0)
+        await position_tween.finished
+        await bob_head
+        if not bobbing:
+            continue
 
-		_create_tweens(-1 * bob_angle, bob_offset_x, bob_offset_y)
-		await position_tween.finished
-		if not bobbing:
-			continue
+        _create_tweens(-1 * bob_angle, bob_offset_x, bob_offset_y)
+        await position_tween.finished
+        if not bobbing:
+            continue
 
-		_create_tweens(0, 0, 0)
-		await position_tween.finished
-		if not bobbing:
-			continue
+        _create_tweens(0, 0, 0)
+        await position_tween.finished
+        if not bobbing:
+            continue
 
 
 ## Create two tweens to tween this object by `angle` and `offset` over `self.bob_duration`
 func _create_tweens(_angle: float, offset_x: float, offset_y: float) -> void:
-	# rotation_tween = create_tween()
-	# rotation_tween.tween_property(self, "rotation:z", deg_to_rad(angle) * 0, bob_duration).set_trans(TRANS_MODE)
-	position_tween = create_tween()
-	position_tween.set_parallel()
-	position_tween.tween_property(self, "position:x", offset_x, bob_duration).set_trans(Tween.TRANS_LINEAR).set_trans(
-		TRANS_MODE
-	)
-	position_tween.tween_property(self, "position:y", offset_y + position_y, bob_duration).set_trans(Tween.TRANS_LINEAR)
-	current_target = Vector2(offset_x, offset_y)
+    # rotation_tween = create_tween()
+    # rotation_tween.tween_property(self, "rotation:z", deg_to_rad(angle) * 0, bob_duration).set_trans(TRANS_MODE)
+    position_tween = create_tween()
+    position_tween.set_parallel()
+    (
+        position_tween
+        . tween_property(self, "position:x", offset_x, bob_duration)
+        . set_trans(Tween.TRANS_LINEAR)
+        . set_trans(TRANS_MODE)
+    )
+    (
+        position_tween
+        . tween_property(self, "position:y", offset_y + position_y, bob_duration)
+        . set_trans(Tween.TRANS_LINEAR)
+    )
+    current_target = Vector2(offset_x, offset_y)
