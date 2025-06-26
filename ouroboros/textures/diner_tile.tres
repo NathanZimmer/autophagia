@@ -1,8 +1,0 @@
-[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cmwuxolcsnjp4"]
-
-[ext_resource type="Texture2D" uid="uid://crex4ty1jry6y" path="res://ouroboros/textures/diner_tile.png" id="1_mye58"]
-
-[resource]
-albedo_texture = ExtResource("1_mye58")
-metallic_specular = 0.0
-texture_filter = 2

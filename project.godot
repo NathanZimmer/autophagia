@@ -11,18 +11,18 @@ config_version=5
 [application]
 
 config/name="Autophagia"
-run/main_scene="uid://bxni3e6t47b77"
+run/main_scene="uid://bn2tmn3fg0c2c"
 config/features=PackedStringArray("4.4", "Forward Plus")
 run/max_fps=144
 config/icon="uid://dkfubxlbsae1l"
 
 [autoload]
 
-Globals="*res://ouroboros/scripts/global/globals.gd"
+Globals="*res://common/globals.gd"
 
 [display]
 
-window/size/viewport_width=640
+window/size/viewport_width=854
 window/size/viewport_height=480
 window/size/resizable=false
 window/stretch/mode="viewport"

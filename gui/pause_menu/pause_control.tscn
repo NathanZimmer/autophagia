@@ -1,0 +1,183 @@
+[gd_scene load_steps=9 format=3 uid="uid://bbbspt027k0x3"]
+
+[ext_resource type="Script" uid="uid://pgqoh640uaae" path="res://gui/pause_menu/pause_control.gd" id="1_07ung"]
+[ext_resource type="Script" uid="uid://bto4w2eh0ktsi" path="res://gui/common/menu_control.gd" id="2_f8c46"]
+[ext_resource type="LabelSettings" uid="uid://cslyk2capep48" path="res://gui/style/pause_label_font.tres" id="3_36k5q"]
+[ext_resource type="Script" uid="uid://bv12qljihvxob" path="res://gui/common/back_button.gd" id="3_a2dyc"]
+[ext_resource type="Theme" uid="uid://bpwxalae1j42b" path="res://gui/style/menu_theme.tres" id="4_ujg4y"]
+[ext_resource type="PackedScene" uid="uid://djed1pkatai3r" path="res://gui/visuals_menu/visual_menu_control.tscn" id="6_xfgav"]
+[ext_resource type="PackedScene" uid="uid://cdssagdy1niv2" path="res://gui/controls_menu/controls_menu_control.tscn" id="7_8s44h"]
+[ext_resource type="PackedScene" uid="uid://dmf8q0yo1mskk" path="res://gui/quit_menu/quit_menu_control.tscn" id="8_g34ac"]
+
+[node name="PauseControl" type="Control" node_paths=PackedStringArray("starting_menu")]
+process_mode = 2
+auto_translate_mode = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_07ung")
+starting_menu = NodePath("BaseMenuControl")
+
+[node name="PauseMenuBackground" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.352941)
+
+[node name="BaseMenuControl" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.25
+offset_top = -180.0
+offset_right = 533.75
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_f8c46")
+swap_list = {
+NodePath("ControlsButton"): NodePath("../ControlsMenuControl"),
+NodePath("QuitButton"): NodePath("../QuitMenuControl"),
+NodePath("VisualsButton"): NodePath("../VisualMenuControl")
+}
+
+[node name="VisualsButton" type="Button" parent="BaseMenuControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -240.0
+offset_right = 64.0
+offset_bottom = -195.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_ujg4y")
+text = "Visuals"
+flat = true
+
+[node name="ControlsButton" type="Button" parent="BaseMenuControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -192.0
+offset_right = 64.0
+offset_bottom = -147.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_ujg4y")
+text = "Controls"
+flat = true
+
+[node name="SaveButton" type="Button" parent="BaseMenuControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -72.0
+offset_top = -144.0
+offset_right = 72.0
+offset_bottom = -99.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_ujg4y")
+text = "Save/Load"
+flat = true
+
+[node name="ReturnButton" type="Button" parent="BaseMenuControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -96.0
+offset_right = 64.0
+offset_bottom = -51.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_ujg4y")
+text = "RETURN"
+flat = true
+script = ExtResource("3_a2dyc")
+
+[node name="QuitButton" type="Button" parent="BaseMenuControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -48.0
+offset_right = 64.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_ujg4y")
+text = "QUIT"
+flat = true
+
+[node name="Label" type="Label" parent="BaseMenuControl"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.5
+offset_top = -336.0
+offset_right = 140.5
+offset_bottom = -226.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_ujg4y")
+text = "pause"
+label_settings = ExtResource("3_36k5q")
+horizontal_alignment = 1
+uppercase = true
+
+[node name="VisualMenuControl" parent="." instance=ExtResource("6_xfgav")]
+visible = false
+layout_mode = 1
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="ControlsMenuControl" parent="." instance=ExtResource("7_8s44h")]
+visible = false
+layout_mode = 1
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="QuitMenuControl" parent="." instance=ExtResource("8_g34ac")]
+visible = false
+layout_mode = 1
