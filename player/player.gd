@@ -1,4 +1,4 @@
-extends CharacterBody3D
+class_name Player extends CharacterBody3D
 ## Handles player movement, jumping, and gravity
 
 @export_group("Camera settings")

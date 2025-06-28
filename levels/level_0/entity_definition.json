@@ -1,0 +1,17 @@
+{
+    "PortalProcessor": {
+        "class": "PortalProcessor",
+        "uid": "uid://6k32ute3x11j",
+        "variables": {}
+    },
+    "Portal": {
+        "class": "BTGPortalBody",
+        "uid": "uid://co20ahkr1w1pe",
+        "variables": {}
+    },
+    "Portal_001": {
+        "class": "BTGPortalBody",
+        "uid": "uid://co20ahkr1w1pe",
+        "variables": {}
+    }
+}

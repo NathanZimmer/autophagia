@@ -4,9 +4,5 @@
 # Godot 4+ specific ignores
 .godot/
 
-# TrenchBroom ignores
-ouroboros/maps/autosave
-trench_broom
-
-# Lightmaps are large, only commit them when getting ready to merge with master
-ouroboros/textures/temp_lightmaps
+# Blender ignores
+*.blend1
