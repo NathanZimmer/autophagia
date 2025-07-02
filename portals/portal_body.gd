@@ -291,15 +291,18 @@ func _create_area_3d() -> Area3D:
 
     return area_3d
 
-
+# FIXME: Player jumping is screwed up when they jump through a portal with a different up dir
 ## Teleport player from `self` to `teleport_target` keeping the same relative
 ## transform
 func _teleport_player() -> void:
+    var old_basis = _player.global_basis
     _player.global_transform = _get_relative_transform(
         _player.global_transform,
         global_transform,
         teleport_target.global_transform,
     )
+    _player.up_direction = teleport_target.global_basis.y
+    _player.velocity = teleport_target.global_basis * (old_basis.inverse() * _player.velocity)
     player_teleported.emit()
 
 

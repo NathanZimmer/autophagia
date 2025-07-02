@@ -59,42 +59,37 @@ func _input(event) -> void:
 
 
 func _physics_process(delta: float) -> void:
-    # Move player
-    if not is_on_floor() and not flying:
-        velocity.y -= gravity * delta
-
-    _walk_and_jump()
+    _walk_and_jump(delta)
     move_and_slide()
     orthonormalize()
 
 
-## Handle player input for walking and jumping using the player_ input actions
-func _walk_and_jump():
-    var input_dir = Input.get_vector("player_left", "player_right", "player_forward", "player_back")
-    var height_change = Input.get_axis("player_down", "player_up")
+## Handle player input for walking and jumping using the player_* input actions
+func _walk_and_jump(delta: float):
+    var xz_input_dir := Input.get_vector("player_left", "player_right", "player_forward", "player_back")
 
-    var direction
-    if flying:
-        direction = ((global_basis * Vector3(input_dir.x, height_change, input_dir.y)).normalized())
-    else:
-        direction = (global_basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+    var right := global_basis.x * xz_input_dir.x
+    var forward := global_basis.z * xz_input_dir.y
+    var xz_velocity = (right + forward).normalized() * move_speed * speed_mod
 
-    if direction:
-        velocity.x = direction.x * move_speed * speed_mod
-        velocity.z = direction.z * move_speed * speed_mod
-        if flying:
-            velocity.y = direction.y * move_speed * speed_mod
-        else:
-            camera.bob_head.emit()
+    # Need to handle jumping, falling, and flying separately from xz movement
+    var y_velocity: Vector3
+    if not flying:
+        y_velocity = velocity.project(global_basis.y)
+        if not is_on_floor():
+            y_velocity -= global_basis.y * gravity * delta
+        if Input.is_action_just_pressed("player_up") and is_on_floor():
+            y_velocity += jump_velocity * global_basis.y
     else:
+        var y_input_dir = Input.get_axis("player_down", "player_up")
+        var up = global_basis.y * y_input_dir
+        y_velocity = up * move_speed * speed_mod
+
+    velocity = xz_velocity + y_velocity
+    if not flying:
+        camera.bob_head.emit()
+    if not xz_velocity:
         camera.recenter.emit()
-        velocity.x = move_toward(velocity.x, 0, move_speed * speed_mod)
-        velocity.z = move_toward(velocity.z, 0, move_speed * speed_mod)
-        if flying:
-            velocity.y = move_toward(velocity.y, 0, move_speed * speed_mod)
-
-    if Input.is_action_just_pressed("player_up") and is_on_floor() and not flying:
-        velocity.y = jump_velocity
 
 
 ## Handle mouse input for camera rotation [br]
