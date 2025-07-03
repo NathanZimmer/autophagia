@@ -5,9 +5,25 @@
 
 [node name="Level0" type="Node3D"]
 
-[node name="Player" parent="." instance=ExtResource("1_lm2rq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1)
-
 [node name="level_0" parent="." instance=ExtResource("1_rup2k")]
+
+[node name="Ground" parent="level_0" index="0"]
+process_mode = 4
+visible = false
+
+[node name="PortalProcessor" parent="level_0" index="1"]
+process_mode = 4
+visible = false
+
+[node name="PortalFrame" parent="level_0" index="2"]
+process_mode = 4
+visible = false
+
+[node name="PortalFrame_001" parent="level_0" index="3"]
+process_mode = 4
+visible = false
+
+[node name="Player" parent="." instance=ExtResource("1_lm2rq")]
+transform = Transform3D(1, 0, 5.56363e-08, 3.93408e-08, -0.707107, -0.707107, 3.93408e-08, 0.707107, -0.707107, -10.75, 10.75, -11)
 
 [editable path="level_0"]

@@ -15,6 +15,8 @@
 class_name RecursivePortalProcessor extends PortalProcessor
 
 @export_group("Rendering")
+## TODO
+@export var _self_recurse := false
 ## Render layers for the recursion mesh of the forward pass portals
 @export_flags_3d_render var _forward_pass_render_layers := 4
 ## Render layers for the recursion mesh of the back pass portals
@@ -26,118 +28,147 @@ class_name RecursivePortalProcessor extends PortalProcessor
 # (2) Godot does not currently allow manually rendering individual viewports, so we
 # couldn't implement a better solution if we wanted to
 
+const RECURSION_LIMIT := 10
+
+# FIXME: The second-level (or maybe first level?) of portal recursion flashes right after
+# the player teleports. It looks like it's briefly transparent or something.
+# Upon further inspection, it looks like second-level is "popping" out of the frame and
+# first level is flashing.
+
+# FIXME: Recursive port break player gravity. Seems like the first and last portal aren't
+# rendering properly and the player isn't being teleported to the right place.
+# Some up_direction vectors break jumping
 
 ## Reset child PortalBody objects and create PortalRenderers for each portal
 ## and each level of recursion
 func _setup() -> void:
-	var portals: Array[PortalBody]
-	portals.assign(find_children("*", "PortalBody", false) as Array[PortalBody])
+    var portals: Array[PortalBody]
+    portals.assign(find_children("*", "PortalBody", false) as Array[PortalBody])
 
-	if portals.size() % 2 != 0:
-		push_warning("Uneven number of PortalBody children. This node will not process.")
-		return
+    if portals.size() % 2 != 0:
+        push_warning("Uneven number of PortalBody children. This node will not process.")
+        return
 
-	# Forward pass
-	for i in range(0, portals.size(), 2):
-		var portal := portals[i]
+    # Forward pass
+    for i in range(0, portals.size(), 2):
+        var portal := portals[i]
 
-		portal.player_teleported.connect(portals[i + 1].prepare_for_teleport)
+        portal.player_teleported.connect(portals[i + 1].prepare_for_teleport)
 
-		var base_renderer := (
-			PortalRenderer
-			. init(
-				_target_cam,
-				portal,
-				portals[i + 1],
-				(_forward_pass_render_layers | _world_render_layers) & ~_portal_render_layer,
-			)
-		)
-		var portal_renderers: Array[PortalRenderer] = [base_renderer]
-		portal.add_child(base_renderer)
+        var base_renderer := PortalRenderer.init(
+            _target_cam,
+            portal,
+            portals[i + 1],
+            (_forward_pass_render_layers | _world_render_layers) & ~_portal_render_layer,
+        )
+        var portal_renderers: Array[PortalRenderer] = [base_renderer]
+        portal.add_child(base_renderer)
 
-		# Create recursive renderers
-		for j in range(i + 2, portals.size(), 2):
-			var renderer := (
-				PortalRenderer
-				. init(
-					portal_renderers[-1].get_camera(),
-					portals[j],
-					portals[j + 1],
-					(_forward_pass_render_layers | _world_render_layers) & ~_portal_render_layer,
-				)
-			)
-			portal_renderers.append(renderer)
-			portal.add_child(renderer)
+        # Create recursive renderers
+        var j := i + 2 if i + 2 < portals.size() else 0
+        var recursion_level := 0
+        while j < portals.size():
+            var renderer := PortalRenderer.init(
+                portal_renderers[-1].get_camera(),
+                portals[j],
+                portals[j + 1],
+                (_forward_pass_render_layers | _world_render_layers) & ~_portal_render_layer,
+            )
+            portal_renderers.append(renderer)
+            portal.add_child(renderer)
 
-		(
-			portal
-			. reset(
-				_size if _override_portal_sizes else portal.size,
-				portal_renderers,
-				_portal_render_layer,
-				_forward_pass_render_layers,
-				_collision_layer,
-				_collision_mask,
-				_vis_notifier_layers,
-				portals[i + 1],
-				_target_cam.get_parent(),
-			)
-		)
+            recursion_level += 1
+            if recursion_level >= RECURSION_LIMIT:
+                break
+            j += 2
+            if j >= portals.size() and _self_recurse:
+                j = 0
 
-	# Backward pass
-	for i in range(portals.size() - 1, 0, -2):
-		var portal := portals[i]
+        # for j in range(i + 2, portals.size(), 2):
+        #     var renderer := PortalRenderer.init(
+        #         portal_renderers[-1].get_camera(),
+        #         portals[j],
+        #         portals[j + 1],
+        #         (_forward_pass_render_layers | _world_render_layers) & ~_portal_render_layer,
+        #     )
+        #     portal_renderers.append(renderer)
+        #     portal.add_child(renderer)
 
-		portal.player_teleported.connect(portals[i - 1].prepare_for_teleport)
+        portal.reset(
+            _size if _override_portal_sizes else portal.size,
+            portal_renderers,
+            _portal_render_layer,
+            _forward_pass_render_layers,
+            _collision_layer,
+            _collision_mask,
+            _vis_notifier_layers,
+            portals[i + 1],
+            _target_cam.get_parent(),
+        )
 
-		var base_renderer := (
-			PortalRenderer
-			. init(
-				_target_cam,
-				portal,
-				portals[i - 1],
-				(_back_pass_render_layers | _world_render_layers) & ~_portal_render_layer,
-			)
-		)
-		var portal_renderers: Array[PortalRenderer] = [base_renderer]
-		portal.add_child(base_renderer)
+    # Backward pass
+    for i in range(portals.size() - 1, 0, -2):
+        var portal := portals[i]
 
-		# Create recursive renderers
-		for j in range(i - 2, 0, -2):
-			var renderer := (
-				PortalRenderer
-				. init(
-					portal_renderers[-1].get_camera(),
-					portals[j],
-					portals[j - 1],
-					(_back_pass_render_layers | _world_render_layers) & ~_portal_render_layer,
-				)
-			)
-			portal_renderers.append(renderer)
-			portal.add_child(renderer)
+        portal.player_teleported.connect(portals[i - 1].prepare_for_teleport)
 
-		(
-			portal
-			. reset(
-				_size if _override_portal_sizes else portal.size,
-				portal_renderers,
-				_portal_render_layer,
-				_back_pass_render_layers,
-				_collision_layer,
-				_collision_mask,
-				_vis_notifier_layers,
-				portals[i - 1],
-				_target_cam.get_parent(),
-			)
-		)
+        var base_renderer := PortalRenderer.init(
+            _target_cam,
+            portal,
+            portals[i - 1],
+            (_back_pass_render_layers | _world_render_layers) & ~_portal_render_layer,
+        )
+        var portal_renderers: Array[PortalRenderer] = [base_renderer]
+        portal.add_child(base_renderer)
+
+        # Create recursive renderers
+        var j := i - 2 if i - 2 >= 0 else portals.size() - 1
+        var recursion_level := 0
+        while j >= 0:
+            var renderer := PortalRenderer.init(
+                portal_renderers[-1].get_camera(),
+                portals[j],
+                portals[j - 1],
+                (_back_pass_render_layers | _world_render_layers) & ~_portal_render_layer,
+            )
+            portal_renderers.append(renderer)
+            portal.add_child(renderer)
+            recursion_level += 1
+            if recursion_level >= RECURSION_LIMIT:
+                break
+            j -= 2
+            if j < 0 and _self_recurse:
+                j = portals.size() - 1
+
+        # for j in range(i - 2, 0, -2):
+        #     var renderer := PortalRenderer.init(
+        #         portal_renderers[-1].get_camera(),
+        #         portals[j],
+        #         portals[j - 1],
+        #         (_back_pass_render_layers | _world_render_layers) & ~_portal_render_layer,
+        #     )
+        #     portal_renderers.append(renderer)
+        #     portal.add_child(renderer)
+
+        portal.reset(
+            _size if _override_portal_sizes else portal.size,
+            portal_renderers,
+            _portal_render_layer,
+            _back_pass_render_layers,
+            _collision_layer,
+            _collision_mask,
+            _vis_notifier_layers,
+            portals[i - 1],
+            _target_cam.get_parent(),
+        )
 
 
 ## Show warning if we don't have % 2 portal children
 func _get_configuration_warnings() -> PackedStringArray:
-	var portals = find_children("*", "PortalBody", false)
+    var portals = find_children("*", "PortalBody", false)
 
-	var warnings: PackedStringArray = []
-	if portals.size() % 2 != 0:
-		warnings.append("This node needs an even number of PortalBody children to process.")
+    var warnings: PackedStringArray = []
+    if portals.size() % 2 != 0:
+        warnings.append("This node needs an even number of PortalBody children to process.")
 
-	return warnings
+    return warnings

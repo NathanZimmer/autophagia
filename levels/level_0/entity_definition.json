@@ -13,5 +13,105 @@
         "class": "BTGPortalBody",
         "uid": "uid://co20ahkr1w1pe",
         "variables": {}
+    },
+    "Portal_004": {
+        "class": "BTGPortalBody",
+        "uid": "uid://co20ahkr1w1pe",
+        "variables": {}
+    },
+    "Portal_003": {
+        "class": "BTGPortalBody",
+        "uid": "uid://co20ahkr1w1pe",
+        "variables": {}
+    },
+    "Portal_002": {
+        "class": "BTGPortalBody",
+        "uid": "uid://co20ahkr1w1pe",
+        "variables": {}
+    },
+    "Portal_005": {
+        "class": "BTGPortalBody",
+        "uid": "uid://co20ahkr1w1pe",
+        "variables": {}
+    },
+    "Portal_006": {
+        "class": "BTGPortalBody",
+        "uid": "uid://co20ahkr1w1pe",
+        "variables": {}
+    },
+    "Portal_007": {
+        "class": "BTGPortalBody",
+        "uid": "uid://co20ahkr1w1pe",
+        "variables": {}
+    },
+    "Portal_008": {
+        "class": "BTGPortalBody",
+        "uid": "uid://co20ahkr1w1pe",
+        "variables": {}
+    },
+    "Portal_009": {
+        "class": "BTGPortalBody",
+        "uid": "uid://co20ahkr1w1pe",
+        "variables": {}
+    },
+    "Portal_010": {
+        "class": "BTGPortalBody",
+        "uid": "uid://co20ahkr1w1pe",
+        "variables": {}
+    },
+    "Portal_011": {
+        "class": "BTGPortalBody",
+        "uid": "uid://co20ahkr1w1pe",
+        "variables": {}
+    },
+    "Portal_012": {
+        "class": "BTGPortalBody",
+        "uid": "uid://co20ahkr1w1pe",
+        "variables": {}
+    },
+    "Portal_013": {
+        "class": "BTGPortalBody",
+        "uid": "uid://co20ahkr1w1pe",
+        "variables": {}
+    },
+    "Portal_014": {
+        "class": "BTGPortalBody",
+        "uid": "uid://co20ahkr1w1pe",
+        "variables": {}
+    },
+    "Portal_015": {
+        "class": "BTGPortalBody",
+        "uid": "uid://co20ahkr1w1pe",
+        "variables": {}
+    },
+    "Portal_016": {
+        "class": "BTGPortalBody",
+        "uid": "uid://co20ahkr1w1pe",
+        "variables": {}
+    },
+    "Portal_017": {
+        "class": "BTGPortalBody",
+        "uid": "uid://co20ahkr1w1pe",
+        "variables": {}
+    },
+    "Portal_018": {
+        "class": "BTGPortalBody",
+        "uid": "uid://co20ahkr1w1pe",
+        "variables": {}
+    },
+    "Portal_019": {
+        "class": "BTGPortalBody",
+        "uid": "uid://co20ahkr1w1pe",
+        "variables": {}
+    },
+    "RecursivePortalProcessor": {
+        "class": "RecursivePortalProcessor",
+        "uid": "uid://cnxtc27x7m03v",
+        "variables": {
+            "_self_recurse": {
+                "type": "bool",
+                "value": false
+            }
+        }
     }
 }

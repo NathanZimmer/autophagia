@@ -64,9 +64,12 @@ func _physics_process(delta: float) -> void:
     orthonormalize()
 
 
+# FIXME: Sometimes the player cannot jump, this is probaly from the basis changing
 ## Handle player input for walking and jumping using the player_* input actions
 func _walk_and_jump(delta: float):
-    var xz_input_dir := Input.get_vector("player_left", "player_right", "player_forward", "player_back")
+    var xz_input_dir := Input.get_vector(
+        "player_left", "player_right", "player_forward", "player_back"
+    )
 
     var right := global_basis.x * xz_input_dir.x
     var forward := global_basis.z * xz_input_dir.y
