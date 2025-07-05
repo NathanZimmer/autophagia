@@ -16,6 +16,7 @@ class_name Player extends CharacterBody3D
 @export var xz_air_velocity := 0.01
 
 @export_group("Dev controls")
+@export var override_up_dir_on_ready := true
 @export var dev_controls_enabled := true
 @export var min_speed := 0.1
 @export var max_speed := 10.0
@@ -36,6 +37,9 @@ func _ready() -> void:
     camera = find_children("", "Camera3D")[0]
     collider = find_children("", "CollisionShape3D")[0]
     # Input.set_use_accumulated_input(false)
+
+    if override_up_dir_on_ready:
+        up_direction = global_basis.y
 
 
 func _input(event) -> void:

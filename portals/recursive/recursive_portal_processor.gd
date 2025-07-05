@@ -30,14 +30,8 @@ class_name RecursivePortalProcessor extends PortalProcessor
 
 const RECURSION_LIMIT := 10
 
-# FIXME: The second-level (or maybe first level?) of portal recursion flashes right after
-# the player teleports. It looks like it's briefly transparent or something.
-# Upon further inspection, it looks like second-level is "popping" out of the frame and
-# first level is flashing.
-
-# FIXME: Recursive port break player gravity. Seems like the first and last portal aren't
-# rendering properly and the player isn't being teleported to the right place.
-# Some up_direction vectors break jumping
+# FIXME: The base renderer has a 1 frame delay
+# FIXME: the second-level portal sometimes has visible seams
 
 ## Reset child PortalBody objects and create PortalRenderers for each portal
 ## and each level of recursion
@@ -66,7 +60,7 @@ func _setup() -> void:
 
         # Create recursive renderers
         var j := i + 2 if i + 2 < portals.size() else 0
-        var recursion_level := 0
+        var recursion_level := 1
         while j < portals.size():
             var renderer := PortalRenderer.init(
                 portal_renderers[-1].get_camera(),
