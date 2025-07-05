@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://v8lgkcko7egt"
+uid="uid://26ge7o4lagkp"
 path="res://.godot/imported/level_0.blend-73fb14ae16d1ee35a03f6fc5c75161ee.scn"
 
 [deps]
@@ -34,9 +34,13 @@ animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={
 "materials": {
-"placeholder": {
+"building": {
 "use_external/enabled": true,
-"use_external/path": "uid://yk4x16701e40"
+"use_external/path": "uid://dwjix6kgseitc"
+},
+"metal_plate": {
+"use_external/enabled": true,
+"use_external/path": "uid://c58dc3dgr1g1p"
 }
 }
 }

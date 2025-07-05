@@ -1,0 +1,23 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://c58dc3dgr1g1p"]
+
+[ext_resource type="Texture2D" uid="uid://bwidiguk4svir" path="res://levels/level_0/materials/metal_plate.png" id="1_k1rgl"]
+[ext_resource type="Shader" uid="uid://cpgcx2hfjb56q" path="res://levels/level_0/materials/vertex_wiggle.gdshader" id="1_tew81"]
+
+[resource]
+resource_name = "metal_plate"
+render_priority = 0
+shader = ExtResource("1_tew81")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = ExtResource("1_k1rgl")
+shader_parameter/albedo_texture_size = Vector2i(128, 128)
+shader_parameter/point_size = 0.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 0.52
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/jitter = 0.75
+shader_parameter/resolution = Vector2i(854, 480)

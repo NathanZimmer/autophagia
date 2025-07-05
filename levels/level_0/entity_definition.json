@@ -1,20 +1,10 @@
 {
-    "PortalProcessor": {
-        "class": "PortalProcessor",
-        "uid": "uid://6k32ute3x11j",
-        "variables": {}
-    },
     "Portal": {
         "class": "BTGPortalBody",
         "uid": "uid://co20ahkr1w1pe",
         "variables": {}
     },
-    "Portal_001": {
-        "class": "BTGPortalBody",
-        "uid": "uid://co20ahkr1w1pe",
-        "variables": {}
-    },
-    "Portal_004": {
+    "Portal_002": {
         "class": "BTGPortalBody",
         "uid": "uid://co20ahkr1w1pe",
         "variables": {}
@@ -24,7 +14,7 @@
         "uid": "uid://co20ahkr1w1pe",
         "variables": {}
     },
-    "Portal_002": {
+    "Portal_004": {
         "class": "BTGPortalBody",
         "uid": "uid://co20ahkr1w1pe",
         "variables": {}
@@ -59,58 +49,13 @@
         "uid": "uid://co20ahkr1w1pe",
         "variables": {}
     },
-    "Portal_011": {
-        "class": "BTGPortalBody",
-        "uid": "uid://co20ahkr1w1pe",
-        "variables": {}
-    },
-    "Portal_012": {
-        "class": "BTGPortalBody",
-        "uid": "uid://co20ahkr1w1pe",
-        "variables": {}
-    },
-    "Portal_013": {
-        "class": "BTGPortalBody",
-        "uid": "uid://co20ahkr1w1pe",
-        "variables": {}
-    },
-    "Portal_014": {
-        "class": "BTGPortalBody",
-        "uid": "uid://co20ahkr1w1pe",
-        "variables": {}
-    },
-    "Portal_015": {
-        "class": "BTGPortalBody",
-        "uid": "uid://co20ahkr1w1pe",
-        "variables": {}
-    },
-    "Portal_016": {
-        "class": "BTGPortalBody",
-        "uid": "uid://co20ahkr1w1pe",
-        "variables": {}
-    },
-    "Portal_017": {
-        "class": "BTGPortalBody",
-        "uid": "uid://co20ahkr1w1pe",
-        "variables": {}
-    },
-    "Portal_018": {
-        "class": "BTGPortalBody",
-        "uid": "uid://co20ahkr1w1pe",
-        "variables": {}
-    },
-    "Portal_019": {
-        "class": "BTGPortalBody",
-        "uid": "uid://co20ahkr1w1pe",
-        "variables": {}
-    },
-    "RecursivePortalProcessor": {
+    "PortalProcessor": {
         "class": "RecursivePortalProcessor",
         "uid": "uid://cnxtc27x7m03v",
         "variables": {
             "_self_recurse": {
                 "type": "bool",
-                "value": false
+                "value": true
             }
         }
     }

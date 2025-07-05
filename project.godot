@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Autophagia"
-run/main_scene="uid://bn2tmn3fg0c2c"
+run/main_scene="uid://duclhdhos7w07"
 config/features=PackedStringArray("4.4", "Forward Plus")
 run/max_fps=144
 config/icon="uid://3n2x0n62fk53"
