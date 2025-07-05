@@ -1,6 +1,8 @@
 class_name Player extends CharacterBody3D
 ## Handles player movement, jumping, and gravity
 
+const TERMINAL_VELOCITY := 50.0
+
 @export_group("Camera settings")
 @export_range(1, 100, 1) var mouse_sensitivity := 50
 @export var max_x_rotation := 89.0
@@ -85,6 +87,8 @@ func _walk_and_jump(delta: float):
         y_velocity = velocity.project(global_basis.y)
         if not is_on_floor():
             y_velocity -= global_basis.y * gravity * delta
+            if y_velocity.length() >= TERMINAL_VELOCITY:
+                y_velocity = global_basis.y * -TERMINAL_VELOCITY
         if Input.is_action_just_pressed("player_up") and is_on_floor():
             y_velocity += jump_velocity * global_basis.y
     else:

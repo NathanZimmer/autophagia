@@ -128,7 +128,7 @@ func _physics_process(_0) -> void:
     if Engine.is_editor_hint():
         return
 
-    var current_frame_angle = global_basis.z.dot(global_position - _player.global_position)
+    var current_frame_angle = global_basis.z.dot(global_position - _player.camera.global_position)
     var current_direction_sign = signf(current_frame_angle)
 
     # FIXME: If the player moves into and out of a portal on back-to-back frames they
@@ -204,6 +204,7 @@ func _setup() -> void:
     var recursion_pass_material = StandardMaterial3D.new()
     recursion_pass_material.albedo_color = RECURSION_PASS_THROUGH_COLOR
     recursion_pass_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+    recursion_pass_material.disable_fog = true
     _recursion_mesh = _create_mesh(recursion_pass_material)
     _recursion_mesh.layers = _recursion_render_layers
 
@@ -214,7 +215,7 @@ func _setup() -> void:
 
     if  is_instance_valid(_player):
         var current_frame_angle = (
-            0.0 if _player == null else global_basis.z.dot(global_position - _player.global_position)
+            0.0 if _player == null else global_basis.z.dot(global_position - _player.camera.global_position)
         )
         _player_direction_sign = signf(current_frame_angle)
 
@@ -300,8 +301,8 @@ func _teleport_player() -> void:
         global_transform,
         teleport_target.global_transform,
     )
-    _player.up_direction = teleport_target.global_basis.y
-    _player.velocity = teleport_target.global_basis * (old_basis.inverse() * _player.velocity)
+    _player.up_direction = _player.global_basis.y
+    _player.velocity = _player.global_basis * (old_basis.inverse() * _player.velocity)
     player_teleported.emit()
 
 
@@ -320,7 +321,7 @@ func _reset_viewport_shader_param() -> void:
 
 ## Set the position of the portal oposite the player along the z-plane of this Node
 func update_portal_pos() -> void:
-    var current_frame_angle = global_basis.z.dot(global_position - _player.global_position)
+    var current_frame_angle = global_basis.z.dot(global_position - _player.camera.global_position)
     var current_direction_sign = signf(current_frame_angle)
     _mesh.position.z = current_direction_sign * size.z / 4
     _recursion_mesh.position.z = _mesh.position.z

@@ -103,7 +103,7 @@ func _setup():
 ## Create and configure the camera for this portal renderer.
 ## Does not add it as a child
 func _create_camera() -> Camera3D:
-    var camera = Camera3D.new()
+    var camera := Camera3D.new()
     camera.environment = _target_cam.environment.duplicate()
     camera.attributes = _target_cam.attributes.duplicate()
     camera.fov = _target_cam.fov
@@ -115,9 +115,10 @@ func _create_camera() -> Camera3D:
         camera.oblique_position = _reference_node.global_position
         camera.oblique_offset = OBLIQUE_OFFSET
 
+    var environment := camera.environment
     for key in ENVIRONMENT_OVERRIDES:
         var value = ENVIRONMENT_OVERRIDES[key]
-        camera.environment.set(key, value)
+        environment.set(key, value)
 
     return camera
 
