@@ -1,4 +1,5 @@
 @tool
+class_name RecursivePortalProcessor extends PortalProcessor
 ## Automatically create `PortalRenderer` nodes for and
 ## setup the link between any even number of `PortalBody` nodes. [br]
 ## Each portal will have a recursive view into its sibling portals
@@ -12,7 +13,15 @@
 ## `PortalBody` will have a view into `PortalBody2` and
 ## `PortalBody3` through `PortalBody1`. Basically, put portals that can
 ## "see" into each other next to each other.
-class_name RecursivePortalProcessor extends PortalProcessor
+
+# NOTE: Creating a new full-resolution viewport for every level of recursion is
+# very wasteful of memory. While the game rendering at a low resolution helps,
+# this will need to be fixed eventually
+
+# FIXME: The base renderer has a 1 frame delay
+# FIXME: the second-level portal sometimes has visible seams
+
+const RECURSION_LIMIT := 10
 
 @export_group("Rendering")
 ## TODO
@@ -22,23 +31,10 @@ class_name RecursivePortalProcessor extends PortalProcessor
 ## Render layers for the recursion mesh of the back pass portals
 @export_flags_3d_render var _back_pass_render_layers := 8
 
-# NOTE: Creating a new full-resolution viewport for every level of recursion is
-# very wasteful of memory. We can get away with it here for 2 reasons:
-# (1) this game is going to be running at a very low resolution, and
-# (2) Godot does not currently allow manually rendering individual viewports, so we
-# couldn't implement a better solution if we wanted to
-
-const RECURSION_LIMIT := 10
-
-# FIXME: The base renderer has a 1 frame delay
-# FIXME: the second-level portal sometimes has visible seams
 
 ## Reset child PortalBody objects and create PortalRenderers for each portal
 ## and each level of recursion
-func _setup() -> void:
-    var portals: Array[PortalBody]
-    portals.assign(find_children("*", "PortalBody", false) as Array[PortalBody])
-
+func _setup(portals: Array[PortalBody]) -> void:
     if portals.size() % 2 != 0:
         push_warning("Uneven number of PortalBody children. This node will not process.")
         return
@@ -53,7 +49,7 @@ func _setup() -> void:
             _target_cam,
             portal,
             portals[i + 1],
-            (_forward_pass_render_layers | _world_render_layers) & ~_portal_render_layer,
+            (_forward_pass_render_layers | _world_render_layers) & ~_portal_render_layer
         )
         var portal_renderers: Array[PortalRenderer] = [base_renderer]
         portal.add_child(base_renderer)
@@ -66,7 +62,7 @@ func _setup() -> void:
                 portal_renderers[-1].get_camera(),
                 portals[j],
                 portals[j + 1],
-                (_forward_pass_render_layers | _world_render_layers) & ~_portal_render_layer,
+                (_forward_pass_render_layers | _world_render_layers) & ~_portal_render_layer
             )
             portal_renderers.append(renderer)
             portal.add_child(renderer)
@@ -97,7 +93,7 @@ func _setup() -> void:
             _collision_mask,
             _vis_notifier_layers,
             portals[i + 1],
-            _target_cam.get_parent(),
+            _target_cam.get_parent()
         )
 
     # Backward pass
@@ -110,7 +106,7 @@ func _setup() -> void:
             _target_cam,
             portal,
             portals[i - 1],
-            (_back_pass_render_layers | _world_render_layers) & ~_portal_render_layer,
+            (_back_pass_render_layers | _world_render_layers) & ~_portal_render_layer
         )
         var portal_renderers: Array[PortalRenderer] = [base_renderer]
         portal.add_child(base_renderer)
@@ -123,7 +119,7 @@ func _setup() -> void:
                 portal_renderers[-1].get_camera(),
                 portals[j],
                 portals[j - 1],
-                (_back_pass_render_layers | _world_render_layers) & ~_portal_render_layer,
+                (_back_pass_render_layers | _world_render_layers) & ~_portal_render_layer
             )
             portal_renderers.append(renderer)
             portal.add_child(renderer)
@@ -153,7 +149,7 @@ func _setup() -> void:
             _collision_mask,
             _vis_notifier_layers,
             portals[i - 1],
-            _target_cam.get_parent(),
+            _target_cam.get_parent()
         )
 
 

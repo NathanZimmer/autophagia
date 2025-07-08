@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=12 format=3 uid="uid://b3gfilq0wguq8"]
 
-[ext_resource type="Shader" uid="uid://cn8lh4arn8xl" path="res://portals/portal.gdshader" id="1_463og"]
+[ext_resource type="Shader" uid="uid://cn8lh4arn8xl" path="res://portals/materials/portal.gdshader" id="1_h602d"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_463og"]
 
@@ -24,6 +24,5 @@
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_463og")
+shader = ExtResource("1_h602d")
 shader_parameter/viewport_textures = Array[Texture2D]([SubResource("PlaceholderTexture2D_463og"), SubResource("Texture2DRD_jxw7g"), SubResource("Texture2DRD_iya85"), SubResource("Texture2DRD_2lnfp"), SubResource("Texture2DRD_5y2dm"), SubResource("Texture2DRD_rcu3k"), SubResource("Texture2DRD_tnjes"), SubResource("Texture2DRD_7ty5q"), SubResource("Texture2DRD_84wxx"), SubResource("Texture2DRD_70wg2")])
-shader_parameter/iter = 0
