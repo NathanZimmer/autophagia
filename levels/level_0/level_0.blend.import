@@ -36,11 +36,11 @@ _subresources={
 "materials": {
 "building": {
 "use_external/enabled": true,
-"use_external/path": "uid://dwjix6kgseitc"
+"use_external/path": "uid://bvttoqle716m3"
 },
 "metal_plate": {
 "use_external/enabled": true,
-"use_external/path": "uid://c58dc3dgr1g1p"
+"use_external/path": "uid://bpfr32vb5y57w"
 }
 }
 }
