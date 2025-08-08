@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://bpfr32vb5y57w"]
 
-[ext_resource type="Texture2D" uid="uid://bwidiguk4svir" path="res://levels/level_0/materials/metal_plate.png" id="1_6shl7"]
-[ext_resource type="Texture2D" uid="uid://bwwtm0lyminvh" path="res://levels/level_0/materials/metal_plate_ao.png" id="2_7n872"]
+[ext_resource type="Texture2D" uid="uid://bwidiguk4svir" path="res://levels/level_0/materials/metal_plate.png" id="1_yyvrd"]
+[ext_resource type="Texture2D" uid="uid://ek45d2ljjdvp" path="res://levels/level_0/materials/high-res-ao.png" id="2_weatj"]
 
 [sub_resource type="Shader" id="Shader_7n872"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.4.stable's StandardMaterial3D.
@@ -79,14 +79,14 @@ resource_name = "metal_plate"
 render_priority = 0
 shader = SubResource("Shader_7n872")
 shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/texture_albedo = ExtResource("1_6shl7")
+shader_parameter/texture_albedo = ExtResource("1_yyvrd")
 shader_parameter/albedo_texture_size = Vector2i(128, 128)
 shader_parameter/point_size = 1.0
 shader_parameter/roughness = 1.0
 shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
 shader_parameter/specular = 0.5
 shader_parameter/metallic = 0.630769
-shader_parameter/texture_ambient_occlusion = ExtResource("2_7n872")
+shader_parameter/texture_ambient_occlusion = ExtResource("2_weatj")
 shader_parameter/ao_texture_channel = Vector4(1, 0, 0, 0)
 shader_parameter/ao_light_affect = 0.0
 shader_parameter/uv1_scale = Vector3(1, 1, 1)

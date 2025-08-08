@@ -1,4 +1,14 @@
 {
+    "PortalProcessor": {
+        "class": "RecursivePortalProcessor",
+        "uid": "uid://cnxtc27x7m03v",
+        "variables": {
+            "_self_recurse": {
+                "type": "bool",
+                "value": true
+            }
+        }
+    },
     "Portal": {
         "class": "BTGPortalBody",
         "uid": "uid://co20ahkr1w1pe",
@@ -48,15 +58,5 @@
         "class": "BTGPortalBody",
         "uid": "uid://co20ahkr1w1pe",
         "variables": {}
-    },
-    "PortalProcessor": {
-        "class": "RecursivePortalProcessor",
-        "uid": "uid://cnxtc27x7m03v",
-        "variables": {
-            "_self_recurse": {
-                "type": "bool",
-                "value": true
-            }
-        }
     }
 }
