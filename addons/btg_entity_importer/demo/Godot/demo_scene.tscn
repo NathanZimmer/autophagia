@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://oa6inp66pe1u"]
+
+[ext_resource type="PackedScene" uid="uid://c28h24v0vtnb6" path="res://addons/blender_to_godot_pipeline/demo/Bleder/demo_scene.blend" id="2_cq2yj"]
+
+[sub_resource type="Environment" id="Environment_ojrjl"]
+background_color = Color(0.509286, 0.509286, 0.509286, 1)
+background_energy_multiplier = 1.7
+
+[node name="DemoScene" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.911805, -0.159513, 0.378374, 0, 0.921464, 0.388465, -0.410623, -0.354204, 0.840195, 2.32304, 2.19434, 5.27308)
+environment = SubResource("Environment_ojrjl")
+
+[node name="demo_scene" parent="." instance=ExtResource("2_cq2yj")]
+
+[editable path="demo_scene"]

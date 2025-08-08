@@ -1,0 +1,13 @@
+{
+    "": {
+        "uid": "",
+        "variables": {
+            "": {
+                "type": "",
+                "default": "",
+                "description": "",
+                "options": {"OPTION_0": 0}
+            }
+        }
+    }
+}

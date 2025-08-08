@@ -1,7 +1,13 @@
 @tool
+class_name PortalBody extends Node3D
 ## Handle meshing and collision for a single portal. Needs a set of `PortalRenderer`s
 ## as children to display
-class_name PortalBody extends Node3D
+
+signal portal_entered_screen
+signal portal_exited_screen
+signal player_teleported
+signal player_entered_portal
+signal player_exited_portal
 
 const MATERIAL_PATH = "uid://b3gfilq0wguq8"
 const VIEWPORT_SHADER_PARAM = "viewport_textures"
@@ -9,7 +15,7 @@ const RECURSION_PASS_THROUGH_COLOR = Color.MAGENTA
 
 @export_group("Portal Dimensions")
 ## Size of this portal
-@export var size := Vector3.ONE :
+@export var size := Vector3.ONE:
     set(value):
         if value == size:
             return
@@ -28,7 +34,7 @@ const RECURSION_PASS_THROUGH_COLOR = Color.MAGENTA
 @export var _player: PhysicsBody3D
 @export_group("Rendering")
 ## Layers to render on
-@export_flags_3d_render var _render_layers := 2 :
+@export_flags_3d_render var _render_layers := 2:
     set(value):
         if value == _render_layers:
             return
@@ -41,7 +47,7 @@ const RECURSION_PASS_THROUGH_COLOR = Color.MAGENTA
         return _render_layers
 
 ## Layers for the `VisibleOnScreenNotifier3D` to check on
-@export_flags_3d_render var _vis_notifier_render_layers := 0 :
+@export_flags_3d_render var _vis_notifier_render_layers := 0:
     set(value):
         if value == _vis_notifier_render_layers:
             return
@@ -55,7 +61,7 @@ const RECURSION_PASS_THROUGH_COLOR = Color.MAGENTA
 
 ## Layers to render the secondary `Mesh` on. This can be used to indicate when
 ## this portal is seen through another portal it shouldn't be or for portal recursion
-@export_flags_3d_render var _recursion_render_layers := 0 :
+@export_flags_3d_render var _recursion_render_layers := 0:
     set(value):
         if value == _recursion_render_layers:
             return
@@ -69,7 +75,7 @@ const RECURSION_PASS_THROUGH_COLOR = Color.MAGENTA
 
 @export_group("Collision")
 ## Collision layers for this portal's Area3D
-@export_flags_3d_physics var _collision_layers := 1 :
+@export_flags_3d_physics var _collision_layers := 1:
     set(value):
         if value == _collision_layers:
             return
@@ -82,7 +88,7 @@ const RECURSION_PASS_THROUGH_COLOR = Color.MAGENTA
         return _collision_layers
 
 ## Collision mask for this portal's Area3D
-@export_flags_3d_physics var _collision_mask := 1 :
+@export_flags_3d_physics var _collision_mask := 1:
     set(value):
         if value == _collision_mask:
             return
@@ -108,12 +114,6 @@ var _portal_on_screen := false
 var _player_direction_sign: float
 var _player_teleported_last_frame := false
 
-signal portal_entered_screen
-signal portal_exited_screen
-signal player_teleported
-signal player_entered_portal
-signal player_exited_portal
-
 
 func _ready() -> void:
     if Engine.is_editor_hint():
@@ -124,11 +124,11 @@ func _ready() -> void:
     _setup()
 
 
-func _physics_process(_0) -> void:
+func _physics_process(_delta) -> void:
     if Engine.is_editor_hint():
         return
 
-    var current_frame_angle = global_basis.z.dot(global_position - _player.global_position)
+    var current_frame_angle = global_basis.z.dot(global_position - _player.camera.global_position)
     var current_direction_sign = signf(current_frame_angle)
 
     # FIXME: If the player moves into and out of a portal on back-to-back frames they
@@ -137,7 +137,7 @@ func _physics_process(_0) -> void:
         _player_in_portal
         and current_direction_sign != _player_direction_sign
         and not _player_teleported_last_frame
-        ):
+    ):
         _teleport_player()
         _player_teleported_last_frame = true
     else:
@@ -172,8 +172,6 @@ func reset(
 ) -> void:
     self.size = size
     _renderers = renderers
-    # for renderer in _renderers:
-    #     add_child(renderer)
     _render_layers = render_layers
     _recursion_render_layers = recursion_render_layers
     _collision_layers = collision_layers
@@ -204,6 +202,7 @@ func _setup() -> void:
     var recursion_pass_material = StandardMaterial3D.new()
     recursion_pass_material.albedo_color = RECURSION_PASS_THROUGH_COLOR
     recursion_pass_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+    recursion_pass_material.disable_fog = true
     _recursion_mesh = _create_mesh(recursion_pass_material)
     _recursion_mesh.layers = _recursion_render_layers
 
@@ -212,9 +211,11 @@ func _setup() -> void:
         player_exited_portal.connect(func(): _renderers[0].use_oblique_frustum = true)
         _reset_viewport_shader_param()
 
-    if  is_instance_valid(_player):
+    if is_instance_valid(_player):
         var current_frame_angle = (
-            0.0 if _player == null else global_basis.z.dot(global_position - _player.global_position)
+            0.0
+            if _player == null
+            else global_basis.z.dot(global_position - _player.camera.global_position)
         )
         _player_direction_sign = signf(current_frame_angle)
 
@@ -295,11 +296,14 @@ func _create_area_3d() -> Area3D:
 ## Teleport player from `self` to `teleport_target` keeping the same relative
 ## transform
 func _teleport_player() -> void:
+    var old_basis = _player.global_basis
     _player.global_transform = _get_relative_transform(
         _player.global_transform,
         global_transform,
         teleport_target.global_transform,
     )
+    _player.up_direction = _player.global_basis.y
+    _player.velocity = (_player.global_basis * (old_basis.inverse() * _player.velocity))
     player_teleported.emit()
 
 
@@ -310,15 +314,12 @@ func _reset_viewport_shader_param() -> void:
     for renderer in _renderers:
         viewport_textures.append(renderer.get_viewport_texture())
 
-    _material.set_shader_parameter(
-        VIEWPORT_SHADER_PARAM,
-        viewport_textures,
-    )
+    _material.set_shader_parameter(VIEWPORT_SHADER_PARAM, viewport_textures)
 
 
 ## Set the position of the portal oposite the player along the z-plane of this Node
 func update_portal_pos() -> void:
-    var current_frame_angle = global_basis.z.dot(global_position - _player.global_position)
+    var current_frame_angle = global_basis.z.dot(global_position - _player.camera.global_position)
     var current_direction_sign = signf(current_frame_angle)
     _mesh.position.z = current_direction_sign * size.z / 4
     _recursion_mesh.position.z = _mesh.position.z

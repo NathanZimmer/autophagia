@@ -1,13 +1,13 @@
 shader_type spatial;
 
 const uint MAX_VP_TEXTURES = uint(10);
+const bool DEBUG = false;
 
 render_mode unshaded, cull_disabled;
 //uniform sampler2D viewport_texture : source_color;
 //uniform sampler2D viewport_texture_1 : source_color;
 //uniform sampler2D viewport_texture_2 : source_color;
 uniform sampler2D[MAX_VP_TEXTURES] viewport_textures : source_color;
-uniform int iter = 0;
 
 void fragment() {
     for (int i = 0; i < viewport_textures.length(); i++)
@@ -20,7 +20,15 @@ void fragment() {
         }
         if (i == viewport_textures.length() - 1)
         {
-            ALBEDO = vec3(1.0, 0.0, 0.0);
+            if (DEBUG)
+            {
+                ALBEDO = vec3(1.0, 0.0, 1.0);
+            }
+            else
+            {
+                ALBEDO = vec3(0.0, 0.0, 0.0);
+                ALPHA = 0.0;
+            }
         }
     }
     //{

@@ -1,0 +1,23 @@
+{
+    "Player": {
+        "uid": "uid://dnhp4dcugklq6",
+        "variables": {}
+    },
+    "PortalProcessor": {
+        "uid": "uid://6k32ute3x11j",
+        "variables": {}
+    },
+    "RecursivePortalProcessor": {
+        "uid": "uid://cnxtc27x7m03v",
+        "variables": {
+            "_self_recurse": {
+                "type": "bool",
+                "default": false
+            }
+        }
+    },
+    "BTGPortalBody": {
+        "uid": "uid://co20ahkr1w1pe",
+        "variables": {}
+    }
+}

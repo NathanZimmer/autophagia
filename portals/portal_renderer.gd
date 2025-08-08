@@ -19,7 +19,7 @@ const OBLIQUE_FRUSTUM_ENABLED = true
 @export var _reference_node: Node3D
 @export_group("Rendering")
 ## Cull maks for this renderer's camera
-@export_flags_3d_render var _cull_mask := 1 :
+@export_flags_3d_render var _cull_mask := 1:
     set(value):
         if value == _cull_mask:
             return
@@ -31,7 +31,7 @@ const OBLIQUE_FRUSTUM_ENABLED = true
     get:
         return _cull_mask
 
-var use_oblique_frustum: bool :
+var use_oblique_frustum: bool:
     set(value):
         _camera.use_oblique_frustum = value
     get:
@@ -63,9 +63,7 @@ static func init(
     cull_mask: int,
 ) -> PortalRenderer:
     var renderer = PortalRenderer.new()
-    renderer.reset(
-        target_cam, target_reference_node, reference_node, cull_mask
-    )
+    renderer.reset(target_cam, target_reference_node, reference_node, cull_mask)
     return renderer
 
 
@@ -103,7 +101,7 @@ func _setup():
 ## Create and configure the camera for this portal renderer.
 ## Does not add it as a child
 func _create_camera() -> Camera3D:
-    var camera = Camera3D.new()
+    var camera := Camera3D.new()
     camera.environment = _target_cam.environment.duplicate()
     camera.attributes = _target_cam.attributes.duplicate()
     camera.fov = _target_cam.fov
@@ -115,9 +113,10 @@ func _create_camera() -> Camera3D:
         camera.oblique_position = _reference_node.global_position
         camera.oblique_offset = OBLIQUE_OFFSET
 
+    var environment := camera.environment
     for key in ENVIRONMENT_OVERRIDES:
         var value = ENVIRONMENT_OVERRIDES[key]
-        camera.environment.set(key, value)
+        environment.set(key, value)
 
     return camera
 
@@ -135,7 +134,7 @@ func _create_sub_viewport() -> SubViewport:
     # FIXME: Condition "!viewport->canvas_map.has(p_canvas)" is true.
     var properties = target_viewport.get_property_list()
     for property in properties:
-        var key = property['name']
+        var key = property["name"]
         var val = target_viewport.get(key)
         sub_viewport.set(key, val)
 
@@ -144,7 +143,7 @@ func _create_sub_viewport() -> SubViewport:
         ProjectSettings.get_setting("display/window/size/viewport_height")
     )
     sub_viewport.use_occlusion_culling = false
-    sub_viewport.render_target_update_mode = SubViewport.UPDATE_WHEN_PARENT_VISIBLE
+    sub_viewport.render_target_update_mode = (SubViewport.UPDATE_WHEN_PARENT_VISIBLE)
     sub_viewport.handle_input_locally = true
 
     return sub_viewport

@@ -6,7 +6,7 @@ class_name PortalProcessor extends Node3D
 @export_group("Portal Dimensions")
 ## Whether or not to override the size of all `PortalBody`
 ## children
-@export var _override_portal_sizes := false :
+@export var _override_portal_sizes := false:
     set(value):
         if value == _override_portal_sizes:
             return
@@ -20,7 +20,7 @@ class_name PortalProcessor extends Node3D
         return _override_portal_sizes
 
 ## Portal size override, only used if `_override_portal_sizes == true`
-@export var _size := Vector3.ONE :
+@export var _size := Vector3.ONE:
     set(value):
         if value == _size:
             return
@@ -60,34 +60,27 @@ func _ready() -> void:
     if _target_cam == null:
         _target_cam = get_viewport().get_camera_3d()
 
-    _setup()
+    var portals: Array[PortalBody]
+    portals.assign(find_children("*", "PortalBody", false))
+    _setup(portals)
 
 
 ## Reset child PortalBody objects and create PortalRenderers for each
-func _setup() -> void:
-    var portals = find_children("*", "PortalBody", false)
+func _setup(portals: Array[PortalBody]) -> void:
     if portals.size() != 2:
-        push_warning(
-            "Incorrect number of PortalBody children. This node will not process."
-        )
+        push_warning("Incorrect number of PortalBody children. This node will not process.")
         return
 
     var portal_0: PortalBody = portals[0]
     var portal_1: PortalBody = portals[1]
 
     var renderer_0 := PortalRenderer.init(
-        _target_cam,
-        portal_0,
-        portal_1,
-        _world_render_layers & ~_portal_render_layer,
+        _target_cam, portal_0, portal_1, _world_render_layers & ~_portal_render_layer
     )
     portal_0.add_child(renderer_0)
 
     var renderer_1 := PortalRenderer.init(
-        _target_cam,
-        portal_1,
-        portal_0,
-        _world_render_layers & ~_portal_render_layer,
+        _target_cam, portal_1, portal_0, _world_render_layers & ~_portal_render_layer
     )
     portal_1.add_child(renderer_1)
 
@@ -100,7 +93,7 @@ func _setup() -> void:
         _collision_mask,
         _vis_notifier_layers,
         portal_1,
-        _target_cam.get_parent(),
+        _target_cam.get_parent()
     )
 
     portal_1.reset(
@@ -112,7 +105,7 @@ func _setup() -> void:
         _collision_mask,
         _vis_notifier_layers,
         portal_0,
-        _target_cam.get_parent(),
+        _target_cam.get_parent()
     )
 
 
