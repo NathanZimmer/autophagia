@@ -38,8 +38,8 @@ enabled=PackedStringArray("res://addons/btg_entity_importer/plugin.cfg", "res://
 
 [global_group]
 
-interactable="objects that the player can interact with via the \"interact\" signal"
-portal=""
+player_raycast=""
+player=""
 
 [input]
 
