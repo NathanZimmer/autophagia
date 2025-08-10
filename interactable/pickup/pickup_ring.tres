@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://0i0xldxoakos"]
+
+[ext_resource type="Shader" uid="uid://cfc7kg74liix0" path="res://interactable/pickup/scroll_3d.gdshader" id="1_t1iov"]
+[ext_resource type="Texture2D" uid="uid://b4fk2crehyv8o" path="res://interactable/pickup/pickup.png" id="2_mwiht"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_t1iov")
+shader_parameter/texture_albedo = ExtResource("2_mwiht")
+shader_parameter/scroll_speed = Vector2(0.15, 0)
+shader_parameter/uv_offset = Vector2(0, 0.425)
+shader_parameter/uv_scale = Vector3(1, 1, 1)
+shader_parameter/jitter = 0.7
+shader_parameter/resolution = Vector2i(854, 480)

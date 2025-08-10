@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://cfu3lhkhxqp13"]
+
+[ext_resource type="Script" uid="uid://nby3c2g37q5b" path="res://interactable/triggers/click_trigger.gd" id="1_7malt"]
+[ext_resource type="Script" uid="uid://bburqamni4xdm" path="res://interactable/npc/npc.gd" id="1_7t535"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_wnnot"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7malt"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7t535"]
+radius = 0.6
+
+[node name="Npc" type="Node3D"]
+script = ExtResource("1_7t535")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_wnnot")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("CapsuleShape3D_7malt")
+
+[node name="ClickTrigger" type="Area3D" parent="."]
+script = ExtResource("1_7malt")
+_groups = Array[StringName]([&"player_raycast"])
+_input_action = "player_interact"
+metadata/_custom_type_script = "uid://nby3c2g37q5b"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ClickTrigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_7t535")

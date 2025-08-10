@@ -5,12 +5,13 @@ class_name ClickTrigger extends Area3D
 
 signal triggered
 
-var _can_trigger := false
-
 ## Groups that can trigger this area
 @export var _groups: Array[StringName]
 ## Input action to trigger this area
 @export var _input_action: String
+
+var _can_trigger := false
+
 
 func _ready() -> void:
     body_entered.connect(_on_body_entered)
