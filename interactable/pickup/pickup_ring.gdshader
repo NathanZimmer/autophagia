@@ -1,10 +1,13 @@
 shader_type spatial;
 render_mode blend_mix, depth_draw_opaque, cull_disabled;
-uniform sampler2D texture_albedo : source_color, filter_linear;
+uniform vec3 color : source_color;
+uniform sampler2D scrolling_alpha_noise : source_color, filter_linear;
+uniform float alpha_factor = 0.5;
 uniform vec2 scroll_speed;
-uniform vec2 uv_offset;
 
-uniform vec3 uv_scale;
+uniform float gradient_factor = 3.0;
+uniform float gradient_offset = 0.8;
+
 uniform float jitter: hint_range(0, 1) = 0.5;
 uniform ivec2 resolution = ivec2(854, 480);
 
@@ -24,12 +27,12 @@ vec4 snap_to_position(vec4 base_position)
 void vertex() {
 	vec4 snapped_position = snap_to_position(PROJECTION_MATRIX * MODELVIEW_MATRIX * vec4(VERTEX, 1.0));
     POSITION = snapped_position;
-	UV = UV * uv_scale.xy + uv_offset.xy;
 }
 
 void fragment() {
 	vec2 offset = mod(UV + TIME * scroll_speed, 1.0);
-    vec4 albedo_tex = texture(texture_albedo, offset);
-	ALBEDO = albedo_tex.rgb;
-    ALPHA = albedo_tex.a;
+    vec4 alpha_tex = texture(scrolling_alpha_noise, offset);
+    float gradient = 1.0 - gradient_factor * pow(UV.y - gradient_offset, 2.0);
+    ALBEDO = color;
+    ALPHA = max(gradient, length(alpha_tex.rgb) * UV.y) * alpha_factor;
 }

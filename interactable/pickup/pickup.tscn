@@ -8,13 +8,13 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_psyp8"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_psyp8"]
-height = 1.0
+height = 0.5
 radial_segments = 12
 cap_top = false
 cap_bottom = false
 
 [sub_resource type="QuadMesh" id="QuadMesh_psyp8"]
-size = Vector2(0.8, 0.8)
+size = Vector2(0.7, 0.7)
 
 [node name="Pickup" type="Node3D"]
 script = ExtResource("1_giga1")
@@ -29,11 +29,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("SphereShape3D_psyp8")
 
 [node name="PickupRing" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 material_override = ExtResource("2_psyp8")
 mesh = SubResource("CylinderMesh_psyp8")
 
 [node name="FloatingIcon" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.626312, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 material_override = ExtResource("3_1ucx6")
 mesh = SubResource("QuadMesh_psyp8")

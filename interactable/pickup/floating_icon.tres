@@ -1,14 +1,17 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://lm2s6rm7ttik"]
 
-[ext_resource type="Shader" uid="uid://dj2ckf3xn6sm8" path="res://interactable/pickup/rotate_3d.gdshader" id="1_j57lu"]
+[ext_resource type="Shader" uid="uid://dj2ckf3xn6sm8" path="res://interactable/pickup/floating_icon.gdshader" id="1_j57lu"]
 [ext_resource type="Texture2D" uid="uid://bqmo7ufdlgdir" path="res://gui/main_menu/main_menu_background.png" id="2_1v5b2"]
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_j57lu")
 shader_parameter/texture_albedo = ExtResource("2_1v5b2")
+shader_parameter/uv_scale = Vector3(1, 1, 1)
 shader_parameter/uv_offset = Vector2(0, 0)
 shader_parameter/rotation_speed = -1.0
-shader_parameter/uv_scale = Vector3(1, 1, 1)
+shader_parameter/tilt = 0.25
+shader_parameter/bounce_speed = 1.25
+shader_parameter/bounce_distance = 0.15
 shader_parameter/jitter = 0.5
 shader_parameter/resolution = Vector2i(854, 480)
