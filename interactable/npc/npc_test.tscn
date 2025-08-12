@@ -1,13 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://coctnof2reudh"]
+[gd_scene load_steps=3 format=3 uid="uid://coctnof2reudh"]
 
 [ext_resource type="PackedScene" uid="uid://bn2tmn3fg0c2c" path="res://common/test.tscn" id="1_1rqvx"]
-[ext_resource type="Script" uid="uid://bburqamni4xdm" path="res://interactable/npc/npc.gd" id="2_j8f1v"]
 [ext_resource type="PackedScene" uid="uid://cfu3lhkhxqp13" path="res://interactable/npc/npc.tscn" id="3_gghw6"]
 
 [node name="Test" instance=ExtResource("1_1rqvx")]
-
-[node name="Cube" parent="." index="3"]
-script = ExtResource("2_j8f1v")
 
 [node name="Npc" parent="." index="4" instance=ExtResource("3_gghw6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 5)
