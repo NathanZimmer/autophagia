@@ -1,9 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://b5mcjd71e3hfq"]
+[gd_scene load_steps=12 format=3 uid="uid://b5mcjd71e3hfq"]
 
 [ext_resource type="PackedScene" uid="uid://bn2tmn3fg0c2c" path="res://common/test.tscn" id="1_yd7g0"]
 [ext_resource type="Script" uid="uid://bjl6jcg8k2gju" path="res://interactable/door/door.gd" id="2_nrn4k"]
 [ext_resource type="Material" uid="uid://yk4x16701e40" path="res://common/placeholder_triplanar.tres" id="3_mlk82"]
-[ext_resource type="Script" uid="uid://cv0r6v1vg77i7" path="res://interactable/door/handle.gd" id="4_7jn5t"]
+[ext_resource type="Script" uid="uid://cv0r6v1vg77i7" path="res://interactable/door/lever.gd" id="4_7jn5t"]
 [ext_resource type="Script" uid="uid://nby3c2g37q5b" path="res://interactable/triggers/click_trigger.gd" id="4_mlk82"]
 
 [sub_resource type="Curve" id="Curve_7jn5t"]
@@ -20,6 +20,11 @@ size = Vector3(1.5, 2.5, 0.1)
 [sub_resource type="BoxMesh" id="BoxMesh_lsaod"]
 size = Vector3(0.3, 0.1, 0.3)
 
+[sub_resource type="Curve" id="Curve_la87v"]
+_limits = [0.0, 1.57, 0.0, 0.5]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.288158, 1.57), 4.56124, 4.56124, 0, 0, Vector2(0.5, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_la87v"]
 size = Vector3(0.3, 0.1, 0.3)
 
@@ -29,6 +34,7 @@ size = Vector3(0.3, 0.1, 0.3)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 6)
 script = ExtResource("2_nrn4k")
 _curve = SubResource("Curve_7jn5t")
+_rotation_axis = Vector3(0, 1, 0)
 metadata/_custom_type_script = "uid://bjl6jcg8k2gju"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Door" index="0"]
@@ -40,21 +46,22 @@ mesh = SubResource("BoxMesh_7jn5t")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0.0500002)
 shape = SubResource("BoxShape3D_mlk82")
 
-[node name="Handle" type="MeshInstance3D" parent="Door" index="2"]
+[node name="Lever" type="MeshInstance3D" parent="Door" index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 0, 0.0500002)
 mesh = SubResource("BoxMesh_lsaod")
 script = ExtResource("4_7jn5t")
-_stay_turned_when_open = true
-_move_duration = 0.25
+_curve = SubResource("Curve_la87v")
+_rotation_axis = Vector3(0, 0, 1)
+_emit_point = 1
 metadata/_custom_type_script = "uid://cv0r6v1vg77i7"
 
-[node name="ClickTrigger" type="Area3D" parent="Door/Handle" index="0"]
+[node name="ClickTrigger" type="Area3D" parent="Door/Lever" index="0"]
 script = ExtResource("4_mlk82")
 _groups = Array[StringName]([&"player_raycast"])
 _input_action = "player_interact"
 metadata/_custom_type_script = "uid://nby3c2g37q5b"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Door/Handle/ClickTrigger" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Door/Lever/ClickTrigger" index="0"]
 shape = SubResource("BoxShape3D_la87v")
 
 [editable path="Player"]
