@@ -68,7 +68,7 @@ const RECURSION_PASS_THROUGH_COLOR = Color.MAGENTA
         _recursion_render_layers = value
 
         if _recursion_mesh != null:
-            _recursion_mesh.layers = _render_layers
+            _recursion_mesh.layers = _recursion_render_layers
 
     get:
         return _recursion_render_layers
@@ -281,13 +281,15 @@ func _create_area_3d() -> Area3D:
 
     area_3d.body_entered.connect(
         func(_body):
-            _player_in_portal = true
-            player_entered_portal.emit()
+            if _body == _player:
+                _player_in_portal = true
+                player_entered_portal.emit()
     )
     area_3d.body_exited.connect(
         func(_body):
-            _player_in_portal = false
-            player_exited_portal.emit()
+            if _body == _player:
+                _player_in_portal = false
+                player_exited_portal.emit()
     )
 
     return area_3d

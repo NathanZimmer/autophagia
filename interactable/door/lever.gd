@@ -1,7 +1,6 @@
 @tool
 class_name Lever extends MeshInstance3D
 ## TODO
-# FIXME: rotation about arbitrary axis is resulting in the Node's position changing
 
 signal turned
 
