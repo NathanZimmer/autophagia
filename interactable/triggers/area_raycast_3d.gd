@@ -5,16 +5,21 @@ class_name AreaRayCast3D extends RayCast3D
 var _area: Area3D = null
 
 
-func _ready():
+func _ready() -> void:
     collide_with_areas = true
 
 
-func _physics_process(_delta):
+func _physics_process(_delta) -> void:
     var collided := get_collider()
-    if not collided is Area3D:
+    if collided == null and _area == null:
         return
 
-    if collided == null and _area == null:
+    # FIXME: Make this logic better
+    if not collided is Area3D and not _area == null:
+        _area.body_exited.emit(self)
+        _area = null
+        return
+    if not collided is Area3D:
         return
 
     if _area == null:

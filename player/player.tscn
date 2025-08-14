@@ -11,12 +11,12 @@
 [ext_resource type="Script" uid="uid://buwi3r1o6ps6s" path="res://player/b_counter.gd" id="7_v6k10"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8l6i1"]
-radius = 0.4
+radius = 0.3
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_4juu5"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_dgi16"]
-radius = 0.4
+radius = 0.3
 
 [sub_resource type="LabelSettings" id="LabelSettings_j7o1h"]
 outline_size = 3

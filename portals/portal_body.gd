@@ -350,8 +350,8 @@ func is_player_in_portal() -> bool:
 ## `original_ref` into `new_ref` [br]
 func _get_relative_transform(
     target: Transform3D,
-    orignal_ref: Transform3D,
+    original_ref: Transform3D,
     new_ref: Transform3D,
 ) -> Transform3D:
-    var transform_offset = orignal_ref.affine_inverse() * target  # Get offset to orignal reference
-    return new_ref * transform_offset  # Apply offest to new reference
+    var transform_offset = original_ref.affine_inverse() * target  # Get offset to orignal reference
+    return new_ref * transform_offset  # Apply offset to new reference

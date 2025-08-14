@@ -1,12 +1,13 @@
 @tool
 class_name Lever extends MeshInstance3D
 ## TODO
+# FIXME: rotation about arbitrary axis is resulting in the Node's position changing
 
 signal turned
 
 ## Domain == time in seconds, Range == rotation in radians [br]
 ## TODO: better doc
-@export var _curve: Curve
+@export var _curve: Curve = load("uid://c7djvmapq1bjn")
 ## TODO
 @export var _rotation_axis: Vector3
 ## Index of the point on the curve to emit "turned" signal
@@ -21,7 +22,7 @@ var disable_turning: bool:
 
 var _disable_turning := false
 var _moving := false
-var _base_rotation: Vector3
+var _base_transform: Transform3D
 
 
 func _ready() -> void:
@@ -29,7 +30,7 @@ func _ready() -> void:
         return
 
     _curve.bake()
-    _base_rotation = rotation
+    _base_transform = transform
 
     var click_triggers = find_children("*", "ClickTrigger", false) as Array[ClickTrigger]
     for trigger in click_triggers:
@@ -47,12 +48,17 @@ func _turn() -> void:
     _moving = true
 
     var start_time := Time.get_ticks_msec()
-    var end_time := start_time + _curve.max_domain * 1_000
+    var end_time := int(start_time + _curve.max_domain * 1_000)
     var emit_time := _curve.get_point_position(_emit_point).x
 
     while Time.get_ticks_msec() < end_time:
-        var sample_pos = (Time.get_ticks_msec() - start_time) / 1_000.0
-        rotation = _base_rotation + _rotation_axis * _curve.sample_baked(sample_pos)
+        var sample_pos := (Time.get_ticks_msec() - start_time) / 1_000.0
+        var angle := _curve.sample_baked(sample_pos)
+
+        transform = Transform3D(
+            Basis(_rotation_axis, angle) * _base_transform.basis,
+            _base_transform.origin
+        )
 
         if emit_time <= sample_pos:
             turned.emit()
