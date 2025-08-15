@@ -21,7 +21,7 @@ var disable_turning: bool:
 
 var _disable_turning := false
 var _moving := false
-var _base_transform: Transform3D
+var _base_rotation: Quaternion
 
 
 func _ready() -> void:
@@ -29,7 +29,7 @@ func _ready() -> void:
         return
 
     _curve.bake()
-    _base_transform = transform
+    _base_rotation = basis.get_rotation_quaternion()
 
     var click_triggers = find_children("*", "ClickTrigger", false) as Array[ClickTrigger]
     for trigger in click_triggers:
@@ -51,15 +51,11 @@ func _turn() -> void:
     var emit_time := _curve.get_point_position(_emit_point).x
 
     while Time.get_ticks_msec() < end_time:
-        var sample_pos := (Time.get_ticks_msec() - start_time) / 1_000.0
-        var angle := _curve.sample_baked(sample_pos)
+        var sample_time := (Time.get_ticks_msec() - start_time) / 1_000.0
+        var angle := _curve.sample_baked(sample_time)
+        basis = Basis(_base_rotation * Quaternion(_rotation_axis, angle))
 
-        transform = Transform3D(
-            Basis(_rotation_axis, angle) * _base_transform.basis,
-            _base_transform.origin
-        )
-
-        if emit_time <= sample_pos:
+        if emit_time <= sample_time:
             turned.emit()
             emit_time = float("inf")
 

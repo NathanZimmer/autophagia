@@ -14,7 +14,8 @@ class_name Door extends AnimatableBody3D
 
 var _open := false
 var _moving := false
-var _base_transform: Transform3D
+var _base_rotation: Quaternion
+
 
 func _ready() -> void:
     if Engine.is_editor_hint():
@@ -22,7 +23,7 @@ func _ready() -> void:
 
     _open_curve.bake()
     _close_curve.bake()
-    _base_transform = transform
+    _base_rotation = basis.get_rotation_quaternion()
 
     var levers = (find_children("*", "Lever", false)) as Array[Lever]
     for lever in levers:
@@ -40,13 +41,9 @@ func _open_close() -> void:
     var end_time := int(start_time + curve.max_domain * 1_000)
 
     while Time.get_ticks_msec() < end_time:
-        var sample_pos := (Time.get_ticks_msec() - start_time) / 1_000.0
-        var angle := curve.sample_baked(sample_pos)
-
-        transform = Transform3D(
-            Basis(_rotation_axis, angle) * _base_transform.basis,
-            _base_transform.origin
-        )
+        var sample_time := (Time.get_ticks_msec() - start_time) / 1_000.0
+        var angle := curve.sample_baked(sample_time)
+        basis = Basis(_base_rotation * Quaternion(_rotation_axis, angle))
 
         await get_tree().physics_frame
 
