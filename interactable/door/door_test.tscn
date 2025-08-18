@@ -1,12 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://b5mcjd71e3hfq"]
+[gd_scene load_steps=12 format=3 uid="uid://b5mcjd71e3hfq"]
 
 [ext_resource type="PackedScene" uid="uid://bn2tmn3fg0c2c" path="res://common/test.tscn" id="1_yd7g0"]
 [ext_resource type="Script" uid="uid://bjl6jcg8k2gju" path="res://interactable/door/door.gd" id="2_nrn4k"]
 [ext_resource type="Material" uid="uid://yk4x16701e40" path="res://common/placeholder_triplanar.tres" id="3_mlk82"]
 [ext_resource type="Script" uid="uid://cv0r6v1vg77i7" path="res://interactable/door/lever.gd" id="4_7jn5t"]
-[ext_resource type="Curve" uid="uid://mnj03ece6rlx" path="res://interactable/door/default_open_curve.tres" id="4_la87v"]
 [ext_resource type="Script" uid="uid://nby3c2g37q5b" path="res://interactable/triggers/click_trigger.gd" id="4_mlk82"]
-[ext_resource type="Curve" uid="uid://beylck0t2x2ne" path="res://interactable/door/default_close_curve.tres" id="5_ml04s"]
 [ext_resource type="Curve" uid="uid://c7djvmapq1bjn" path="res://interactable/door/default_lever_curve.tres" id="6_lsaod"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_7jn5t"]
@@ -14,6 +12,11 @@ size = Vector3(1.5, 2.5, 0.1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mlk82"]
 size = Vector3(1.5, 2.5, 0.1)
+
+[sub_resource type="Curve" id="Curve_la87v"]
+_limits = [0.0, 1.57, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.428923, 0, 0, Vector2(0.0973684, 0.0417635), 0.428923, 0.0, 0, 0, Vector2(0.131579, 0.0417635), 0.0, 0.0, 0, 0, Vector2(0.863158, 1.57), 1.37115, 1.37115, 0, 0, Vector2(1, 1.57), -0.866486, 0.0, 0, 0]
+point_count = 5
 
 [sub_resource type="BoxMesh" id="BoxMesh_lsaod"]
 size = Vector3(0.3, 0.1, 0.3)
@@ -57,8 +60,7 @@ shape = SubResource("BoxShape3D_mlk82")
 [node name="Door" type="AnimatableBody3D" parent="." index="5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 6)
 script = ExtResource("2_nrn4k")
-_open_curve = ExtResource("4_la87v")
-_close_curve = ExtResource("5_ml04s")
+_curve = SubResource("Curve_la87v")
 _rotation_axis = Vector3(0, 1, 0)
 metadata/_custom_type_script = "uid://bjl6jcg8k2gju"
 

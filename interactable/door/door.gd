@@ -5,15 +5,15 @@ class_name Door extends AnimatableBody3D
 
 ## Domain == time in seconds, Range == rotation in radians [br]
 ## TODO: better doc
-@export var _open_curve: Curve = load("uid://mnj03ece6rlx")
-## Domain == time in seconds, Range == rotation in radians [br]
-## TODO: better doc
-@export var _close_curve: Curve = load("uid://beylck0t2x2ne")
+@export var _curve: Curve = load("uid://mnj03ece6rlx")
 ## TODO
 @export var _rotation_axis: Vector3
 
 var _open := false
-var _moving := false
+var _levers: Array[Lever]
+var _tween: Tween
+## Store tween interpolated value for changing door direction mid-animation
+var _cur_sample_time: float
 var _base_rotation: Quaternion
 
 
@@ -21,36 +21,50 @@ func _ready() -> void:
     if Engine.is_editor_hint():
         return
 
-    _open_curve.bake()
-    _close_curve.bake()
+    _curve.bake()
     _base_rotation = basis.get_rotation_quaternion()
 
-    var levers = (find_children("*", "Lever", false)) as Array[Lever]
-    for lever in levers:
+    _levers.assign(find_children("*", "Lever", false))
+    for lever in _levers:
         lever.turned.connect(_open_close)
 
 
 ## TODO
 func _open_close() -> void:
-    if _moving:
-        return
-    _moving = true
+    if _tween and _tween.is_running():
+        _tween.stop()
+        _open = !_open
+    else:
+        for lever in _levers:
+            lever.disable_turning = true
 
-    var curve = _close_curve if _open else _open_curve
-    var start_time := Time.get_ticks_msec()
-    var end_time := int(start_time + curve.max_domain * 1_000)
+    _tween = create_tween()
+    if _open:
+        _tween.tween_method(
+            _set_rotation_from_curve,
+            _cur_sample_time,
+            0.0,
+            _cur_sample_time,
+        )
+    else:
+        _tween.tween_method(
+            _set_rotation_from_curve,
+            _cur_sample_time,
+            _curve.max_domain,
+            _curve.max_domain - _cur_sample_time
+        )
 
-    while Time.get_ticks_msec() < end_time:
-        var sample_time := (Time.get_ticks_msec() - start_time) / 1_000.0
-        var angle := curve.sample_baked(sample_time)
-        basis = Basis(_base_rotation * Quaternion(_rotation_axis, angle))
-
-        await get_tree().physics_frame
-
+    await _tween.finished
     _open = !_open
-    for lever in (find_children("*", "Lever", false)) as Array[Lever]:
+    for lever in _levers:
         lever.disable_turning = _open
-    _moving = false
+
+
+## TODO
+func _set_rotation_from_curve(sample_time: float) -> void:
+    _cur_sample_time = sample_time
+    var angle := _curve.sample_baked(sample_time)
+    basis = Basis(_base_rotation * Quaternion(_rotation_axis, angle))
 
 
 ## Show warning if we don't have a Lever child
