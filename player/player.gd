@@ -117,6 +117,7 @@ func _rotate_cam(event: InputEventMouseMotion) -> void:
     camera.rotate_object_local(
         Vector3.LEFT, deg_to_rad(-1 * motion.y if mouse_inverted else motion.y)
     )
+    # FIXME: Does this cause the camera position to drift?
     camera.rotation.x = clamp(
         camera.rotation.x, deg_to_rad(min_x_rotation), deg_to_rad(max_x_rotation)
     )

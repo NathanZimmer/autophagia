@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7inw4knkw2n4"]
+
+[ext_resource type="PackedScene" uid="uid://bn2tmn3fg0c2c" path="res://common/test.tscn" id="1_38kln"]
+[ext_resource type="PackedScene" uid="uid://des31ao11y2f0" path="res://interactable/pickup/pickup.tscn" id="2_p1xay"]
+
+[node name="Test" instance=ExtResource("1_38kln")]
+
+[node name="Pickup" parent="." index="4" instance=ExtResource("2_p1xay")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.5)
+
+[editable path="Player"]

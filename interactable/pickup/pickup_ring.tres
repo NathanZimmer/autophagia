@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://0i0xldxoakos"]
+
+[ext_resource type="Shader" uid="uid://cfc7kg74liix0" path="res://interactable/pickup/pickup_ring.gdshader" id="1_yw4kh"]
+[ext_resource type="Texture2D" uid="uid://crousdp5ogamm" path="res://interactable/pickup/pickup_ring_noise.png" id="3_mwiht"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_yw4kh")
+shader_parameter/color = Color(1, 0.521569, 0, 1)
+shader_parameter/scrolling_alpha_noise = ExtResource("3_mwiht")
+shader_parameter/alpha_factor = 0.5
+shader_parameter/scroll_speed = Vector2(0.15, 0.15)
+shader_parameter/gradient_factor = 3.0
+shader_parameter/gradient_offset = 0.8
+shader_parameter/jitter = 0.5
+shader_parameter/resolution = Vector2i(854, 480)

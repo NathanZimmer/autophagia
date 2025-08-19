@@ -1,21 +1,22 @@
-[gd_scene load_steps=14 format=3 uid="uid://dnhp4dcugklq6"]
+[gd_scene load_steps=15 format=3 uid="uid://dnhp4dcugklq6"]
 
 [ext_resource type="Script" uid="uid://c1o8i6ob4hruq" path="res://player/player.gd" id="1_y2fp8"]
 [ext_resource type="Script" uid="uid://bcpsv2er15k1k" path="res://player/head_bob.gd" id="2_fl0b5"]
 [ext_resource type="Environment" uid="uid://cbgre4uktxw6d" path="res://common/main_world_env.tres" id="2_xgxvm"]
 [ext_resource type="Shader" uid="uid://c7gou5tdd475f" path="res://player/fs_dithering.gdshader" id="3_cu3o8"]
+[ext_resource type="Script" uid="uid://ck2srl31dxoy2" path="res://interactable/triggers/area_raycast_3d.gd" id="4_hg6s5"]
 [ext_resource type="Script" uid="uid://cpa6xj35vb43o" path="res://player/hotkeys.gd" id="5_p8slp"]
 [ext_resource type="Script" uid="uid://knupv61sxrr0" path="res://player/fps_counter.gd" id="6_go600"]
 [ext_resource type="PackedScene" uid="uid://bbbspt027k0x3" path="res://gui/pause_menu/pause_control.tscn" id="7_21iqq"]
 [ext_resource type="Script" uid="uid://buwi3r1o6ps6s" path="res://player/b_counter.gd" id="7_v6k10"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8l6i1"]
-radius = 0.4
+radius = 0.3
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_4juu5"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_dgi16"]
-radius = 0.4
+radius = 0.3
 
 [sub_resource type="LabelSettings" id="LabelSettings_j7o1h"]
 outline_size = 3
@@ -30,7 +31,7 @@ shader_parameter/uTime2 = 3.1
 shader_parameter/uTime3 = 4.0
 shader_parameter/colors = 32.0
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["player"]]
 script = ExtResource("1_y2fp8")
 
 [node name="CollisionShape" type="CollisionShape3D" parent="."]
@@ -45,6 +46,12 @@ current = true
 fov = 90.0
 far = 400.0
 script = ExtResource("2_fl0b5")
+
+[node name="AreaRayCast3D" type="RayCast3D" parent="Camera" groups=["player_raycast"]]
+target_position = Vector3(0, 0, -2)
+collide_with_areas = true
+script = ExtResource("4_hg6s5")
+metadata/_custom_type_script = "uid://ck2srl31dxoy2"
 
 [node name="Body" type="MeshInstance3D" parent="."]
 layers = 512
