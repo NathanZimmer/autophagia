@@ -9,7 +9,7 @@ class_name Door extends AnimatableBody3D
 ## * Range: [0, y] where y is the maximum rotation angle in radians [br]
 ## The curve should start at y=0 to prevent jumps in rotation
 ## on animation start/end
-@export var _curve: Curve = load("uid://mnj03ece6rlx")
+@export var _curve: Curve = load("uid://kb8rx0mlxxwl")
 ## Axis to rotate around
 @export var _rotation_axis: Vector3
 
