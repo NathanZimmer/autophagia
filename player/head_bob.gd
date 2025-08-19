@@ -1,5 +1,7 @@
 extends Node3D
 ## Handles player head-bobbing
+# TODO: Refactor this into "PlayerCamera" (or something). Maybe it handles rotation
+# and takes in message from Player??
 
 signal bob_head
 signal recenter
@@ -100,3 +102,13 @@ func _create_tweens(_angle: float, offset_x: float, offset_y: float) -> void:
         . set_trans(Tween.TRANS_LINEAR)
     )
     current_target = Vector2(offset_x, offset_y)
+
+
+## Start head bobbing tweens
+func start_head_bob():
+    bob_head.emit()
+
+
+## Start head bobbing tweens
+func start_recenter():
+    recenter.emit()

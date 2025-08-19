@@ -3,8 +3,8 @@ class_name AreaRayCast3D extends RayCast3D
 # FIXME: The raycast probably shouldn't give itself as the body, this isn't how any other
 # collision works in Godot.
 
-## Collided area from the last frame
-var _area: Area3D = null
+## Collided object from the last frame
+var col_object: CollisionObject3D = null
 
 
 func _ready() -> void:
@@ -13,22 +13,22 @@ func _ready() -> void:
 
 func _physics_process(_delta) -> void:
     var collided := get_collider()
-    if collided == null and _area == null:
+    if collided == null and col_object == null:
         return
 
     if not collided is Area3D:
-        if not _area == null:
-            _area.body_exited.emit(self)
-            _area = null
+        if not col_object == null:
+            col_object.body_exited.emit(self)
+            col_object = null
         return
 
-    if _area == null:
-        _area = collided
-        _area.body_entered.emit(self)
+    if col_object == null:
+        col_object = collided
+        col_object.body_entered.emit(self)
     elif collided == null:
-        _area.body_exited.emit(self)
-        _area = null
-    elif collided != _area:
-        _area.body_exited.emit(self)
-        _area = collided
-        _area.body_entered.emit(self)
+        col_object.body_exited.emit(self)
+        col_object = null
+    elif collided != col_object:
+        col_object.body_exited.emit(self)
+        col_object = collided
+        col_object.body_entered.emit(self)
