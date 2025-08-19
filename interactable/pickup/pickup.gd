@@ -1,6 +1,6 @@
 @tool
 extends Node3D
-## TODO
+## On collision, sends an image to the colliding node and then queues itself for deletion
 
 ## Path to the image file
 @export_file var _image_path: String
@@ -14,12 +14,12 @@ func _ready() -> void:
         find_children("*", "CollisionTrigger", false) as Array[CollisionTrigger]
     )
     for trigger in collision_triggers:
-        trigger.triggered.connect(_start_dialog)
+        trigger.triggered.connect(_display_image)
 
 
-## TODO
-func _start_dialog() -> void:
-    print("TODO")
+## TODO: Implement connection to the UI
+func _display_image() -> void:
+    print(_image_path)
     queue_free()
 
 

@@ -1,13 +1,15 @@
 @tool
 class_name Lever extends MeshInstance3D
-## TODO
+## On click, turns based on a curve and emits the "turned" signal
 
 signal turned
 
-## Domain == time in seconds, Range == rotation in radians [br]
-## TODO: better doc
+## Curve used for the lever animation. [br]
+## * Domain: [0, x] where x is the duration of the animation in seconds [br]
+## * Range: [0, y] where y is the maximum rotation angle in radians [br]
+## The curve should start and end at y=0 to prevent jumps in rotation on animation start/end
 @export var _curve: Curve = load("uid://c7djvmapq1bjn")
-## TODO
+## Axis to rotate around
 @export var _rotation_axis: Vector3
 ## Index of the point on the curve to emit "turned" signal
 @export var _emit_point: int
@@ -21,7 +23,6 @@ var disable_turning: bool:
 
 var _disable_turning := false
 var _tween: Tween
-var _emit_time: float
 var _base_rotation: Quaternion
 
 
@@ -37,7 +38,7 @@ func _ready() -> void:
         click_trigger.triggered.connect(_turn)
 
 
-## TODO
+## Tween over `_curve`. Emits the "turned" signal if `sample_time >= _emit_time`
 func _turn() -> void:
     if _tween and _tween.is_running():
         return
@@ -45,24 +46,23 @@ func _turn() -> void:
         turned.emit()
         return
 
-    _emit_time = _curve.get_point_position(_emit_point).x
     _tween = create_tween()
-    _tween.tween_method(
-        _set_rotation_from_curve,
-        0.0,
-        _curve.max_domain,
-        _curve.max_domain
-    )
+    _tween.tween_method(_set_rotation_from_curve, 0.0, _curve.max_domain, _curve.max_domain)
+
+    var emit_time = _curve.get_point_position(_emit_point).x
+    while _tween.is_running():
+        if _tween.get_total_elapsed_time() >= emit_time:
+            turned.emit()
+            break
+        await get_tree().physics_frame
 
 
-## TODO
+## Sets rotation around `_rotation_axis` by sampling `_curve` at a given time [br]
+## ## Parameters [br]
+## `sample_time`: Time at which to sample the curve
 func _set_rotation_from_curve(sample_time: float) -> void:
     var angle := _curve.sample_baked(sample_time)
     basis = Basis(_base_rotation * Quaternion(_rotation_axis, angle))
-
-    if _emit_time <= sample_time:
-        turned.emit()
-        _emit_time = INF
 
 
 ## Show warning if we don't have a ClickTrigger child

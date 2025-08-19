@@ -1,8 +1,8 @@
 @tool
 extends Node3D
-## TODO
+## On click, displays the dialog associated with this NPC
 
-## Path to the dialog JSON file. See TODO for formatting
+## Path to the dialog file
 @export_file var _dialog_path: String
 
 
@@ -15,9 +15,9 @@ func _ready() -> void:
         trigger.triggered.connect(_start_dialog)
 
 
-## TODO
+## TODO: Implement connection to the UI
 func _start_dialog() -> void:
-    print("TODO")
+    print(_dialog_path)
 
 
 ## Show warning if we don't have a ClickTrigger child
