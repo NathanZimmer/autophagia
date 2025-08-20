@@ -39,7 +39,7 @@ func _ready() -> void:
 
 
 ## Tween over `_curve`. Emits the "turned" signal if `sample_time >= _emit_time`
-func _turn() -> void:
+func _turn(_body) -> void:
     if _tween and _tween.is_running():
         return
     if disable_turning:

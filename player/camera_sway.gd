@@ -1,7 +1,6 @@
 extends Node3D
-## Handles player head-bobbing
-# TODO: Refactor this into "PlayerCamera" (or something). Maybe it handles rotation
-# and takes in message from Player??
+## Handles camera sway on player movement
+# TODO: Refactor, shorten code, make recentering smoother, make names better
 
 signal bob_head
 signal recenter

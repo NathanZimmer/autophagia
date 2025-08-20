@@ -13,7 +13,7 @@ func _ready() -> void:
 
 
 func _on_body_entered(body: Node) -> void:
-    for group in body.get_groups():
-        if group in _groups:
-            triggered.emit()
-            return
+        for group in _groups:
+            if body.is_in_group(group):
+                triggered.emit(body)
+                return

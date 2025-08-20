@@ -11,13 +11,15 @@ func _ready() -> void:
         return
 
     var click_triggers = find_children("*", "ClickTrigger", false) as Array[ClickTrigger]
-    for trigger in click_triggers:
-        trigger.triggered.connect(_start_dialog)
+    for click_trigger in click_triggers:
+        click_trigger.triggered.connect(_start_dialog)
 
 
 ## TODO: Implement connection to the UI
-func _start_dialog() -> void:
-    print(_dialog_path)
+func _start_dialog(body) -> void:
+    var handlers = body.find_children("*", "MessageHandler", false)
+    if not handlers.is_empty():
+        handlers[0].send_message("TODO")
 
 
 ## Show warning if we don't have a ClickTrigger child

@@ -23,7 +23,7 @@ script = ExtResource("2_1akd3")
 
 [node name="ClickTrigger" type="Area3D" parent="TriggerTest/Cube" index="0"]
 script = ExtResource("3_2obmo")
-_groups = Array[StringName]([&"player_raycast"])
+_groups = Array[StringName]([&"player"])
 _input_action = "player_interact"
 metadata/_custom_type_script = "uid://nby3c2g37q5b"
 

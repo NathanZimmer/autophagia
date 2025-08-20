@@ -2,6 +2,8 @@ class_name Player extends CharacterBody3D
 ## Handles player movement, jumping, and gravity
 
 const TERMINAL_VELOCITY := 50.0
+const START_SWAY_FUNC = "start_head_bob"
+const START_RECENTER_FUNC = "start_recenter"
 
 @export_group("Camera settings")
 @export_range(1, 100, 1) var _mouse_sensitivity := 50
@@ -18,6 +20,7 @@ const TERMINAL_VELOCITY := 50.0
 @export var _override_up_dir_on_ready := true
 @export var _min_speed := 0.1
 @export var _max_speed := 10.0
+@export var _capture_input := false
 
 var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var _speed_mod := 1.0  # Modifier to player speed that can be adjusted with mouse wheel
@@ -34,8 +37,12 @@ func _ready() -> void:
 
     if _override_up_dir_on_ready:
         up_direction = global_basis.y
+    if _capture_input:
+        Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
+# FIXME: Figure out what is consuming all inputs down the tree, fix it, and update
+# this to _unhandled_input
 func _input(event) -> void:
     if event is InputEventMouseMotion:
         _rotate_cam(event)
@@ -87,27 +94,28 @@ func _walk_and_jump(delta: float):
         y_velocity = up * _move_speed * _speed_mod
 
     velocity = xz_velocity + y_velocity
-    if not _flying:
-        _camera.start_head_bob()
-    if not xz_velocity:
-        _camera.start_recenter()
+
+    if _camera.has_method(START_SWAY_FUNC) and _camera.has_method(START_RECENTER_FUNC):
+        if xz_velocity.length() > 0:
+            _camera.start_head_bob()
+        else:
+            _camera.start_recenter()
 
 
-## Handle mouse input for _camera rotation [br]
-## `event`: mouse movement to be used to rotate the _camera.
+## Handle mouse input for camera rotation [br]
+## ## Parameters [br]
+## `event`: mouse movement to be used to rotate the camera.
 func _rotate_cam(event: InputEventMouseMotion) -> void:
     var viewport_transform: Transform2D = get_tree().root.get_final_transform()
     var motion: Vector2 = event.xformed_by(viewport_transform).relative
     var degrees_per_unit: float = 0.001
 
-    motion *= _mouse_sensitivity
-    motion *= degrees_per_unit
+    motion *= _mouse_sensitivity * degrees_per_unit
 
     rotate_object_local(Vector3.DOWN, deg_to_rad(motion.x))
     _camera.rotate_object_local(
         Vector3.LEFT, deg_to_rad(-1 * motion.y if _mouse_inverted else motion.y)
     )
-    # FIXME: Does this cause the _camera position to drift?
     _camera.rotation.x = clamp(
         _camera.rotation.x, deg_to_rad(_min_x_rotation), deg_to_rad(_max_x_rotation)
     )
