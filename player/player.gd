@@ -47,9 +47,9 @@ func _input(event) -> void:
     if event is InputEventMouseMotion:
         _rotate_cam(event)
     elif event is InputEventKey:
-        if event.is_action_pressed("player_flight_toggle") and _dev_controls_enabled:
+        if event.is_action_pressed(PlayerInput.PLAYER_FLIGHT_TOGGLE) and _dev_controls_enabled:
             _flying = !_flying
-        elif event.is_action_pressed("player_toggle_collision") and _dev_controls_enabled:
+        elif event.is_action_pressed(PlayerInput.PLAYER_COLLISION_TOGGLE) and _dev_controls_enabled:
             _collider.disabled = not _collider.disabled
     elif event is InputEventMouseButton:
         var mw_input_scale: float = 0.1
@@ -71,7 +71,7 @@ func _physics_process(delta: float) -> void:
 ## Handle player input for walking and jumping using the player_* input actions
 func _walk_and_jump(delta: float):
     var xz_input_dir := Input.get_vector(
-        "player_left", "player_right", "player_forward", "player_back"
+        PlayerInput.PLAYER_LEFT, PlayerInput.PLAYER_RIGHT, PlayerInput.PLAYER_FORWARD, PlayerInput.PLAYER_BACK
     )
 
     var right := global_basis.x * xz_input_dir.x
@@ -86,10 +86,10 @@ func _walk_and_jump(delta: float):
             y_velocity -= global_basis.y * _gravity * delta
             if y_velocity.length() >= TERMINAL_VELOCITY:
                 y_velocity = global_basis.y * -TERMINAL_VELOCITY
-        if Input.is_action_just_pressed("player_up") and is_on_floor():
+        if Input.is_action_just_pressed(PlayerInput.PLAYER_UP) and is_on_floor():
             y_velocity += _jump_velocity * global_basis.y
     else:
-        var y_input_dir = Input.get_axis("player_down", "player_up")
+        var y_input_dir = Input.get_axis(PlayerInput.PLAYER_DOWN, PlayerInput.PLAYER_UP)
         var up = global_basis.y * y_input_dir
         y_velocity = up * _move_speed * _speed_mod
 

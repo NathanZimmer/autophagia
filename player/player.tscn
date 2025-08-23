@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bcpsv2er15k1k" path="res://player/camera_sway.gd" id="2_fl0b5"]
 [ext_resource type="Environment" uid="uid://cbgre4uktxw6d" path="res://common/main_world_env.tres" id="2_xgxvm"]
 [ext_resource type="Shader" uid="uid://c7gou5tdd475f" path="res://player/fs_dithering.gdshader" id="3_cu3o8"]
-[ext_resource type="Script" uid="uid://ck2srl31dxoy2" path="res://interactable/triggers/player_raycast_3d.gd" id="4_8t03j"]
+[ext_resource type="Script" uid="uid://ck2srl31dxoy2" path="res://player/player_raycast_3d.gd" id="4_8t03j"]
 [ext_resource type="Script" uid="uid://cpa6xj35vb43o" path="res://player/hotkeys.gd" id="5_p8slp"]
 [ext_resource type="Script" uid="uid://knupv61sxrr0" path="res://player/fps_counter.gd" id="6_go600"]
 [ext_resource type="PackedScene" uid="uid://bbbspt027k0x3" path="res://gui/pause_menu/pause_control.tscn" id="7_21iqq"]
