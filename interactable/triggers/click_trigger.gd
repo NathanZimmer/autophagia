@@ -6,7 +6,7 @@ signal triggered
 ## Groups that can trigger this area
 @export var _groups: Array[StringName]
 ## Input action to trigger this area
-@export_enum(PlayerInput.PLAYER_INTERACT) var _input_action: String
+@export_enum(PlayerInput.INTERACT_EXPORT_ENUM) var _input_action: String
 
 
 ## TODO

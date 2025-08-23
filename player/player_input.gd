@@ -11,3 +11,6 @@ const PLAYER_INTERACT = "player_interact"
 const PLAYER_B = "player_b"
 const PLAYER_FLIGHT_TOGGLE = "player_flight_toggle"
 const PLAYER_COLLISION_TOGGLE = "player_collision_toggle"
+
+## All supported interaction input actions
+const INTERACT_EXPORT_ENUM = "%s" % PLAYER_INTERACT
