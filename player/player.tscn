@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dnhp4dcugklq6"]
+[gd_scene load_steps=17 format=3 uid="uid://dnhp4dcugklq6"]
 
 [ext_resource type="Script" uid="uid://c1o8i6ob4hruq" path="res://player/player.gd" id="1_y2fp8"]
 [ext_resource type="Script" uid="uid://bcpsv2er15k1k" path="res://player/camera_sway.gd" id="2_fl0b5"]
@@ -15,6 +15,11 @@
 radius = 0.3
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_4juu5"]
+
+[sub_resource type="Curve" id="Curve_8t03j"]
+_limits = [-0.05, 0.0, -0.03, 0.03]
+_data = [Vector2(-0.03, -0.05), 0.0, 1.06406, 0, 1, Vector2(-0.000157893, 0), 20.3241, 0.0, 1, 1, Vector2(0, 0), 0.0, -1.66667, 1, 1, Vector2(0.03, -0.05), -1.66667, 0.0, 1, 0]
+point_count = 4
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_dgi16"]
 radius = 0.3
@@ -47,6 +52,9 @@ current = true
 fov = 90.0
 far = 400.0
 script = ExtResource("2_fl0b5")
+_curve = SubResource("Curve_8t03j")
+_sway_duration = 0.6
+_starting_point = 1
 
 [node name="PlayerRayCast3D" type="RayCast3D" parent="Camera"]
 target_position = Vector3(0, 0, -2)

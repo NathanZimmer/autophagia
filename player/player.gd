@@ -2,8 +2,8 @@ class_name Player extends CharacterBody3D
 ## Handles player movement, jumping, and gravity
 
 const TERMINAL_VELOCITY := 50.0
-const START_SWAY_FUNC = "start_head_bob"
-const START_RECENTER_FUNC = "start_recenter"
+const START_SWAY = "start_sway"
+const STOP_SWAY = "stop_sway"
 
 @export_group("Camera settings")
 @export_range(1, 100, 1) var _mouse_sensitivity := 50
@@ -28,6 +28,8 @@ var _flying := false
 var _collider: CollisionShape3D
 var _camera: Camera3D
 var _mouse_inverted := false
+
+var _velocity_last_frame := 0.0
 
 
 func _ready() -> void:
@@ -95,11 +97,12 @@ func _walk_and_jump(delta: float):
 
     velocity = xz_velocity + y_velocity
 
-    if _camera.has_method(START_SWAY_FUNC) and _camera.has_method(START_RECENTER_FUNC):
-        if xz_velocity.length() > 0:
-            _camera.start_head_bob()
-        else:
-            _camera.start_recenter()
+    if _camera.has_method(START_SWAY) and _camera.has_method(STOP_SWAY):
+        if xz_velocity.length() > 0 and is_zero_approx(_velocity_last_frame):
+            _camera.call(START_SWAY)
+        elif is_zero_approx(xz_velocity.length()) and not is_zero_approx(_velocity_last_frame):
+            _camera.call(STOP_SWAY)
+        _velocity_last_frame = xz_velocity.length()
 
 
 ## Handle mouse input for camera rotation [br]

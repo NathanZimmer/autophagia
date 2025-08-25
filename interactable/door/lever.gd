@@ -24,6 +24,7 @@ var disable_turning: bool:
 var _disable_turning := false
 var _tween: Tween
 var _base_rotation: Quaternion
+var _timer: Timer
 
 
 func _ready() -> void:
@@ -32,6 +33,13 @@ func _ready() -> void:
 
     _curve.bake()
     _base_rotation = basis.get_rotation_quaternion()
+
+    _timer = Timer.new()
+    add_child(_timer)
+    _timer.wait_time = _curve.get_point_position(_emit_point).x
+    _timer.one_shot = true
+    _timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
+    _timer.timeout.connect(turned.emit)
 
     var click_triggers = find_children("*", "ClickTrigger", false) as Array[ClickTrigger]
     for click_trigger in click_triggers:
@@ -48,13 +56,7 @@ func _turn(_body) -> void:
 
     _tween = create_tween()
     _tween.tween_method(_set_rotation_from_curve, 0.0, _curve.max_domain, _curve.max_domain)
-
-    var emit_time = _curve.get_point_position(_emit_point).x
-    while _tween.is_running():
-        if _tween.get_total_elapsed_time() >= emit_time:
-            turned.emit()
-            break
-        await get_tree().physics_frame
+    _timer.start()
 
 
 ## Sets rotation around `_rotation_axis` by sampling `_curve` at a given time [br]

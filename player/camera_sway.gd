@@ -2,112 +2,88 @@ extends Node3D
 ## Handles camera sway on player movement
 # TODO: Refactor, shorten code, make recentering smoother, make names better
 
-signal bob_head
-signal recenter
+## Curve used for TODO [br]
+## TODO [br]
+## The curve should start and end at the same y-value to prevent jumps in position on animation start/end
+@export var _curve: Curve
+## TODO
+@export var _sway_duration: float
+## TODO
+@export var _starting_point: int
 
-const MIN_RETURN_RATIO = 0.3
-const TRANS_MODE = Tween.TRANS_LINEAR
-
-## The angle that the camera will rotate along the z-axis when head-bobbing
-@export var bob_angle := 0.0
-## The offset the camera will move to along the x-axis when head-bobbing. Head will bob from 0 to -x to 0 to x
-@export var bob_offset_x := 0.03
-## The offset the camera will move to along the y-axis when head-bobbing. Head will bob from 0 to y to 0 to y
-@export var bob_offset_y := -0.05
-## The time it will take for the camera to rotate from 0 degrees to `bob_angle` degrees
-@export var bob_duration := 0.3
-
-var position_y = position.y
-# var rotation_tween: Tween
-var position_tween: Tween
-var return_tween: Tween
-
-var bobbing := true
-var current_target := Vector2.ZERO
+var _tween: Tween
+var _return_tween: Tween
+var _base_position: Vector3
+var _reverse := false
 
 
 func _ready() -> void:
-    recenter.connect(recenter_head)
-    await head_bob()
+    _curve.bake()
+    _base_position = position
 
 
-func recenter_head() -> void:
-    if position_tween == null or not position_tween.is_running():
+## Tween position over `_curve`
+func _sway() -> void:
+    if _tween and _tween.is_running():
         return
 
-    bobbing = false
+    if _return_tween and _return_tween.is_running():
+        _return_tween.stop()
 
-    # rotation_tween.stop()
-    # rotation_tween.finished.emit()
-    position_tween.stop()
-    position_tween.finished.emit()
+    _tween = create_tween()
+    if _reverse:
+        _tween.tween_method(
+            _set_position_from_curve,
+            position.x,
+            _curve.min_domain,
+            _sway_duration * _normalize_from_curve(position.x)
+        )
+    else:
+        _tween.tween_method(
+            _set_position_from_curve,
+            position.x,
+            _curve.max_domain,
+            _sway_duration - _sway_duration * _normalize_from_curve(position.x)
+        )
+    _tween.finished.connect(_sway)
+    _reverse = !_reverse
 
-    var ratio_x = abs(current_target.x - position.x) / bob_offset_x
-    ratio_x = ratio_x if ratio_x > MIN_RETURN_RATIO else MIN_RETURN_RATIO
-    var ratio_y = abs(current_target.y - (position.y - position_y)) / (bob_offset_y)
-    ratio_y = ratio_y if ratio_y > MIN_RETURN_RATIO else MIN_RETURN_RATIO
-    return_tween = create_tween()
-    return_tween.set_parallel()
-    return_tween.tween_property(self, "position:x", 0, bob_duration * ratio_x).set_trans(TRANS_MODE)
-    return_tween.tween_property(self, "position:y", position_y, bob_duration * ratio_y).set_trans(
-        TRANS_MODE
+
+## TODO
+func _set_position_from_curve(x_offset: float) -> void:
+    var y_offset = _curve.sample_baked(x_offset)
+    position = Vector3(
+        _base_position.x + x_offset,
+        _base_position.y + y_offset,
+        _base_position.z
     )
-    return_tween.finished.connect(func(): bobbing = true)
+
+## TODO
+func start_sway() -> void:
+    _sway()
 
 
-func head_bob() -> void:
-    while true:
-        await bob_head
-        if not bobbing:
-            continue
+## TODO
+func _normalize_from_curve(x):
+    return (x - _curve.min_domain) / (_curve.max_domain - _curve.min_domain)
 
-        _create_tweens(bob_angle, -1 * bob_offset_x, bob_offset_y)
-        await position_tween.finished
-        if not bobbing:
-            continue
+## TODO
+func stop_sway() -> void:
+    if _return_tween and _return_tween.is_running():
+        return
 
-        _create_tweens(0, 0, 0)
-        await position_tween.finished
-        await bob_head
-        if not bobbing:
-            continue
+    if _tween and _tween.is_running():
+        _tween.stop()
 
-        _create_tweens(-1 * bob_angle, bob_offset_x, bob_offset_y)
-        await position_tween.finished
-        if not bobbing:
-            continue
-
-        _create_tweens(0, 0, 0)
-        await position_tween.finished
-        if not bobbing:
-            continue
-
-
-## Create two tweens to tween this object by `angle` and `offset` over `self.bob_duration`
-func _create_tweens(_angle: float, offset_x: float, offset_y: float) -> void:
-    # rotation_tween = create_tween()
-    # rotation_tween.tween_property(self, "rotation:z", deg_to_rad(angle) * 0, bob_duration).set_trans(TRANS_MODE)
-    position_tween = create_tween()
-    position_tween.set_parallel()
-    (
-        position_tween
-        . tween_property(self, "position:x", offset_x, bob_duration)
-        . set_trans(Tween.TRANS_LINEAR)
-        . set_trans(TRANS_MODE)
+    var start_x := _curve.get_point_position(_starting_point).x
+    _return_tween = create_tween()
+    _return_tween.tween_method(
+        _set_position_from_curve,
+        position.x,
+        start_x,
+        _sway_duration * abs(
+            _normalize_from_curve(start_x) -
+            _normalize_from_curve(position.x)
+        )
     )
-    (
-        position_tween
-        . tween_property(self, "position:y", offset_y + position_y, bob_duration)
-        . set_trans(Tween.TRANS_LINEAR)
-    )
-    current_target = Vector2(offset_x, offset_y)
-
-
-## Start head bobbing tweens
-func start_head_bob():
-    bob_head.emit()
-
-
-## Start head bobbing tweens
-func start_recenter():
-    recenter.emit()
+    # _reverse = !_reverse
