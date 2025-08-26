@@ -1,6 +1,6 @@
 class_name CollisionTrigger extends Area3D
 ## A region of space that can be triggered by a body of specified group entering it. [br]
-## Emits the "triggered" signal when these conditions are met.
+## Emits the `triggered` signal when these conditions are met.
 
 signal triggered
 

@@ -1,17 +1,13 @@
 class_name PlayerRayCast3D extends RayCast3D
-## TODO
-
-var _collided: CollisionObject3D
-
-
-func _physics_process(_delta) -> void:
-    _collided = get_collider()
+## When an input event is received, pipes input to the first `ClickTrigger` node
+## that is colliding with this raycast
 
 
-func _input(event: InputEvent):
-    if _collided == null or not _collided is ClickTrigger:
+func _input(event: InputEvent) -> void:
+    var collided := get_collider()
+    if not collided or not collided is ClickTrigger:
         return
 
-    # Limit interaction to mouse buttons for now
+    # Limit interaction to mouse buttons for now, can remove this when input consumption is fixed
     if event is InputEventMouseButton:
-        _collided.on_click(event, owner)
+        collided.on_click(event, owner)

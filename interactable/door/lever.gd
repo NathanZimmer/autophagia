@@ -1,6 +1,6 @@
 @tool
 class_name Lever extends MeshInstance3D
-## On click, turns based on a curve and emits the "turned" signal
+## On click, turns based on a curve and emits the `turned` signal
 
 signal turned
 
@@ -11,10 +11,10 @@ signal turned
 @export var _curve: Curve = load("uid://c7djvmapq1bjn")
 ## Axis to rotate around
 @export var _rotation_axis: Vector3
-## Index of the point on the curve to emit "turned" signal
+## Index of the point on the curve to emit `turned` signal
 @export var _emit_point: int
 
-## Can disable animation and just emit the "turned" signal
+## Can disable animation and just emit the `turned` signal
 var disable_turning: bool:
     get:
         return _disable_turning
@@ -41,13 +41,13 @@ func _ready() -> void:
     _timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
     _timer.timeout.connect(turned.emit)
 
-    var click_triggers = find_children("*", "ClickTrigger", false) as Array[ClickTrigger]
-    for click_trigger in click_triggers:
+    var click_triggers: Array = find_children("*", "ClickTrigger", false) as Array[ClickTrigger]
+    for click_trigger: ClickTrigger in click_triggers:
         click_trigger.triggered.connect(_turn)
 
 
-## Tween over `_curve`. Emits the "turned" signal if `sample_time >= _emit_time`
-func _turn(_body) -> void:
+## Tween over `_curve`. Emits the `turned` signal if `sample_time >= _emit_time`
+func _turn(_body: Node3D) -> void:
     if _tween and _tween.is_running():
         return
     if disable_turning:
@@ -69,7 +69,7 @@ func _set_rotation_from_curve(sample_time: float) -> void:
 
 ## Show warning if we don't have a ClickTrigger child
 func _get_configuration_warnings() -> PackedStringArray:
-    var click_triggers = find_children("*", "ClickTrigger", false)
+    var click_triggers: Array = find_children("*", "ClickTrigger", false) as Array[ClickTrigger]
 
     var warnings: PackedStringArray = []
     if click_triggers.is_empty():

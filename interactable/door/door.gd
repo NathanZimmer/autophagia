@@ -1,6 +1,6 @@
 @tool
 class_name Door extends AnimatableBody3D
-## On "Lever.turned" emit, turns based on a curve
+## On `Lever.turned` emit, turns based on a curve
 # FIXME: Make colliding with the door while it is opening/closing not janky
 
 ## Curve used for the open/close animation.
