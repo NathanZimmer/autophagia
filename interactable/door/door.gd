@@ -7,8 +7,7 @@ class_name Door extends AnimatableBody3D
 ## Plays the animation in reverse for door closing. [br]
 ## * Domain: [0, x] where x is the duration of the animation in seconds [br]
 ## * Range: [0, y] where y is the maximum rotation angle in radians [br]
-## The curve should start at y=0 to prevent jumps in rotation
-## on animation start/end
+## The curve should start at y=0 to prevent jumps in rotation on animation start/end
 @export var _curve: Curve = load("uid://kb8rx0mlxxwl")
 ## Axis to rotate around
 @export var _rotation_axis: Vector3
@@ -71,7 +70,7 @@ func _set_rotation_from_curve(sample_time: float) -> void:
 
 ## Show warning if we don't have a Lever child
 func _get_configuration_warnings() -> PackedStringArray:
-    var levers = find_children("*", "Lever", false) as Array[Lever]
+    var levers: Array = find_children("*", "Lever", false) as Array[Lever]
 
     var warnings: PackedStringArray = []
     if levers.is_empty():

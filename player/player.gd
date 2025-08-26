@@ -29,7 +29,8 @@ var _collider: CollisionShape3D
 var _camera: Camera3D
 var _mouse_inverted := false
 
-var _velocity_last_frame := 0.0
+## Used for starting and stopping camera sway
+var _xz_velocity_mag_last_frame := 0.0
 
 
 func _ready() -> void:
@@ -45,7 +46,7 @@ func _ready() -> void:
 
 # FIXME: Figure out what is consuming all inputs down the tree, fix it, and update
 # this to _unhandled_input
-func _input(event) -> void:
+func _input(event: InputEvent) -> void:
     if event is InputEventMouseMotion:
         _rotate_cam(event)
     elif event is InputEventKey:
@@ -71,14 +72,14 @@ func _physics_process(delta: float) -> void:
 
 # FIXME: Sometimes the player cannot jump, this is probaly from the basis changing
 ## Handle player input for walking and jumping using the player_* input actions
-func _walk_and_jump(delta: float):
+func _walk_and_jump(delta: float) -> void:
     var xz_input_dir := Input.get_vector(
         PlayerInput.PLAYER_LEFT, PlayerInput.PLAYER_RIGHT, PlayerInput.PLAYER_FORWARD, PlayerInput.PLAYER_BACK
     )
 
     var right := global_basis.x * xz_input_dir.x
     var forward := global_basis.z * xz_input_dir.y
-    var xz_velocity = (right + forward).normalized() * _move_speed * _speed_mod
+    var xz_velocity := (right + forward).normalized() * _move_speed * _speed_mod
 
     # Need to handle jumping, falling, and _flying separately from xz movement
     var y_velocity: Vector3
@@ -91,18 +92,18 @@ func _walk_and_jump(delta: float):
         if Input.is_action_just_pressed(PlayerInput.PLAYER_UP) and is_on_floor():
             y_velocity += _jump_velocity * global_basis.y
     else:
-        var y_input_dir = Input.get_axis(PlayerInput.PLAYER_DOWN, PlayerInput.PLAYER_UP)
-        var up = global_basis.y * y_input_dir
+        var y_input_dir := Input.get_axis(PlayerInput.PLAYER_DOWN, PlayerInput.PLAYER_UP)
+        var up := global_basis.y * y_input_dir
         y_velocity = up * _move_speed * _speed_mod
 
     velocity = xz_velocity + y_velocity
 
     if _camera.has_method(START_SWAY) and _camera.has_method(STOP_SWAY):
-        if xz_velocity.length() > 0 and is_zero_approx(_velocity_last_frame):
+        if xz_velocity.length() > 0 and is_zero_approx(_xz_velocity_mag_last_frame):
             _camera.call(START_SWAY)
-        elif is_zero_approx(xz_velocity.length()) and not is_zero_approx(_velocity_last_frame):
+        elif is_zero_approx(xz_velocity.length()) and not is_zero_approx(_xz_velocity_mag_last_frame):
             _camera.call(STOP_SWAY)
-        _velocity_last_frame = xz_velocity.length()
+        _xz_velocity_mag_last_frame = xz_velocity.length()
 
 
 ## Handle mouse input for camera rotation [br]
