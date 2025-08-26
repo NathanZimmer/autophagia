@@ -43,7 +43,7 @@ func _sway() -> void:
     if _reverse:
         _tween.tween_method(_set_position_from_curve, _cur_sample_time, 0.0, _cur_sample_time)
     else:
-         _tween.tween_method(
+        _tween.tween_method(
             _set_position_from_curve,
             _cur_sample_time,
             _x_curve.max_domain,
@@ -60,11 +60,8 @@ func _set_position_from_curve(sample_time: float) -> void:
     _cur_sample_time = sample_time
     var x_offset := _x_curve.sample_baked(sample_time)
     var y_offset := _y_curve.sample_baked(sample_time)
-    position = Vector3(
-        _base_position.x + x_offset,
-        _base_position.y + y_offset,
-        _base_position.z
-    )
+    position = Vector3(_base_position.x + x_offset, _base_position.y + y_offset, _base_position.z)
+
 
 ## Triggers repeating position tween
 func start_sway() -> void:
@@ -84,8 +81,5 @@ func stop_sway() -> void:
     var start_x := _x_curve.get_point_position(_starting_point).x
     _return_tween = create_tween()
     _return_tween.tween_method(
-        _set_position_from_curve,
-        _cur_sample_time,
-        start_x,
-        abs(_cur_sample_time - start_x)
+        _set_position_from_curve, _cur_sample_time, start_x, abs(_cur_sample_time - start_x)
     )

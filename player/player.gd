@@ -29,8 +29,9 @@ var _collider: CollisionShape3D
 var _camera: Camera3D
 var _mouse_inverted := false
 
+## Magnitude of player's velocity last frame excluding jumping/gravity.
 ## Used for starting and stopping camera sway
-var _xz_velocity_mag_last_frame := 0.0
+var _xz_velocity_last_frame := 0.0
 
 
 func _ready() -> void:
@@ -74,7 +75,10 @@ func _physics_process(delta: float) -> void:
 ## Handle player input for walking and jumping using the player_* input actions
 func _walk_and_jump(delta: float) -> void:
     var xz_input_dir := Input.get_vector(
-        PlayerInput.PLAYER_LEFT, PlayerInput.PLAYER_RIGHT, PlayerInput.PLAYER_FORWARD, PlayerInput.PLAYER_BACK
+        PlayerInput.PLAYER_LEFT,
+        PlayerInput.PLAYER_RIGHT,
+        PlayerInput.PLAYER_FORWARD,
+        PlayerInput.PLAYER_BACK
     )
 
     var right := global_basis.x * xz_input_dir.x
@@ -99,11 +103,11 @@ func _walk_and_jump(delta: float) -> void:
     velocity = xz_velocity + y_velocity
 
     if _camera.has_method(START_SWAY) and _camera.has_method(STOP_SWAY):
-        if xz_velocity.length() > 0 and is_zero_approx(_xz_velocity_mag_last_frame):
+        if xz_velocity.length() > 0 and is_zero_approx(_xz_velocity_last_frame):
             _camera.call(START_SWAY)
-        elif is_zero_approx(xz_velocity.length()) and not is_zero_approx(_xz_velocity_mag_last_frame):
+        elif is_zero_approx(xz_velocity.length()) and not is_zero_approx(_xz_velocity_last_frame):
             _camera.call(STOP_SWAY)
-        _xz_velocity_mag_last_frame = xz_velocity.length()
+        _xz_velocity_last_frame = xz_velocity.length()
 
 
 ## Handle mouse input for camera rotation [br]
