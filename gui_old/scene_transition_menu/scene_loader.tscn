@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://bhxwly8gclqls"]
 
-[ext_resource type="Script" uid="uid://bhmlpwff4qg2m" path="res://gui/scene_transition_menu/scene_loader.gd" id="1_4oimj"]
-[ext_resource type="Theme" uid="uid://bpwxalae1j42b" path="res://gui/style/menu_theme.tres" id="2_tt5n6"]
-[ext_resource type="Shader" uid="uid://d0x1vrxdv68xy" path="res://gui/scene_transition_menu/rotate.gdshader" id="3_4ixvr"]
+[ext_resource type="Script" uid="uid://bhmlpwff4qg2m" path="res://gui_old/scene_transition_menu/scene_loader.gd" id="1_4oimj"]
+[ext_resource type="Theme" uid="uid://bpwxalae1j42b" path="res://gui_old/style/menu_theme.tres" id="2_tt5n6"]
+[ext_resource type="Shader" uid="uid://d0x1vrxdv68xy" path="res://gui_old/scene_transition_menu/rotate.gdshader" id="3_4ixvr"]
 [ext_resource type="Texture2D" uid="uid://3n2x0n62fk53" path="res://snake.png" id="4_ivnn3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5vymc"]

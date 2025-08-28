@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://djed1pkatai3r"]
 
-[ext_resource type="Script" uid="uid://5pt18ad26yl" path="res://gui/visuals_menu/visual_menu_control.gd" id="1_8ia13"]
-[ext_resource type="PackedScene" uid="uid://dv5frgwqebxea" path="res://gui/common/paired_slider_and_box.tscn" id="2_x7pwf"]
-[ext_resource type="Theme" uid="uid://bpwxalae1j42b" path="res://gui/style/menu_theme.tres" id="3_rsl6q"]
-[ext_resource type="Script" uid="uid://bv12qljihvxob" path="res://gui/common/back_button.gd" id="4_it7dh"]
-[ext_resource type="LabelSettings" uid="uid://dmi20rjo8etdc" path="res://gui/style/pause_body_font.tres" id="5_syfnv"]
-[ext_resource type="LabelSettings" uid="uid://cslyk2capep48" path="res://gui/style/pause_label_font.tres" id="6_u6ut5"]
+[ext_resource type="Script" uid="uid://5pt18ad26yl" path="res://gui_old/visuals_menu/visual_menu_control.gd" id="1_8ia13"]
+[ext_resource type="PackedScene" uid="uid://dv5frgwqebxea" path="res://gui_old/common/paired_slider_and_box.tscn" id="2_x7pwf"]
+[ext_resource type="Theme" uid="uid://bpwxalae1j42b" path="res://gui_old/style/menu_theme.tres" id="3_rsl6q"]
+[ext_resource type="Script" uid="uid://bv12qljihvxob" path="res://gui_old/common/back_button.gd" id="4_it7dh"]
+[ext_resource type="LabelSettings" uid="uid://dmi20rjo8etdc" path="res://gui_old/style/pause_body_font.tres" id="5_syfnv"]
+[ext_resource type="LabelSettings" uid="uid://cslyk2capep48" path="res://gui_old/style/pause_label_font.tres" id="6_u6ut5"]
 
 [node name="VisualMenuControl" type="Control"]
 auto_translate_mode = 1

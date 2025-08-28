@@ -2,6 +2,7 @@ class_name Player extends CharacterBody3D
 ## Handles player movement, jumping, and gravity
 
 const TERMINAL_VELOCITY := 50.0
+const DEBUG_CAPTURE_MOUSE := true
 
 @export_group("Camera settings")
 @export_range(1, 100, 1) var _mouse_sensitivity := 50
@@ -18,7 +19,6 @@ const TERMINAL_VELOCITY := 50.0
 @export var _override_up_dir_on_ready := true
 @export var _min_speed := 0.1
 @export var _max_speed := 10.0
-@export var _capture_input := false
 
 var camera: Camera3D:
     get:
@@ -41,28 +41,45 @@ func _ready() -> void:
 
     if _override_up_dir_on_ready:
         up_direction = global_basis.y
-    if _capture_input:
+
+    if DEBUG_CAPTURE_MOUSE:
         Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
-# FIXME: Figure out what is consuming all inputs down the tree, fix it, and update
-# this to _unhandled_input
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
     if event is InputEventMouseMotion:
+        if DEBUG_CAPTURE_MOUSE and Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
+            return
+
         _rotate_cam(event)
+        get_tree().get_root().set_input_as_handled()
+
     elif event is InputEventKey:
-        if event.is_action_pressed(PlayerInput.PLAYER_FLIGHT_TOGGLE) and _dev_controls_enabled:
+        if DEBUG_CAPTURE_MOUSE and event.is_action_pressed("ui_cancel"):
+            if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
+                Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+            else:
+                Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+        elif event.is_action_pressed(PlayerInput.PLAYER_FLIGHT_TOGGLE) and _dev_controls_enabled:
             _flying = !_flying
+            get_tree().get_root().set_input_as_handled()
+
         elif event.is_action_pressed(PlayerInput.PLAYER_COLLISION_TOGGLE) and _dev_controls_enabled:
             _collider.disabled = not _collider.disabled
+            get_tree().get_root().set_input_as_handled()
+
     elif event is InputEventMouseButton:
         var mw_input_scale: float = 0.1
         if event.is_action_pressed("mw_down") and _dev_controls_enabled:
             _speed_mod -= mw_input_scale
             _speed_mod = _speed_mod if _speed_mod > _min_speed else _min_speed
+            get_tree().get_root().set_input_as_handled()
+
         elif event.is_action_pressed("mw_up") and _dev_controls_enabled:
             _speed_mod += mw_input_scale
             _speed_mod = _speed_mod if _speed_mod < _max_speed else _max_speed
+            get_tree().get_root().set_input_as_handled()
 
 
 func _physics_process(delta: float) -> void:
@@ -72,7 +89,7 @@ func _physics_process(delta: float) -> void:
 
 
 # FIXME: Sometimes the player cannot jump, this is probaly from the basis changing
-## Handle player input for walking and jumping using the player_* input actions
+## Handle player input for walking and jumping using the `PlayerInput` input actions
 func _walk_and_jump(delta: float) -> void:
     var xz_input_dir := Input.get_vector(
         PlayerInput.PLAYER_LEFT,

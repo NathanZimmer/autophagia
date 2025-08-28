@@ -1,0 +1,20 @@
+extends Label
+## Simple counter that displays seconds since `PlayerInput.PLAYER_B` input event
+
+var _b_press_time := 0
+var _original_text: String
+
+
+func _ready() -> void:
+    _original_text = text
+
+
+func _unhandled_input(event: InputEvent) -> void:
+    if event is InputEventKey:
+        if event.is_action_pressed(PlayerInput.PLAYER_B):
+            _b_press_time = Time.get_ticks_msec()
+            get_tree().get_root().set_input_as_handled()
+
+
+func _process(_delta: float) -> void:
+    text = _original_text % int((Time.get_ticks_msec() - _b_press_time) * 0.001)

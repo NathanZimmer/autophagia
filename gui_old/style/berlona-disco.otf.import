@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://cc2yogqgab4qk"
-path="res://.godot/imported/berlona-disco.otf-0ce52b1d429b8350f8df17e3ca4bad40.fontdata"
+path="res://.godot/imported/berlona-disco.otf-fd5d61acca36de3b78011965c2b88a57.fontdata"
 
 [deps]
 
-source_file="res://gui/style/berlona-disco.otf"
-dest_files=["res://.godot/imported/berlona-disco.otf-0ce52b1d429b8350f8df17e3ca4bad40.fontdata"]
+source_file="res://gui_old/style/berlona-disco.otf"
+dest_files=["res://.godot/imported/berlona-disco.otf-fd5d61acca36de3b78011965c2b88a57.fontdata"]
 
 [params]
 

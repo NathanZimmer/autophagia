@@ -1,8 +1,8 @@
 [gd_resource type="Theme" load_steps=6 format=3 uid="uid://bpwxalae1j42b"]
 
-[ext_resource type="Texture2D" uid="uid://d4gc2h6vf0t26" path="res://gui/common/black.png" id="1_fstix"]
-[ext_resource type="Texture2D" uid="uid://c0piria3rqwmy" path="res://gui/common/empty_box.png" id="2_8reix"]
-[ext_resource type="FontFile" uid="uid://bg0grlkrbfbo1" path="res://gui/style/asvoria-disco-2.otf" id="3_03mi0"]
+[ext_resource type="Texture2D" uid="uid://d4gc2h6vf0t26" path="res://gui_old/common/black.png" id="1_fstix"]
+[ext_resource type="Texture2D" uid="uid://c0piria3rqwmy" path="res://gui_old/common/empty_box.png" id="2_8reix"]
+[ext_resource type="FontFile" uid="uid://bg0grlkrbfbo1" path="res://gui_old/style/asvoria-disco-2.otf" id="3_03mi0"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_saobw"]
 

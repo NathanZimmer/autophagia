@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ru0o1pmuk4iv"
-path="res://.godot/imported/space_bar.png-9f0ed93a9e8e797ed9b6333febfee25a.ctex"
+uid="uid://du1j382w3tswu"
+path="res://.godot/imported/vignette.png-557d8367c88872a43097f128b3602e63.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gui/controls_menu/space_bar.png"
-dest_files=["res://.godot/imported/space_bar.png-9f0ed93a9e8e797ed9b6333febfee25a.ctex"]
+source_file="res://gui_old/main_menu/vignette.png"
+dest_files=["res://.godot/imported/vignette.png-557d8367c88872a43097f128b3602e63.ctex"]
 
 [params]
 

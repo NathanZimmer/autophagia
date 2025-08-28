@@ -11,14 +11,13 @@ config_version=5
 [application]
 
 config/name="Autophagia"
-run/main_scene="uid://duclhdhos7w07"
+run/main_scene="uid://by81jafttyp45"
 config/features=PackedStringArray("4.4", "Forward Plus")
 run/max_fps=144
 config/icon="uid://3n2x0n62fk53"
 
 [autoload]
 
-Globals="*res://common/globals.gd"
 PlayerInput="*res://player/player_input.gd"
 
 [debug]

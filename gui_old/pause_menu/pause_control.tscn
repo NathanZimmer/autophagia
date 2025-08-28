@@ -1,13 +1,13 @@
 [gd_scene load_steps=9 format=3 uid="uid://bbbspt027k0x3"]
 
-[ext_resource type="Script" uid="uid://pgqoh640uaae" path="res://gui/pause_menu/pause_control.gd" id="1_07ung"]
-[ext_resource type="Script" uid="uid://bto4w2eh0ktsi" path="res://gui/common/menu_control.gd" id="2_f8c46"]
-[ext_resource type="LabelSettings" uid="uid://cslyk2capep48" path="res://gui/style/pause_label_font.tres" id="3_36k5q"]
-[ext_resource type="Script" uid="uid://bv12qljihvxob" path="res://gui/common/back_button.gd" id="3_a2dyc"]
-[ext_resource type="Theme" uid="uid://bpwxalae1j42b" path="res://gui/style/menu_theme.tres" id="4_ujg4y"]
-[ext_resource type="PackedScene" uid="uid://djed1pkatai3r" path="res://gui/visuals_menu/visual_menu_control.tscn" id="6_xfgav"]
-[ext_resource type="PackedScene" uid="uid://cdssagdy1niv2" path="res://gui/controls_menu/controls_menu_control.tscn" id="7_8s44h"]
-[ext_resource type="PackedScene" uid="uid://dmf8q0yo1mskk" path="res://gui/quit_menu/quit_menu_control.tscn" id="8_g34ac"]
+[ext_resource type="Script" uid="uid://pgqoh640uaae" path="res://gui_old/pause_menu/pause_control.gd" id="1_07ung"]
+[ext_resource type="Script" uid="uid://bto4w2eh0ktsi" path="res://gui_old/common/menu_control.gd" id="2_f8c46"]
+[ext_resource type="LabelSettings" uid="uid://cslyk2capep48" path="res://gui_old/style/pause_label_font.tres" id="3_36k5q"]
+[ext_resource type="Script" uid="uid://bv12qljihvxob" path="res://gui_old/common/back_button.gd" id="3_a2dyc"]
+[ext_resource type="Theme" uid="uid://bpwxalae1j42b" path="res://gui_old/style/menu_theme.tres" id="4_ujg4y"]
+[ext_resource type="PackedScene" uid="uid://djed1pkatai3r" path="res://gui_old/visuals_menu/visual_menu_control.tscn" id="6_xfgav"]
+[ext_resource type="PackedScene" uid="uid://cdssagdy1niv2" path="res://gui_old/controls_menu/controls_menu_control.tscn" id="7_8s44h"]
+[ext_resource type="PackedScene" uid="uid://dmf8q0yo1mskk" path="res://gui_old/quit_menu/quit_menu_control.tscn" id="8_g34ac"]
 
 [node name="PauseControl" type="Control" node_paths=PackedStringArray("starting_menu")]
 process_mode = 2

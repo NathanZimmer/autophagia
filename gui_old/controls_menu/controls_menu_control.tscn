@@ -1,14 +1,14 @@
 [gd_scene load_steps=10 format=3 uid="uid://cdssagdy1niv2"]
 
-[ext_resource type="Script" uid="uid://4jbctiklk8mw" path="res://gui/controls_menu/controls_menu_control.gd" id="1_k74de"]
-[ext_resource type="PackedScene" uid="uid://dv5frgwqebxea" path="res://gui/common/paired_slider_and_box.tscn" id="2_01ibu"]
-[ext_resource type="Theme" uid="uid://bpwxalae1j42b" path="res://gui/style/menu_theme.tres" id="3_xf31m"]
-[ext_resource type="Script" uid="uid://bv12qljihvxob" path="res://gui/common/back_button.gd" id="4_aycxf"]
-[ext_resource type="LabelSettings" uid="uid://cslyk2capep48" path="res://gui/style/pause_label_font.tres" id="5_jp5xk"]
-[ext_resource type="Texture2D" uid="uid://dq288qwgehjb0" path="res://gui/controls_menu/mouse.png" id="6_wvbxq"]
-[ext_resource type="Texture2D" uid="uid://c7djmeqvhtpuy" path="res://gui/controls_menu/keycap.png" id="7_pcte3"]
-[ext_resource type="Texture2D" uid="uid://ru0o1pmuk4iv" path="res://gui/controls_menu/space_bar.png" id="8_23mvk"]
-[ext_resource type="LabelSettings" uid="uid://dmi20rjo8etdc" path="res://gui/style/pause_body_font.tres" id="9_ocq3u"]
+[ext_resource type="Script" uid="uid://4jbctiklk8mw" path="res://gui_old/controls_menu/controls_menu_control.gd" id="1_k74de"]
+[ext_resource type="PackedScene" uid="uid://dv5frgwqebxea" path="res://gui_old/common/paired_slider_and_box.tscn" id="2_01ibu"]
+[ext_resource type="Theme" uid="uid://bpwxalae1j42b" path="res://gui_old/style/menu_theme.tres" id="3_xf31m"]
+[ext_resource type="Script" uid="uid://bv12qljihvxob" path="res://gui_old/common/back_button.gd" id="4_aycxf"]
+[ext_resource type="LabelSettings" uid="uid://cslyk2capep48" path="res://gui_old/style/pause_label_font.tres" id="5_jp5xk"]
+[ext_resource type="Texture2D" uid="uid://dq288qwgehjb0" path="res://gui_old/controls_menu/mouse.png" id="6_wvbxq"]
+[ext_resource type="Texture2D" uid="uid://c7djmeqvhtpuy" path="res://gui_old/controls_menu/keycap.png" id="7_pcte3"]
+[ext_resource type="Texture2D" uid="uid://ru0o1pmuk4iv" path="res://gui_old/controls_menu/space_bar.png" id="8_23mvk"]
+[ext_resource type="LabelSettings" uid="uid://dmi20rjo8etdc" path="res://gui_old/style/pause_body_font.tres" id="9_ocq3u"]
 
 [node name="ControlsMenuControl" type="Control"]
 auto_translate_mode = 1
