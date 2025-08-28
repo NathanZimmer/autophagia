@@ -1,6 +1,6 @@
 class_name CollisionTrigger extends Area3D
 ## A region of space that can be triggered by a body of specified group entering it. [br]
-## Emits the "triggered" signal when these conditions are met.
+## Emits the `triggered` signal when these conditions are met.
 
 signal triggered
 
@@ -13,7 +13,5 @@ func _ready() -> void:
 
 
 func _on_body_entered(body: Node) -> void:
-    for group in body.get_groups():
-        if group in _groups:
-            triggered.emit()
-            return
+    if _groups.any(body.is_in_group):
+        triggered.emit(body)

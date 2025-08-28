@@ -1,6 +1,7 @@
 @tool
 extends Node3D
-## On collision, sends an image to the colliding node and then queues itself for deletion
+## On collision, sends an image to the colliding node and then queues itself for deletion.
+## Colliding node should have a `MessageHandler` child
 
 ## Path to the image file
 @export_file var _image_path: String
@@ -17,9 +18,11 @@ func _ready() -> void:
         trigger.triggered.connect(_display_image)
 
 
-## TODO: Implement connection to the UI
-func _display_image() -> void:
-    print(_image_path)
+## TODO: Update when MessageHandler is implemented
+func _display_image(body) -> void:
+    var handlers = body.find_children("*", "MessageHandler", false)
+    if not handlers.is_empty():
+        handlers[0].send_message("TODO")
     queue_free()
 
 

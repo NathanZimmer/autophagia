@@ -7,7 +7,7 @@ func _unhandled_input(event) -> void:
     if not event is InputEventKey:
         return
 
-    if event.is_action_pressed("player_b"):
+    if event.is_action_pressed(PlayerInput.PLAYER_B):
         b_press_time_elapsed = 0
 
 

@@ -23,7 +23,7 @@ shape = SubResource("CapsuleShape3D_7malt")
 
 [node name="ClickTrigger" type="Area3D" parent="."]
 script = ExtResource("1_7malt")
-_groups = Array[StringName]([&"player_raycast"])
+_groups = Array[StringName]([&"player"])
 _input_action = "player_interact"
 metadata/_custom_type_script = "uid://nby3c2g37q5b"
 
