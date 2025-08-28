@@ -22,6 +22,8 @@ var _base_position: Vector3
 var _reverse := false
 ## Store tween interpolated value for cancelling animation and returning to starting point
 var _cur_sample_time: float
+var _position_last_frame: Vector3
+var _velocity_last_frame := 0.0
 
 
 func _ready() -> void:
@@ -29,9 +31,23 @@ func _ready() -> void:
     _y_curve.bake()
     _base_position = position
     _cur_sample_time = _x_curve.get_point_position(_starting_point).x
+    _position_last_frame = global_position
 
 
-## Tween position over `_x_curve` and `_y_curve`
+func _physics_process(_delta: float) -> void:
+    var velocity := _position_last_frame.distance_squared_to(global_position)
+
+    if not is_zero_approx(velocity) and is_zero_approx(_velocity_last_frame):
+        _sway()
+    elif is_zero_approx(velocity) and not is_zero_approx(_velocity_last_frame):
+        _stop_sway()
+
+    _position_last_frame = global_position
+    _velocity_last_frame = velocity
+
+
+## Tween position over `_x_curve` and `_y_curve`.
+## On tween `finished` signal, calls itself again
 func _sway() -> void:
     if _tween and _tween.is_running():
         return
@@ -63,13 +79,8 @@ func _set_position_from_curve(sample_time: float) -> void:
     position = Vector3(_base_position.x + x_offset, _base_position.y + y_offset, _base_position.z)
 
 
-## Triggers repeating position tween
-func start_sway() -> void:
-    _sway()
-
-
 ## Cancels repeating tween and begins tween to return to starting point
-func stop_sway() -> void:
+func _stop_sway() -> void:
     if _return_tween and _return_tween.is_running():
         return
 
