@@ -7,7 +7,7 @@ signal triggered
 ## Groups that can trigger this area
 @export var _groups: Array[StringName]
 ## Input action to trigger this area
-@export_enum(PlayerInput.INTERACT_EXPORT_ENUM) var _input_action: String
+@export_enum(InputActions.Player.INTERACT_EXPORT_ENUM) var _input_action: String
 
 
 ## Emits `triggered(click_owner)` if event matches our input action [br]

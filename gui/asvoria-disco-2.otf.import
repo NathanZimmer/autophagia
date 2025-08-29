@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://bg0grlkrbfbo1"
-path="res://.godot/imported/asvoria-disco-2.otf-f8ed1e2d81bf45b9e36fd4e686b30be5.fontdata"
+path="res://.godot/imported/asvoria-disco-2.otf-084640aeb25e6f0a231dbec326034322.fontdata"
 
 [deps]
 
-source_file="res://gui_old/style/asvoria-disco-2.otf"
-dest_files=["res://.godot/imported/asvoria-disco-2.otf-f8ed1e2d81bf45b9e36fd4e686b30be5.fontdata"]
+source_file="res://gui/asvoria-disco-2.otf"
+dest_files=["res://.godot/imported/asvoria-disco-2.otf-084640aeb25e6f0a231dbec326034322.fontdata"]
 
 [params]
 

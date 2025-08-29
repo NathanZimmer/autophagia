@@ -1,8 +1,10 @@
-class_name Player extends CharacterBody3D
+extends CharacterBody3D
 ## Handles player movement, jumping, and gravity
 
 const TERMINAL_VELOCITY := 50.0
-const DEBUG_CAPTURE_MOUSE := true
+## If true, this script will control mouse capture mode with "ui_cancel" input.
+## Use for scenes where the gui scripts aren't loaded and input isn't captured.
+const DEBUG_CAPTURE_MOUSE := false
 
 @export_group("Camera settings")
 @export_range(1, 100, 1) var _mouse_sensitivity := 50
@@ -42,8 +44,7 @@ func _ready() -> void:
     if _override_up_dir_on_ready:
         up_direction = global_basis.y
 
-    if DEBUG_CAPTURE_MOUSE:
-        Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+    Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -61,11 +62,11 @@ func _unhandled_input(event: InputEvent) -> void:
             else:
                 Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
-        elif event.is_action_pressed(PlayerInput.PLAYER_FLIGHT_TOGGLE) and _dev_controls_enabled:
+        elif event.is_action_pressed(InputActions.Player.FLIGHT_TOGGLE) and _dev_controls_enabled:
             _flying = !_flying
             get_tree().get_root().set_input_as_handled()
 
-        elif event.is_action_pressed(PlayerInput.PLAYER_COLLISION_TOGGLE) and _dev_controls_enabled:
+        elif event.is_action_pressed(InputActions.Player.COLLISION_TOGGLE) and _dev_controls_enabled:
             _collider.disabled = not _collider.disabled
             get_tree().get_root().set_input_as_handled()
 
@@ -89,13 +90,13 @@ func _physics_process(delta: float) -> void:
 
 
 # FIXME: Sometimes the player cannot jump, this is probaly from the basis changing
-## Handle player input for walking and jumping using the `PlayerInput` input actions
+## Handle player input for walking and jumping using the `InputActions.Player` input actions
 func _walk_and_jump(delta: float) -> void:
     var xz_input_dir := Input.get_vector(
-        PlayerInput.PLAYER_LEFT,
-        PlayerInput.PLAYER_RIGHT,
-        PlayerInput.PLAYER_FORWARD,
-        PlayerInput.PLAYER_BACK
+        InputActions.Player.LEFT,
+        InputActions.Player.RIGHT,
+        InputActions.Player.FORWARD,
+        InputActions.Player.BACK
     )
 
     var right := global_basis.x * xz_input_dir.x
@@ -108,12 +109,13 @@ func _walk_and_jump(delta: float) -> void:
         y_velocity = velocity.project(global_basis.y)
         if not is_on_floor():
             y_velocity -= global_basis.y * _gravity * delta
+            # TODO: Test if this is framerate independent
             if y_velocity.length() >= TERMINAL_VELOCITY:
                 y_velocity = global_basis.y * -TERMINAL_VELOCITY
-        if Input.is_action_just_pressed(PlayerInput.PLAYER_UP) and is_on_floor():
+        if Input.is_action_just_pressed(InputActions.Player.UP) and is_on_floor():
             y_velocity += _jump_velocity * global_basis.y
     else:
-        var y_input_dir := Input.get_axis(PlayerInput.PLAYER_DOWN, PlayerInput.PLAYER_UP)
+        var y_input_dir := Input.get_axis(InputActions.Player.DOWN, InputActions.Player.UP)
         var up := global_basis.y * y_input_dir
         y_velocity = up * _move_speed * _speed_mod
 
