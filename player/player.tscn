@@ -57,8 +57,6 @@ collide_with_areas = true
 script = ExtResource("4_8t03j")
 metadata/_custom_type_script = "uid://ck2srl31dxoy2"
 
-[node name="Gui" parent="." instance=ExtResource("5_boad6")]
-
 [node name="MessageHandler" type="Node" parent="."]
 script = ExtResource("10_8t03j")
 metadata/_custom_type_script = "uid://clawryrmh60wq"
@@ -75,16 +73,6 @@ skeleton = NodePath("")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="FsDithering" type="ColorRect" parent="CanvasLayer"]
-process_mode = 3
-material = SubResource("ShaderMaterial_q5we3")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
 [node name="CursorPlaceholder" type="ColorRect" parent="CanvasLayer"]
 anchors_preset = 8
 anchor_left = 0.5
@@ -98,3 +86,15 @@ grow_vertical = 2
 pivot_offset = Vector2(2.5, 2.5)
 mouse_filter = 2
 color = Color(1, 0, 1, 1)
+
+[node name="Gui" parent="CanvasLayer" instance=ExtResource("5_boad6")]
+
+[node name="FsDithering" type="ColorRect" parent="CanvasLayer"]
+process_mode = 3
+material = SubResource("ShaderMaterial_q5we3")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

@@ -1,32 +1,38 @@
-extends Node
+extends Control
 ## Handles menu and viewport related hotkeys
 
-## Emitted with `bool` indicating pause state
-signal pause
+## Base menu will always be the first child Control
+var base_menu: Control
 
 
-func _unhandled_input(event: InputEvent) -> void:
+func _ready() -> void:
+    base_menu = find_children("*", "MenuController", false)[0]
+    base_menu.menu_exited.connect(_unpause)
+
+
+func _shortcut_input(event: InputEvent) -> void:
     if event is InputEventKey:
         if event.is_action_pressed(InputActions.UI.CANCEL):
             _pause()
-            get_tree().get_root().set_input_as_handled()
+            accept_event()
 
         elif event.is_action_pressed(InputActions.UI.FULLSCREEN):
             _toggle_fullscreen()
-            get_tree().get_root().set_input_as_handled()
+            accept_event()
 
 
-## Pause and unpause the game, hide/show mouse cursor
+## TODO
 func _pause() -> void:
-    var paused := !get_tree().paused
-    get_tree().paused = paused
+    get_tree().paused = true
+    Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+    base_menu.show()
 
-    if paused:
-        Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-    else:
-        Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-    pause.emit(paused)
+## TODO
+func _unpause() -> void:
+    get_tree().paused = false
+    Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+    base_menu.hide()
 
 
 ## Toggle window mode between `WINDOW_MODE_FULLSCREEN` and `WINDOW_MODE_WINDOWED`

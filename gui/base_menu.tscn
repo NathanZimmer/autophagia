@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=3 uid="uid://batthwrq0f4ok"]
+
+[ext_resource type="Script" uid="uid://cxqrgtmjxn1l5" path="res://gui/menu_control.gd" id="1_i5ckn"]
+[ext_resource type="Theme" uid="uid://bh0is5cj4ulq2" path="res://gui/gui_theme.tres" id="1_r7i8h"]
+
+[node name="BaseMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i5ckn")
+metadata/_custom_type_script = "uid://cxqrgtmjxn1l5"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_r7i8h")
+theme_override_constants/separation = 0
+
+[node name="Padding" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+text = "menu_label"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 365)
+layout_mode = 2
+theme = ExtResource("1_r7i8h")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+custom_minimum_size = Vector2(854, 0)
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="BackButton" type="Button" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Return"
