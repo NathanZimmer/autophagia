@@ -72,7 +72,9 @@ func _unhandled_input(event: InputEvent) -> void:
             _flying = !_flying
             get_tree().get_root().set_input_as_handled()
 
-        elif event.is_action_pressed(InputActions.Player.COLLISION_TOGGLE) and _dev_controls_enabled:
+        elif (
+            event.is_action_pressed(InputActions.Player.COLLISION_TOGGLE) and _dev_controls_enabled
+        ):
             _collider.disabled = not _collider.disabled
             get_tree().get_root().set_input_as_handled()
 
@@ -166,6 +168,7 @@ func _set_mouse_sensitivity(value: int) -> void:
 ## TODO
 func _set_mouse_inverted(value: bool) -> void:
     _mouse_inverted = value
+
 
 ## TODO
 func _set_fov(value: int) -> void:

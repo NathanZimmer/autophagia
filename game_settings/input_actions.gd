@@ -1,6 +1,7 @@
 extends Node
 ## Constants for input map strings
 
+
 class Player:
     ## Constants for the player_* input actions
 
@@ -17,6 +18,7 @@ class Player:
 
     ## All supported interaction inputs formatted for @export_enum
     const INTERACT_EXPORT_ENUM = "%s" % INTERACT
+
 
 class UI:
     ## Constants for the ui_* input actions

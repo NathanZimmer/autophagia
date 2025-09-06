@@ -9,10 +9,11 @@ func _ready() -> void:
         return
 
     var player_settings := Settings.player_settings
-    drag_ended.connect(func(new_value: bool) -> void:
-        if not new_value:
-            return
-        player_settings.mouse_sensitivity = int(value)
-        ResourceSaver.save(player_settings)
+    drag_ended.connect(
+        func(new_value: bool) -> void:
+            if not new_value:
+                return
+            player_settings.mouse_sensitivity = int(value)
+            ResourceSaver.save(player_settings)
     )
     value = player_settings.mouse_sensitivity

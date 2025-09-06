@@ -11,13 +11,14 @@ func _ready() -> void:
     value_changed.connect(_update_pair.bind(self, spin_box))
     spin_box.value_changed.connect(_update_pair.bind(spin_box, self))
     drag_ended.connect(_update_pair.bind(self, spin_box))
-    spin_box.value_changed.connect(func(new_value: float) -> void:
-        drag_ended.emit(new_value == value)
+    spin_box.value_changed.connect(
+        func(new_value: float) -> void: drag_ended.emit(new_value == value)
     )
 
 
 ## Update the paired controls when one changes
-func _update_pair(_0: Variant, source: Range, target: Range) -> void:
+## TODO
+func _update_pair(_value: Variant, source: Range, target: Range) -> void:
     if source.value == target.value:
         return
     target.value = source.value

@@ -4,12 +4,12 @@ class_name MenuController extends Control
 
 signal menu_exited
 
-@onready var _back_button: Button = %BackButton
-@onready var _menu_container: VBoxContainer = %VBoxContainer
-
 @export var _swap_map: Dictionary[Button, MenuController]
 
 var _child_menus: Array[MenuController]
+
+@onready var _back_button: Button = %BackButton
+@onready var _menu_container: VBoxContainer = %VBoxContainer
 
 
 func _ready() -> void:
