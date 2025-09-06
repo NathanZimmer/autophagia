@@ -41,7 +41,7 @@ func _ready() -> void:
     _timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
     _timer.timeout.connect(turned.emit)
 
-    var click_triggers: Array = find_children("*", "ClickTrigger", false) as Array[ClickTrigger]
+    var click_triggers: Array = find_children("*", "ClickTrigger", false)
     for click_trigger: ClickTrigger in click_triggers:
         click_trigger.triggered.connect(_turn)
 
@@ -69,7 +69,7 @@ func _set_rotation_from_curve(sample_time: float) -> void:
 
 ## Show warning if we don't have a ClickTrigger child
 func _get_configuration_warnings() -> PackedStringArray:
-    var click_triggers: Array = find_children("*", "ClickTrigger", false) as Array[ClickTrigger]
+    var click_triggers: Array = find_children("*", "ClickTrigger", false)
 
     var warnings: PackedStringArray = []
     if click_triggers.is_empty():
