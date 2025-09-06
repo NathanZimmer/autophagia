@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxuules11p6ca"]
+
+[ext_resource type="PackedScene" uid="uid://batthwrq0f4ok" path="res://gui/menus/base_menu.tscn" id="1_u2wmg"]
+[ext_resource type="Script" uid="uid://gwf6auael0eo" path="res://gui/menus/visuals_menu/fov_spin_box.gd" id="2_m71i7"]
+
+[node name="VisualsMenu" instance=ExtResource("1_u2wmg")]
+
+[node name="Label" parent="VBoxContainer" index="1"]
+text = "visuals"
+
+[node name="FovHBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer" index="0"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/FovHBoxContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Field of View "
+
+[node name="FovSpinBox" type="SpinBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/FovHBoxContainer" index="1"]
+layout_mode = 2
+min_value = 50.0
+max_value = 110.0
+value = 50.0
+rounded = true
+script = ExtResource("2_m71i7")
+
+[node name="FpsHBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer" index="1"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/FpsHBoxContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Max frames per second "
+
+[node name="FpsSpinBox" type="SpinBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/FpsHBoxContainer" index="1"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer" index="2"]
+layout_mode = 2
+
+[node name="VSynchCheckbox" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Enable VSynch"
+
+[node name="FullscreenCheckbox" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer" index="1"]
+custom_minimum_size = Vector2(145, 0)
+layout_mode = 2
+text = "Fullscreen"

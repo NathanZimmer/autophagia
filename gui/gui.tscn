@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://cjew08elm562t"]
 
-[ext_resource type="Script" uid="uid://knupv61sxrr0" path="res://gui/fps_counter.gd" id="1_ioifv"]
-[ext_resource type="Theme" uid="uid://bh0is5cj4ulq2" path="res://gui/gui_theme.tres" id="1_n360k"]
-[ext_resource type="Script" uid="uid://buwi3r1o6ps6s" path="res://gui/b_counter.gd" id="2_q46mf"]
-[ext_resource type="Script" uid="uid://cpa6xj35vb43o" path="res://gui/hotkeys.gd" id="3_q46mf"]
-[ext_resource type="PackedScene" uid="uid://bf7p8kgbqyedn" path="res://gui/pause_menu.tscn" id="3_ytf3d"]
+[ext_resource type="Script" uid="uid://knupv61sxrr0" path="res://gui/statistics/fps_counter.gd" id="1_ioifv"]
+[ext_resource type="Theme" uid="uid://bh0is5cj4ulq2" path="res://gui/theme/gui_theme.tres" id="1_n360k"]
+[ext_resource type="Script" uid="uid://buwi3r1o6ps6s" path="res://gui/statistics/b_counter.gd" id="2_q46mf"]
+[ext_resource type="Script" uid="uid://cpa6xj35vb43o" path="res://gui/gui.gd" id="3_q46mf"]
+[ext_resource type="PackedScene" uid="uid://bf7p8kgbqyedn" path="res://gui/menus/pause_menu/pause_menu.tscn" id="3_ytf3d"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_j7o1h"]
 outline_size = 3
@@ -23,11 +23,14 @@ theme = ExtResource("1_n360k")
 script = ExtResource("3_q46mf")
 
 [node name="PauseMenu" parent="." node_paths=PackedStringArray("_swap_map") instance=ExtResource("3_ytf3d")]
+unique_name_in_owner = true
 process_mode = 2
 visible = false
 layout_mode = 1
 _swap_map = {
-NodePath("VBoxContainer/ScrollContainer/VBoxContainer/ControlsButton"): NodePath("ControlsMenu")
+NodePath("VBoxContainer/ScrollContainer/VBoxContainer/ControlsButton"): NodePath("ControlsMenu"),
+NodePath("VBoxContainer/ScrollContainer/VBoxContainer/QuitButton"): NodePath("QuitMenu"),
+NodePath("VBoxContainer/ScrollContainer/VBoxContainer/VisualsButton"): NodePath("VisualsMenu")
 }
 
 [node name="FpsCounter" type="Label" parent="."]

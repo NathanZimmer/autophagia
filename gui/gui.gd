@@ -1,13 +1,13 @@
 extends Control
-## Handles menu and viewport related hotkeys
+## Handles menu and viewport related hotkeys, captures mouse, and connects to root pause menu
 
-## Base menu will always be the first child Control
-var base_menu: Control
+## Root pause menu
+@onready var pause_menu: MenuController = %PauseMenu
 
 
 func _ready() -> void:
-    base_menu = find_children("*", "MenuController", false)[0]
-    base_menu.menu_exited.connect(_unpause)
+    pause_menu.menu_exited.connect(_unpause)
+    Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
 func _shortcut_input(event: InputEvent) -> void:
@@ -25,14 +25,14 @@ func _shortcut_input(event: InputEvent) -> void:
 func _pause() -> void:
     get_tree().paused = true
     Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-    base_menu.show()
+    pause_menu.show()
 
 
 ## TODO
 func _unpause() -> void:
     get_tree().paused = false
     Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-    base_menu.hide()
+    pause_menu.hide()
 
 
 ## Toggle window mode between `WINDOW_MODE_FULLSCREEN` and `WINDOW_MODE_WINDOWED`

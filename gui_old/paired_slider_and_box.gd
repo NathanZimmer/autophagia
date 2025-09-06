@@ -3,7 +3,7 @@ extends Control
 
 signal value_changed
 
-@export var limit_to_int = true
+@export var limit_to_int := true
 
 var value: float = 0:
     set(new_value):

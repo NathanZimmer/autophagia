@@ -1,5 +1,6 @@
 class_name MenuController extends Control
 ## TODO
+# TODO: Rename to MenuControl once gui_old is deleted
 
 signal menu_exited
 

@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=6 format=3 uid="uid://bh0is5cj4ulq2"]
 
-[ext_resource type="FontFile" uid="uid://bg0grlkrbfbo1" path="res://gui/asvoria-disco-2.otf" id="1_06or4"]
+[ext_resource type="FontFile" uid="uid://bg0grlkrbfbo1" path="res://gui/theme/asvoria-disco-2.otf" id="1_06or4"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mdylq"]
 
@@ -14,6 +14,7 @@
 default_font = ExtResource("1_06or4")
 default_font_size = 30
 Button/colors/font_hover_color = Color(0.95, 0.57, 0.57, 1)
+Button/colors/font_hover_pressed_color = Color(0.94902, 0.568627, 0.568627, 1)
 Button/colors/font_pressed_color = Color(1, 0.26, 0.26, 1)
 Button/constants/outline_size = 5
 Button/styles/focus = SubResource("StyleBoxEmpty_mdylq")

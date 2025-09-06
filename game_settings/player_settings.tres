@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PlayerSettings" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://game_settings/player_settings.gd" id="1_p0hf3"]
+
+[resource]
+script = ExtResource("1_p0hf3")
+mouse_sensitivity = 50
+mouse_inverted = false
+fov = 90
+metadata/_custom_type_script = "uid://bfwd5ur8eovyv"

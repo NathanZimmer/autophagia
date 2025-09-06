@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c1ijyhwcmw3n4"]
 
-[ext_resource type="PackedScene" uid="uid://batthwrq0f4ok" path="res://gui/base_menu.tscn" id="1_bighy"]
-[ext_resource type="Script" uid="uid://ds1nsnxsqgcq8" path="res://gui/quit_to_desktop.gd" id="2_8datn"]
+[ext_resource type="PackedScene" uid="uid://batthwrq0f4ok" path="res://gui/menus/base_menu.tscn" id="1_bighy"]
+[ext_resource type="Script" uid="uid://ds1nsnxsqgcq8" path="res://gui/menus/quit_menu/quit_to_desktop.gd" id="2_8datn"]
 
 [node name="QuitMenu" instance=ExtResource("1_bighy")]
 

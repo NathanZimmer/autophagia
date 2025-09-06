@@ -1,16 +1,37 @@
-[gd_scene load_steps=5 format=3 uid="uid://buoe3p0td8iv3"]
+[gd_scene load_steps=7 format=3 uid="uid://buoe3p0td8iv3"]
 
-[ext_resource type="PackedScene" uid="uid://batthwrq0f4ok" path="res://gui/base_menu.tscn" id="1_u5768"]
+[ext_resource type="PackedScene" uid="uid://batthwrq0f4ok" path="res://gui/menus/base_menu.tscn" id="1_u5768"]
 [ext_resource type="Texture2D" uid="uid://c7djmeqvhtpuy" path="res://gui_old/controls_menu/keycap.png" id="2_ftewy"]
 [ext_resource type="Texture2D" uid="uid://ru0o1pmuk4iv" path="res://gui_old/controls_menu/space_bar.png" id="5_mm831"]
 [ext_resource type="Texture2D" uid="uid://dq288qwgehjb0" path="res://gui_old/controls_menu/mouse.png" id="6_2entn"]
+[ext_resource type="Script" uid="uid://du6cyci4a2b2x" path="res://gui/menus/controls_menu/sensitivity_slider.gd" id="6_7tcwq"]
+[ext_resource type="Script" uid="uid://1252ps67htcx" path="res://gui/menus/controls_menu/invert_mouse_check_box.gd" id="6_mm831"]
 
 [node name="ControlsMenu" instance=ExtResource("1_u5768")]
 
 [node name="Label" parent="VBoxContainer" index="1"]
 text = "CONTROLS"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer" index="0"]
+[node name="VBoxContainer" parent="VBoxContainer/ScrollContainer" index="0"]
+custom_minimum_size = Vector2(600, 0)
+
+[node name="Container" type="Control" parent="VBoxContainer/ScrollContainer/VBoxContainer" index="0"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/ScrollContainer/VBoxContainer/Container" index="0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = -5.0
+offset_right = -30.0
+offset_bottom = 328.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.392157)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer" index="1"]
 layout_mode = 2
 alignment = 1
 
@@ -18,11 +39,11 @@ alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="KeysControl" type="Control" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/KeysVBoxContainer" index="0"]
+[node name="Keys" type="Control" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/KeysVBoxContainer" index="0"]
 custom_minimum_size = Vector2(314, 251.13)
 layout_mode = 2
 
-[node name="Key" type="TextureRect" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/KeysVBoxContainer/KeysControl" index="0"]
+[node name="Key" type="TextureRect" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/KeysVBoxContainer/Keys" index="0"]
 auto_translate_mode = 1
 texture_filter = 1
 layout_mode = 1
@@ -40,18 +61,18 @@ grow_vertical = 2
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("2_ftewy")
 
-[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/KeysVBoxContainer/KeysControl/Key" index="0"]
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/KeysVBoxContainer/Keys/Key" index="0"]
 auto_translate_mode = 1
 layout_mode = 0
-offset_left = 1.305
+offset_left = 1.0
 offset_top = 8.0
-offset_right = 103.54
+offset_right = 111.0
 offset_bottom = 126.0
 theme_type_variation = &"HeaderLarge"
 text = "W"
 horizontal_alignment = 1
 
-[node name="Key2" type="TextureRect" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/KeysVBoxContainer/KeysControl" index="1"]
+[node name="Key2" type="TextureRect" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/KeysVBoxContainer/Keys" index="1"]
 auto_translate_mode = 1
 texture_filter = 1
 layout_mode = 1
@@ -69,18 +90,18 @@ grow_vertical = 2
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("2_ftewy")
 
-[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/KeysVBoxContainer/KeysControl/Key2" index="0"]
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/KeysVBoxContainer/Keys/Key2" index="0"]
 auto_translate_mode = 1
 layout_mode = 0
-offset_left = 1.305
+offset_left = 1.0
 offset_top = 8.0
-offset_right = 103.54
+offset_right = 111.0
 offset_bottom = 126.0
 theme_type_variation = &"HeaderLarge"
 text = "S"
 horizontal_alignment = 1
 
-[node name="Key3" type="TextureRect" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/KeysVBoxContainer/KeysControl" index="2"]
+[node name="Key3" type="TextureRect" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/KeysVBoxContainer/Keys" index="2"]
 auto_translate_mode = 1
 texture_filter = 1
 layout_mode = 1
@@ -98,18 +119,18 @@ grow_vertical = 2
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("2_ftewy")
 
-[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/KeysVBoxContainer/KeysControl/Key3" index="0"]
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/KeysVBoxContainer/Keys/Key3" index="0"]
 auto_translate_mode = 1
 layout_mode = 0
-offset_left = 1.305
+offset_left = 1.0
 offset_top = 8.0
-offset_right = 103.54
+offset_right = 110.0
 offset_bottom = 126.0
 theme_type_variation = &"HeaderLarge"
 text = "D"
 horizontal_alignment = 1
 
-[node name="Key4" type="TextureRect" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/KeysVBoxContainer/KeysControl" index="3"]
+[node name="Key4" type="TextureRect" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/KeysVBoxContainer/Keys" index="3"]
 auto_translate_mode = 1
 texture_filter = 1
 layout_mode = 1
@@ -127,18 +148,18 @@ grow_vertical = 2
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("2_ftewy")
 
-[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/KeysVBoxContainer/KeysControl/Key4" index="0"]
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/KeysVBoxContainer/Keys/Key4" index="0"]
 auto_translate_mode = 1
 layout_mode = 0
-offset_left = 1.305
+offset_left = 1.0
 offset_top = 8.0
-offset_right = 103.54
+offset_right = 111.0
 offset_bottom = 126.0
 theme_type_variation = &"HeaderLarge"
 text = "A"
 horizontal_alignment = 1
 
-[node name="Key5" type="TextureRect" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/KeysVBoxContainer/KeysControl" index="4"]
+[node name="Key5" type="TextureRect" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/KeysVBoxContainer/Keys" index="4"]
 auto_translate_mode = 1
 texture_filter = 1
 layout_mode = 1
@@ -156,12 +177,12 @@ grow_vertical = 2
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("5_mm831")
 
-[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/KeysVBoxContainer/KeysControl/Key5" index="0"]
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/KeysVBoxContainer/Keys/Key5" index="0"]
 auto_translate_mode = 1
 layout_mode = 0
 offset_left = 2.0
 offset_top = 8.0
-offset_right = 402.0
+offset_right = 429.0
 offset_bottom = 126.0
 theme_type_variation = &"HeaderLarge"
 text = "SPACE"
@@ -185,7 +206,7 @@ text = "Interact"
 horizontal_alignment = 1
 
 [node name="MouseControl" type="Control" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/MouseVBoxContainer" index="1"]
-custom_minimum_size = Vector2(171.92, 172.32)
+custom_minimum_size = Vector2(171.92, 134.155)
 layout_mode = 2
 
 [node name="Mouse" type="TextureRect" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/MouseVBoxContainer/MouseControl" index="0"]
@@ -197,38 +218,73 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -83.9295
-offset_top = -83.444
-offset_right = 156.07
-offset_bottom = 172.556
+offset_left = -67.0
+offset_top = -78.0775
+offset_right = 173.0
+offset_bottom = 177.923
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.7, 0.7)
+scale = Vector2(0.575, 0.575)
 texture = ExtResource("6_2entn")
 
 [node name="QuicksaveLabel" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/MouseVBoxContainer" index="2"]
 layout_mode = 2
 text = "Quicksave: F5"
-horizontal_alignment = 2
+horizontal_alignment = 1
 
 [node name="QuickLoadLabel" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/MouseVBoxContainer" index="3"]
 layout_mode = 2
 text = "Quickload: F9"
-horizontal_alignment = 2
+horizontal_alignment = 1
 
 [node name="FullscreenLabel" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/MouseVBoxContainer" index="4"]
 layout_mode = 2
 text = "Fullscreen: F11"
-horizontal_alignment = 2
+horizontal_alignment = 1
 
-[node name="BackButton2" type="Button" parent="VBoxContainer/ScrollContainer/VBoxContainer" index="2"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer" index="2"]
+custom_minimum_size = Vector2(0, 74.57)
 layout_mode = 2
-text = "Return"
+alignment = 1
 
-[node name="BackButton3" type="Button" parent="VBoxContainer/ScrollContainer/VBoxContainer" index="3"]
+[node name="MouseSensVBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2" index="0"]
+custom_minimum_size = Vector2(323.24, 0)
 layout_mode = 2
-text = "Return"
 
-[node name="BackButton4" type="Button" parent="VBoxContainer/ScrollContainer/VBoxContainer" index="4"]
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/MouseSensVBoxContainer" index="0"]
 layout_mode = 2
-text = "Return"
+text = "Mouse sensitivity"
+horizontal_alignment = 1
+
+[node name="SensitivitySlider" type="Control" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/MouseSensVBoxContainer" index="1"]
+custom_minimum_size = Vector2(235.78, 27.84)
+layout_mode = 2
+
+[node name="HSliderSpinBox" type="HSlider" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/MouseSensVBoxContainer/SensitivitySlider" index="0"]
+layout_mode = 2
+offset_left = 31.0
+offset_top = 6.0
+offset_right = 223.0
+offset_bottom = 22.0
+min_value = 1.0
+value = 1.0
+rounded = true
+script = ExtResource("6_7tcwq")
+metadata/_custom_type_script = "uid://bgubb28vdmkl"
+
+[node name="SpinBox" type="SpinBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/MouseSensVBoxContainer/SensitivitySlider/HSliderSpinBox" index="0"]
+layout_mode = 0
+offset_left = 194.0
+offset_top = -3.0
+offset_right = 300.0
+offset_bottom = 41.0
+scale = Vector2(0.5, 0.5)
+min_value = 1.0
+value = 1.0
+rounded = true
+
+[node name="InvertMouseCheckBox" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2" index="1"]
+custom_minimum_size = Vector2(190, 0)
+layout_mode = 2
+text = "Invert Mouse"
+script = ExtResource("6_mm831")

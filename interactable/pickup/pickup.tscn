@@ -14,7 +14,7 @@ cap_top = false
 cap_bottom = false
 
 [sub_resource type="QuadMesh" id="QuadMesh_psyp8"]
-size = Vector2(0.7, 0.7)
+size = Vector2(0.55, 0.7)
 
 [node name="Pickup" type="Node3D"]
 script = ExtResource("1_giga1")
