@@ -1,6 +1,8 @@
 extends Control
 ## Handles menu and viewport related hotkeys, captures mouse, and connects to root pause menu
 
+var _graphics_settings := Settings.graphics_settings
+
 ## Root pause menu
 @onready var pause_menu: MenuController = %PauseMenu
 
@@ -37,7 +39,4 @@ func _unpause() -> void:
 
 ## Toggle window mode between `WINDOW_MODE_FULLSCREEN` and `WINDOW_MODE_WINDOWED`
 func _toggle_fullscreen() -> void:
-    if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN:
-        DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-    else:
-        DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+    _graphics_settings.is_fullscreen = !_graphics_settings.is_fullscreen
