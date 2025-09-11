@@ -68,8 +68,7 @@ popup/item_2/id = 2
 script = ExtResource("4_3rm8m")
 
 [node name="FullscreenCheckbox" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer" index="3"]
-custom_minimum_size = Vector2(145, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Fullscreen"
+text = "Fullscreen   "
 script = ExtResource("5_tnusj")

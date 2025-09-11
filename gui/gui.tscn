@@ -24,7 +24,6 @@ script = ExtResource("3_q46mf")
 
 [node name="PauseMenu" parent="." node_paths=PackedStringArray("_swap_map") instance=ExtResource("3_ytf3d")]
 unique_name_in_owner = true
-process_mode = 2
 visible = false
 layout_mode = 1
 _swap_map = {

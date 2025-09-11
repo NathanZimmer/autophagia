@@ -12,7 +12,7 @@ func _ready() -> void:
     button_pressed = graphics_settings.is_fullscreen
 
     # Need to keep in sync with actual value becuase it can be updated with the hotkey in gui.gd
-    graphics_settings.is_fullscreen_updated.connect(
+    graphics_settings.is_fullscreen_changed.connect(
         func(is_fullscreen: bool) -> void:
             if button_pressed != is_fullscreen:
                 button_pressed = is_fullscreen

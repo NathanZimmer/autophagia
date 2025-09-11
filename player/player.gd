@@ -6,6 +6,12 @@ const TERMINAL_VELOCITY := 50.0
 ## Use for scenes where the gui scripts aren't loaded and input isn't captured.
 const DEBUG_CAPTURE_MOUSE := false
 
+@export_group("Runtime Configurables")
+## Resource for runtime configurable/saveable settings. This should always be the same as
+## `Settings.player_settings`
+@export var _player_settings: PlayerSettings = preload(Settings.PLAYER_SETTINGS_PATH)
+# Need to call preload instead of referencing directly so it displays in the editor
+
 @export_group("Camera settings")
 # @export_range(1, 100, 1) var _mouse_sensitivity := 50
 @export var _min_x_rotation := -89.0
@@ -23,23 +29,23 @@ const DEBUG_CAPTURE_MOUSE := false
 @export var _max_speed := 10.0
 
 var camera: Camera3D:
-    get:
-        return _camera
     set(value):
         push_warning("camera is a read-only property")
+    get:
+        return _camera
 
 var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var _speed_mod := 1.0  # Modifier to player speed that can be adjusted with mouse wheel
 var _flying := false
 var _collider: CollisionShape3D
 var _camera: Camera3D
-## Resource for runtime-configurable settings
-var _player_settings := Settings.player_settings
 var _mouse_sensitivity := 50
 var _mouse_inverted := false
 
 
 func _ready() -> void:
+    if _player_settings != Settings.player_settings:
+        push_warning("Player is not using global settings Resource")
     _camera = find_children("", "Camera3D")[0]
     _collider = find_children("", "CollisionShape3D")[0]
     # Input.set_use_accumulated_input(false)
@@ -94,17 +100,17 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
     _walk_and_jump(delta)
     move_and_slide()
-    orthonormalize()
+    # orthonormalize()
 
 
 ## Set runtime configurable settings from PlayerSettings resource and listen for updates
 func _set_runtime_configurables() -> void:
     _set_mouse_sensitivity(_player_settings.mouse_sensitivity)
-    _player_settings.mouse_sensitivity_updated.connect(_set_mouse_sensitivity)
+    _player_settings.mouse_sensitivity_changed.connect(_set_mouse_sensitivity)
     _set_mouse_inverted(_player_settings.mouse_inverted)
-    _player_settings.mouse_inverted_updated.connect(_set_mouse_inverted)
+    _player_settings.mouse_inverted_changed.connect(_set_mouse_inverted)
     _set_fov(_player_settings.fov)
-    _player_settings.fov_updated.connect(_set_fov)
+    _player_settings.fov_changed.connect(_set_fov)
 
 
 # FIXME: Sometimes the player cannot jump, this is probaly from the basis changing

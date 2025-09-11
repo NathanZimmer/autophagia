@@ -37,13 +37,16 @@ layout_mode = 2
 text = "QUIT"
 
 [node name="ControlsMenu" parent="." index="2" instance=ExtResource("2_t7424")]
+process_mode = 0
 visible = false
 layout_mode = 1
 
 [node name="QuitMenu" parent="." index="3" instance=ExtResource("3_nbojc")]
+process_mode = 0
 visible = false
 layout_mode = 1
 
 [node name="VisualsMenu" parent="." index="4" instance=ExtResource("4_vwsmh")]
+process_mode = 0
 visible = false
 layout_mode = 1

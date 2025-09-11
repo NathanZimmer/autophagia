@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="GraphicsSettings" load_steps=2 format=3 uid="uid://bylecjcn6t1gk"]
+[gd_resource type="Resource" script_class="GraphicsSettings" load_steps=2 format=3 uid="uid://crbfh0e0er0pd"]
 
 [ext_resource type="Script" uid="uid://daasuaqhtcp0x" path="res://game_settings/graphics_settings.gd" id="1_nwmo3"]
 

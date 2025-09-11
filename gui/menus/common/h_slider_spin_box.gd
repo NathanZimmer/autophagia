@@ -1,6 +1,7 @@
 @tool
 class_name HSliderSpinBox extends HSlider
 ## Links value of `HSlider` to a child `SpinBox`
+# FIXME: Make this not bad
 
 
 func _ready() -> void:
@@ -17,7 +18,6 @@ func _ready() -> void:
 
 
 ## Update the paired controls when one changes
-## TODO
 func _update_pair(_value: Variant, source: Range, target: Range) -> void:
     if source.value == target.value:
         return
