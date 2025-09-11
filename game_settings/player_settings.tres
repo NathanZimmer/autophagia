@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="PlayerSettings" load_steps=9 format=3]
+[gd_resource type="Resource" script_class="PlayerSettings" load_steps=9 format=3 uid="uid://6bweywv3nrbs"]
 
-[ext_resource type="Script" path="res://game_settings/player_settings.gd" id="1_p0hf3"]
+[ext_resource type="Script" uid="uid://bfwd5ur8eovyv" path="res://game_settings/player_settings.gd" id="1_p0hf3"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_p0hf3"]
 pressed = true

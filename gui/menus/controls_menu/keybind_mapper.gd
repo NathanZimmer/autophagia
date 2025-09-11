@@ -1,4 +1,4 @@
-class_name KeybindMapper extends VBoxContainer
+extends VBoxContainer
 ## Duplicates the label-button pair once per keypair in _configurable_actions.
 ## Deletes the orginal template node when done.
 
@@ -60,7 +60,7 @@ func _rebind_input_action(button: Button, action: String) -> void:
         accept_event()
 
         if event.is_action_pressed(InputActions.UI.CANCEL):
-            var original_event:= InputMap.action_get_events(action)[0]
+            var original_event := InputMap.action_get_events(action)[0]
             button.text = original_event.as_text().replace("(Physical)", "")
             break
 
