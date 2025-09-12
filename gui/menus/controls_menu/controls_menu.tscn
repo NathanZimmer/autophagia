@@ -2,10 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://batthwrq0f4ok" path="res://gui/menus/base_menu.tscn" id="1_u5768"]
 [ext_resource type="PackedScene" uid="uid://b7jxif6dvr1f1" path="res://gui/menus/controls_menu/keybind_mapper.tscn" id="2_j8652"]
-[ext_resource type="Script" uid="uid://du6cyci4a2b2x" path="res://gui/menus/controls_menu/sensitivity_slider.gd" id="6_7tcwq"]
-[ext_resource type="Script" uid="uid://1252ps67htcx" path="res://gui/menus/controls_menu/invert_mouse_check_box.gd" id="6_mm831"]
+[ext_resource type="Script" uid="uid://csfcoda6ikqxe" path="res://gui/menus/controls_menu/controls_menu.gd" id="2_r1xn2"]
+[ext_resource type="PackedScene" uid="uid://65mpst6bwhpf" path="res://gui/menus/common/h_slider_spin_box.tscn" id="3_331vh"]
 
 [node name="ControlsMenu" instance=ExtResource("1_u5768")]
+script = ExtResource("2_r1xn2")
 
 [node name="Label" parent="VBoxContainer" index="1"]
 text = "CONTROLS"
@@ -29,34 +30,15 @@ size_flags_horizontal = 4
 text = "Mouse sensitivity"
 horizontal_alignment = 1
 
-[node name="HSliderSpinBox" type="HSlider" parent="VBoxContainer/ScrollContainer/VBoxContainer" index="3"]
-custom_minimum_size = Vector2(315, 25.285)
+[node name="SensitivitySlider" parent="VBoxContainer/ScrollContainer/VBoxContainer" index="3" instance=ExtResource("3_331vh")]
+unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-min_value = 1.0
-value = 1.0
-rounded = true
-script = ExtResource("6_7tcwq")
-metadata/_custom_type_script = "uid://bgubb28vdmkl"
-
-[node name="SpinBox" type="SpinBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HSliderSpinBox" index="0"]
-layout_mode = 2
-offset_left = 319.0
-offset_top = -5.0
-offset_right = 399.0
-offset_bottom = 27.0
-size_flags_horizontal = 4
-min_value = 1.0
-value = 1.0
-rounded = true
-alignment = 1
 
 [node name="InvertMouseCheckBox" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer" index="4"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Invert Mouse   "
-script = ExtResource("6_mm831")
 
 [node name="BackButton" parent="VBoxContainer/ScrollContainer/VBoxContainer" index="5"]
 size_flags_horizontal = 4
