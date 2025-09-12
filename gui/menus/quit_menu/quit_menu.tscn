@@ -1,9 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://c1ijyhwcmw3n4"]
 
 [ext_resource type="PackedScene" uid="uid://batthwrq0f4ok" path="res://gui/menus/base_menu.tscn" id="1_bighy"]
-[ext_resource type="Script" uid="uid://ds1nsnxsqgcq8" path="res://gui/menus/quit_menu/quit_to_desktop.gd" id="2_8datn"]
+[ext_resource type="Script" uid="uid://cmcww5ktt4f7s" path="res://gui/menus/quit_menu/quit_menu.gd" id="2_butmn"]
 
 [node name="QuitMenu" instance=ExtResource("1_bighy")]
+script = ExtResource("2_butmn")
 
 [node name="Label" parent="VBoxContainer" index="1"]
 text = "QUIT"
@@ -18,10 +19,11 @@ custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 
 [node name="QuitMainButton" type="Button" parent="VBoxContainer/ScrollContainer/VBoxContainer" index="0"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Quit to Main Menu"
 
 [node name="QuitDesktopButton" type="Button" parent="VBoxContainer/ScrollContainer/VBoxContainer" index="1"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Quit to Desktop"
-script = ExtResource("2_8datn")
