@@ -1,4 +1,4 @@
-extends MenuController
+extends MenuControl
 # FIXME: Make return button clickable again
 
 @onready var _sensitivity_slider := %SensitivitySlider
@@ -7,7 +7,7 @@ extends MenuController
 
 func _ready() -> void:
 	var player_settings := Settings.player_settings
-	
+
 	_sensitivity_slider.slider_drag_ended.connect(
 		func(value_changed: bool) -> void:
 			if not value_changed:

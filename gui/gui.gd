@@ -4,7 +4,7 @@ extends Control
 var _graphics_settings := Settings.graphics_settings
 
 ## Root pause menu
-@onready var pause_menu: MenuController = %PauseMenu
+@onready var pause_menu: MenuControl = %PauseMenu
 
 
 func _ready() -> void:

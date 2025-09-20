@@ -1,12 +1,11 @@
-class_name MenuController extends Control
+class_name MenuControl extends Control
 ## TODO
-# TODO: Rename to MenuControl once gui_old is deleted
 
 signal menu_exited
 
-@export var _swap_map: Dictionary[Button, MenuController]
+@export var _swap_map: Dictionary[Button, MenuControl]
 
-var _child_menus: Array[MenuController]
+var _child_menus: Array[MenuControl]
 
 @onready var _back_button: Button = %BackButton
 @onready var _menu_container: VBoxContainer = %VBoxContainer
@@ -14,7 +13,7 @@ var _child_menus: Array[MenuController]
 
 func _ready() -> void:
     _back_button.pressed.connect(menu_exited.emit)
-    _child_menus.assign(find_children("*", "MenuController", false))
+    _child_menus.assign(find_children("*", "MenuControl", false))
     for menu in _child_menus:
         menu.menu_exited.connect(_show_menu)
         menu.process_mode = ProcessMode.PROCESS_MODE_DISABLED

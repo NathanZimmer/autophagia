@@ -1,4 +1,4 @@
-extends MenuController
+extends MenuControl
 
 
 @onready var _quit_main_button: Button = %QuitMainButton

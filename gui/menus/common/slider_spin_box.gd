@@ -22,7 +22,7 @@ var value: float:
 		_slider.value = value
 		_spin_box.value = value
 		value_changed.emit(value)
-		
+
 	get():
 		return value
 
@@ -30,7 +30,7 @@ var value: float:
 func _ready() -> void:
 	_slider.value = value
 	_spin_box.value = value
-	
+
 	_slider.value_changed.connect(func(new_value: float) -> void: value = new_value)
 	_slider.drag_ended.connect(slider_drag_ended.emit)
 	_spin_box.value_changed.connect(func(new_value: float) -> void: value = new_value)
