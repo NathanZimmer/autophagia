@@ -93,6 +93,6 @@ func _rebind_input_action(button: Button, action: String) -> void:
             continue
 
         button.text = event.as_text().replace("(Physical)", "")
-        Settings.player_settings.set(Settings.player_settings.input_map[action], event)
+        Settings.player_settings.set_input(event, action)
         ResourceSaver.save(Settings.player_settings)
         break

@@ -20,18 +20,24 @@ signal fullscreen_changed
         if value != mouse_sensitivity:
             mouse_sensitivity = value
             mouse_sensitivity_changed.emit(value)
+    get():
+        return mouse_sensitivity
 
 @export var mouse_inverted := false:
     set(value):
         if value != mouse_inverted:
             mouse_inverted = value
             mouse_inverted_changed.emit(value)
+    get():
+        return mouse_inverted
 
 @export_range(50, 110) var fov := 90:
     set(value):
         if value != fov:
             fov = value
             fov_changed.emit(value)
+    get():
+        return fov
 
 @export_group("Input Map")
 @export var forward: InputEvent:
@@ -105,7 +111,7 @@ signal fullscreen_changed
         return fullscreen
 
 # This is what I have to do as a stand-in for reference vars (┬┬﹏┬┬)
-var input_map: Dictionary[String, String] = {
+var _input_map: Dictionary[String, String] = {
     InputActions.Player.FORWARD: "forward",
     InputActions.Player.BACK: "backward",
     InputActions.Player.LEFT: "left",
@@ -118,7 +124,12 @@ var input_map: Dictionary[String, String] = {
 
 ## Override Autoload globals
 func load() -> void:
-    for action: String in input_map.keys():
-        var event: InputEvent = get(input_map[action])
+    for action: String in _input_map.keys():
+        var event: InputEvent = get(_input_map[action])
         InputMap.action_erase_events(action)
         InputMap.action_add_event(action, event)
+
+
+## TODO
+func set_input(event: InputEvent, action: String) -> void:
+    set(_input_map[action], event)
