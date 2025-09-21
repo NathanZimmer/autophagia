@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://65mpst6bwhpf"]
 
-[ext_resource type="Script" uid="uid://bgubb28vdmkl" path="res://gui/menus/common/slider_spin_box.gd" id="1_ks6ws"]
+[ext_resource type="Script" uid="uid://bgubb28vdmkl" path="res://gui/menu/common/slider_spin_box.gd" id="1_ks6ws"]
 
 [node name="HSliderSpinBox" type="BoxContainer"]
 offset_right = 390.0

@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://bf7p8kgbqyedn"]
 
-[ext_resource type="PackedScene" uid="uid://batthwrq0f4ok" path="res://gui/menus/base_menu.tscn" id="1_ddhtv"]
-[ext_resource type="PackedScene" uid="uid://buoe3p0td8iv3" path="res://gui/menus/controls_menu/controls_menu.tscn" id="2_t7424"]
-[ext_resource type="PackedScene" uid="uid://c1ijyhwcmw3n4" path="res://gui/menus/quit_menu/quit_menu.tscn" id="3_nbojc"]
-[ext_resource type="PackedScene" uid="uid://dxuules11p6ca" path="res://gui/menus/visuals_menu/visuals_menu.tscn" id="4_vwsmh"]
+[ext_resource type="PackedScene" uid="uid://batthwrq0f4ok" path="res://gui/menu/base_menu.tscn" id="1_ddhtv"]
+[ext_resource type="PackedScene" uid="uid://buoe3p0td8iv3" path="res://gui/menu/controls_menu/controls_menu.tscn" id="2_t7424"]
+[ext_resource type="PackedScene" uid="uid://c1ijyhwcmw3n4" path="res://gui/menu/quit_menu/quit_menu.tscn" id="3_nbojc"]
+[ext_resource type="PackedScene" uid="uid://dxuules11p6ca" path="res://gui/menu/visuals_menu/visuals_menu.tscn" id="4_vwsmh"]
 
 [node name="PauseMenu" node_paths=PackedStringArray("_swap_map") instance=ExtResource("1_ddhtv")]
 _swap_map = {

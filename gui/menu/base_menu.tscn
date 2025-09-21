@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://batthwrq0f4ok"]
 
-[ext_resource type="Script" uid="uid://cxqrgtmjxn1l5" path="res://gui/menus/menu_control.gd" id="1_30g5b"]
+[ext_resource type="Script" uid="uid://cxqrgtmjxn1l5" path="res://gui/menu/menu_control.gd" id="1_30g5b"]
 [ext_resource type="Theme" uid="uid://bh0is5cj4ulq2" path="res://gui/theme/gui_theme.tres" id="2_gxbvi"]
 
 [node name="BaseMenu" type="Control"]
