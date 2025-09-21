@@ -17,11 +17,10 @@ signal input_received
     "Toggle fullscreen": InputActions.UI.FULLSCREEN,
 }
 ## TODO
-@export var _readonly_actions: Dictionary[String, String] = {
-    "Close Menu/Cancel": InputActions.UI.CANCEL
-}
+@export
+var _readonly_actions: Dictionary[String, String] = {"Close Menu/Cancel": InputActions.UI.CANCEL}
 ## Text to display on the button when it is waiting for input
-@export var _button_waiting_text := "[press a key]"
+@export var _button_waiting_text := "[press a key, esc to quit]"
 
 @onready var _template_container := %TemplateContainer
 
@@ -61,7 +60,7 @@ func _ready() -> void:
             event_strings.append(event.as_text().replace("(Physical)", ""))
         button.text = ", ".join(event_strings)
         button.disabled = true
-        button.tooltip_text = "Not editable."
+        button.tooltip_text = "Not editable"
 
     _template_container.queue_free()
 
