@@ -70,7 +70,7 @@ func _set_rotation_from_curve(sample_time: float) -> void:
 
 ## Show warning if we don't have a Lever child
 func _get_configuration_warnings() -> PackedStringArray:
-    var levers: Array = find_children("*", "Lever", false) as Array[Lever]
+    var levers: Array = find_children("*", "Lever", false)
 
     var warnings: PackedStringArray = []
     if levers.is_empty():

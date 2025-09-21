@@ -11,16 +11,14 @@ func _ready() -> void:
     if Engine.is_editor_hint():
         return
 
-    var collision_triggers = (
-        find_children("*", "CollisionTrigger", false) as Array[CollisionTrigger]
-    )
+    var collision_triggers := find_children("*", "CollisionTrigger", false)
     for trigger in collision_triggers:
         trigger.triggered.connect(_display_image)
 
 
 ## TODO: Update when MessageHandler is implemented
-func _display_image(body) -> void:
-    var handlers = body.find_children("*", "MessageHandler", false)
+func _display_image(body: Node3D) -> void:
+    var handlers := body.find_children("*", "MessageHandler", false) as Array[MessageHandler]
     if not handlers.is_empty():
         handlers[0].send_message("TODO")
     queue_free()
@@ -28,7 +26,7 @@ func _display_image(body) -> void:
 
 ## Show warning if we don't have a CollisionTrigger child
 func _get_configuration_warnings() -> PackedStringArray:
-    var collision_triggers = find_children("*", "CollisionTrigger", false)
+    var collision_triggers := find_children("*", "CollisionTrigger", false)
 
     var warnings: PackedStringArray = []
     if collision_triggers.is_empty():

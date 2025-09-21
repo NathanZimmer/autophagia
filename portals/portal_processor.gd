@@ -111,7 +111,7 @@ func _setup(portals: Array[PortalBody]) -> void:
 
 ## Show warning if we don't have 2 portal children
 func _get_configuration_warnings() -> PackedStringArray:
-    var portals = find_children("*", "PortalBody", false)
+    var portals := find_children("*", "PortalBody", false)
 
     var warnings: PackedStringArray = []
     if portals.size() != 2:

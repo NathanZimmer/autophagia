@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://g0d4m1l14sq0"]
+
+[ext_resource type="PackedScene" uid="uid://batthwrq0f4ok" path="res://gui/menu/base_menu.tscn" id="1_y4mm8"]
+[ext_resource type="Script" uid="uid://cef741o4jjkgu" path="res://gui/menu/inventory_menu/inventory_menu.gd" id="2_04q6h"]
+
+[node name="InventoryMenu" instance=ExtResource("1_y4mm8")]
+script = ExtResource("2_04q6h")
+
+[node name="ColorRect" type="ColorRect" parent="." index="0"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -207.5
+offset_right = 250.0
+offset_bottom = 207.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" parent="VBoxContainer" index="1"]
+text = "INVENTORY"

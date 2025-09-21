@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://65mpst6bwhpf"]
+
+[ext_resource type="Script" uid="uid://bgubb28vdmkl" path="res://gui/menu/common/slider_spin_box.gd" id="1_ks6ws"]
+
+[node name="HSliderSpinBox" type="BoxContainer"]
+offset_right = 390.0
+offset_bottom = 31.0
+alignment = 1
+script = ExtResource("1_ks6ws")
+
+[node name="Slider" type="HSlider" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+min_value = 1.0
+value = 1.0
+rounded = true
+
+[node name="SpinBox" type="SpinBox" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+min_value = 1.0
+value = 1.0
+rounded = true
+alignment = 1

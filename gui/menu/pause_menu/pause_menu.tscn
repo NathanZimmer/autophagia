@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=3 uid="uid://bf7p8kgbqyedn"]
+
+[ext_resource type="PackedScene" uid="uid://batthwrq0f4ok" path="res://gui/menu/base_menu.tscn" id="1_ddhtv"]
+[ext_resource type="Script" uid="uid://5k4f31cd5f3g" path="res://gui/menu/pause_menu/pause_menu.gd" id="2_1gpq8"]
+[ext_resource type="PackedScene" uid="uid://buoe3p0td8iv3" path="res://gui/menu/controls_menu/controls_menu.tscn" id="2_t7424"]
+[ext_resource type="PackedScene" uid="uid://c1ijyhwcmw3n4" path="res://gui/menu/quit_menu/quit_menu.tscn" id="3_nbojc"]
+[ext_resource type="PackedScene" uid="uid://dxuules11p6ca" path="res://gui/menu/visuals_menu/visuals_menu.tscn" id="4_vwsmh"]
+
+[node name="PauseMenu" node_paths=PackedStringArray("_swap_map") instance=ExtResource("1_ddhtv")]
+script = ExtResource("2_1gpq8")
+_swap_map = {
+NodePath("VBoxContainer/ScrollContainer/VBoxContainer/ControlsButton"): NodePath("ControlsMenu"),
+NodePath("VBoxContainer/ScrollContainer/VBoxContainer/QuitButton"): NodePath("QuitMenu"),
+NodePath("VBoxContainer/ScrollContainer/VBoxContainer/VisualsButton"): NodePath("VisualsMenu")
+}
+
+[node name="ColorRect" type="ColorRect" parent="." index="0"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08, 0, 0.00933334, 0.419608)
+
+[node name="Label" parent="VBoxContainer" index="1"]
+text = "PAUSE"
+
+[node name="ControlsButton" type="Button" parent="VBoxContainer/ScrollContainer/VBoxContainer" index="0"]
+layout_mode = 2
+text = "Controls"
+
+[node name="VisualsButton" type="Button" parent="VBoxContainer/ScrollContainer/VBoxContainer" index="1"]
+layout_mode = 2
+text = "Visuals"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer/ScrollContainer/VBoxContainer" index="3"]
+layout_mode = 2
+text = "QUIT"
+
+[node name="ControlsMenu" parent="." index="2" instance=ExtResource("2_t7424")]
+process_mode = 0
+visible = false
+layout_mode = 1
+
+[node name="QuitMenu" parent="." index="3" instance=ExtResource("3_nbojc")]
+process_mode = 0
+visible = false
+layout_mode = 1
+
+[node name="VisualsMenu" parent="." index="4" instance=ExtResource("4_vwsmh")]
+process_mode = 0
+visible = false
+layout_mode = 1

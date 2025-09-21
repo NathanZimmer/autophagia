@@ -1,0 +1,72 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxuules11p6ca"]
+
+[ext_resource type="PackedScene" uid="uid://batthwrq0f4ok" path="res://gui/menu/base_menu.tscn" id="1_u2wmg"]
+[ext_resource type="Script" uid="uid://7rd5fqn7fiex" path="res://gui/menu/visuals_menu/visuals_menu.gd" id="2_ccwua"]
+
+[node name="VisualsMenu" instance=ExtResource("1_u2wmg")]
+script = ExtResource("2_ccwua")
+
+[node name="Label" parent="VBoxContainer" index="1"]
+text = "visuals"
+
+[node name="FovHBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer" index="0"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/FovHBoxContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Field of View "
+
+[node name="FovSpinBox" type="SpinBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/FovHBoxContainer" index="1"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 50.0
+max_value = 110.0
+value = 50.0
+rounded = true
+alignment = 1
+
+[node name="FpsHBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer" index="1"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/FpsHBoxContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Max frames per second "
+
+[node name="FpsSpinBox" type="SpinBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/FpsHBoxContainer" index="1"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Enter 0 for no limit."
+max_value = 1e+15
+rounded = true
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer" index="2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VSynch mode"
+
+[node name="VSynchOptionButton" type="OptionButton" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer" index="1"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+selected = 0
+item_count = 3
+popup/item_0/text = "DISABLED"
+popup/item_0/id = 0
+popup/item_1/text = "ENABLED"
+popup/item_1/id = 1
+popup/item_2/text = "ADAPTIVE"
+popup/item_2/id = 2
+
+[node name="FullscreenCheckbox" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer" index="3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Fullscreen   "
