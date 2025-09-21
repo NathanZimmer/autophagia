@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PlayerSettings" load_steps=9 format=3]
+[gd_resource type="Resource" script_class="PlayerSettings" load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://game_settings/player_settings.gd" id="1_p0hf3"]
 
@@ -28,6 +28,12 @@ position = Vector2(431, 18)
 global_position = Vector2(440, 66)
 button_index = 1
 pressed = true
+
+[sub_resource type="InputEventKey" id="InputEventKey_pfkxk"]
+pressed = true
+keycode = 4194306
+physical_keycode = 4194306
+key_label = 4194306
 
 [sub_resource type="InputEventKey" id="InputEventKey_6sjvq"]
 device = -1
@@ -60,4 +66,5 @@ right = SubResource("InputEventKey_y1enf")
 jump = SubResource("InputEventKey_6sjvq")
 interact = SubResource("InputEventMouseButton_dfbvm")
 fullscreen = SubResource("InputEventKey_dfbvm")
+inventory = SubResource("InputEventKey_pfkxk")
 metadata/_custom_type_script = "uid://bfwd5ur8eovyv"

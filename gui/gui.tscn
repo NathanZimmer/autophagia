@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cjew08elm562t"]
+[gd_scene load_steps=7 format=3 uid="uid://cjew08elm562t"]
 
 [ext_resource type="Script" uid="uid://knupv61sxrr0" path="res://gui/statistics/fps_counter.gd" id="1_ioifv"]
 [ext_resource type="Theme" uid="uid://bh0is5cj4ulq2" path="res://gui/theme/gui_theme.tres" id="1_n360k"]
 [ext_resource type="Script" uid="uid://buwi3r1o6ps6s" path="res://gui/statistics/b_counter.gd" id="2_q46mf"]
 [ext_resource type="Script" uid="uid://cpa6xj35vb43o" path="res://gui/gui.gd" id="3_q46mf"]
 [ext_resource type="PackedScene" uid="uid://bf7p8kgbqyedn" path="res://gui/menu/pause_menu/pause_menu.tscn" id="3_ytf3d"]
+[ext_resource type="PackedScene" uid="uid://g0d4m1l14sq0" path="res://gui/menu/inventory_menu/inventory_menu.tscn" id="4_ytf3d"]
 
 [node name="Gui" type="Control"]
 process_mode = 3
@@ -17,6 +18,11 @@ grow_vertical = 2
 mouse_filter = 1
 theme = ExtResource("1_n360k")
 script = ExtResource("3_q46mf")
+
+[node name="InventoryMenu" parent="." instance=ExtResource("4_ytf3d")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
 
 [node name="PauseMenu" parent="." node_paths=PackedStringArray("_swap_map") instance=ExtResource("3_ytf3d")]
 unique_name_in_owner = true

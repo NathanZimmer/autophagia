@@ -15,6 +15,7 @@ signal input_received
     "Jump": InputActions.Player.UP,
     "Interact": InputActions.Player.INTERACT,
     "Toggle fullscreen": InputActions.UI.FULLSCREEN,
+    "Open/close inventory": InputActions.UI.INVENTORY,
 }
 ## Map of String to assign to `Label.text` and input action for input that cannot be updated
 @export
@@ -56,7 +57,7 @@ func _ready() -> void:
         var button: Button = new_container.get_child(1)
 
         var event_strings: Array[String] = []
-        for event: InputEvent in events:
+        for event in events:
             event_strings.append(event.as_text().replace("(Physical)", ""))
         button.text = ", ".join(event_strings)
         button.disabled = true

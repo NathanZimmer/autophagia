@@ -13,6 +13,7 @@ signal right_changed
 signal jump_changed
 signal interact_changed
 signal fullscreen_changed
+signal inventory_changed
 
 @export_group("Camera")
 @export_range(1, 100, 1) var mouse_sensitivity := 50:
@@ -110,6 +111,16 @@ signal fullscreen_changed
     get():
         return fullscreen
 
+@export var inventory: InputEvent:
+    set(value):
+        if value != inventory:
+            inventory = value
+            InputMap.action_erase_events(InputActions.UI.INVENTORY)
+            InputMap.action_add_event(InputActions.UI.INVENTORY, inventory)
+            inventory_changed.emit(value)
+    get():
+        return inventory
+
 # This is what I have to do as a stand-in for reference vars (┬┬﹏┬┬)
 var _input_map: Dictionary[String, String] = {
     InputActions.Player.FORWARD: "forward",
@@ -118,7 +129,8 @@ var _input_map: Dictionary[String, String] = {
     InputActions.Player.RIGHT: "right",
     InputActions.Player.UP: "jump",
     InputActions.Player.INTERACT: "interact",
-    InputActions.UI.FULLSCREEN: "fullscreen"
+    InputActions.UI.FULLSCREEN: "fullscreen",
+    InputActions.UI.INVENTORY: "inventory"
 }
 
 

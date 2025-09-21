@@ -32,3 +32,4 @@ class UI:
     const LEFT = "ui_left"
     const RIGHT = "ui_right"
     const FULLSCREEN = "ui_fullscreen"
+    const INVENTORY = "ui_inventory"
