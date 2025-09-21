@@ -9,8 +9,8 @@ extends MenuControl
 func _ready() -> void:
 	super._ready()
 
-	var player_settings = Settings.player_settings
-	var graphics_settings = Settings.graphics_settings
+	var player_settings := Settings.player_settings
+	var graphics_settings := Settings.graphics_settings
 
 	_fov_spin_box.value_changed.connect(
 		func(new_value: float) -> void:

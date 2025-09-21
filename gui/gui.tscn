@@ -1,14 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cjew08elm562t"]
+[gd_scene load_steps=6 format=3 uid="uid://cjew08elm562t"]
 
 [ext_resource type="Script" uid="uid://knupv61sxrr0" path="res://gui/statistics/fps_counter.gd" id="1_ioifv"]
 [ext_resource type="Theme" uid="uid://bh0is5cj4ulq2" path="res://gui/theme/gui_theme.tres" id="1_n360k"]
 [ext_resource type="Script" uid="uid://buwi3r1o6ps6s" path="res://gui/statistics/b_counter.gd" id="2_q46mf"]
 [ext_resource type="Script" uid="uid://cpa6xj35vb43o" path="res://gui/gui.gd" id="3_q46mf"]
 [ext_resource type="PackedScene" uid="uid://bf7p8kgbqyedn" path="res://gui/menus/pause_menu/pause_menu.tscn" id="3_ytf3d"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_j7o1h"]
-outline_size = 3
-outline_color = Color(0, 0, 0, 1)
 
 [node name="Gui" type="Control"]
 process_mode = 3
@@ -26,6 +22,7 @@ script = ExtResource("3_q46mf")
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
+mouse_filter = 1
 _swap_map = {
 NodePath("VBoxContainer/ScrollContainer/VBoxContainer/ControlsButton"): NodePath("ControlsMenu"),
 NodePath("VBoxContainer/ScrollContainer/VBoxContainer/QuitButton"): NodePath("QuitMenu"),
@@ -38,7 +35,6 @@ offset_left = 3.0
 offset_right = 43.0
 offset_bottom = 23.0
 text = "0"
-label_settings = SubResource("LabelSettings_j7o1h")
 script = ExtResource("1_ioifv")
 
 [node name="BCounter" type="Label" parent="."]
@@ -46,9 +42,8 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -275.0
+offset_left = -330.0
 offset_bottom = 23.0
 grow_horizontal = 0
 text = "Seconds since the \"B\" key has been pressed: %d"
-label_settings = SubResource("LabelSettings_j7o1h")
 script = ExtResource("2_q46mf")

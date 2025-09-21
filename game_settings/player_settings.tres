@@ -17,8 +17,10 @@ key_label = 87
 unicode = 119
 
 [sub_resource type="InputEventKey" id="InputEventKey_dfbvm"]
-device = -1
+pressed = true
 keycode = 4194342
+physical_keycode = 4194342
+key_label = 4194342
 
 [sub_resource type="InputEventMouseButton" id="InputEventMouseButton_dfbvm"]
 button_mask = 1
@@ -48,7 +50,7 @@ unicode = 100
 
 [resource]
 script = ExtResource("1_p0hf3")
-mouse_sensitivity = 50
+mouse_sensitivity = 44
 mouse_inverted = false
 fov = 90
 forward = SubResource("InputEventKey_5fjjd")

@@ -1,11 +1,11 @@
 extends MenuControl
-# FIXME: Make return button clickable again
 
 @onready var _sensitivity_slider := %SensitivitySlider
 @onready var _invert_mouse_checkbox := %InvertMouseCheckBox
 
 
 func _ready() -> void:
+	super._ready()
 	var player_settings := Settings.player_settings
 
 	_sensitivity_slider.slider_drag_ended.connect(

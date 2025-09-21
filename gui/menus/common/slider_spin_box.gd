@@ -7,8 +7,6 @@ signal value_changed
 signal spin_box_value_changed
 ## TODO
 signal slider_drag_ended
-## TODO
-signal drag_ended
 
 @onready var _slider: Slider = %Slider
 @onready var _spin_box := %SpinBox

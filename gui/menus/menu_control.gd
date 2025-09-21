@@ -24,11 +24,18 @@ func _ready() -> void:
         button.pressed.connect(_swap_to_submenu.bind(menu))
 
 
+# Checking for this in _input because all buttons consume all mouse events when in focus.
+# FIXME: Is this fine or should I implement the "proper" solution of updating the buttons?
+func _input(event: InputEvent) -> void:
+    if event is InputEventMouseButton and event.is_action_pressed(InputActions.UI.CANCEL):
+        menu_exited.emit()
+        accept_event()
+
+
 func _shortcut_input(event: InputEvent) -> void:
-    if event is InputEventKey:
-        if event.is_action_pressed(InputActions.UI.CANCEL):
-            menu_exited.emit()
-            accept_event()
+    if event is InputEventKey and event.is_action_pressed(InputActions.UI.CANCEL):
+        menu_exited.emit()
+        accept_event()
 
 
 ## Hide all child menus and show this menu

@@ -16,6 +16,10 @@ signal input_received
     "Interact": InputActions.Player.INTERACT,
     "Toggle fullscreen": InputActions.UI.FULLSCREEN,
 }
+## TODO
+@export var _readonly_actions: Dictionary[String, String] = {
+    "Close Menu/Cancel": InputActions.UI.CANCEL
+}
 ## Text to display on the button when it is waiting for input
 @export var _button_waiting_text := "[press a key]"
 
@@ -38,6 +42,26 @@ func _ready() -> void:
         button.text = event.as_text().replace("(Physical)", "")
 
         button.pressed.connect(_rebind_input_action.bind(button, action))
+
+    for action_label: String in _readonly_actions.keys():
+        var action: String = _readonly_actions[action_label]
+
+        # Allow readonly to have multiple events bc the player can't reassign them
+        var events := InputMap.action_get_events(action)
+
+        var new_container := _template_container.duplicate()
+        add_child(new_container)
+
+        var label: Label = new_container.get_child(0)
+        label.text = action_label + " "
+        var button: Button = new_container.get_child(1)
+
+        var event_strings: Array[String] = []
+        for event: InputEvent in events:
+            event_strings.append(event.as_text().replace("(Physical)", ""))
+        button.text = ", ".join(event_strings)
+        button.disabled = true
+        button.tooltip_text = "Not editable."
 
     _template_container.queue_free()
 

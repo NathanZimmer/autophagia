@@ -6,5 +6,5 @@
 script = ExtResource("1_nwmo3")
 max_fps = 0
 vsynch_mode = 1
-is_fullscreen = false
+is_fullscreen = true
 metadata/_custom_type_script = "uid://daasuaqhtcp0x"
