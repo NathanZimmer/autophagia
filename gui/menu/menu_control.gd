@@ -1,5 +1,7 @@
 class_name MenuControl extends Control
-## TODO
+## Base class for pause menus. Handles opening of sub-menus and closing of itself. [br]
+## Place menu items for this menu at least within the first `VBoxContainer`. Place
+## sub-menus as its siblings.
 
 signal menu_exited
 
@@ -46,7 +48,10 @@ func _show_menu() -> void:
     _menu_container.show()
 
 
-## TODO
+## Hide the contents of this menu and show the given submenu [bt]
+## ## Parameters [br]
+## `submenu`: sub-menu to show [br]
+## **Note**: `submenu` should not be a child of the first `VBoxContainer`
 func _swap_to_submenu(submenu: Control) -> void:
     _menu_container.hide()
     submenu.show()

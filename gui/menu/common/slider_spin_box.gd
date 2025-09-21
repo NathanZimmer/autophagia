@@ -1,14 +1,14 @@
 extends BoxContainer
 ## Links values of `Slider` and `SpinBox`
 
-## TODO
+## Emitted when `value` changes
 signal value_changed
-## TODO
+## Emitted when the value of the spin box changes
 signal spin_box_value_changed
-## TODO
+## Emitted when the slider's grabber stops being dragged
 signal slider_drag_ended
 
-## TODO
+## Current value. Changing this property (even via code) will trigger value_changed
 var value: float:
     set(new_value):
         if value == new_value:

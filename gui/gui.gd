@@ -23,14 +23,14 @@ func _shortcut_input(event: InputEvent) -> void:
             accept_event()
 
 
-## TODO
+## Pause the game, show the mouse and pause menu
 func _pause() -> void:
     get_tree().paused = true
     Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
     pause_menu.show()
 
 
-## TODO
+## Unpause the game, hide the mouse and pause menu
 func _unpause() -> void:
     get_tree().paused = false
     Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

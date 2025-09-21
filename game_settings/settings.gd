@@ -1,5 +1,5 @@
 extends Node
-## TODO
+## Holds runtime configurable/saveable settings. Loads these setting on ready
 # NOTE: Currently using path instead of UID because of a bug in Godot 4.4 that resets resource
 # UIDs on project load
 

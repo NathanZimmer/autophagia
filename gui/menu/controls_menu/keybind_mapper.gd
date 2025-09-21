@@ -2,7 +2,7 @@ extends VBoxContainer
 ## Duplicates the label-button pair once per keypair in _configurable_actions.
 ## Deletes the orginal template node when done.
 
-## TODO
+## Emitted when an `InputEvent` is received with that input as its value
 signal input_received
 
 ## Map of String to assign to `Label.text` and input action to update on
@@ -16,7 +16,7 @@ signal input_received
     "Interact": InputActions.Player.INTERACT,
     "Toggle fullscreen": InputActions.UI.FULLSCREEN,
 }
-## TODO
+## Map of String to assign to `Label.text` and input action for input that cannot be updated
 @export
 var _readonly_actions: Dictionary[String, String] = {"Close Menu/Cancel": InputActions.UI.CANCEL}
 ## Text to display on the button when it is waiting for input
@@ -93,6 +93,6 @@ func _rebind_input_action(button: Button, action: String) -> void:
             continue
 
         button.text = event.as_text().replace("(Physical)", "")
-        Settings.player_settings.set_input(event, action)
+        Settings.player_settings.set_input(action, event)
         ResourceSaver.save(Settings.player_settings)
         break

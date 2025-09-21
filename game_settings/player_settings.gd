@@ -1,7 +1,7 @@
 class_name PlayerSettings extends Resource
 ## Holds runtime-configurable player settings. Updates relevant Autoload globals and
 ## emits *_changed signal when variables are updated
-# NOTE: Expects the constants from input_actions.gd to be defined in the engine
+# NOTE: Expects the constants from input_actions.gd to be defined in the project
 
 signal mouse_sensitivity_changed
 signal mouse_inverted_changed
@@ -130,6 +130,9 @@ func load() -> void:
         InputMap.action_add_event(action, event)
 
 
-## TODO
-func set_input(event: InputEvent, action: String) -> void:
+## Set input variable corresponding to `action` to `event` [br]
+## ## Parameters [br]
+## `action`: project input action to set [br]
+## `event`: input event to set to [br]
+func set_input(action: String, event: InputEvent) -> void:
     set(_input_map[action], event)
