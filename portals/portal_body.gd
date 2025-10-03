@@ -215,7 +215,10 @@ func _setup() -> void:
         )
         _player_direction_sign = signf(current_frame_angle)
 
-    if teleport_target is PortalBody:
+    if (
+        teleport_target is PortalBody
+        and not player_teleported.is_connected(teleport_target.prepare_for_teleport)
+    ):
         player_teleported.connect(teleport_target.prepare_for_teleport)
 
 
