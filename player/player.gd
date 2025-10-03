@@ -6,12 +6,6 @@ const TERMINAL_VELOCITY := 50.0
 ## Use for scenes where the gui scripts aren't loaded and input isn't captured.
 const DEBUG_CAPTURE_MOUSE := false
 
-@export_group("Runtime Configurables")
-## Resource for runtime configurable/saveable settings. This should always be the same as
-## `Settings.player_settings`
-@export var _player_settings: PlayerSettings = preload(Settings.PLAYER_SETTINGS_PATH)
-# Need to call preload instead of referencing directly so it displays in the editor
-
 @export_group("Camera settings")
 # @export_range(1, 100, 1) var _mouse_sensitivity := 50
 @export var _min_x_rotation := -89.0
@@ -44,8 +38,6 @@ var _mouse_inverted := false
 
 
 func _ready() -> void:
-    if _player_settings != Settings.player_settings:
-        push_warning("Player is not using global settings Resource")
     _camera = find_children("", "Camera3D")[0]
     _collider = find_children("", "CollisionShape3D")[0]
     # Input.set_use_accumulated_input(false)
@@ -53,7 +45,7 @@ func _ready() -> void:
     if _override_up_dir_on_ready:
         up_direction = global_basis.y
 
-    _set_runtime_configurables()
+    _link_runtime_configurables()
 
     if DEBUG_CAPTURE_MOUSE:
         Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -103,14 +95,13 @@ func _physics_process(delta: float) -> void:
     # orthonormalize()
 
 
-## Set runtime configurable settings from PlayerSettings resource and listen for updates
-func _set_runtime_configurables() -> void:
-    _set_mouse_sensitivity(_player_settings.mouse_sensitivity)
-    _player_settings.mouse_sensitivity_changed.connect(_set_mouse_sensitivity)
-    _set_mouse_inverted(_player_settings.mouse_inverted)
-    _player_settings.mouse_inverted_changed.connect(_set_mouse_inverted)
-    _set_fov(_player_settings.fov)
-    _player_settings.fov_changed.connect(_set_fov)
+func _link_runtime_configurables() -> void:
+    _set_mouse_sensitivity(Overrides.get_mouse_sensitivity())
+    Overrides.mouse_sensitivity_changed.connect(_set_mouse_sensitivity)
+    _set_mouse_inverted(Overrides.get_mouse_inverted())
+    Overrides.mouse_inverted_changed.connect(_set_mouse_inverted)
+    _set_fov(Overrides.get_fov())
+    Overrides.field_of_view_changed.connect(_set_fov)
 
 
 # FIXME: Sometimes the player cannot jump, this is probaly from the basis changing
@@ -166,16 +157,13 @@ func _rotate_cam(event: InputEventMouseMotion) -> void:
     _camera.orthonormalize()
 
 
-## TODO
 func _set_mouse_sensitivity(value: int) -> void:
     _mouse_sensitivity = value
 
 
-## TODO
 func _set_mouse_inverted(value: bool) -> void:
     _mouse_inverted = value
 
 
-## TODO
 func _set_fov(value: int) -> void:
     _camera.fov = value

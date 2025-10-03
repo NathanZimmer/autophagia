@@ -1,9 +1,7 @@
 extends Control
-## Handles menu and viewport related hotkeys, captures mouse, and connects to root pause menu
+## Handles menu and viewport related hotkeys, captures mouse, and connects to root pause menus
 
-var _graphics_settings := Settings.graphics_settings
-
-## Root pause menu
+## Root pause menus
 @onready var _pause_menu: MenuControl = %PauseMenu
 @onready var _inventory_menu: MenuControl = %InventoryMenu
 
@@ -49,4 +47,5 @@ func _unpause() -> void:
 
 ## Toggle window mode between `WINDOW_MODE_FULLSCREEN` and `WINDOW_MODE_WINDOWED`
 func _toggle_fullscreen() -> void:
-    _graphics_settings.is_fullscreen = !_graphics_settings.is_fullscreen
+    var fullscreen := Overrides.get_fullscreen()
+    Overrides.set_fullscreen(!fullscreen)

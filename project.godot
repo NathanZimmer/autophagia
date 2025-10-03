@@ -18,7 +18,7 @@ config/icon="uid://3n2x0n62fk53"
 [autoload]
 
 InputActions="*res://game_settings/input_actions.gd"
-Settings="*res://game_settings/settings.gd"
+Overrides="*res://game_settings/overrides.gd"
 
 [debug]
 
@@ -133,6 +133,12 @@ ui_inventory={
 
 common/physics_ticks_per_second=288
 3d/physics_engine="Jolt Physics"
+
+[player]
+
+camera/mouse_sensitivity=50
+camera/mouse_inverted=false
+camera/field_of_view=90
 
 [rendering]
 
