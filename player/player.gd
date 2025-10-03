@@ -157,16 +157,13 @@ func _rotate_cam(event: InputEventMouseMotion) -> void:
     _camera.orthonormalize()
 
 
-## TODO
 func _set_mouse_sensitivity(value: int) -> void:
     _mouse_sensitivity = value
 
 
-## TODO
 func _set_mouse_inverted(value: bool) -> void:
     _mouse_inverted = value
 
 
-## TODO
 func _set_fov(value: int) -> void:
     _camera.fov = value
