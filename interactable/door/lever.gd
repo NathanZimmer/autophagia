@@ -15,13 +15,8 @@ signal turned
 @export var _emit_point: int
 
 ## Can disable animation and just emit the `turned` signal
-var disable_turning: bool:
-    get:
-        return _disable_turning
-    set(value):
-        _disable_turning = value
+var disable_turning := false
 
-var _disable_turning := false
 var _tween: Tween
 var _base_rotation: Quaternion
 var _timer: Timer

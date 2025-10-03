@@ -94,5 +94,5 @@ func _rebind_input_action(button: Button, action: String) -> void:
             continue
 
         button.text = event.as_text().replace("(Physical)", "")
-        Overrides.set_input_action(action, event)
+        Overrides.save_input_action(action, event)
         break

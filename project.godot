@@ -145,5 +145,5 @@ camera/field_of_view=90
 scaling_3d/fsr_sharpness=0.0
 lightmapping/primitive_meshes/texel_size=0.4
 occlusion_culling/use_occlusion_culling=true
-environment/screen_space_roughness_limiter/enabled=true
 environment/quality/msaa_3d=2
+environment/screen_space_roughness_limiter/enabled=true

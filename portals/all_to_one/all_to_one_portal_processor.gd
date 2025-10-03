@@ -16,7 +16,7 @@ func _setup(portals: Array[PortalBody]) -> void:
 
     _main_portal = portals[0]
 
-    var main_renderer := PortalRenderer.init(
+    var main_renderer := PortalRenderer.new(
         _target_cam, _main_portal, portals[1], _world_render_layers & ~_portal_render_layer
     )
     _main_portal.add_child(main_renderer)
@@ -35,7 +35,7 @@ func _setup(portals: Array[PortalBody]) -> void:
     _main_portal.player_teleported.connect(_ready_teleport_target)
 
     for portal: PortalBody in portals.slice(1):
-        var renderer := PortalRenderer.init(
+        var renderer := PortalRenderer.new(
             _target_cam, portal, _main_portal, _world_render_layers & ~_portal_render_layer
         )
         portal.add_child(renderer)

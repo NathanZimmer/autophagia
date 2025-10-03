@@ -115,7 +115,7 @@ metadata/_custom_type_script = "uid://dg7e58q26ojyv"
 
 [node name="PortalRenderer" type="Node" parent="PortalBodyToPortalBodyTest/PortalBody" index="0" node_paths=PackedStringArray("_target_cam", "_target_reference_node", "_reference_node")]
 script = ExtResource("2_5k0mg")
-_target_cam = NodePath("../../../Player/Camera")
+_target_cam = NodePath("../../../Player/Camera3D")
 _target_reference_node = NodePath("..")
 _reference_node = NodePath("../../PortalBody2")
 metadata/_custom_type_script = "uid://cp6qrare12hxe"
@@ -130,7 +130,7 @@ metadata/_custom_type_script = "uid://dg7e58q26ojyv"
 
 [node name="PortalRenderer2" type="Node" parent="PortalBodyToPortalBodyTest/PortalBody2" index="0" node_paths=PackedStringArray("_target_cam", "_target_reference_node", "_reference_node")]
 script = ExtResource("2_5k0mg")
-_target_cam = NodePath("../../../Player/Camera")
+_target_cam = NodePath("../../../Player/Camera3D")
 _target_reference_node = NodePath("..")
 _reference_node = NodePath("../../PortalBody")
 metadata/_custom_type_script = "uid://cp6qrare12hxe"
@@ -216,13 +216,18 @@ metadata/_custom_type_script = "uid://dg7e58q26ojyv"
 
 [node name="PortalRenderer" type="Node" parent="PortalBodyToNode3DTest/PortalBody" index="0" node_paths=PackedStringArray("_target_cam", "_target_reference_node", "_reference_node")]
 script = ExtResource("2_5k0mg")
-_target_cam = NodePath("../../../Player/Camera")
+_target_cam = NodePath("../../../Player/Camera3D")
 _target_reference_node = NodePath("..")
 _reference_node = NodePath("../../Node3D")
 metadata/_custom_type_script = "uid://cp6qrare12hxe"
 
 [node name="Node3D" type="Node3D" parent="PortalBodyToNode3DTest" index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1.5, 5)
+
+[node name="Cube2" type="MeshInstance3D" parent="PortalBodyToNode3DTest" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.5, 1.5)
+mesh = SubResource("BoxMesh_03x48")
+skeleton = NodePath("../..")
 
 [node name="PortalProcessorTest" type="Node3D" parent="." index="5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
@@ -295,11 +300,10 @@ shape = SubResource("ConvexPolygonShape3D_xvypx")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.25, 0)
 shape = SubResource("ConvexPolygonShape3D_xvypx")
 
-[node name="PortalProcessor" type="Node3D" parent="PortalProcessorTest" index="2" node_paths=PackedStringArray("_target_cam")]
+[node name="PortalProcessor" type="Node3D" parent="PortalProcessorTest" index="2"]
 script = ExtResource("5_wguh8")
 _override_portal_sizes = true
 _size = Vector3(2, 3, 0.5)
-_target_cam = NodePath("../../Player/Camera")
 metadata/_custom_type_script = "uid://6k32ute3x11j"
 
 [node name="PortalBody" type="Node3D" parent="PortalProcessorTest/PortalProcessor" index="0"]
@@ -314,19 +318,17 @@ script = ExtResource("6_1mtnw")
 size = Vector3(2, 3, 0.5)
 metadata/_custom_type_script = "uid://dg7e58q26ojyv"
 
+[node name="Cube3" type="MeshInstance3D" parent="PortalProcessorTest" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.5, 1.5)
+mesh = SubResource("BoxMesh_03x48")
+skeleton = NodePath("../..")
+
+[node name="Cube4" type="MeshInstance3D" parent="PortalProcessorTest" index="4"]
+transform = Transform3D(0.965926, 0.183013, 0.183013, -0.258819, 0.683013, 0.683013, 0, -0.707107, 0.707107, -1.93897, 5.30929, -4.2583)
+mesh = SubResource("BoxMesh_03x48")
+skeleton = NodePath("../..")
+
 [node name="Cube" parent="." index="7"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.5, 1.5)
-
-[node name="Cube2" type="MeshInstance3D" parent="." index="8"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0.5, 1.5)
-mesh = SubResource("BoxMesh_03x48")
-
-[node name="Cube3" type="MeshInstance3D" parent="." index="9"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.5, -8.5)
-mesh = SubResource("BoxMesh_03x48")
-
-[node name="Cube4" type="MeshInstance3D" parent="." index="10"]
-transform = Transform3D(0.965926, 0.183013, 0.183013, -0.258819, 0.683013, 0.683013, 0, -0.707107, 0.707107, -1.93897, 5.30929, -14.2583)
-mesh = SubResource("BoxMesh_03x48")
 
 [editable path="Player"]

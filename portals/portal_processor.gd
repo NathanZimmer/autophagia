@@ -74,12 +74,12 @@ func _setup(portals: Array[PortalBody]) -> void:
     var portal_0: PortalBody = portals[0]
     var portal_1: PortalBody = portals[1]
 
-    var renderer_0 := PortalRenderer.init(
+    var renderer_0 := PortalRenderer.new(
         _target_cam, portal_0, portal_1, _world_render_layers & ~_portal_render_layer
     )
     portal_0.add_child(renderer_0)
 
-    var renderer_1 := PortalRenderer.init(
+    var renderer_1 := PortalRenderer.new(
         _target_cam, portal_1, portal_0, _world_render_layers & ~_portal_render_layer
     )
     portal_1.add_child(renderer_1)

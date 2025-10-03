@@ -9,10 +9,6 @@ signal player_teleported
 signal player_entered_portal
 signal player_exited_portal
 
-const MATERIAL_PATH = "uid://b3gfilq0wguq8"
-const VIEWPORT_SHADER_PARAM = "viewport_textures"
-const RECURSION_PASS_THROUGH_COLOR = Color.MAGENTA
-
 @export_group("Portal Dimensions")
 ## Size of this portal
 @export var size := Vector3.ONE:
@@ -99,7 +95,7 @@ const RECURSION_PASS_THROUGH_COLOR = Color.MAGENTA
     get:
         return _collision_mask
 
-var _material: ShaderMaterial = preload(MATERIAL_PATH).duplicate()
+var _material: ShaderMaterial = preload("uid://b3gfilq0wguq8").duplicate()
 var _mesh: MeshInstance3D
 ## `Mesh` for viewing this portal through another portal. Useful
 ## for debugging or portal recursion
@@ -124,12 +120,12 @@ func _ready() -> void:
     _setup()
 
 
-func _physics_process(_delta) -> void:
+func _physics_process(_delta: float) -> void:
     if Engine.is_editor_hint():
         return
 
-    var current_frame_angle = global_basis.z.dot(global_position - _player.camera.global_position)
-    var current_direction_sign = signf(current_frame_angle)
+    var current_frame_angle := global_basis.z.dot(global_position - _player.camera.global_position)
+    var current_direction_sign := signf(current_frame_angle)
 
     # FIXME: If the player moves into and out of a portal on back-to-back frames they
     # will be teleported twice the distance they should be.
@@ -151,7 +147,7 @@ func _physics_process(_delta) -> void:
 ## ## Parameters [br]
 ## `size`: Size of this portal [br]
 ## `renderers`: The `PortalRenderer`s to display on this node's `Mesh` [br]
-##  [b]Note[/b]: `renderers` will be added to this node's children [br]
+##  [b]Note[/b]: `renderers` should be added to this node's children before calling `reset` [br]
 ## `render_layers`: Layers to render on [br]
 ## `recursion_render_layers`: Layers to render the secondary `Mesh` on [br]
 ## `collision_layers`: Collision layers for this node's `Area3D` [br]
@@ -199,27 +195,30 @@ func _setup() -> void:
     _area_3d = _create_area_3d()
     _vis_notifier = _create_visiblity_notifier()
 
-    var recursion_pass_material = StandardMaterial3D.new()
-    recursion_pass_material.albedo_color = RECURSION_PASS_THROUGH_COLOR
+    var recursion_pass_material := StandardMaterial3D.new()
+    recursion_pass_material.albedo_color = Color.MAGENTA
     recursion_pass_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
     recursion_pass_material.disable_fog = true
     _recursion_mesh = _create_mesh(recursion_pass_material)
     _recursion_mesh.layers = _recursion_render_layers
 
     if not _renderers.is_empty():
-        player_entered_portal.connect(func(): _renderers[0].use_oblique_frustum = false)
-        player_exited_portal.connect(func(): _renderers[0].use_oblique_frustum = true)
+        player_entered_portal.connect(func() -> void: _renderers[0].use_oblique_frustum = false)
+        player_exited_portal.connect(func() -> void: _renderers[0].use_oblique_frustum = true)
         _reset_viewport_shader_param()
 
     if is_instance_valid(_player):
-        var current_frame_angle = (
+        var current_frame_angle := (
             0.0
             if _player == null
             else global_basis.z.dot(global_position - _player.camera.global_position)
         )
         _player_direction_sign = signf(current_frame_angle)
 
-    if teleport_target is PortalBody:
+    if (
+        teleport_target is PortalBody
+        and not player_teleported.is_connected(teleport_target.prepare_for_teleport)
+    ):
         player_teleported.connect(teleport_target.prepare_for_teleport)
 
 
@@ -227,11 +226,11 @@ func _setup() -> void:
 ## [b]Note[/b]: This mesh is only half the depth of the mesh in the
 ## Editor.
 func _create_mesh(mesh_material: Material) -> MeshInstance3D:
-    var box_mesh = BoxMesh.new()
+    var box_mesh := BoxMesh.new()
     box_mesh.size = Vector3(size.x, size.y, size.z / 2)
     box_mesh.material = mesh_material
 
-    var mesh_instance = MeshInstance3D.new()
+    var mesh_instance := MeshInstance3D.new()
     mesh_instance.mesh = box_mesh
     mesh_instance.layers = _render_layers
     mesh_instance.gi_mode = GeometryInstance3D.GI_MODE_DISABLED
@@ -246,18 +245,18 @@ func _create_mesh(mesh_material: Material) -> MeshInstance3D:
 ## Create and configure the on-screen visibility notifier
 ## for this portal
 func _create_visiblity_notifier() -> VisibleOnScreenNotifier3D:
-    var vis_notifier = VisibleOnScreenNotifier3D.new()
+    var vis_notifier := VisibleOnScreenNotifier3D.new()
     vis_notifier.layers = _vis_notifier_render_layers
     add_child(vis_notifier)
     vis_notifier.aabb = AABB(size / -2, size)
 
     vis_notifier.screen_entered.connect(
-        func():
+        func() -> void:
             _portal_on_screen = true
             portal_entered_screen.emit()
     )
     vis_notifier.screen_exited.connect(
-        func():
+        func() -> void:
             _portal_on_screen = false
             portal_exited_screen.emit()
     )
@@ -267,11 +266,11 @@ func _create_visiblity_notifier() -> VisibleOnScreenNotifier3D:
 
 ## Create and configure the Area3D for this portal
 func _create_area_3d() -> Area3D:
-    var area_3d = Area3D.new()
+    var area_3d := Area3D.new()
     area_3d.collision_layer = _collision_layers
     area_3d.collision_mask = _collision_mask
 
-    var collider = CollisionShape3D.new()
+    var collider := CollisionShape3D.new()
     collider.shape = BoxShape3D.new()
     collider.shape.size = size
 
@@ -280,13 +279,13 @@ func _create_area_3d() -> Area3D:
     area_3d.global_transform = global_transform
 
     area_3d.body_entered.connect(
-        func(_body):
+        func(_body: Node3D) -> void:
             if _body == _player:
                 _player_in_portal = true
                 player_entered_portal.emit()
     )
     area_3d.body_exited.connect(
-        func(_body):
+        func(_body: Node3D) -> void:
             if _body == _player:
                 _player_in_portal = false
                 player_exited_portal.emit()
@@ -298,7 +297,7 @@ func _create_area_3d() -> Area3D:
 ## Teleport player from `self` to `teleport_target` keeping the same relative
 ## transform
 func _teleport_player() -> void:
-    var old_basis = _player.global_basis
+    var old_basis := _player.global_basis
     _player.global_transform = _get_relative_transform(
         _player.global_transform,
         global_transform,
@@ -309,20 +308,20 @@ func _teleport_player() -> void:
     player_teleported.emit()
 
 
-## Set the shader param `VIEWPORT_SHADER_PARAM` to the viewport textures of
+## Set the shader viewport param to the viewport textures of
 ## `_renderers`
 func _reset_viewport_shader_param() -> void:
     var viewport_textures: Array[ViewportTexture] = []
     for renderer in _renderers:
         viewport_textures.append(renderer.get_viewport_texture())
 
-    _material.set_shader_parameter(VIEWPORT_SHADER_PARAM, viewport_textures)
+    _material.set_shader_parameter("viewport_textures", viewport_textures)
 
 
 ## Set the position of the portal oposite the player along the z-plane of this Node
 func update_portal_pos() -> void:
-    var current_frame_angle = global_basis.z.dot(global_position - _player.camera.global_position)
-    var current_direction_sign = signf(current_frame_angle)
+    var current_frame_angle := global_basis.z.dot(global_position - _player.camera.global_position)
+    var current_direction_sign := signf(current_frame_angle)
     _mesh.position.z = current_direction_sign * size.z / 4
     _recursion_mesh.position.z = _mesh.position.z
 
@@ -355,5 +354,5 @@ func _get_relative_transform(
     original_ref: Transform3D,
     new_ref: Transform3D,
 ) -> Transform3D:
-    var transform_offset = original_ref.affine_inverse() * target  # Get offset to orignal reference
+    var transform_offset := original_ref.affine_inverse() * target  # Get offset to orignal reference
     return new_ref * transform_offset  # Apply offset to new reference

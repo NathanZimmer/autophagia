@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bokp8e4x73bod"]
+[gd_scene load_steps=15 format=3 uid="uid://bokp8e4x73bod"]
 
 [ext_resource type="PackedScene" uid="uid://bxni3e6t47b77" path="res://portals/portal_test.tscn" id="1_j3sm2"]
 [ext_resource type="Material" uid="uid://yk4x16701e40" path="res://common/placeholder_triplanar.tres" id="2_sff3r"]
@@ -11,8 +11,6 @@ size = Vector2(20, 20)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_03x48"]
 points = PackedVector3Array(-10, 0, -10, -10, 0, 10, 10, 0, -10, 10, 0, 10)
 
-[sub_resource type="BoxMesh" id="BoxMesh_03x48"]
-
 [sub_resource type="BoxMesh" id="BoxMesh_mxf2q"]
 size = Vector3(0.5, 3, 1)
 
@@ -23,18 +21,13 @@ points = PackedVector3Array(0.25, 1.5, 0.5, -0.25, 1.5, 0.5, 0.25, -1.5, 0.5, 0.
 size = Vector2(5, 5)
 orientation = 2
 
+[sub_resource type="BoxMesh" id="BoxMesh_03x48"]
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_foilp"]
 size = Vector2(15, 15)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1it28"]
 size = Vector3(15, 0, 15)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_foilp"]
-albedo_color = Color(0.71, 0.0568, 0.0568, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_1it28"]
-material = SubResource("StandardMaterial3D_foilp")
-size = Vector3(4, 4, 4)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_upm52"]
 albedo_color = Color(0.0568, 0.0568, 0.71, 1)
@@ -56,11 +49,7 @@ mesh = SubResource("PlaneMesh_e121w")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor3/StaticBody3D" index="0"]
 shape = SubResource("ConvexPolygonShape3D_03x48")
 
-[node name="Cube5" type="MeshInstance3D" parent="." index="7"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.5, -8.5)
-mesh = SubResource("BoxMesh_03x48")
-
-[node name="RecursivePortalProcessorTest" type="Node3D" parent="." index="8"]
+[node name="RecursivePortalProcessorTest" type="Node3D" parent="." index="7"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -10)
 
 [node name="PortalFrame" type="StaticBody3D" parent="RecursivePortalProcessorTest" index="0"]
@@ -234,7 +223,12 @@ script = ExtResource("4_1it28")
 size = Vector3(2, 3, 0.5)
 metadata/_custom_type_script = "uid://dg7e58q26ojyv"
 
-[node name="PortalBox" type="Node3D" parent="." index="9"]
+[node name="Cube5" type="MeshInstance3D" parent="RecursivePortalProcessorTest" index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0.5, 1.5)
+mesh = SubResource("BoxMesh_03x48")
+skeleton = NodePath("../..")
+
+[node name="PortalBox" type="Node3D" parent="." index="8"]
 transform = Transform3D(1, 0, 0, 0, 0.973976, -0.226651, 0, 0.226651, 0.973976, 20, 7.5, 0)
 
 [node name="RecursivePortalProcessorSelfRecurseTest" type="Node3D" parent="PortalBox" index="0"]
@@ -606,18 +600,14 @@ mesh = SubResource("PlaneMesh_foilp")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PortalBox/Floor4/StaticBody3D" index="0"]
 shape = SubResource("BoxShape3D_1it28")
 
-[node name="Player" parent="." index="10"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3.75, 1, 11)
-
-[node name="Cube2" parent="." index="12"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.5, 2, 0)
-mesh = SubResource("BoxMesh_1it28")
-
-[node name="Sphere" type="MeshInstance3D" parent="." index="13"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 12.5, 0)
+[node name="Sphere" type="MeshInstance3D" parent="PortalBox" index="5"]
+transform = Transform3D(1, 0, 0, 0, 0.973976, 0.226651, 0, -0.226651, 0.973976, -5, 4.86988, -1.13326)
 mesh = SubResource("SphereMesh_310hv")
+skeleton = NodePath("../..")
 
-[node name="RecursivePortalProcessor" type="Node3D" parent="." index="16"]
+[node name="InfiniteFallingTest" type="Node3D" parent="." index="9"]
+
+[node name="RecursivePortalProcessor" type="Node3D" parent="InfiniteFallingTest" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, 11)
 script = ExtResource("3_foilp")
 _self_recurse = true
@@ -625,16 +615,19 @@ _override_portal_sizes = true
 _size = Vector3(2, 3, 1)
 metadata/_custom_type_script = "uid://cnxtc27x7m03v"
 
-[node name="PortalBody" type="Node3D" parent="RecursivePortalProcessor" index="0"]
+[node name="PortalBody" type="Node3D" parent="InfiniteFallingTest/RecursivePortalProcessor" index="0"]
 transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 0, 6.25, 0)
 script = ExtResource("4_1it28")
 size = Vector3(2, 3, 1)
 metadata/_custom_type_script = "uid://dg7e58q26ojyv"
 
-[node name="PortalBody2" type="Node3D" parent="RecursivePortalProcessor" index="1"]
+[node name="PortalBody2" type="Node3D" parent="InfiniteFallingTest/RecursivePortalProcessor" index="1"]
 transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 0, 0, 0)
 script = ExtResource("4_1it28")
 size = Vector3(2, 3, 1)
 metadata/_custom_type_script = "uid://dg7e58q26ojyv"
+
+[node name="Player" parent="." index="10"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4, 1, 1.5)
 
 [editable path="Player"]

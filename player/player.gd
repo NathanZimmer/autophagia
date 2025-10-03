@@ -22,24 +22,17 @@ const DEBUG_CAPTURE_MOUSE := false
 @export var _min_speed := 0.1
 @export var _max_speed := 10.0
 
-var camera: Camera3D:
-    set(value):
-        push_warning("camera is a read-only property")
-    get:
-        return _camera
-
 var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var _speed_mod := 1.0  # Modifier to player speed that can be adjusted with mouse wheel
 var _flying := false
-var _collider: CollisionShape3D
-var _camera: Camera3D
 var _mouse_sensitivity := 50
 var _mouse_inverted := false
 
+@onready var camera := %Camera3D
+@onready var _collider := %CollisionShape3D
+
 
 func _ready() -> void:
-    _camera = find_children("", "Camera3D")[0]
-    _collider = find_children("", "CollisionShape3D")[0]
     # Input.set_use_accumulated_input(false)
 
     if _override_up_dir_on_ready:
@@ -96,11 +89,11 @@ func _physics_process(delta: float) -> void:
 
 
 func _link_runtime_configurables() -> void:
-    _set_mouse_sensitivity(Overrides.get_mouse_sensitivity())
+    _set_mouse_sensitivity(Overrides.load_mouse_sensitivity())
     Overrides.mouse_sensitivity_changed.connect(_set_mouse_sensitivity)
-    _set_mouse_inverted(Overrides.get_mouse_inverted())
+    _set_mouse_inverted(Overrides.load_mouse_inverted())
     Overrides.mouse_inverted_changed.connect(_set_mouse_inverted)
-    _set_fov(Overrides.get_fov())
+    _set_fov(Overrides.load_fov())
     Overrides.field_of_view_changed.connect(_set_fov)
 
 
@@ -148,13 +141,13 @@ func _rotate_cam(event: InputEventMouseMotion) -> void:
     motion *= _mouse_sensitivity * degrees_per_unit
 
     rotate_object_local(Vector3.DOWN, deg_to_rad(motion.x))
-    _camera.rotate_object_local(
+    camera.rotate_object_local(
         Vector3.LEFT, deg_to_rad(-1 * motion.y if _mouse_inverted else motion.y)
     )
-    _camera.rotation.x = clamp(
-        _camera.rotation.x, deg_to_rad(_min_x_rotation), deg_to_rad(_max_x_rotation)
+    camera.rotation.x = clamp(
+        camera.rotation.x, deg_to_rad(_min_x_rotation), deg_to_rad(_max_x_rotation)
     )
-    _camera.orthonormalize()
+    camera.orthonormalize()
 
 
 func _set_mouse_sensitivity(value: int) -> void:
@@ -166,4 +159,4 @@ func _set_mouse_inverted(value: bool) -> void:
 
 
 func _set_fov(value: int) -> void:
-    _camera.fov = value
+    camera.fov = value

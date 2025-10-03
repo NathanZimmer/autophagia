@@ -13,22 +13,22 @@ signal field_of_view_changed
 signal input_action_changed
 
 const CONFIG_PATH = "override.cfg"
-var config_file := ConfigFile.new()
+var _config_file := ConfigFile.new()
 
 
 func _ready() -> void:
-    config_file.load(CONFIG_PATH)
+    _config_file.load(CONFIG_PATH)
 
 
-func set_vsync_mode(mode: DisplayServer.VSyncMode) -> void:
+func save_vsync_mode(mode: DisplayServer.VSyncMode) -> void:
     DisplayServer.window_set_vsync_mode(mode)
-    config_file.set_value("display", "window/vsync/vsync_mode", mode)
+    _config_file.set_value("display", "window/vsync/vsync_mode", mode)
     _save()
     vsynch_mode_changed.emit(mode)
 
 
-func get_vsync_mode() -> DisplayServer.VSyncMode:
-    var project_vsync: DisplayServer.VSyncMode = config_file.get_value(
+func load_vsync_mode() -> DisplayServer.VSyncMode:
+    var project_vsync: DisplayServer.VSyncMode = _config_file.get_value(
         "display", "window/vsync/vsync_mode", DisplayServer.VSyncMode.VSYNC_ENABLED
     )
     var display_vsync := DisplayServer.window_get_vsync_mode()
@@ -42,15 +42,15 @@ func get_vsync_mode() -> DisplayServer.VSyncMode:
     return display_vsync
 
 
-func set_max_fps(max_fps: int) -> void:
+func save_max_fps(max_fps: int) -> void:
     Engine.max_fps = max_fps
-    config_file.set_value("application", "run/max_fps", max_fps)
+    _config_file.set_value("application", "run/max_fps", max_fps)
     _save()
     max_fps_changed.emit(max_fps)
 
 
-func get_max_fps() -> int:
-    var project_fps: int = config_file.get_value("application", "run/max_fps", 0)
+func load_max_fps() -> int:
+    var project_fps: int = _config_file.get_value("application", "run/max_fps", 0)
     var engine_fps := Engine.max_fps
     if engine_fps != project_fps:
         push_warning(
@@ -59,20 +59,20 @@ func get_max_fps() -> int:
     return engine_fps
 
 
-func set_fullscreen(fullscreen: bool) -> void:
+func save_fullscreen(fullscreen: bool) -> void:
     var window_mode := (
         DisplayServer.WindowMode.WINDOW_MODE_FULLSCREEN
         if fullscreen
         else DisplayServer.WindowMode.WINDOW_MODE_WINDOWED
     )
     DisplayServer.window_set_mode(window_mode)
-    config_file.set_value("display", "window/size/mode", window_mode)
+    _config_file.set_value("display", "window/size/mode", window_mode)
     _save()
     fullscreen_changed.emit(fullscreen)
 
 
-func get_fullscreen() -> bool:
-    var project_fs: DisplayServer.WindowMode = config_file.get_value(
+func load_fullscreen() -> bool:
+    var project_fs: DisplayServer.WindowMode = _config_file.get_value(
         "display", "window/size/mode", DisplayServer.WindowMode.WINDOW_MODE_WINDOWED
     )
     var display_fs := DisplayServer.window_get_mode()
@@ -86,43 +86,43 @@ func get_fullscreen() -> bool:
     return project_fs == DisplayServer.WindowMode.WINDOW_MODE_FULLSCREEN
 
 
-func set_mouse_sensitivity(sensitivity: int) -> void:
-    config_file.set_value("player", "camera/mouse_sensitivity", sensitivity)
+func save_mouse_sensitivity(sensitivity: int) -> void:
+    _config_file.set_value("player", "camera/mouse_sensitivity", sensitivity)
     _save()
     mouse_sensitivity_changed.emit(sensitivity)
 
 
-func get_mouse_sensitivity() -> int:
-    return config_file.get_value("player", "camera/mouse_sensitivity", 50)
+func load_mouse_sensitivity() -> int:
+    return _config_file.get_value("player", "camera/mouse_sensitivity", 50)
 
 
-func set_mouse_inverted(inverted: bool) -> void:
-    config_file.set_value("player", "camera/mouse_inverted", inverted)
+func save_mouse_inverted(inverted: bool) -> void:
+    _config_file.set_value("player", "camera/mouse_inverted", inverted)
     _save()
     mouse_inverted_changed.emit(inverted)
 
 
-func get_mouse_inverted() -> bool:
-    return config_file.get_value("player", "camera/mouse_inverted", false)
+func load_mouse_inverted() -> bool:
+    return _config_file.get_value("player", "camera/mouse_inverted", false)
 
 
-func set_fov(fov: int) -> void:
-    config_file.set_value("player", "camera/field_of_view", fov)
+func save_fov(fov: int) -> void:
+    _config_file.set_value("player", "camera/field_of_view", fov)
     _save()
     field_of_view_changed.emit(fov)
 
 
-func get_fov() -> int:
-    return config_file.get_value("player", "camera/field_of_view", 90)
+func load_fov() -> int:
+    return _config_file.get_value("player", "camera/field_of_view", 90)
 
 
-func set_input_action(action: String, event: InputEvent) -> void:
+func save_input_action(action: String, event: InputEvent) -> void:
     InputMap.action_erase_events(action)
     InputMap.action_add_event(action, event)
-    config_file.set_value("input", action, {"deadzone": 0.5, "events": [event]})
+    _config_file.set_value("input", action, {"deadzone": 0.5, "events": [event]})
     _save()
     input_action_changed.emit(action, event)
 
 
 func _save() -> int:
-    return config_file.save(CONFIG_PATH)
+    return _config_file.save(CONFIG_PATH)
