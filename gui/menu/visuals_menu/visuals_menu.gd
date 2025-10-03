@@ -10,26 +10,22 @@ func _ready() -> void:
     super._ready()
 
     _fov_spin_box.value_changed.connect(
-        func(new_value: float) -> void:
-            Overrides.set_fov(int(new_value))
+        func(new_value: float) -> void: Overrides.set_fov(int(new_value))
     )
     _fov_spin_box.value = Overrides.get_fov()
 
     _fps_spin_box.value_changed.connect(
-        func(new_value: float) -> void:
-            Overrides.set_max_fps(int(new_value))
+        func(new_value: float) -> void: Overrides.set_max_fps(int(new_value))
     )
     _fps_spin_box.value = Overrides.get_max_fps()
 
     _vsynch_button.item_selected.connect(
-        func(index: int) -> void:
-            Overrides.set_vsync_mode(index as DisplayServer.VSyncMode)
+        func(index: int) -> void: Overrides.set_vsync_mode(index as DisplayServer.VSyncMode)
     )
     _vsynch_button.selected = int(Overrides.get_vsync_mode())
 
     _fullscreen_checkbox.toggled.connect(
-        func(toggled_on: bool) -> void:
-            Overrides.set_fullscreen(toggled_on)
+        func(toggled_on: bool) -> void: Overrides.set_fullscreen(toggled_on)
     )
     _fullscreen_checkbox.button_pressed = Overrides.get_fullscreen()
 

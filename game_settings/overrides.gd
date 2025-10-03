@@ -1,5 +1,6 @@
 extends Node
-## TODO
+## User-configurable and saveable overrides for ProjectSettings. Handles saving and loading
+##_to the `override.cfg` file and propagating changes throughout the engine.
 
 signal vsynch_mode_changed
 signal max_fps_changed
@@ -118,13 +119,7 @@ func get_fov() -> int:
 func set_input_action(action: String, event: InputEvent) -> void:
     InputMap.action_erase_events(action)
     InputMap.action_add_event(action, event)
-    config_file.set_value("input",
-        action,
-        {
-            "deadzone": 0.5,
-            "events": [event],
-        }
-    )
+    config_file.set_value("input", action, {"deadzone": 0.5, "events": [event]})
     _save()
     input_action_changed.emit(action, event)
 
