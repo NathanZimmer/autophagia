@@ -47,5 +47,5 @@ func _unpause() -> void:
 
 ## Toggle window mode between `WINDOW_MODE_FULLSCREEN` and `WINDOW_MODE_WINDOWED`
 func _toggle_fullscreen() -> void:
-    var fullscreen := Overrides.get_fullscreen()
-    Overrides.set_fullscreen(!fullscreen)
+    var fullscreen := Overrides.load_fullscreen()
+    Overrides.save_fullscreen(!fullscreen)

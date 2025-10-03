@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dm7g28n6cn3js" path="res://interactable/pickup/pickup.gd" id="1_giga1"]
 [ext_resource type="Script" uid="uid://c0fkj67ps75ri" path="res://interactable/triggers/collision_trigger.gd" id="1_jdpy3"]
-[ext_resource type="Material" uid="uid://0i0xldxoakos" path="res://interactable/pickup/pickup_ring.tres" id="2_psyp8"]
-[ext_resource type="Material" uid="uid://lm2s6rm7ttik" path="res://interactable/pickup/floating_icon.tres" id="3_1ucx6"]
+[ext_resource type="Material" uid="uid://0i0xldxoakos" path="res://interactable/pickup/materials/pickup_ring.tres" id="2_psyp8"]
+[ext_resource type="Material" uid="uid://lm2s6rm7ttik" path="res://interactable/pickup/materials/floating_icon.tres" id="3_1ucx6"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_psyp8"]
 

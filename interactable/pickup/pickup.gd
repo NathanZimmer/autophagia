@@ -18,7 +18,7 @@ func _ready() -> void:
 
 ## TODO: Update when MessageHandler is implemented
 func _display_image(body: Node3D) -> void:
-    var handlers := body.find_children("*", "MessageHandler", false) as Array[MessageHandler]
+    var handlers := body.find_children("*", "MessageHandler", false)
     if not handlers.is_empty():
         handlers[0].send_message("TODO")
     queue_free()

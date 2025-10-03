@@ -45,7 +45,7 @@ func _setup(portals: Array[PortalBody]) -> void:
 
         portal.player_teleported.connect(portals[i + 1].prepare_for_teleport)
 
-        var base_renderer := PortalRenderer.init(
+        var base_renderer := PortalRenderer.new(
             _target_cam,
             portal,
             portals[i + 1],
@@ -58,8 +58,8 @@ func _setup(portals: Array[PortalBody]) -> void:
         var j := i + 2 if i + 2 < portals.size() else 0
         var recursion_level := 1
         while j < portals.size():
-            var renderer := PortalRenderer.init(
-                portal_renderers[-1].get_camera(),
+            var renderer := PortalRenderer.new(
+                portal_renderers[-1].camera,
                 portals[j],
                 portals[j + 1],
                 (_forward_pass_render_layers | _world_render_layers) & ~_portal_render_layer
@@ -73,16 +73,6 @@ func _setup(portals: Array[PortalBody]) -> void:
             j += 2
             if j >= portals.size() and _self_recurse:
                 j = 0
-
-        # for j in range(i + 2, portals.size(), 2):
-        #     var renderer := PortalRenderer.init(
-        #         portal_renderers[-1].get_camera(),
-        #         portals[j],
-        #         portals[j + 1],
-        #         (_forward_pass_render_layers | _world_render_layers) & ~_portal_render_layer,
-        #     )
-        #     portal_renderers.append(renderer)
-        #     portal.add_child(renderer)
 
         portal.reset(
             _size if _override_portal_sizes else portal.size,
@@ -102,7 +92,7 @@ func _setup(portals: Array[PortalBody]) -> void:
 
         portal.player_teleported.connect(portals[i - 1].prepare_for_teleport)
 
-        var base_renderer := PortalRenderer.init(
+        var base_renderer := PortalRenderer.new(
             _target_cam,
             portal,
             portals[i - 1],
@@ -115,8 +105,8 @@ func _setup(portals: Array[PortalBody]) -> void:
         var j := i - 2 if i - 2 >= 0 else portals.size() - 1
         var recursion_level := 0
         while j >= 0:
-            var renderer := PortalRenderer.init(
-                portal_renderers[-1].get_camera(),
+            var renderer := PortalRenderer.new(
+                portal_renderers[-1].camera,
                 portals[j],
                 portals[j - 1],
                 (_back_pass_render_layers | _world_render_layers) & ~_portal_render_layer
@@ -129,16 +119,6 @@ func _setup(portals: Array[PortalBody]) -> void:
             j -= 2
             if j < 0 and _self_recurse:
                 j = portals.size() - 1
-
-        # for j in range(i - 2, 0, -2):
-        #     var renderer := PortalRenderer.init(
-        #         portal_renderers[-1].get_camera(),
-        #         portals[j],
-        #         portals[j - 1],
-        #         (_back_pass_render_layers | _world_render_layers) & ~_portal_render_layer,
-        #     )
-        #     portal_renderers.append(renderer)
-        #     portal.add_child(renderer)
 
         portal.reset(
             _size if _override_portal_sizes else portal.size,
@@ -155,7 +135,7 @@ func _setup(portals: Array[PortalBody]) -> void:
 
 ## Show warning if we don't have % 2 portal children
 func _get_configuration_warnings() -> PackedStringArray:
-    var portals = find_children("*", "PortalBody", false)
+    var portals := find_children("*", "PortalBody", false)
 
     var warnings: PackedStringArray = []
     if portals.size() % 2 != 0:

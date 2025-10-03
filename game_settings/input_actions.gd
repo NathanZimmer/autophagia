@@ -16,9 +16,6 @@ class Player:
     const FLIGHT_TOGGLE = "player_flight_toggle"
     const COLLISION_TOGGLE = "player_collision_toggle"
 
-    ## All supported interaction inputs formatted for @export_enum
-    const INTERACT_EXPORT_ENUM = "%s" % INTERACT
-
 
 class UI:
     ## Constants for the ui_* input actions

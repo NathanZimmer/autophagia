@@ -48,10 +48,10 @@ func _show_menu() -> void:
     _menu_container.show()
 
 
-## Hide the contents of this menu and show the given submenu [bt]
+## Hide the contents of this menu and show the given submenu [br]
 ## ## Parameters [br]
 ## `submenu`: sub-menu to show [br]
-## **Note**: `submenu` should not be a child of the first `VBoxContainer`
+## **Note**: `submenu` be a sibling of the first `VBoxContainer`
 func _swap_to_submenu(submenu: Control) -> void:
     _menu_container.hide()
     submenu.show()

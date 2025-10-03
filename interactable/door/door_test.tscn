@@ -81,7 +81,6 @@ metadata/_custom_type_script = "uid://cv0r6v1vg77i7"
 [node name="ClickTrigger" type="Area3D" parent="Door/Lever" index="0"]
 script = ExtResource("4_mlk82")
 _groups = Array[StringName]([&"player"])
-_input_action = "player_interact"
 metadata/_custom_type_script = "uid://nby3c2g37q5b"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Door/Lever/ClickTrigger" index="0"]
