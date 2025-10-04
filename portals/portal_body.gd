@@ -207,7 +207,7 @@ func _setup() -> void:
         player_exited_portal.connect(func() -> void: _renderers[0].use_oblique_frustum = true)
         _reset_viewport_shader_param()
 
-    if is_instance_valid(_player):
+    if is_instance_valid(_player) and is_instance_valid(_player.camera):
         var current_frame_angle := (
             0.0
             if _player == null
