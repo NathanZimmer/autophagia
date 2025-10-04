@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://bpfr32vb5y57w"]
 
-[ext_resource type="Texture2D" uid="uid://bwidiguk4svir" path="res://levels/level_0/materials/metal_plate.png" id="1_yyvrd"]
-[ext_resource type="Texture2D" uid="uid://ek45d2ljjdvp" path="res://levels/level_0/materials/high-res-ao.png" id="2_weatj"]
+[ext_resource type="Texture2D" uid="uid://bwidiguk4svir" path="res://assets/levels/level_0/textures/metal_plate.png" id="1_yyvrd"]
+[ext_resource type="Texture2D" uid="uid://ek45d2ljjdvp" path="res://assets/levels/level_0/textures/high-res-ao.png" id="2_weatj"]
 
 [sub_resource type="Shader" id="Shader_7n872"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.4.stable's StandardMaterial3D.

@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://0i0xldxoakos"]
 
 [ext_resource type="Shader" uid="uid://cfc7kg74liix0" path="res://interactable/pickup/materials/pickup_ring.gdshader" id="1_yw4kh"]
-[ext_resource type="Texture2D" uid="uid://crousdp5ogamm" path="res://interactable/pickup/materials/pickup_ring_noise.png" id="3_mwiht"]
+[ext_resource type="Texture2D" uid="uid://crousdp5ogamm" path="res://assets/interactable/pickup/pickup_ring_noise.png" id="3_mwiht"]
 
 [resource]
 render_priority = 0

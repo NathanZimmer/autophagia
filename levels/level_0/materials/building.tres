@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bvttoqle716m3"]
 
-[ext_resource type="Texture2D" uid="uid://braf1meboexkt" path="res://levels/level_0/materials/building.png" id="1_wpdp3"]
+[ext_resource type="Texture2D" uid="uid://braf1meboexkt" path="res://assets/levels/level_0/textures/building.png" id="1_ahvm8"]
 
 [sub_resource type="Shader" id="Shader_wpdp3"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.4.stable's StandardMaterial3D.
@@ -69,7 +69,7 @@ resource_name = "building"
 render_priority = 0
 shader = SubResource("Shader_wpdp3")
 shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/texture_albedo = ExtResource("1_wpdp3")
+shader_parameter/texture_albedo = ExtResource("1_ahvm8")
 shader_parameter/albedo_texture_size = Vector2i(256, 256)
 shader_parameter/point_size = 1.0
 shader_parameter/roughness = 0.5
