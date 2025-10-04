@@ -7,5 +7,6 @@
 
 [node name="Npc" parent="." index="4" instance=ExtResource("3_gghw6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 5)
+_dialog_path = "res://interactable/npc/dialog_tree/dialog_tree_test.json"
 
 [editable path="Player"]
