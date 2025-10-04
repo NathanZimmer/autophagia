@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://lm2s6rm7ttik"]
 
 [ext_resource type="Shader" uid="uid://dj2ckf3xn6sm8" path="res://interactable/pickup/materials/floating_icon.gdshader" id="1_j57lu"]
-[ext_resource type="Texture2D" uid="uid://b7384d8vugrfe" path="res://interactable/pickup/materials/main_menu_background.png" id="2_kpl4h"]
+[ext_resource type="Texture2D" uid="uid://b7384d8vugrfe" path="res://assets/interactable/pickup/main_menu_background.png" id="2_kpl4h"]
 
 [resource]
 render_priority = 0
