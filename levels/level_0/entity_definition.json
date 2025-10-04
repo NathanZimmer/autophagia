@@ -58,5 +58,10 @@
         "class": "BTGPortalBody",
         "uid": "uid://co20ahkr1w1pe",
         "variables": {}
+    },
+    "Player": {
+        "class": "Player",
+        "uid": "uid://dnhp4dcugklq6",
+        "variables": {}
     }
 }
