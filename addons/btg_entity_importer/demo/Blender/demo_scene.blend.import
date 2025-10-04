@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://keadiqj1iuvw"
-path="res://.godot/imported/asset_lib_demo.blend-6fc8aafc82bcb338cfb1093e14f26e87.scn"
+uid="uid://c28h24v0vtnb6"
+path="res://.godot/imported/demo_scene.blend-369e6b5bbb318221bd15952a923e031b.scn"
 
 [deps]
 
-source_file="res://addons/btg_entity_importer/demo/Bleder/assets/asset_lib_demo.blend"
-dest_files=["res://.godot/imported/asset_lib_demo.blend-6fc8aafc82bcb338cfb1093e14f26e87.scn"]
+source_file="res://addons/btg_entity_importer/demo/Blender/demo_scene.blend"
+dest_files=["res://.godot/imported/demo_scene.blend-369e6b5bbb318221bd15952a923e031b.scn"]
 
 [params]
 
@@ -33,6 +33,7 @@ animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={}
+blender_to_godot/entity_definition="res://addons/blender_to_godot_pipeline/demo/Blender/entity_definition.json"
 blender/nodes/visible=0
 blender/nodes/active_collection_only=false
 blender/nodes/punctual_lights=true
