@@ -1,11 +1,12 @@
 {
     "root": {
-        "message": "<Message from the npc here>",
+        "text": "<Message from the npc here>",
         "responses": {
-            "<Response text here>": "<node id> (loads this node next)"
+            "<Response text here>": "<node id> (loads this node next)",
+            "<Next response text here>": "..."
         }
     },
     "<node id>": {
-        "message": "..."
+        "text": "..."
     }
 }

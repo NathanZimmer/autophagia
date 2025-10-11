@@ -22,7 +22,7 @@ var _tab_padding := 0
 
 @onready var _dialog_box: RichTextLabel = %DialogBox
 @onready var _option_template: Button = %DialogOptionTemplate
-@onready var scroll_container: ScrollContainer = %ScrollContainer
+@onready var _scroll_container: ScrollContainer = %ScrollContainer
 
 
 func _ready() -> void:
@@ -68,19 +68,19 @@ func _update_dialog(source_button: Button) -> void:
     _tab_padding += 1
 
     await get_tree().process_frame  # Scroll container size isn't updated until next frame
-    var v_scroll_bar := scroll_container.get_v_scroll_bar()
+    var v_scroll_bar := _scroll_container.get_v_scroll_bar()
     var scroll_tween: Tween
-    if v_scroll_bar.max_value > scroll_container.size.y:
+    if v_scroll_bar.max_value > _scroll_container.size.y:
         scroll_tween = create_tween()
         scroll_tween.tween_property(
-            scroll_container,
+            _scroll_container,
             "scroll_vertical",
             v_scroll_bar.max_value - v_scroll_bar.page,
             BOX_AUTO_SCROLL_DURATION_SEC
         )
 
     if not option_text.is_empty():
-        await _scroll_text(BLUE_TAG.length(), text_length_after_input - _tab_padding, INPUT_TEXT_SCROLL_FACTOR)  # Multiply this by
+        await _scroll_text(BLUE_TAG.length(), text_length_after_input - _tab_padding, INPUT_TEXT_SCROLL_FACTOR)
         await get_tree().create_timer(DIALOG_RESPONSE_DELAY_SEC).timeout
 
     if scroll_tween and scroll_tween.is_running():

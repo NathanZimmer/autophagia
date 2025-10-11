@@ -1,8 +1,6 @@
 class_name DialogTree extends Object
-## TODO
-
-# FIXME: Change variable/function/dict key names to better fit what is happening, review parsing
-# and determine if there are any improvements
+## Holds dialog and reponses in a tree structure. Reads input from a JSON.
+## Format can be found in dialog_template.json.
 
 var _root: DialogNode
 var _node: DialogNode
@@ -10,14 +8,13 @@ var _visited_nodes: Array[DialogNode] = []
 
 
 class DialogNode:
-    ## TODO
     var id: String
-    var message: String
+    var text: String
     var responses: Dictionary[String, DialogNode] = {}
 
-    func _init(id: String, message: String) -> void:
+    func _init(id: String, text: String) -> void:
         self.id = id
-        self.message = message
+        self.text = text
 
 
 func _init(json_path: String) -> void:
@@ -32,7 +29,9 @@ func _init(json_path: String) -> void:
 
 
 func _to_string() -> String:
-    return JSON.stringify(_get_tree_as_dict(_root, []), "  ", false)
+    if not _root:
+        return ""
+    return JSON.stringify(_get_tree_as_dict(_root, []), "    ", false)
 
 
 func _get_tree_as_dict(node: DialogNode, visited_nodes: Array[DialogNode]) -> Dictionary:
@@ -46,22 +45,19 @@ func _get_tree_as_dict(node: DialogNode, visited_nodes: Array[DialogNode]) -> Di
         else:
             subtree_dict[response] = child_node.id
 
-    return {node.id: [node.message, subtree_dict]}
+    return {"node_id": node.id, "text": node.text, "responses": subtree_dict}
 
 
 func _parse(dialog_tree: Dictionary) -> void:
     # Create all nodes first
     var nodes: Dictionary[String, DialogNode]
     for id: String in dialog_tree:
-        var message: String = dialog_tree[id]["message"]
+        var text: String = dialog_tree[id]["text"]
 
-        var node := DialogNode.new(id, message)
+        var node := DialogNode.new(id, text)
         nodes[id] = node
 
-    _root = nodes["root"]
-    _node = _root
-
-    # Assign responses
+    # Then assign responses
     for id in nodes:
         var node := nodes[id]
 
@@ -72,14 +68,20 @@ func _parse(dialog_tree: Dictionary) -> void:
 
         node.responses = responses
 
+    _root = nodes["root"]
+    _node = _root
+
 
 func get_dialog() -> String:
-    return _node["message"]
+    return _node["text"] if _node else ""
 
 
 ## Get map of dialog options to whether that option has already been selected
 func get_dialog_options() -> Dictionary[String, bool]:
     var responses: Dictionary[String, bool]
+
+    if not _node:
+        return responses
 
     for response: String in _node["responses"]:
         var target_node: DialogNode = _node["responses"][response]
@@ -89,5 +91,7 @@ func get_dialog_options() -> Dictionary[String, bool]:
 
 
 func select_dialog_option(dialog: String) -> void:
+    if not _node:
+        return
     _node = _node["responses"][dialog]
     _visited_nodes.append(_node)
