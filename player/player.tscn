@@ -59,6 +59,7 @@ script = ExtResource("4_8t03j")
 metadata/_custom_type_script = "uid://ck2srl31dxoy2"
 
 [node name="MessageHandler" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("10_8t03j")
 metadata/_custom_type_script = "uid://clawryrmh60wq"
 

@@ -65,7 +65,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_42l5o")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="BlackAdjustment" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

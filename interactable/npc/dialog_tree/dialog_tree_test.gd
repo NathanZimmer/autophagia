@@ -1,5 +1,6 @@
 extends Node2D
 
+
 func _ready() -> void:
     var dialog_tree := DialogTree.new("res://interactable/npc/dialog_tree/dialog_tree_test.json")
     print(dialog_tree)

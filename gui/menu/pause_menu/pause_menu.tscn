@@ -14,7 +14,7 @@ NodePath("VBoxContainer/ScrollContainer/VBoxContainer/QuitButton"): NodePath("Qu
 NodePath("VBoxContainer/ScrollContainer/VBoxContainer/VisualsButton"): NodePath("VisualsMenu")
 }
 
-[node name="ColorRect" type="ColorRect" parent="." index="0"]
+[node name="Background" type="ColorRect" parent="." index="0"]
 z_index = -1
 layout_mode = 1
 anchors_preset = 15

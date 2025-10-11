@@ -1,15 +1,30 @@
-[gd_resource type="Theme" load_steps=9 format=3 uid="uid://bh0is5cj4ulq2"]
+[gd_resource type="Theme" load_steps=13 format=3 uid="uid://bh0is5cj4ulq2"]
 
 [ext_resource type="FontFile" uid="uid://bg0grlkrbfbo1" path="res://gui/theme/asvoria-disco-2.otf" id="1_32sf2"]
 [ext_resource type="FontFile" uid="uid://ddd24q66xtnmn" path="res://gui/theme/Unispace Rg.otf" id="1_yyy8s"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mdylq"]
+content_margin_left = 1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_06or4"]
+content_margin_left = 1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_godfy"]
+content_margin_left = 1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gemgx"]
+content_margin_left = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vlykk"]
+bg_color = Color(0, 0, 0, 0.196078)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 5.0
+expand_margin_top = 1.0
+expand_margin_right = 5.0
+expand_margin_bottom = 1.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_32sf2"]
 bg_color = Color(0, 0, 0, 0.392157)
@@ -25,6 +40,25 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dd75y"]
+bg_color = Color(0.87451, 0.87451, 0.87451, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rfa4r"]
+bg_color = Color(0.94902, 0.568627, 0.568627, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oinlq"]
+content_margin_left = 3.0
+content_margin_right = 3.0
+bg_color = Color(0, 0, 0, 0)
+
 [resource]
 default_font = ExtResource("1_yyy8s")
 default_font_size = 11
@@ -39,10 +73,20 @@ Button/styles/hover = SubResource("StyleBoxEmpty_06or4")
 Button/styles/normal = SubResource("StyleBoxEmpty_godfy")
 Button/styles/pressed = SubResource("StyleBoxEmpty_gemgx")
 CheckBox/colors/font_pressed_color = Color(1, 1, 1, 1)
+DialogButton/base_type = &"Button"
+DialogButtonSelected/base_type = &"DialogButton"
+DialogButtonSelected/colors/font_color = Color(0.611765, 0.611765, 0.611765, 1)
+DialogButtonSelected/colors/font_focus_color = Color(0.611765, 0.611765, 0.611765, 1)
 HeaderLarge/constants/outline_size = 5
 HeaderLarge/font_sizes/font_size = 80
 HeaderLarge/fonts/font = ExtResource("1_32sf2")
 HeaderMedium/font_sizes/font_size = 35
+HeaderSmall/font_sizes/font_size = 15
+KeybindButton/base_type = &"Button"
+KeybindButton/styles/disabled = SubResource("StyleBoxFlat_vlykk")
+KeybindButton/styles/hover = SubResource("StyleBoxFlat_vlykk")
+KeybindButton/styles/normal = SubResource("StyleBoxFlat_vlykk")
+KeybindButton/styles/pressed = SubResource("StyleBoxFlat_vlykk")
 Label/constants/outline_size = 3
 LineEdit/styles/focus = SubResource("StyleBoxFlat_32sf2")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_32sf2")
@@ -50,3 +94,8 @@ OptionButton/styles/hover = SubResource("StyleBoxFlat_yyy8s")
 OptionButton/styles/hover_pressed = SubResource("StyleBoxFlat_yyy8s")
 OptionButton/styles/normal = SubResource("StyleBoxFlat_yyy8s")
 OptionButton/styles/pressed = SubResource("StyleBoxFlat_yyy8s")
+RichTextLabel/constants/outline_size = 3
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_dd75y")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_rfa4r")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_rfa4r")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_oinlq")

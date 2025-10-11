@@ -1,28 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://b7jxif6dvr1f1"]
+[gd_scene load_steps=3 format=3 uid="uid://b7jxif6dvr1f1"]
 
 [ext_resource type="Script" uid="uid://cm5k4fd246d03" path="res://gui/menu/controls_menu/keybind_mapper.gd" id="1_5wsq1"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vlykk"]
-bg_color = Color(0, 0, 0, 0.196078)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-expand_margin_left = 5.0
-expand_margin_top = 1.0
-expand_margin_right = 5.0
-expand_margin_bottom = 1.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_idcva"]
-bg_color = Color(0, 0, 0, 0.392157)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-expand_margin_left = 5.0
-expand_margin_top = 1.0
-expand_margin_right = 5.0
-expand_margin_bottom = 1.0
+[ext_resource type="Theme" uid="uid://bh0is5cj4ulq2" path="res://gui/theme/gui_theme.tres" id="1_hjvrm"]
 
 [node name="KeybindMapper" type="VBoxContainer"]
 anchors_preset = 5
@@ -33,6 +12,7 @@ offset_top = -1.0
 offset_right = 129.0
 offset_bottom = 22.0
 grow_horizontal = 2
+theme = ExtResource("1_hjvrm")
 script = ExtResource("1_5wsq1")
 
 [node name="TemplateContainer" type="HBoxContainer" parent="."]
@@ -49,8 +29,5 @@ text = "action_label "
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 size_flags_horizontal = 2
-theme_override_styles/disabled = SubResource("StyleBoxFlat_vlykk")
-theme_override_styles/hover = SubResource("StyleBoxFlat_idcva")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_idcva")
-theme_override_styles/normal = SubResource("StyleBoxFlat_idcva")
+theme_type_variation = &"KeybindButton"
 text = "keypress_string"
