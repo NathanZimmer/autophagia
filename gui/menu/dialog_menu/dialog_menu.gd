@@ -41,12 +41,11 @@ func _ready() -> void:
 func _scroll_text(start_offset: int, target_length: int, scroll_factor := 1.0) -> void:
     _dialog_box.visible_characters += start_offset
     var tween := create_tween()
-    tween.tween_property(
-        _dialog_box,
-        "visible_characters",
-        target_length,
-        (target_length - _dialog_box.visible_characters) / (TEXT_SCROLL_CHARS_PER_SEC * scroll_factor)
+    var duration := (
+        (target_length - _dialog_box.visible_characters)
+        / (TEXT_SCROLL_CHARS_PER_SEC * scroll_factor)
     )
+    tween.tween_property(_dialog_box, "visible_characters", target_length, duration)
     await tween.finished
 
 
@@ -80,7 +79,9 @@ func _update_dialog(source_button: Button) -> void:
         )
 
     if not option_text.is_empty():
-        await _scroll_text(BLUE_TAG.length(), text_length_after_input - _tab_padding, INPUT_TEXT_SCROLL_FACTOR)
+        await _scroll_text(
+            BLUE_TAG.length(), text_length_after_input - _tab_padding, INPUT_TEXT_SCROLL_FACTOR
+        )
         await get_tree().create_timer(DIALOG_RESPONSE_DELAY_SEC).timeout
 
     if scroll_tween and scroll_tween.is_running():
