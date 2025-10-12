@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://buoe3p0td8iv3"]
+
+[ext_resource type="PackedScene" uid="uid://batthwrq0f4ok" path="res://gui/menus/settings_menus/base_menu.tscn" id="1_u5768"]
+[ext_resource type="PackedScene" uid="uid://b7jxif6dvr1f1" path="res://gui/menus/settings_menus/controls_menu/keybind_mapper.tscn" id="2_j8652"]
+[ext_resource type="Script" uid="uid://csfcoda6ikqxe" path="res://gui/menus/settings_menus/controls_menu/controls_menu.gd" id="2_r1xn2"]
+[ext_resource type="PackedScene" uid="uid://65mpst6bwhpf" path="res://gui/menus/settings_menus/common/h_slider_spin_box.tscn" id="3_331vh"]
+
+[node name="ControlsMenu" instance=ExtResource("1_u5768")]
+script = ExtResource("2_r1xn2")
+
+[node name="Label" parent="MenuContainer" index="1"]
+text = "CONTROLS"
+
+[node name="VBoxContainer" parent="MenuContainer/ScrollContainer" index="0"]
+custom_minimum_size = Vector2(500.37, 0)
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="MenuContainer/ScrollContainer/VBoxContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Keybindings"
+horizontal_alignment = 1
+
+[node name="KeybindMapper" parent="MenuContainer/ScrollContainer/VBoxContainer" index="1" instance=ExtResource("2_j8652")]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="MenuContainer/ScrollContainer/VBoxContainer" index="2"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Mouse sensitivity"
+horizontal_alignment = 1
+
+[node name="SensitivitySlider" parent="MenuContainer/ScrollContainer/VBoxContainer" index="3" instance=ExtResource("3_331vh")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="InvertMouseCheckBox" type="CheckBox" parent="MenuContainer/ScrollContainer/VBoxContainer" index="4"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Invert Mouse   "
+
+[node name="BackButton" parent="MenuContainer/ScrollContainer/VBoxContainer" index="5"]
+size_flags_horizontal = 4

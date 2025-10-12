@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cvsebnu23qq2q" path="res://gui/main_menu_gui.gd" id="1_aqy43"]
 [ext_resource type="Shader" uid="uid://drg8e2kipk5th" path="res://gui/materials/scroll.gdshader" id="2_5478m"]
-[ext_resource type="PackedScene" uid="uid://dy8y6m3k10ebj" path="res://gui/menu/main_menu/main_menu.tscn" id="2_qfd26"]
+[ext_resource type="PackedScene" uid="uid://dy8y6m3k10ebj" path="res://gui/menus/settings_menus/main_menu/main_menu.tscn" id="2_qfd26"]
 [ext_resource type="Texture2D" uid="uid://brn42r7odb2vt" path="res://assets/gui/menu/main_menu/background_just_text.png" id="3_fsb0b"]
 [ext_resource type="Texture2D" uid="uid://b7384d8vugrfe" path="res://assets/gui/menu/main_menu/background.png" id="3_ksbxp"]
 [ext_resource type="Shader" uid="uid://c7gou5tdd475f" path="res://player/fs_dithering.gdshader" id="3_qfd26"]

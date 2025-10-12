@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://c6l3ck41ofphw"]
+[gd_scene load_steps=5 format=3 uid="uid://c6l3ck41ofphw"]
 
-[ext_resource type="PackedScene" uid="uid://batthwrq0f4ok" path="res://gui/menu/base_menu.tscn" id="1_y7wrc"]
-[ext_resource type="Script" uid="uid://t7qqt2bhsaw5" path="res://gui/menu/dialog_menu/dialog_menu.gd" id="2_2ii5v"]
+[ext_resource type="Script" uid="uid://t7qqt2bhsaw5" path="res://gui/menus/dialog_menu/dialog_menu.gd" id="2_2ii5v"]
 [ext_resource type="Theme" uid="uid://bh0is5cj4ulq2" path="res://gui/theme/gui_theme.tres" id="2_vgfmb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ii5v"]
@@ -24,23 +23,14 @@ border_color = Color(0, 0, 0, 1)
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="DialogMenu" instance=ExtResource("1_y7wrc")]
+[node name="DialogMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 theme = ExtResource("2_vgfmb")
 script = ExtResource("2_2ii5v")
 
-[node name="VBoxContainer" parent="." index="0"]
-visible = false
-
-[node name="Padding" parent="VBoxContainer" index="0"]
-visible = false
-
-[node name="Label" parent="VBoxContainer" index="1"]
-visible = false
-
-[node name="BackButton" parent="VBoxContainer/ScrollContainer/VBoxContainer" index="0"]
-visible = false
-
-[node name="VSplitContainer" type="VSplitContainer" parent="." index="1"]
+[node name="MenuContainer" type="VSplitContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 2
 offset_left = 131.49
 offset_top = 71.55
@@ -50,11 +40,11 @@ split_offset = 230
 dragging_enabled = false
 dragger_visibility = 2
 
-[node name="DialogPanel" type="Panel" parent="VSplitContainer" index="0"]
+[node name="DialogPanel" type="Panel" parent="MenuContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_2ii5v")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VSplitContainer/DialogPanel" index="0"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MenuContainer/DialogPanel"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -66,25 +56,27 @@ offset_right = -3.0
 offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_vgfmb")
+vertical_scroll_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VSplitContainer/DialogPanel/ScrollContainer" index="0"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/DialogPanel/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="DialogTagTemplate" type="Label" parent="VSplitContainer/DialogPanel/ScrollContainer/VBoxContainer" index="0"]
+[node name="DialogTagTemplate" type="Label" parent="MenuContainer/DialogPanel/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 theme_type_variation = &"HeaderSmall"
 text = "dialog_tag_template"
 
-[node name="DialogBodyTemplate" type="Label" parent="VSplitContainer/DialogPanel/ScrollContainer/VBoxContainer" index="1"]
+[node name="DialogBodyTemplate" type="Label" parent="MenuContainer/DialogPanel/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 text = "dialog_body_template"
 
-[node name="DialogBox" type="RichTextLabel" parent="VSplitContainer/DialogPanel/ScrollContainer/VBoxContainer" index="2"]
+[node name="DialogBox" type="RichTextLabel" parent="MenuContainer/DialogPanel/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
@@ -93,15 +85,13 @@ text = "[font_size=13][color=dark_salmon]Them[/color][/font_size]
 [font_size=13][color=light_steel_blue]You[/color][/font_size]
 [indent]This is an example of the dialog spoken by you."
 fit_content = true
-visible_characters = 275
 visible_characters_behavior = 1
-visible_ratio = 2.41228
 
-[node name="DialogOptionPanel" type="Panel" parent="VSplitContainer" index="1"]
+[node name="DialogOptionPanel" type="Panel" parent="MenuContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_vgfmb")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VSplitContainer/DialogOptionPanel" index="0"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MenuContainer/DialogOptionPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -113,14 +103,21 @@ offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VSplitContainer/DialogOptionPanel/ScrollContainer" index="0"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/DialogOptionPanel/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="DialogOptionTemplate" type="Button" parent="VSplitContainer/DialogOptionPanel/ScrollContainer/VBoxContainer" index="0"]
+[node name="DialogOptionTemplate" type="Button" parent="MenuContainer/DialogOptionPanel/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"DialogButton"
 text = "dialog_option_template"
+alignment = 0
+
+[node name="BackButton" type="Button" parent="MenuContainer/DialogOptionPanel/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"DialogButton"
+text = "X. EXIT"
 alignment = 0

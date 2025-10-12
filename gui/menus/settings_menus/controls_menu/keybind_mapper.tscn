@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b7jxif6dvr1f1"]
 
-[ext_resource type="Script" uid="uid://cm5k4fd246d03" path="res://gui/menu/controls_menu/keybind_mapper.gd" id="1_5wsq1"]
+[ext_resource type="Script" uid="uid://cm5k4fd246d03" path="res://gui/menus/settings_menus/controls_menu/keybind_mapper.gd" id="1_5wsq1"]
 [ext_resource type="Theme" uid="uid://bh0is5cj4ulq2" path="res://gui/theme/gui_theme.tres" id="1_hjvrm"]
 
 [node name="KeybindMapper" type="VBoxContainer"]

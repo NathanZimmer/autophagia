@@ -1,7 +1,10 @@
 class_name MenuControl extends Control
-## Base class for pause menus. Handles opening of sub-menus and closing of itself. [br]
-## Place menu items for this menu at least within the first `VBoxContainer`. Place
-## sub-menus as its siblings.
+## Base class for pause menus. Handles opening of sub-menus and closing of its menu. [br]
+## Requires two nodes be present in the scene (with unique name): [br]
+## * `MenuContainer`: Container [br]
+## * `BackButton`: Button [br]
+## Place menu items for this menu as children of `MenuContainer`. Place sub-menus as siblings
+## to `MenuContainer`
 
 signal menu_exited
 
@@ -10,7 +13,7 @@ signal menu_exited
 var _child_menus: Array[MenuControl]
 
 @onready var _back_button: Button = %BackButton
-@onready var _menu_container: VBoxContainer = %VBoxContainer
+@onready var _menu_container: Container = %MenuContainer
 
 
 func _ready() -> void:
@@ -51,7 +54,7 @@ func _show_menu() -> void:
 ## Hide the contents of this menu and show the given submenu [br]
 ## ## Parameters [br]
 ## `submenu`: sub-menu to show [br]
-## **Note**: `submenu` be a sibling of the first `VBoxContainer`
+## **Note**: `submenu` should be a sibling of `MenuContainer`
 func _swap_to_submenu(submenu: Control) -> void:
     _menu_container.hide()
     submenu.show()
