@@ -1,10 +1,6 @@
-extends MenuControl
+class_name DialogMenuControl extends MenuControl
 ## Uses a DialogTree to display dialog and dialog options on the screen. Handles text formatting
 ## And text/textbox scrolling
-
-# FIXME: Make this not inherit MenuControl. We don't need to handle submenus here, so it's only
-# needed for the shortcuts and back button. create a new ancestor with common elements that both
-# inherit from, or just copy the few common elements to this script.
 
 const RED_TAG = "Them"
 const BLUE_TAG = "You"
@@ -29,23 +25,24 @@ var _box_scroll_tween: Tween
 var _button_container: VBoxContainer
 
 @onready var _dialog_box: RichTextLabel = %DialogBox
-@onready var _option_template: Button = %DialogOptionTemplate
 @onready var _scroll_container: ScrollContainer = %ScrollContainer
 
 
 func _ready() -> void:
     super._ready()
 
-    _button_container = _option_template.get_parent()
+    var option_template: Button = get_node("%DialogOptionTemplate")
+
+    _button_container = option_template.get_parent()
     for i in range(MAX_DIALOG_OPTIONS):
-        var dialog_button: Button = _option_template.duplicate()
+        var dialog_button: Button = option_template.duplicate()
         dialog_button.hide()
         dialog_button.pressed.connect(_update_dialog.bind(dialog_button))
         _button_container.add_child(dialog_button)
         _dialog_buttons.append(dialog_button)
 
-    _button_container.remove_child(_option_template)
-    _option_template.queue_free()
+    _button_container.remove_child(option_template)
+    option_template.queue_free()
 
 
 func _input(event: InputEvent) -> void:

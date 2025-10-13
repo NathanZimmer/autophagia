@@ -4,8 +4,7 @@ extends Node3D
 ## Colliding node should have a `MessageHandler` child
 
 ## Path to the image file
-@export_file var _image_path: String
-
+@export var _note_image: Texture2D
 
 func _ready() -> void:
     if Engine.is_editor_hint():
@@ -20,7 +19,7 @@ func _ready() -> void:
 func _display_image(body: Node3D) -> void:
     var handlers := body.find_children("*", "MessageHandler", false)
     if not handlers.is_empty():
-        handlers[0].send_message("TODO")
+        handlers[0].send_note(_note_image)
     queue_free()
 
 
