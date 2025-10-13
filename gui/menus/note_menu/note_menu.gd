@@ -6,6 +6,8 @@ signal inventory_button_pressed
 
 
 func _ready() -> void:
+    super._ready()
+
     var inventory_button: Button = get_node("%InventoryButton")
     inventory_button.pressed.connect(inventory_button_pressed.emit)
 
