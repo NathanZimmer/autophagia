@@ -6,6 +6,7 @@ extends Node3D
 ## Path to the image file
 @export var _note_image: Texture2D
 
+
 func _ready() -> void:
     if Engine.is_editor_hint():
         return
