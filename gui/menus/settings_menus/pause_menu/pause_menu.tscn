@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://bf7p8kgbqyedn"]
+
+[ext_resource type="PackedScene" uid="uid://batthwrq0f4ok" path="res://gui/menus/settings_menus/base_menu.tscn" id="1_ddhtv"]
+[ext_resource type="Script" uid="uid://5k4f31cd5f3g" path="res://gui/menus/settings_menus/pause_menu/pause_menu.gd" id="2_1gpq8"]
+[ext_resource type="PackedScene" uid="uid://buoe3p0td8iv3" path="res://gui/menus/settings_menus/controls_menu/controls_menu.tscn" id="2_t7424"]
+[ext_resource type="PackedScene" uid="uid://c1ijyhwcmw3n4" path="res://gui/menus/settings_menus/quit_menu/quit_menu.tscn" id="3_nbojc"]
+[ext_resource type="PackedScene" uid="uid://dxuules11p6ca" path="res://gui/menus/settings_menus/visuals_menu/visuals_menu.tscn" id="4_vwsmh"]
+
+[node name="PauseMenu" node_paths=PackedStringArray("_swap_map") instance=ExtResource("1_ddhtv")]
+script = ExtResource("2_1gpq8")
+_swap_map = {
+NodePath("MenuContainer/ScrollContainer/VBoxContainer/ControlsButton"): NodePath("ControlsMenu"),
+NodePath("MenuContainer/ScrollContainer/VBoxContainer/QuitButton"): NodePath("QuitMenu"),
+NodePath("MenuContainer/ScrollContainer/VBoxContainer/VisualsButton"): NodePath("VisualsMenu")
+}
+
+[node name="Label" parent="MenuContainer" index="1"]
+text = "PAUSE"
+
+[node name="ControlsButton" type="Button" parent="MenuContainer/ScrollContainer/VBoxContainer" index="0"]
+layout_mode = 2
+text = "Controls"
+
+[node name="VisualsButton" type="Button" parent="MenuContainer/ScrollContainer/VBoxContainer" index="1"]
+layout_mode = 2
+text = "Visuals"
+
+[node name="QuitButton" type="Button" parent="MenuContainer/ScrollContainer/VBoxContainer" index="3"]
+layout_mode = 2
+text = "QUIT"
+
+[node name="ControlsMenu" parent="." index="1" instance=ExtResource("2_t7424")]
+process_mode = 0
+visible = false
+layout_mode = 1
+
+[node name="QuitMenu" parent="." index="2" instance=ExtResource("3_nbojc")]
+process_mode = 0
+visible = false
+layout_mode = 1
+
+[node name="VisualsMenu" parent="." index="3" instance=ExtResource("4_vwsmh")]
+process_mode = 0
+visible = false
+layout_mode = 1

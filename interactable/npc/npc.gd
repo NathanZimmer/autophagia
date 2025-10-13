@@ -5,10 +5,14 @@ extends Node3D
 ## Path to the dialog file
 @export_file var _dialog_path: String
 
+var _dialog: DialogTree
+
 
 func _ready() -> void:
     if Engine.is_editor_hint():
         return
+
+    _dialog = DialogTree.new(_dialog_path)
 
     var click_triggers := find_children("*", "ClickTrigger", false)
     for click_trigger in click_triggers:
@@ -19,7 +23,7 @@ func _ready() -> void:
 func _start_dialog(body: Node) -> void:
     var handlers := body.find_children("*", "MessageHandler", false)
     if not handlers.is_empty():
-        handlers[0].send_message("TODO")
+        handlers[0].send_dialog(_dialog)
 
 
 ## Show warning if we don't have a ClickTrigger child

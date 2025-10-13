@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://g0d4m1l14sq0"]
 
-[ext_resource type="PackedScene" uid="uid://batthwrq0f4ok" path="res://gui/menu/base_menu.tscn" id="1_y4mm8"]
-[ext_resource type="Script" uid="uid://cef741o4jjkgu" path="res://gui/menu/inventory_menu/inventory_menu.gd" id="2_04q6h"]
+[ext_resource type="PackedScene" uid="uid://batthwrq0f4ok" path="res://gui/menus/settings_menus/base_menu.tscn" id="1_y4mm8"]
+[ext_resource type="Script" uid="uid://cef741o4jjkgu" path="res://gui/menus/inventory_menu/inventory_menu.gd" id="2_04q6h"]
 
 [node name="InventoryMenu" instance=ExtResource("1_y4mm8")]
 script = ExtResource("2_04q6h")
@@ -22,5 +22,5 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Label" parent="VBoxContainer" index="1"]
+[node name="Label" parent="MenuContainer" index="1"]
 text = "INVENTORY"

@@ -1,0 +1,29 @@
+{
+    "root": {
+        "text": "This is the root message",
+        "responses": {
+            "This response will take you to message 1": "message_1",
+            "This response will take you to message 2": "message_2"
+        }
+    },
+    "message_1": {
+        "text": "This is message 1",
+        "responses": {
+            "This response will take you to root": "root"
+        }
+    },
+    "message_2": {
+        "text": "This is message 2",
+        "responses": {
+            "This response will take you to root": "root",
+            "This response will take you to message 3": "message_3"
+        }
+    },
+    "message_3": {
+        "text": "This is message 3",
+        "responses": {
+            "This response will take you to root": "root",
+            "This response will take you to message 2": "message_2"
+        }
+    }
+}
