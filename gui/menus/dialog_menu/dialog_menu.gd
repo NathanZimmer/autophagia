@@ -50,6 +50,8 @@ func _input(event: InputEvent) -> void:
 
     if event.is_action_pressed(InputActions.UI.CANCEL):
         _clear_dialog()
+    if event is InputEventKey and event.is_action_pressed(InputActions.UI.INVENTORY):
+        accept_event()
 
 
 func _scroll_text(start_offset: int, target_length: int, scroll_factor := 1.0) -> void:
@@ -97,7 +99,9 @@ func _update_dialog(source_button: Button) -> void:
     _dialog_box.append_text(RED_FORMATTED % [RED_TAG, _dialog.get_dialog()])
     _tab_padding += 1
 
-    await get_tree().process_frame  # Scroll container size isn't updated until next frame
+    # Scroll container size isn't updated until next frame
+    # NOTE: Not sure why this works but get_tree().process_frame doesn't
+    await get_tree().create_timer(0).timeout
     var v_scroll_bar := _scroll_container.get_v_scroll_bar()
     if v_scroll_bar.max_value > _scroll_container.size.y:
         _box_scroll_tween = create_tween()
@@ -120,6 +124,7 @@ func _update_dialog(source_button: Button) -> void:
     await _scroll_text(RED_TAG.length(), _dialog_box.get_parsed_text().length() - _tab_padding)
 
     # Set buttons to new dialog options
+    _button_container.move_child(_back_button, MAX_DIALOG_OPTIONS)
     var dialog_options := _dialog.get_dialog_options()
     var i := 0
     for dialog_option in dialog_options:

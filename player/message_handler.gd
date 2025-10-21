@@ -14,5 +14,5 @@ func send_dialog(dialog: DialogTree) -> void:
     dialog_recieved.emit(dialog)
 
 
-func send_note(note: Texture2D) -> void:
+func send_note(note: Inventory.Title) -> void:
     note_received.emit(note)

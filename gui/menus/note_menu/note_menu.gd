@@ -12,5 +12,12 @@ func _ready() -> void:
     inventory_button.pressed.connect(inventory_button_pressed.emit)
 
 
+func _shortcut_input(event: InputEvent) -> void:
+    super._shortcut_input(event)
+    if event is InputEventKey and event.is_action_pressed(InputActions.UI.INVENTORY):
+        menu_exited.emit()
+        accept_event()
+
+
 func set_image(image_texture: Texture2D) -> void:
     _note.texture = image_texture

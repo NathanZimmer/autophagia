@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dnhp4dcugklq6"]
+[gd_scene load_steps=15 format=3 uid="uid://dnhp4dcugklq6"]
 
 [ext_resource type="Script" uid="uid://c1o8i6ob4hruq" path="res://player/player.gd" id="1_y2fp8"]
 [ext_resource type="Script" uid="uid://bcpsv2er15k1k" path="res://player/camera_sway.gd" id="2_fl0b5"]
@@ -6,6 +6,7 @@
 [ext_resource type="Shader" uid="uid://c7gou5tdd475f" path="res://player/fs_dithering.gdshader" id="3_cu3o8"]
 [ext_resource type="Script" uid="uid://ck2srl31dxoy2" path="res://player/player_raycast_3d.gd" id="4_8t03j"]
 [ext_resource type="PackedScene" uid="uid://cjew08elm562t" path="res://gui/gui.tscn" id="5_boad6"]
+[ext_resource type="Script" uid="uid://bnbt62ete8km4" path="res://game_settings/inventory.gd" id="8_rgyib"]
 [ext_resource type="Script" uid="uid://clawryrmh60wq" path="res://player/message_handler.gd" id="10_8t03j"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_4juu5"]
@@ -62,6 +63,11 @@ metadata/_custom_type_script = "uid://ck2srl31dxoy2"
 unique_name_in_owner = true
 script = ExtResource("10_8t03j")
 metadata/_custom_type_script = "uid://clawryrmh60wq"
+
+[node name="Inventory" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("8_rgyib")
+metadata/_custom_type_script = "uid://bnbt62ete8km4"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 unique_name_in_owner = true
