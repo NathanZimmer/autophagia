@@ -1,5 +1,5 @@
 extends Control
-## Handles menu and viewport related hotkeys, captures mouse, and connects to root pause menus
+## Handles menu and viewport related hotkeys, mouse capturing, and connecting menus
 
 ## Root pause menus
 @onready var _pause_menu: MenuControl = %PauseMenu
@@ -75,9 +75,7 @@ func _swap_to_note(title: Inventory.Title) -> void:
 
 func _open_note_menu(title: Inventory.Title) -> void:
     var image: Texture2D = (
-        _inventory.get_note_texture(title)
-        if _inventory
-        else PlaceholderTexture2D.new()
+        _inventory.get_note_texture(title) if _inventory else PlaceholderTexture2D.new()
     )
     _note_menu.set_image(image)
     _pause(_note_menu)

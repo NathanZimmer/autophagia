@@ -1,5 +1,5 @@
 class_name InventoryMenuControl extends MenuControl
-## TODO
+## Handles user interfacing with the Inventory class
 
 signal note_button_pressed
 

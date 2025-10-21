@@ -1,5 +1,5 @@
 class_name Inventory extends Node
-## TODO
+## Communicate with message handler to update player inventory
 
 
 class Note:
@@ -7,11 +7,10 @@ class Note:
     var is_image: bool
     var discovered: bool
 
-
     func _init(
         texture: Texture2D = PlaceholderTexture2D.new(),
         is_image := false,
-        discovered := false
+        discovered := false,
     ) -> void:
         self.texture = texture
         self.is_image = is_image
@@ -21,13 +20,9 @@ class Note:
 signal note_discovered
 
 # Using an ENUM for naming to enfoce pre-determined order
-enum Title {
-    TEST_NOTE,
-    TEST_NOTE_2
-}
+enum Title { TEST_NOTE }
 var _notes: Dictionary[Title, Note] = {
     Title.TEST_NOTE: Note.new(preload("uid://bsb4kif4f8y6r")),
-    Title.TEST_NOTE_2: Note.new(preload("uid://bsb4kif4f8y6r"))
 }
 
 @onready var _message_handler: MessageHandler = %MessageHandler
@@ -59,7 +54,7 @@ func get_discovered_notes() -> Dictionary[Title, Note]:
 
 
 static func get_title_string(note_title: Title) -> String:
-    match(note_title):
+    match note_title:
         Title.TEST_NOTE:
             return "Test Note"
         _:
