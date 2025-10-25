@@ -19,7 +19,6 @@ func _ready() -> void:
         click_trigger.triggered.connect(_start_dialog)
 
 
-## TODO: Implement connection to the UI
 func _start_dialog(body: Node) -> void:
     var handlers := body.find_children("*", "MessageHandler", false)
     if not handlers.is_empty():

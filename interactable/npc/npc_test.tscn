@@ -1,12 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://coctnof2reudh"]
+[gd_scene load_steps=4 format=3 uid="uid://coctnof2reudh"]
 
 [ext_resource type="PackedScene" uid="uid://bn2tmn3fg0c2c" path="res://common/test.tscn" id="1_1rqvx"]
 [ext_resource type="PackedScene" uid="uid://cfu3lhkhxqp13" path="res://interactable/npc/npc.tscn" id="3_gghw6"]
+[ext_resource type="PackedScene" uid="uid://des31ao11y2f0" path="res://interactable/pickup/pickup.tscn" id="3_j8f1v"]
 
-[node name="Test" instance=ExtResource("1_1rqvx")]
+[node name="Test2" instance=ExtResource("1_1rqvx")]
 
 [node name="Npc" parent="." index="4" instance=ExtResource("3_gghw6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 5)
 _dialog_path = "res://interactable/npc/dialog_tree/test/dialog_tree_test.json"
+
+[node name="Pickup" parent="." index="5" instance=ExtResource("3_j8f1v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.17731, 0, 4.86274)
+_note = 1
 
 [editable path="Player"]

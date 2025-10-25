@@ -4,7 +4,7 @@ extends Node3D
 ## Colliding node should have a `MessageHandler` child
 
 ## Path to the image file
-@export var _note_image: Texture2D
+@export var _note: Inventory.Title
 
 
 func _ready() -> void:
@@ -16,11 +16,10 @@ func _ready() -> void:
         trigger.triggered.connect(_display_image)
 
 
-## TODO: Update when MessageHandler is implemented
 func _display_image(body: Node3D) -> void:
     var handlers := body.find_children("*", "MessageHandler", false)
     if not handlers.is_empty():
-        handlers[0].send_note(_note_image)
+        handlers[0].send_note(_note)
     queue_free()
 
 

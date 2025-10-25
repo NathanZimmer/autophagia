@@ -15,7 +15,7 @@ signal input_received
     "Jump": InputActions.Player.UP,
     "Interact": InputActions.Player.INTERACT,
     "Toggle fullscreen": InputActions.UI.FULLSCREEN,
-    "Open/close inventory": InputActions.UI.INVENTORY,
+    "Open/close journal": InputActions.UI.INVENTORY,
 }
 ## Map of String to assign to `Label.text` and input action for input that cannot be updated
 @export
