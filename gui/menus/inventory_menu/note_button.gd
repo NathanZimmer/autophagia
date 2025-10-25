@@ -3,6 +3,8 @@ extends VBoxContainer
 
 signal pressed
 
+const HOVER_COLOR = Color(1.0, 0.66, 0.66)
+
 # TODO: Add support for multi-image buttons using pre-defined icons
 # with small, medium, large, and full options
 
@@ -15,7 +17,7 @@ func _ready() -> void:
     for child: TextureButton in _note_container.get_children():
         _buttons.append(child)
         child.pressed.connect(pressed.emit)
-        child.mouse_entered.connect(_set_color.bind(Color(1.0, 0.66, 0.66)))
+        child.mouse_entered.connect(_set_color.bind(HOVER_COLOR))
         child.mouse_exited.connect(_set_color.bind(Color.WHITE))
 
 
