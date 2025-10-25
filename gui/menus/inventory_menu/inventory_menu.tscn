@@ -1,69 +1,7 @@
-[gd_scene load_steps=20 format=3 uid="uid://cwvpoqwvrlyog"]
+[gd_scene load_steps=3 format=3 uid="uid://cwvpoqwvrlyog"]
 
 [ext_resource type="Theme" uid="uid://bh0is5cj4ulq2" path="res://gui/theme/gui_theme.tres" id="1_8qpma"]
 [ext_resource type="Script" uid="uid://cef741o4jjkgu" path="res://gui/menus/inventory_menu/inventory_menu.gd" id="2_eblhp"]
-[ext_resource type="Material" uid="uid://d8c2lq6l4eyv" path="res://gui/menus/inventory_menu/materials/test.tres" id="3_mkw18"]
-[ext_resource type="Texture2D" uid="uid://bsb4kif4f8y6r" path="res://common/placeholder.png" id="3_sritr"]
-[ext_resource type="Texture2D" uid="uid://bcxddaqvl8yjf" path="res://gui/menus/inventory_menu/materials/test_paper.png" id="4_82go2"]
-[ext_resource type="Shader" uid="uid://dthaspovucmpb" path="res://gui/menus/inventory_menu/materials/test.gdshader" id="5_eblhp"]
-[ext_resource type="PackedScene" uid="uid://cca6tcgscdrsi" path="res://gui/menus/inventory_menu/note_button.tscn" id="5_q2m2o"]
-[ext_resource type="Texture2D" uid="uid://r8c7qcs681pv" path="res://assets/gui/menus/inventory_menu/journal.png" id="6_xn5d5"]
-
-[sub_resource type="Curve" id="Curve_q2m2o"]
-_limits = [0.0, 0.0620253, 0.0, 1.0]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.328076, 0.0120125), 0.0, 0.0, 0, 0, Vector2(0.454259, 0), 0.0, 0.0, 0, 0, Vector2(0.539432, 0), 0.0, 0.0, 0, 0, Vector2(0.659306, 0.0135435), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 6
-
-[sub_resource type="CurveTexture" id="CurveTexture_xn5d5"]
-texture_mode = 1
-curve = SubResource("Curve_q2m2o")
-
-[sub_resource type="Gradient" id="Gradient_q2m2o"]
-colors = PackedColorArray(0.290196, 0.184314, 0, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_82go2"]
-gradient = SubResource("Gradient_q2m2o")
-width = 1
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_smfoi"]
-shader = ExtResource("5_eblhp")
-shader_parameter/source_texture = SubResource("GradientTexture1D_82go2")
-shader_parameter/offset_texture = SubResource("CurveTexture_xn5d5")
-shader_parameter/peak_offset = 0.01
-shader_parameter/flip = false
-
-[sub_resource type="Curve" id="Curve_xn5d5"]
-_limits = [0.0, 0.0620253, 0.0, 1.0]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.334385, 0.0151684), 0.0, 0.0, 0, 0, Vector2(0.51735, 0), 0.0, 0.0, 0, 0, Vector2(0.662461, 0.0156565), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 5
-
-[sub_resource type="CurveTexture" id="CurveTexture_q2m2o"]
-width = 1024
-texture_mode = 1
-curve = SubResource("Curve_xn5d5")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8mjvf"]
-shader = ExtResource("5_eblhp")
-shader_parameter/source_texture = ExtResource("6_xn5d5")
-shader_parameter/offset_texture = SubResource("CurveTexture_q2m2o")
-shader_parameter/peak_offset = 0.02
-shader_parameter/flip = false
-
-[sub_resource type="Curve" id="Curve_eblhp"]
-_limits = [0.0, 0.1, 0.0, 1.0]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.709779, 0.0572152), 0.00966017, 0.00966017, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_bhh7l"]
-texture_mode = 1
-curve = SubResource("Curve_eblhp")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_eblhp"]
-shader = ExtResource("5_eblhp")
-shader_parameter/source_texture = ExtResource("3_sritr")
-shader_parameter/offset_texture = SubResource("CurveTexture_bhh7l")
-shader_parameter/peak_offset = 0.06
-shader_parameter/flip = true
 
 [node name="InventoryMenu" type="Control"]
 process_mode = 2
@@ -101,188 +39,41 @@ theme_override_constants/h_separation = 50
 theme_override_constants/v_separation = 30
 columns = 2
 
-[node name="NoteButton" parent="ScrollContainer/MenuContainer" instance=ExtResource("5_q2m2o")]
-layout_mode = 2
-text = "testing"
-image = ExtResource("4_82go2")
-
-[node name="NoteButton5" parent="ScrollContainer/MenuContainer" instance=ExtResource("5_q2m2o")]
-layout_mode = 2
-text = "testing"
-image = ExtResource("4_82go2")
-
-[node name="NoteButton6" parent="ScrollContainer/MenuContainer" instance=ExtResource("5_q2m2o")]
-layout_mode = 2
-text = "testing"
-image = ExtResource("4_82go2")
-
-[node name="NoteButton7" parent="ScrollContainer/MenuContainer" instance=ExtResource("5_q2m2o")]
-layout_mode = 2
-text = "testing"
-image = ExtResource("4_82go2")
-
-[node name="NoteButton8" parent="ScrollContainer/MenuContainer" instance=ExtResource("5_q2m2o")]
-layout_mode = 2
-text = "testing"
-image = ExtResource("4_82go2")
-
-[node name="NoteButton9" parent="ScrollContainer/MenuContainer" instance=ExtResource("5_q2m2o")]
-layout_mode = 2
-text = "testing"
-image = ExtResource("4_82go2")
-
-[node name="NoteButton10" parent="ScrollContainer/MenuContainer" instance=ExtResource("5_q2m2o")]
-layout_mode = 2
-text = "testing"
-image = ExtResource("4_82go2")
-
-[node name="NoteButton11" parent="ScrollContainer/MenuContainer" instance=ExtResource("5_q2m2o")]
-layout_mode = 2
-text = "testing"
-image = ExtResource("4_82go2")
-
 [node name="Padding" type="Control" parent="ScrollContainer/MenuContainer"]
-custom_minimum_size = Vector2(0, 150)
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 
 [node name="Padding2" type="Control" parent="ScrollContainer/MenuContainer"]
-custom_minimum_size = Vector2(0, 150)
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="ColorRect" type="ColorRect" parent="."]
-visible = false
-material = SubResource("ShaderMaterial_smfoi")
+[node name="Label" type="Label" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -244.0
-offset_top = -183.0
-offset_right = 246.0
-offset_bottom = 185.0
+offset_left = -75.0
+offset_top = 30.0
+offset_right = 75.0
+offset_bottom = 73.0
 grow_horizontal = 2
-grow_vertical = 2
+theme_type_variation = &"HeaderMedium"
+text = "Journal"
 
-[node name="TextureRect" type="TextureRect" parent="."]
-visible = false
-material = SubResource("ShaderMaterial_8mjvf")
+[node name="BackButton" type="Button" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -240.0
-offset_top = -180.0
-offset_right = 240.0
-offset_bottom = 180.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("6_xn5d5")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect"]
-layout_mode = 1
-anchors_preset = 12
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
+offset_left = -21.0
+offset_top = -40.0
+offset_right = 21.0
 grow_horizontal = 2
 grow_vertical = 0
-alignment = 1
-
-[node name="LastButton" type="Button" parent="TextureRect/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 2
-text = "Last"
-
-[node name="BackButton" type="Button" parent="TextureRect/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
 text = "Return"
-
-[node name="NextButton" type="Button" parent="TextureRect/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 10
-text = "Next"
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="TextureRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = 17.0
-offset_right = -6.0
-offset_bottom = -19.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 20
-alignment = 1
-
-[node name="Control2" parent="TextureRect/HBoxContainer2" instance=ExtResource("5_q2m2o")]
-layout_mode = 2
-text = "testing"
-image = ExtResource("4_82go2")
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="."]
-visible = false
-clip_contents = true
-layout_mode = 2
-offset_left = 27.0
-offset_top = 31.0
-offset_right = 827.0
-offset_bottom = 387.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/separation = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer2"]
-layout_mode = 2
-theme_override_constants/separation = -20
-
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer2/VBoxContainer"]
-material = ExtResource("3_mkw18")
-custom_minimum_size = Vector2(400, 132)
-layout_mode = 2
-texture = ExtResource("3_sritr")
-
-[node name="TextureRect2" type="TextureRect" parent="HBoxContainer2/VBoxContainer"]
-material = ExtResource("3_mkw18")
-custom_minimum_size = Vector2(400, 132)
-layout_mode = 2
-texture = ExtResource("3_sritr")
-
-[node name="TextureRect3" type="TextureRect" parent="HBoxContainer2/VBoxContainer"]
-material = ExtResource("3_mkw18")
-custom_minimum_size = Vector2(400, 132)
-layout_mode = 2
-texture = ExtResource("3_sritr")
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer2"]
-layout_mode = 2
-theme_override_constants/separation = -20
-
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer2/VBoxContainer2"]
-material = SubResource("ShaderMaterial_eblhp")
-custom_minimum_size = Vector2(400, 132)
-layout_mode = 2
-texture = ExtResource("3_sritr")
-
-[node name="TextureRect2" type="TextureRect" parent="HBoxContainer2/VBoxContainer2"]
-material = SubResource("ShaderMaterial_eblhp")
-custom_minimum_size = Vector2(400, 132)
-layout_mode = 2
-texture = ExtResource("3_sritr")
-
-[node name="TextureRect3" type="TextureRect" parent="HBoxContainer2/VBoxContainer2"]
-material = SubResource("ShaderMaterial_eblhp")
-custom_minimum_size = Vector2(400, 132)
-layout_mode = 2
-texture = ExtResource("3_sritr")

@@ -20,9 +20,10 @@ class Note:
 signal note_discovered
 
 # Using an ENUM for naming to enfoce pre-determined order
-enum Title { TEST_NOTE }
+enum Title { TEST_NOTE,  TEST_NOTE_1 }
 var _notes: Dictionary[Title, Note] = {
-    Title.TEST_NOTE: Note.new(preload("uid://bsb4kif4f8y6r")),
+    Title.TEST_NOTE: Note.new(preload("uid://bcxddaqvl8yjf")),
+    Title.TEST_NOTE_1: Note.new(preload("uid://bcxddaqvl8yjf")),
 }
 
 @onready var _message_handler: MessageHandler = %MessageHandler
@@ -57,5 +58,7 @@ static func get_title_string(note_title: Title) -> String:
     match note_title:
         Title.TEST_NOTE:
             return "Test Note"
+        Title.TEST_NOTE_1:
+            return "Test Note 1"
         _:
             return "TODO"
