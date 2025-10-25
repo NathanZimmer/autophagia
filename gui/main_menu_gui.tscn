@@ -10,12 +10,10 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oixfu"]
 shader = ExtResource("2_5478m")
-shader_parameter/source_texture = ExtResource("3_ksbxp")
 shader_parameter/scroll_speed = Vector2(0.003, -0.015)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6yfcd"]
 shader = ExtResource("2_5478m")
-shader_parameter/source_texture = ExtResource("3_fsb0b")
 shader_parameter/scroll_speed = Vector2(0, -0.02)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_42l5o"]

@@ -1,4 +1,7 @@
 class_name NoteMenuControl extends MenuControl
+## TODO
+
+# TODO: Add support for multiple images when reading from inventory
 
 signal inventory_button_pressed
 

@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://cca6tcgscdrsi"]
+
+[ext_resource type="Shader" uid="uid://cuji4e8fncq3d" path="res://gui/menus/inventory_menu/materials/test3.gdshader" id="1_5f0m5"]
+[ext_resource type="Script" uid="uid://c2ns1ssqh1yxe" path="res://gui/menus/inventory_menu/test.gd" id="1_8c1xj"]
+[ext_resource type="Theme" uid="uid://bh0is5cj4ulq2" path="res://gui/theme/gui_theme.tres" id="1_y3tda"]
+[ext_resource type="Script" uid="uid://c4116aq32442a" path="res://gui/menus/inventory_menu/note_button.gd" id="2_y3tda"]
+[ext_resource type="Texture2D" uid="uid://bcxddaqvl8yjf" path="res://gui/menus/inventory_menu/materials/test_paper.png" id="3_y3tda"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8c1xj"]
+shader = ExtResource("1_5f0m5")
+shader_parameter/outline_color = Color(1, 0, 0, 1)
+shader_parameter/hover_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 1.0
+shader_parameter/enabled = true
+
+[node name="NoteButton" type="Button"]
+custom_minimum_size = Vector2(200, 200)
+offset_right = 200.0
+offset_bottom = 200.0
+theme = ExtResource("1_y3tda")
+text = "testing"
+script = ExtResource("2_y3tda")
+factor = 1.15
+image = ExtResource("3_y3tda")
+
+[node name="CanvasGroup" type="CanvasGroup" parent="."]
+unique_name_in_owner = true
+
+[node name="ImageContainer" type="VBoxContainer" parent="CanvasGroup"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_8c1xj")
+clip_contents = true
+custom_minimum_size = Vector2(200, 0)
+offset_right = 200.0
+offset_bottom = 175.0
+pivot_offset = Vector2(100, 87)
+theme = ExtResource("1_y3tda")
+theme_override_constants/separation = -5
+script = ExtResource("1_8c1xj")
+
+[node name="Image" type="TextureRect" parent="CanvasGroup/ImageContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("3_y3tda")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="CanvasGroup"]
+unique_name_in_owner = true
+offset_top = 175.0
+offset_right = 200.0
+offset_bottom = 200.0
+theme = ExtResource("1_y3tda")
+text = "testing"
+horizontal_alignment = 1
+vertical_alignment = 1
