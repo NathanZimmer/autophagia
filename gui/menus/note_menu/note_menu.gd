@@ -1,5 +1,5 @@
 class_name NoteMenuControl extends MenuControl
-## TODO
+## Menu for displaying images
 
 # TODO: Add support for multiple images when reading from inventory
 

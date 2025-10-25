@@ -16,7 +16,6 @@ func _ready() -> void:
         trigger.triggered.connect(_display_image)
 
 
-## TODO: Update when MessageHandler is implemented
 func _display_image(body: Node3D) -> void:
     var handlers := body.find_children("*", "MessageHandler", false)
     if not handlers.is_empty():

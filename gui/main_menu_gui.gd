@@ -1,5 +1,5 @@
 extends Control
-## TODO
+## Handle input needed for the main menu
 
 
 func _shortcut_input(event: InputEvent) -> void:

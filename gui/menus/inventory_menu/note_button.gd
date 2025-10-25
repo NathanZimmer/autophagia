@@ -1,5 +1,5 @@
 extends VBoxContainer
-## TODO
+## Container that combines multiple TextureButtons
 
 signal pressed
 
