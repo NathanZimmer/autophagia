@@ -10,6 +10,7 @@ var _buttons: Array[TextureButton] = []
 
 @onready var _note_container: Container = %NoteContainer
 
+
 func _ready() -> void:
     for child: TextureButton in _note_container.get_children():
         _buttons.append(child)
@@ -21,6 +22,7 @@ func _ready() -> void:
 func _set_color(color: Color) -> void:
     for button in _buttons:
         button.modulate = color
+
 
 # func add_image(image: Texture2D) -> void:
 #     var button := TextureButton.new()

@@ -1,6 +1,8 @@
 class_name Inventory extends Node
 ## Communicate with message handler to update player inventory
 
+# TODO: Add support for multi-part notes
+
 
 class Note:
     var texture: Texture2D
@@ -20,7 +22,7 @@ class Note:
 signal note_discovered
 
 # Using an ENUM for naming to enfoce pre-determined order
-enum Title { TEST_NOTE,  TEST_NOTE_1 }
+enum Title { TEST_NOTE, TEST_NOTE_1 }
 var _notes: Dictionary[Title, Note] = {
     Title.TEST_NOTE: Note.new(preload("uid://bcxddaqvl8yjf")),
     Title.TEST_NOTE_1: Note.new(preload("uid://bcxddaqvl8yjf")),

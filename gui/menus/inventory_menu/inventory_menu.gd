@@ -1,7 +1,6 @@
 class_name InventoryMenuControl extends MenuControl
 ## Handles user interfacing with the Inventory class
 
-
 signal note_button_pressed
 
 var NoteButton := preload("uid://cca6tcgscdrsi")
@@ -20,5 +19,3 @@ func add_note(title: Inventory.Title) -> void:
     new_button.pressed.connect(note_button_pressed.emit.bind(title))
 
     _menu_container.add_child(new_button)
-
-    pass
