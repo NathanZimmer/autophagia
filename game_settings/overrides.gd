@@ -116,7 +116,7 @@ func load_fov() -> int:
     return _config_file.get_value("player", "camera/field_of_view", 90)
 
 
-func save_input_action(action: String, event: InputEvent) -> void:
+func save_input_action(action: StringName, event: InputEvent) -> void:
     InputMap.action_erase_events(action)
     InputMap.action_add_event(action, event)
     _config_file.set_value("input", action, {"deadzone": 0.5, "events": [event]})

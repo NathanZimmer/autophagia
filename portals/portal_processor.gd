@@ -57,7 +57,7 @@ func _ready() -> void:
     if Engine.is_editor_hint():
         return
 
-    if _target_cam == null:
+    if not _target_cam:
         _target_cam = get_viewport().get_camera_3d()
 
     var portals: Array[PortalBody]

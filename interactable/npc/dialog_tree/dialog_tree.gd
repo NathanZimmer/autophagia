@@ -8,18 +8,18 @@ var _visited_nodes: Array[DialogNode] = []
 
 
 class DialogNode:
-    var id: String
+    var id: StringName
     var text: String
     var responses: Dictionary[String, DialogNode] = {}
 
-    func _init(id: String, text: String) -> void:
+    func _init(id: StringName, text: String) -> void:
         self.id = id
         self.text = text
 
 
 func _init(json_path: String) -> void:
     var json_file := FileAccess.open(json_path, FileAccess.READ)
-    if json_file == null:
+    if not json_file:
         push_error(error_string(FileAccess.get_open_error()))
         return
 
@@ -50,8 +50,8 @@ func _get_tree_as_dict(node: DialogNode, visited_nodes: Array[DialogNode]) -> Di
 
 func _parse(dialog_tree: Dictionary) -> void:
     # Create all nodes first
-    var nodes: Dictionary[String, DialogNode]
-    for id: String in dialog_tree:
+    var nodes: Dictionary[StringName, DialogNode]
+    for id: StringName in dialog_tree:
         var text: String = dialog_tree[id]["text"]
 
         var node := DialogNode.new(id, text)
@@ -63,7 +63,7 @@ func _parse(dialog_tree: Dictionary) -> void:
 
         var responses: Dictionary[String, DialogNode] = {}
         for response: String in dialog_tree[id]["responses"]:
-            var child_id: String = dialog_tree[id]["responses"][response]
+            var child_id: StringName = dialog_tree[id]["responses"][response]
             responses[response] = nodes[child_id]
 
         node.responses = responses
