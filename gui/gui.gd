@@ -1,5 +1,14 @@
 extends Control
-## Handles menu and viewport related hotkeys, mouse capturing, and connecting menus
+## Handles menu and viewport related hotkeys, mouse capturing, crosshair,
+## and connecting menus
+
+## TODO
+@export var _crosshair_raycast: RayCast3D
+## TODO
+@export var _crosshair_textures: Dictionary[StringName, Texture2D]
+
+var _raycast_collided: Object
+var _default_crosshair_texture: Texture2D
 
 ## Root pause menus
 @onready var _pause_menu: MenuControl = %PauseMenu
@@ -9,6 +18,7 @@ extends Control
 
 @onready var _message_handler: MessageHandler = %MessageHandler
 @onready var _inventory: Inventory = %Inventory
+@onready var _crosshair: TextureRect = %Crosshair
 
 
 func _ready() -> void:
@@ -30,6 +40,13 @@ func _ready() -> void:
 
     if _inventory:
         _inventory.note_discovered.connect(_inventory_menu.add_note)
+
+    _default_crosshair_texture = _crosshair.texture
+
+
+func _physics_process(_delta: float) -> void:
+    if _crosshair_raycast:
+        _set_crosshair_texture()
 
 
 func _shortcut_input(event: InputEvent) -> void:
@@ -53,6 +70,7 @@ func _pause(menu: MenuControl) -> void:
     Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
     menu.process_mode = Node.PROCESS_MODE_WHEN_PAUSED
     menu.show()
+    _crosshair.hide()
 
 
 func _open_dialog_menu(dialog: DialogTree) -> void:
@@ -87,9 +105,31 @@ func _unpause(menu: MenuControl) -> void:
     Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
     menu.process_mode = Node.PROCESS_MODE_DISABLED
     menu.hide()
+    _crosshair.show()
 
 
 ## Toggle window mode between `WINDOW_MODE_FULLSCREEN` and `WINDOW_MODE_WINDOWED`
 func _toggle_fullscreen() -> void:
     var fullscreen := Overrides.load_fullscreen()
     Overrides.save_fullscreen(!fullscreen)
+
+
+func _set_crosshair_texture() -> void:
+    if not _crosshair.visible:
+        return
+
+    var collided := _crosshair_raycast.get_collider()
+    if _raycast_collided == collided:
+        return
+    _raycast_collided = collided
+
+    if not _raycast_collided:
+        _crosshair.texture = _default_crosshair_texture
+        return
+
+    var overlap := _crosshair_textures.keys().filter(_raycast_collided.is_in_group)
+    if not overlap:
+        _crosshair.texture = _default_crosshair_texture
+        return
+
+    _crosshair.texture = _crosshair_textures[overlap[0]]

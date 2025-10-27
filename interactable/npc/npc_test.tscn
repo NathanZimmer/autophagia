@@ -1,10 +1,31 @@
-[gd_scene load_steps=4 format=3 uid="uid://coctnof2reudh"]
+[gd_scene load_steps=14 format=3 uid="uid://coctnof2reudh"]
 
 [ext_resource type="PackedScene" uid="uid://bn2tmn3fg0c2c" path="res://common/test.tscn" id="1_1rqvx"]
 [ext_resource type="PackedScene" uid="uid://cfu3lhkhxqp13" path="res://interactable/npc/npc.tscn" id="3_gghw6"]
 [ext_resource type="PackedScene" uid="uid://des31ao11y2f0" path="res://interactable/pickup/pickup.tscn" id="3_j8f1v"]
+[ext_resource type="Material" uid="uid://yk4x16701e40" path="res://common/placeholder_triplanar.tres" id="4_408lt"]
+[ext_resource type="Script" uid="uid://bjl6jcg8k2gju" path="res://interactable/door/door.gd" id="5_kl0pj"]
+[ext_resource type="Curve" uid="uid://kb8rx0mlxxwl" path="res://interactable/door/default_door_curve.tres" id="6_re6w1"]
+[ext_resource type="Script" uid="uid://cv0r6v1vg77i7" path="res://interactable/door/lever.gd" id="7_yicw0"]
+[ext_resource type="Curve" uid="uid://c7djvmapq1bjn" path="res://interactable/door/default_lever_curve.tres" id="8_be2ow"]
+[ext_resource type="Script" uid="uid://nby3c2g37q5b" path="res://interactable/triggers/click_trigger.gd" id="9_xru0j"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_gxvby"]
+size = Vector3(1.5, 2.5, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k6rjs"]
+size = Vector3(1.5, 2.5, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_86a0w"]
+size = Vector3(0.3, 0.1, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cfd3w"]
+size = Vector3(0.3, 0.1, 0.3)
 
 [node name="Test2" instance=ExtResource("1_1rqvx")]
+
+[node name="Player" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.494925, 1, 7.32095)
 
 [node name="Npc" parent="." index="4" instance=ExtResource("3_gghw6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 5)
@@ -13,5 +34,69 @@ _dialog_path = "res://interactable/npc/dialog_tree/test/dialog_tree_test.json"
 [node name="Pickup" parent="." index="5" instance=ExtResource("3_j8f1v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.17731, 0, 4.86274)
 _note = 1
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="6"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.67448, 1.25, 4.55493)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="StaticBody3D" index="0"]
+material_override = ExtResource("4_408lt")
+mesh = SubResource("BoxMesh_gxvby")
+skeleton = NodePath("../../Door")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="1"]
+shape = SubResource("BoxShape3D_k6rjs")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="StaticBody3D" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 6.70552e-08)
+material_override = ExtResource("4_408lt")
+mesh = SubResource("BoxMesh_gxvby")
+skeleton = NodePath("../../Door")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 6.70552e-08)
+shape = SubResource("BoxShape3D_k6rjs")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="StaticBody3D" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.6)
+material_override = ExtResource("4_408lt")
+mesh = SubResource("BoxMesh_gxvby")
+skeleton = NodePath("../../Door")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.6)
+shape = SubResource("BoxShape3D_k6rjs")
+
+[node name="Door" type="AnimatableBody3D" parent="." index="7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.62448, 1.25, 5.10493)
+script = ExtResource("5_kl0pj")
+_curve = ExtResource("6_re6w1")
+_rotation_axis = Vector3(0, 1, 0)
+metadata/_custom_type_script = "uid://bjl6jcg8k2gju"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Door" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0.0500002)
+material_override = ExtResource("4_408lt")
+mesh = SubResource("BoxMesh_gxvby")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Door" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0.0500002)
+shape = SubResource("BoxShape3D_k6rjs")
+
+[node name="Lever" type="MeshInstance3D" parent="Door" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 0, 0.0500002)
+mesh = SubResource("BoxMesh_86a0w")
+script = ExtResource("7_yicw0")
+_curve = ExtResource("8_be2ow")
+_rotation_axis = Vector3(0, 0, 1)
+_emit_point = 1
+metadata/_custom_type_script = "uid://cv0r6v1vg77i7"
+
+[node name="ClickTrigger" type="Area3D" parent="Door/Lever" index="0" groups=["lever"]]
+script = ExtResource("9_xru0j")
+_groups = Array[StringName]([&"player"])
+metadata/_custom_type_script = "uid://nby3c2g37q5b"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Door/Lever/ClickTrigger" index="0"]
+shape = SubResource("BoxShape3D_cfd3w")
 
 [editable path="Player"]

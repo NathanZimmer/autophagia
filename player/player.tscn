@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dnhp4dcugklq6"]
+[gd_scene load_steps=17 format=3 uid="uid://dnhp4dcugklq6"]
 
 [ext_resource type="Script" uid="uid://c1o8i6ob4hruq" path="res://player/player.gd" id="1_y2fp8"]
 [ext_resource type="Script" uid="uid://bcpsv2er15k1k" path="res://player/camera_sway.gd" id="2_fl0b5"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://ck2srl31dxoy2" path="res://player/player_raycast_3d.gd" id="4_8t03j"]
 [ext_resource type="PackedScene" uid="uid://cjew08elm562t" path="res://gui/gui.tscn" id="5_boad6"]
 [ext_resource type="Script" uid="uid://bnbt62ete8km4" path="res://player/inventory.gd" id="8_rgyib"]
+[ext_resource type="Shader" uid="uid://b4w0t5j7m4u7p" path="res://player/crt.gdshader" id="9_hg6s5"]
 [ext_resource type="Script" uid="uid://clawryrmh60wq" path="res://player/message_handler.gd" id="10_8t03j"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_4juu5"]
@@ -35,6 +36,12 @@ shader_parameter/uTime1 = 1.0
 shader_parameter/uTime2 = 3.1
 shader_parameter/uTime3 = 4.0
 shader_parameter/colors = 64.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8t03j"]
+shader = ExtResource("9_hg6s5")
+shader_parameter/screen_resolution = Vector2(427, 240)
+shader_parameter/scanline_intensity = 0.01
+shader_parameter/color_bleed_weight = 0.2
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 script = ExtResource("1_y2fp8")
@@ -82,25 +89,22 @@ skeleton = NodePath("")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="CursorPlaceholder" type="ColorRect" parent="CanvasLayer"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_right = 5.0
-offset_bottom = 5.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(2.5, 2.5)
-mouse_filter = 2
-color = Color(1, 0, 1, 1)
-
-[node name="Gui" parent="CanvasLayer" instance=ExtResource("5_boad6")]
+[node name="Gui" parent="CanvasLayer" node_paths=PackedStringArray("_crosshair_raycast") instance=ExtResource("5_boad6")]
+_crosshair_raycast = NodePath("../../Camera3D/PlayerRayCast3D")
 
 [node name="FsDithering" type="ColorRect" parent="CanvasLayer"]
 process_mode = 3
 material = SubResource("ShaderMaterial_q5we3")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Crt" type="ColorRect" parent="CanvasLayer"]
+process_mode = 3
+material = SubResource("ShaderMaterial_8t03j")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
