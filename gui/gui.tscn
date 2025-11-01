@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cjew08elm562t"]
+[gd_scene load_steps=14 format=3 uid="uid://cjew08elm562t"]
 
 [ext_resource type="Script" uid="uid://knupv61sxrr0" path="res://gui/statistics/fps_counter.gd" id="1_ioifv"]
 [ext_resource type="Theme" uid="uid://bh0is5cj4ulq2" path="res://gui/theme/gui_theme.tres" id="1_n360k"]
@@ -8,6 +8,26 @@
 [ext_resource type="PackedScene" uid="uid://cwvpoqwvrlyog" path="res://gui/menus/inventory_menu/inventory_menu.tscn" id="4_ytf3d"]
 [ext_resource type="PackedScene" uid="uid://c6l3ck41ofphw" path="res://gui/menus/dialog_menu/dialog_menu.tscn" id="5_bk7cs"]
 [ext_resource type="PackedScene" uid="uid://bxy2u38wtphx1" path="res://gui/menus/note_menu/note_menu.tscn" id="6_kvi6p"]
+[ext_resource type="Texture2D" uid="uid://dulq71x13qu5b" path="res://assets/gui/crosshair_icons/crosshair.png" id="7_xqkfk"]
+
+[sub_resource type="Gradient" id="Gradient_4q42c"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_s1h2m"]
+gradient = SubResource("Gradient_4q42c")
+width = 16
+height = 16
+fill_from = Vector2(1, 0)
+
+[sub_resource type="Gradient" id="Gradient_kvi6p"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xqkfk"]
+gradient = SubResource("Gradient_kvi6p")
+width = 16
+height = 16
 
 [node name="Gui" type="Control"]
 process_mode = 3
@@ -20,6 +40,10 @@ grow_vertical = 2
 mouse_filter = 1
 theme = ExtResource("1_n360k")
 script = ExtResource("3_q46mf")
+_crosshair_textures = Dictionary[StringName, Texture2D]({
+&"lever": SubResource("GradientTexture2D_s1h2m"),
+&"npc": SubResource("GradientTexture2D_xqkfk")
+})
 
 [node name="PauseMenu" parent="." node_paths=PackedStringArray("_swap_map") instance=ExtResource("3_ytf3d")]
 unique_name_in_owner = true
@@ -54,6 +78,17 @@ process_mode = 2
 visible = false
 layout_mode = 1
 
+[node name="Background" type="ColorRect" parent="NoteMenu"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.08, 0, 0.00933334, 0.419608)
+
 [node name="InventoryMenu" parent="." instance=ExtResource("4_ytf3d")]
 unique_name_in_owner = true
 visible = false
@@ -69,6 +104,22 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0.08, 0, 0.00933334, 0.419608)
+
+[node name="Crosshair" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_xqkfk")
 
 [node name="FpsCounter" type="Label" parent="."]
 layout_mode = 1

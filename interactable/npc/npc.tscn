@@ -31,7 +31,7 @@ mesh = SubResource("SphereMesh_7t535")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("CapsuleShape3D_7malt")
 
-[node name="ClickTrigger" type="Area3D" parent="."]
+[node name="ClickTrigger" type="Area3D" parent="." groups=["npc"]]
 script = ExtResource("1_7malt")
 _groups = Array[StringName]([&"player"])
 metadata/_custom_type_script = "uid://nby3c2g37q5b"

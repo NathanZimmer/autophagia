@@ -7,7 +7,7 @@ signal input_received
 
 ## Map of String to assign to `Label.text` and input action to update on
 ## button press
-@export var _configurable_actions: Dictionary[String, String] = {
+@export var _configurable_actions: Dictionary[String, StringName] = {
     "Forward": InputActions.Player.FORWARD,
     "Back": InputActions.Player.BACK,
     "Left": InputActions.Player.LEFT,
@@ -18,8 +18,9 @@ signal input_received
     "Open/close journal": InputActions.UI.INVENTORY,
 }
 ## Map of String to assign to `Label.text` and input action for input that cannot be updated
-@export
-var _readonly_actions: Dictionary[String, String] = {"Close Menu/Cancel": InputActions.UI.CANCEL}
+@export var _readonly_actions: Dictionary[String, StringName] = {
+    "Close Menu/Cancel": InputActions.UI.CANCEL
+}
 ## Text to display on the button when it is waiting for input
 @export var _button_waiting_text := "[press a key, esc to quit]"
 
@@ -28,7 +29,7 @@ var _readonly_actions: Dictionary[String, String] = {"Close Menu/Cancel": InputA
 
 func _ready() -> void:
     for action_label: String in _configurable_actions.keys():
-        var action: String = _configurable_actions[action_label]
+        var action: StringName = _configurable_actions[action_label]
 
         # Assuming that there is only one event per input action
         var event := InputMap.action_get_events(action)[0]
@@ -44,7 +45,7 @@ func _ready() -> void:
         button.pressed.connect(_rebind_input_action.bind(button, action))
 
     for action_label: String in _readonly_actions.keys():
-        var action: String = _readonly_actions[action_label]
+        var action: StringName = _readonly_actions[action_label]
 
         # Allow readonly to have multiple events bc the player can't reassign them
         var events := InputMap.action_get_events(action)
@@ -74,7 +75,7 @@ func _input(event: InputEvent) -> void:
 ## ## Parameters [br]
 ## `button`: button that was pressed [br]
 ## `action`: input action to update [br]
-func _rebind_input_action(button: Button, action: String) -> void:
+func _rebind_input_action(button: Button, action: StringName) -> void:
     button.text = _button_waiting_text
     var waiting_for_input := true
 

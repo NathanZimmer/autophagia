@@ -210,7 +210,7 @@ func _setup() -> void:
     if is_instance_valid(_player) and is_instance_valid(_player.camera):
         var current_frame_angle := (
             0.0
-            if _player == null
+            if not _player
             else global_basis.z.dot(global_position - _player.camera.global_position)
         )
         _player_direction_sign = signf(current_frame_angle)

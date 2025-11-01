@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://bh0is5cj4ulq2" path="res://gui/theme/gui_theme.tres" id="1_y3tda"]
 [ext_resource type="Script" uid="uid://dx0olyggp4kmg" path="res://gui/menus/inventory_menu/note_button.gd" id="2_wutgm"]
-[ext_resource type="Texture2D" uid="uid://bcxddaqvl8yjf" path="res://gui/menus/inventory_menu/materials/placeholder.png" id="3_y3tda"]
+[ext_resource type="Texture2D" uid="uid://bcxddaqvl8yjf" path="res://assets/gui/menus/inventory_menu/placeholder.png" id="3_y3tda"]
 
 [node name="NoteButton" type="VBoxContainer"]
 offset_right = 193.0
