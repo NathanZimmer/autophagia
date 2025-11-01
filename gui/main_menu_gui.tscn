@@ -1,12 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://bloen661m8pv3"]
+[gd_scene load_steps=10 format=3 uid="uid://bloen661m8pv3"]
 
 [ext_resource type="Script" uid="uid://cvsebnu23qq2q" path="res://gui/main_menu_gui.gd" id="1_aqy43"]
 [ext_resource type="Shader" uid="uid://drg8e2kipk5th" path="res://gui/materials/scroll.gdshader" id="2_5478m"]
 [ext_resource type="PackedScene" uid="uid://dy8y6m3k10ebj" path="res://gui/menus/settings_menus/main_menu/main_menu.tscn" id="2_qfd26"]
 [ext_resource type="Texture2D" uid="uid://brn42r7odb2vt" path="res://assets/gui/menus/main_menu/background_just_text.png" id="3_fsb0b"]
 [ext_resource type="Texture2D" uid="uid://b7384d8vugrfe" path="res://assets/gui/menus/main_menu/background.png" id="3_ksbxp"]
-[ext_resource type="Shader" uid="uid://c7gou5tdd475f" path="res://player/retro_filter.gdshader" id="3_qfd26"]
 [ext_resource type="Texture2D" uid="uid://c0ja4c8vvxwhl" path="res://assets/gui/menus/main_menu/vignette.png" id="4_42l5o"]
+[ext_resource type="Material" uid="uid://byvayr8jwcepu" path="res://player/materials/retro_filter.tres" id="6_5478m"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oixfu"]
 shader = ExtResource("2_5478m")
@@ -15,18 +15,6 @@ shader_parameter/scroll_speed = Vector2(0.003, -0.015)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6yfcd"]
 shader = ExtResource("2_5478m")
 shader_parameter/scroll_speed = Vector2(0, -0.02)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_42l5o"]
-shader = ExtResource("3_qfd26")
-shader_parameter/contrast = 1.2
-shader_parameter/brightness = 0.5
-shader_parameter/uTime1 = 1.0
-shader_parameter/uTime2 = 3.1
-shader_parameter/uTime3 = 4.0
-shader_parameter/colors = 64.0
-shader_parameter/screen_resolution = Vector2(427, 240)
-shader_parameter/scanline_intensity = 0.01
-shader_parameter/color_bleed_weight = 0.15
 
 [node name="MainMenuGui" type="Control"]
 layout_mode = 3
@@ -77,7 +65,7 @@ color = Color(0, 0, 0, 0.313726)
 
 [node name="RetroFilter" type="ColorRect" parent="."]
 process_mode = 3
-material = SubResource("ShaderMaterial_42l5o")
+material = ExtResource("6_5478m")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

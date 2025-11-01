@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://byvayr8jwcepu"]
+
+[ext_resource type="Shader" uid="uid://c7gou5tdd475f" path="res://player/retro_filter.gdshader" id="1_5agxk"]
+
+[resource]
+shader = ExtResource("1_5agxk")
+shader_parameter/contrast = 1.2
+shader_parameter/brightness = 0.5
+shader_parameter/uTime1 = 1.0
+shader_parameter/uTime2 = 3.1
+shader_parameter/uTime3 = 4.0
+shader_parameter/colors = 64.0
+shader_parameter/screen_resolution = Vector2(427, 240)
+shader_parameter/scanline_intensity = 0.01
+shader_parameter/color_bleed_weight = 0.15

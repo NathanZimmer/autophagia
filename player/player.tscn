@@ -1,11 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://dnhp4dcugklq6"]
+[gd_scene load_steps=14 format=3 uid="uid://dnhp4dcugklq6"]
 
 [ext_resource type="Script" uid="uid://c1o8i6ob4hruq" path="res://player/player.gd" id="1_y2fp8"]
 [ext_resource type="Script" uid="uid://bcpsv2er15k1k" path="res://player/camera_sway.gd" id="2_fl0b5"]
 [ext_resource type="Environment" uid="uid://cbgre4uktxw6d" path="res://common/main_world_env.tres" id="2_xgxvm"]
-[ext_resource type="Shader" uid="uid://c7gou5tdd475f" path="res://player/retro_filter.gdshader" id="3_cu3o8"]
 [ext_resource type="Script" uid="uid://ck2srl31dxoy2" path="res://player/player_raycast_3d.gd" id="4_8t03j"]
 [ext_resource type="PackedScene" uid="uid://cjew08elm562t" path="res://gui/gui.tscn" id="5_boad6"]
+[ext_resource type="Material" uid="uid://byvayr8jwcepu" path="res://player/materials/retro_filter.tres" id="8_hg6s5"]
 [ext_resource type="Script" uid="uid://bnbt62ete8km4" path="res://player/inventory.gd" id="8_rgyib"]
 [ext_resource type="Script" uid="uid://clawryrmh60wq" path="res://player/message_handler.gd" id="10_8t03j"]
 
@@ -26,18 +26,6 @@ radius = 0.3
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_dgi16"]
 radius = 0.3
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_q5we3"]
-shader = ExtResource("3_cu3o8")
-shader_parameter/contrast = 1.2
-shader_parameter/brightness = 0.5
-shader_parameter/uTime1 = 1.0
-shader_parameter/uTime2 = 3.1
-shader_parameter/uTime3 = 4.0
-shader_parameter/colors = 64.0
-shader_parameter/screen_resolution = Vector2(427, 240)
-shader_parameter/scanline_intensity = 0.01
-shader_parameter/color_bleed_weight = 0.15
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 script = ExtResource("1_y2fp8")
@@ -90,7 +78,7 @@ _crosshair_raycast = NodePath("../../Camera3D/PlayerRayCast3D")
 
 [node name="RetroFilter" type="ColorRect" parent="CanvasLayer"]
 process_mode = 3
-material = SubResource("ShaderMaterial_q5we3")
+material = ExtResource("8_hg6s5")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
