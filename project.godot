@@ -19,6 +19,7 @@ config/icon="uid://3n2x0n62fk53"
 
 InputActions="*res://game_settings/input_actions.gd"
 Overrides="*res://game_settings/overrides.gd"
+TwoDAudioManager="*res://2d_audio/2d_audio_manager.gd"
 
 [debug]
 

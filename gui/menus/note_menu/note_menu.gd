@@ -6,6 +6,7 @@ class_name NoteMenuControl extends MenuControl
 signal inventory_button_pressed
 
 @onready var _note: TextureRect = %Note
+@onready var _page_flip: AudioStreamPlayer2D = %PageFlip
 
 
 func _ready() -> void:
@@ -24,3 +25,8 @@ func _shortcut_input(event: InputEvent) -> void:
 
 func set_image(image_texture: Texture2D) -> void:
     _note.texture = image_texture
+
+
+func play_page_flip() -> void:
+    _page_flip.pitch_scale = 0.9 + randf_range(0.0, 0.2)
+    _page_flip.play()

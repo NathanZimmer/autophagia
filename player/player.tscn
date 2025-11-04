@@ -1,31 +1,19 @@
-[gd_scene load_steps=16 format=3 uid="uid://dnhp4dcugklq6"]
+[gd_scene load_steps=18 format=3 uid="uid://dnhp4dcugklq6"]
 
 [ext_resource type="Script" uid="uid://c1o8i6ob4hruq" path="res://player/player.gd" id="1_y2fp8"]
-[ext_resource type="Script" uid="uid://bcpsv2er15k1k" path="res://player/camera_sway.gd" id="2_fl0b5"]
 [ext_resource type="Environment" uid="uid://cbgre4uktxw6d" path="res://common/main_world_env.tres" id="2_xgxvm"]
 [ext_resource type="Script" uid="uid://ck2srl31dxoy2" path="res://player/player_raycast_3d.gd" id="4_8t03j"]
 [ext_resource type="PackedScene" uid="uid://cjew08elm562t" path="res://gui/gui.tscn" id="5_boad6"]
-[ext_resource type="AudioStream" uid="uid://ecilmm8ymuvm" path="res://assets/player/footstep_0.wav" id="7_hg6s5"]
+[ext_resource type="AudioStream" uid="uid://ecilmm8ymuvm" path="res://assets/player/sound/footstep_0.wav" id="7_hg6s5"]
 [ext_resource type="Material" uid="uid://byvayr8jwcepu" path="res://player/materials/retro_filter.tres" id="8_hg6s5"]
 [ext_resource type="Script" uid="uid://bnbt62ete8km4" path="res://player/inventory.gd" id="8_rgyib"]
+[ext_resource type="Animation" uid="uid://3iekuyht51r3" path="res://assets/player/animations/camera_sway.res" id="9_ebec5"]
+[ext_resource type="Script" uid="uid://dm0k8n1gf154f" path="res://player/camera_animation_player.gd" id="9_hg6s5"]
 [ext_resource type="Script" uid="uid://clawryrmh60wq" path="res://player/message_handler.gd" id="10_8t03j"]
+[ext_resource type="Animation" uid="uid://ds2ipytexoe1q" path="res://assets/player/animations/camera_impact.res" id="10_yllr7"]
+[ext_resource type="Animation" uid="uid://djrqyxbnoaicn" path="res://assets/player/animations/camera_reset.res" id="11_kb6p2"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_4juu5"]
-
-[sub_resource type="Curve" id="Curve_8t03j"]
-_limits = [-0.03, 0.03, 0.0, 0.6]
-_data = [Vector2(0, -0.03), 0.0, 0.0, 0, 0, Vector2(0.3, 0), 0.115776, 0.115776, 0, 0, Vector2(0.6, 0.03), 3.10441e-08, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="Curve" id="Curve_2ieo8"]
-_limits = [-0.05, 0.0, 0.0, 0.6]
-_data = [Vector2(0, -0.05), 0.0, 0.0, 0, 0, Vector2(0.298421, 0), 0.0, 0.0, 0, 0, Vector2(0.6, -0.05), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="Curve" id="Curve_hg6s5"]
-_limits = [-0.101126, 0.0, 0.0, 0.2]
-_data = [Vector2(0, 0), 0.0, -0.61665, 0, 0, Vector2(0.0896358, -0.0736777), 0.0, 0.0, 0, 0, Vector2(0.2, 0), -0.644679, 0.0, 0, 0]
-point_count = 3
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8l6i1"]
 radius = 0.3
@@ -33,12 +21,20 @@ radius = 0.3
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_dgi16"]
 radius = 0.3
 
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2ieo8"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wodsf"]
+_data = {
+&"RESET": ExtResource("11_kb6p2"),
+&"impact": ExtResource("10_yllr7"),
+&"sway": ExtResource("9_ebec5")
+}
+
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 script = ExtResource("1_y2fp8")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 unique_name_in_owner = true
-process_mode = 3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 cull_mask = 1047539
 environment = ExtResource("2_xgxvm")
@@ -46,14 +42,8 @@ attributes = SubResource("CameraAttributesPractical_4juu5")
 current = true
 fov = 90.0
 far = 400.0
-script = ExtResource("2_fl0b5")
-_x_curve = SubResource("Curve_8t03j")
-_y_curve = SubResource("Curve_2ieo8")
-_starting_point = 1
-_hit_stop_curve = SubResource("Curve_hg6s5")
 
 [node name="PlayerRayCast3D" type="RayCast3D" parent="Camera3D"]
-process_mode = 1
 target_position = Vector3(0, 0, -2)
 collide_with_areas = true
 script = ExtResource("4_8t03j")
@@ -69,24 +59,6 @@ unique_name_in_owner = true
 script = ExtResource("8_rgyib")
 metadata/_custom_type_script = "uid://bnbt62ete8km4"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-unique_name_in_owner = true
-shape = SubResource("CapsuleShape3D_8l6i1")
-
-[node name="Footsteps" type="AudioStreamPlayer3D" parent="."]
-unique_name_in_owner = true
-process_mode = 3
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-stream = ExtResource("7_hg6s5")
-max_db = -10.0
-
-[node name="Body" type="MeshInstance3D" parent="."]
-layers = 512
-cast_shadow = 0
-gi_mode = 0
-mesh = SubResource("CapsuleMesh_dgi16")
-skeleton = NodePath("")
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Gui" parent="CanvasLayer" node_paths=PackedStringArray("_crosshair_raycast") instance=ExtResource("5_boad6")]
@@ -101,3 +73,29 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+unique_name_in_owner = true
+shape = SubResource("CapsuleShape3D_8l6i1")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+layers = 512
+cast_shadow = 0
+gi_mode = 0
+mesh = SubResource("CapsuleMesh_dgi16")
+skeleton = NodePath("")
+
+[node name="Footsteps" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+process_mode = 3
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+stream = ExtResource("7_hg6s5")
+volume_db = -30.0
+
+[node name="CameraAnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_2ieo8"),
+&"player_camera": SubResource("AnimationLibrary_wodsf")
+}
+script = ExtResource("9_hg6s5")

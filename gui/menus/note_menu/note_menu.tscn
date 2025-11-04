@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bxy2u38wtphx1"]
+[gd_scene load_steps=4 format=3 uid="uid://bxy2u38wtphx1"]
 
 [ext_resource type="Theme" uid="uid://bh0is5cj4ulq2" path="res://gui/theme/gui_theme.tres" id="1_bjjcs"]
 [ext_resource type="Script" uid="uid://cgn0j5oxntxjr" path="res://gui/menus/note_menu/note_menu.gd" id="2_kblmo"]
+[ext_resource type="AudioStream" uid="uid://drnlxiu8es341" path="res://assets/gui/sound/page_flip.wav" id="3_kblmo"]
 
 [node name="NoteMenu" type="Control"]
 layout_mode = 3
@@ -52,3 +53,8 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Journal"
+
+[node name="PageFlip" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_kblmo")
+volume_db = 10.0

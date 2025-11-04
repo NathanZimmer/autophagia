@@ -30,6 +30,7 @@ var _mouse_inverted := false
 
 @onready var camera := %Camera3D
 @onready var _collider := %CollisionShape3D
+@onready var _camera_animation_player: AnimationPlayer = %CameraAnimationPlayer
 
 
 func _ready() -> void:
@@ -83,14 +84,12 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
-    var on_floor_last_frame := is_on_floor()  # updates after move_and_slide()
+    # var on_floor_last_frame := is_on_floor()  # updates after move_and_slide()
     _walk_and_jump(delta)
     move_and_slide()
-    camera.is_on_floor = is_on_floor()
-    if not on_floor_last_frame and is_on_floor():
-        camera.play_jump_impact()
+    if _camera_animation_player:
+        _camera_animation_player.update_state(velocity.length_squared(), is_on_floor())
     # orthonormalize()
-
 
 func _link_runtime_configurables() -> void:
     _set_mouse_sensitivity(Overrides.load_mouse_sensitivity())

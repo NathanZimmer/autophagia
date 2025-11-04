@@ -96,6 +96,7 @@ func _open_note_menu(title: Inventory.Title) -> void:
         _inventory.get_note_texture(title) if _inventory else PlaceholderTexture2D.new()
     )
     _note_menu.set_image(image)
+    _note_menu.play_page_flip()
     _pause(_note_menu)
 
 

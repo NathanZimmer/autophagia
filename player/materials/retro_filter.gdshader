@@ -63,7 +63,7 @@ vec4 dither(vec2 screen_uv) {
 vec4 crt(vec2 screen_uv) {
     // Darken top halves of pixels
 	float color_dark_offset = 0.0;
-	int y_pos = int(floor(screen_uv.y * screen_resolution.y * 2.0));
+	int y_pos = int(floor(screen_uv.y * screen_resolution.y * 2.0) + TIME * 10.0);
 	if (int(floor((float(y_pos) / 2.0))) * 2 == y_pos)
 		color_dark_offset = scanline_intensity;
 
