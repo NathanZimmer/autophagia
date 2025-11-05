@@ -91,6 +91,7 @@ func _physics_process(delta: float) -> void:
         _camera_animation_player.update_state(velocity.length_squared(), is_on_floor())
     # orthonormalize()
 
+
 func _link_runtime_configurables() -> void:
     _set_mouse_sensitivity(Overrides.load_mouse_sensitivity())
     Overrides.mouse_sensitivity_changed.connect(_set_mouse_sensitivity)

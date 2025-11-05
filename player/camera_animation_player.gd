@@ -1,11 +1,11 @@
 extends AnimationPlayer
 
+enum State { IDLE, WALKING, AIRBORNE, IMPACT }
+
 # Animation names
 const RESET = "player_camera/RESET"
 const CAMERA_SWAY = "player_camera/sway"
 const CAMERA_IMPACT = "player_camera/impact"
-
-enum State { IDLE, WALKING, AIRBORNE, IMPACT }
 
 var _state := State.IDLE
 var _moving_last_frame := false
@@ -19,7 +19,7 @@ func update_state(
     moving: bool,
     is_on_floor: bool,
 ) -> void:
-    match(_state):
+    match _state:
         State.IDLE:
             if moving and is_on_floor:
                 _state = State.WALKING

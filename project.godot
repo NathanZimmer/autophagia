@@ -17,7 +17,7 @@ config/icon="uid://3n2x0n62fk53"
 
 [audio]
 
-buses/default_bus_layout="res://game_settings/default_bus_layout.tres"
+buses/default_bus_layout="uid://bu44dusrxkysh"
 
 [autoload]
 

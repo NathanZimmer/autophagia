@@ -40,7 +40,7 @@ func _ready() -> void:
 
     add_child(_audio_player)
     _audio_player.volume_db = _volume_db
-    _audio_player.bus = "Game"
+    _audio_player.bus = &"Game"
     _audio_player.max_polyphony = 2
 
     _timer = Timer.new()
