@@ -15,6 +15,10 @@ run/main_scene="uid://coctnof2reudh"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="uid://3n2x0n62fk53"
 
+[audio]
+
+buses/default_bus_layout="res://game_settings/default_bus_layout.tres"
+
 [autoload]
 
 InputActions="*res://game_settings/input_actions.gd"

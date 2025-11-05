@@ -32,7 +32,7 @@ float GetBlueNoiseDither( float grayscale, ivec2 pixelCoord, bool noise, vec2 Sc
     //return blueNoiseValue < grayscale ? 1.0 : 0.0;
 
     // Version 2
-    return (step( blueNoiseValue, grayscale ) + step( blueNoiseValue2, grayscale ) 
+    return (step( blueNoiseValue, grayscale ) + step( blueNoiseValue2, grayscale )
             + step( blueNoiseValue3, grayscale ) + step( blueNoiseValue4, grayscale ))/4.0;
 }
 
@@ -54,7 +54,7 @@ vec4 dither(vec2 screen_uv) {
 	float ditherColorR = GetBlueNoiseDither( tex.r, ivec2( screen_uv.st ), true, screen_uv );
 	float ditherColorG = GetBlueNoiseDither( tex.g, ivec2( screen_uv.st ), true, screen_uv );
 	float ditherColorB = GetBlueNoiseDither( tex.b, ivec2( screen_uv.st ), true, screen_uv );
-    
+
     return tex.rgba * (
         vec4(ditherColorR,ditherColorG,ditherColorB, 1.0) * contrastMatrix(contrast) + brightness
     );
@@ -71,7 +71,7 @@ vec4 crt(vec2 screen_uv) {
             * 0.5 + dither(screen_uv - vec2(0, 1.0 / screen_resolution.y)) * 0.5;
     vec4 this_pixel_color = dither(screen_uv);
 
-    return adjacent_pixel_color_average * color_bleed_weight + this_pixel_color 
+    return adjacent_pixel_color_average * color_bleed_weight + this_pixel_color
             * (1.0 - color_bleed_weight) - vec4(vec3(color_dark_offset), 0);
 }
 

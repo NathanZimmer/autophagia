@@ -12,12 +12,24 @@ class_name Door extends AnimatableBody3D
 ## Axis to rotate around
 @export var _rotation_axis: Vector3
 
+@export_group("Audio")
+## TODO
+@export var _open_stream: AudioStream
+## TODO
+@export var _close_stream: AudioStream
+## TODO
+@export var _opening_stream: AudioStream
+## TODO
+@export var _volume_db: float
+
+
 var _open := false
 var _levers: Array[Lever]
 var _tween: Tween
 ## Store tween interpolated value for changing door direction mid-animation
 var _cur_sample_time: float
 var _base_rotation: Quaternion
+var _audio_player := AudioStreamPlayer3D.new()
 
 
 func _ready() -> void:
@@ -27,9 +39,15 @@ func _ready() -> void:
     _curve.bake()
     _base_rotation = basis.get_rotation_quaternion()
 
+    add_child(_audio_player)
+    _audio_player.volume_db = _volume_db
+    _audio_player.bus = "Game"
+    _audio_player.max_polyphony = 2
+
     _levers.assign(find_children("*", "Lever", false))
     for lever in _levers:
         lever.turned.connect(_open_close)
+    _audio_player.position = _levers[0].position
 
 
 ## Tween over `_curve` forward or backward based on the state of `_open`.
@@ -52,9 +70,18 @@ func _open_close() -> void:
             _curve.max_domain,
             _curve.max_domain - _cur_sample_time
         )
+    _audio_player.stream = _opening_stream
+    _audio_player.play(0.2)
 
     await _tween.finished
+
     _open = !_open
+    if _open:
+        _audio_player.stream = _open_stream
+    else:
+        _audio_player.stream = _close_stream
+    _audio_player.play()
+
     for lever in _levers:
         lever.disable_turning = _open
 

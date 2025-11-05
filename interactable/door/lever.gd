@@ -14,12 +14,21 @@ signal turned
 ## Index of the point on the curve to emit `turned` signal
 @export var _emit_point: int
 
+@export_group("Audio")
+## TODO
+@export var _open_stream: AudioStream
+## TODO
+@export var _close_stream: AudioStream
+## TODO
+@export var _volume_db: float
+
 ## Can disable animation and just emit the `turned` signal
 var disable_turning := false
 
 var _tween: Tween
 var _base_rotation: Quaternion
 var _timer: Timer
+var _audio_player := AudioStreamPlayer3D.new()
 
 
 func _ready() -> void:
@@ -28,6 +37,11 @@ func _ready() -> void:
 
     _curve.bake()
     _base_rotation = basis.get_rotation_quaternion()
+
+    add_child(_audio_player)
+    _audio_player.volume_db = _volume_db
+    _audio_player.bus = "Game"
+    _audio_player.max_polyphony = 2
 
     _timer = Timer.new()
     add_child(_timer)
@@ -47,11 +61,21 @@ func _turn(_body: Node3D) -> void:
         return
     if disable_turning:
         turned.emit()
+        _audio_player.stream = _open_stream
+        _audio_player.play()
         return
 
     _tween = create_tween()
     _tween.tween_method(_set_rotation_from_curve, 0.0, _curve.max_domain, _curve.max_domain)
     _timer.start()
+
+    _audio_player.stream = _open_stream
+    _audio_player.play()
+    _tween.finished.connect(
+        func() -> void:
+            _audio_player.stream = _close_stream
+            _audio_player.play()
+    )
 
 
 ## Sets rotation around `_rotation_axis` by sampling `_curve` at a given time [br]

@@ -35,7 +35,7 @@ script = ExtResource("1_y2fp8")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00187863, 0.7, 0)
 cull_mask = 1047539
 environment = ExtResource("2_xgxvm")
 attributes = SubResource("CameraAttributesPractical_4juu5")
@@ -90,7 +90,8 @@ unique_name_in_owner = true
 process_mode = 3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 stream = ExtResource("7_hg6s5")
-volume_db = -30.0
+max_polyphony = 2
+bus = &"Game"
 
 [node name="CameraAnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true

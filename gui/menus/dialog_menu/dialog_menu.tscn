@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c6l3ck41ofphw"]
+[gd_scene load_steps=6 format=3 uid="uid://c6l3ck41ofphw"]
 
 [ext_resource type="Script" uid="uid://t7qqt2bhsaw5" path="res://gui/menus/dialog_menu/dialog_menu.gd" id="2_2ii5v"]
 [ext_resource type="Theme" uid="uid://bh0is5cj4ulq2" path="res://gui/theme/gui_theme.tres" id="2_vgfmb"]
+[ext_resource type="AudioStream" uid="uid://diyw8ek7mi7hr" path="res://assets/gui/sound/dialog_char.wav" id="3_8qsfv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ii5v"]
 bg_color = Color(0.08, 0, 0.00933334, 0.419608)
@@ -133,3 +134,10 @@ layout_mode = 2
 theme_type_variation = &"DialogButton"
 text = "X. EXIT"
 alignment = 0
+
+[node name="TextScroll" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_8qsfv")
+volume_db = -10.0
+max_polyphony = 32
+bus = &"Menus"

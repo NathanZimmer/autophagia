@@ -57,4 +57,5 @@ text = "Journal"
 [node name="PageFlip" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("3_kblmo")
-volume_db = 10.0
+volume_db = 20.0
+bus = &"Menus"
