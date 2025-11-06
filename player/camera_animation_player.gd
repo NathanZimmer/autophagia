@@ -62,6 +62,5 @@ func reset_if_stopped() -> void:
     elif _state == State.WALKING:
         current_animation = CAMERA_SWAY
 
-
 func set_rewind() -> void:
     _rewind = false

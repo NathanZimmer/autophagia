@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dnhp4dcugklq6"]
+[gd_scene load_steps=26 format=3 uid="uid://dnhp4dcugklq6"]
 
 [ext_resource type="Script" uid="uid://c1o8i6ob4hruq" path="res://player/player.gd" id="1_y2fp8"]
 [ext_resource type="Environment" uid="uid://cbgre4uktxw6d" path="res://common/main_world_env.tres" id="2_xgxvm"]
@@ -8,10 +8,10 @@
 [ext_resource type="Material" uid="uid://byvayr8jwcepu" path="res://player/materials/retro_filter.tres" id="8_hg6s5"]
 [ext_resource type="Script" uid="uid://bnbt62ete8km4" path="res://player/inventory.gd" id="8_rgyib"]
 [ext_resource type="Animation" uid="uid://3iekuyht51r3" path="res://assets/player/animations/camera_sway.res" id="9_ebec5"]
-[ext_resource type="Script" uid="uid://dm0k8n1gf154f" path="res://player/camera_animation_player.gd" id="9_hg6s5"]
 [ext_resource type="Script" uid="uid://clawryrmh60wq" path="res://player/message_handler.gd" id="10_8t03j"]
 [ext_resource type="Animation" uid="uid://ds2ipytexoe1q" path="res://assets/player/animations/camera_impact.res" id="10_yllr7"]
 [ext_resource type="Animation" uid="uid://djrqyxbnoaicn" path="res://assets/player/animations/camera_reset.res" id="11_kb6p2"]
+[ext_resource type="Script" uid="uid://c7vyaxwgerejy" path="res://player/camera_animation_tree.gd" id="12_ebec5"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_4juu5"]
 
@@ -30,12 +30,50 @@ _data = {
 &"sway": ExtResource("9_ebec5")
 }
 
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_yllr7"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kb6p2"]
+animation = &"player_camera/impact"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_ebec5"]
+mix_mode = 1
+break_loop_at_end = true
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_32hag"]
+animation = &"player_camera/RESET"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ebec5"]
+animation = &"player_camera/sway"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_ebec5"]
+
+[sub_resource type="AnimationNodeTimeSeek" id="AnimationNodeTimeSeek_ebec5"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ebec5"]
+graph_offset = Vector2(-448.888, -187.725)
+nodes/BlendWalk/node = SubResource("AnimationNodeBlend2_yllr7")
+nodes/BlendWalk/position = Vector2(400, -140)
+nodes/Impact/node = SubResource("AnimationNodeAnimation_kb6p2")
+nodes/Impact/position = Vector2(340, 120)
+nodes/OneShotImpact/node = SubResource("AnimationNodeOneShot_ebec5")
+nodes/OneShotImpact/position = Vector2(600, -60)
+nodes/RESET/node = SubResource("AnimationNodeAnimation_32hag")
+nodes/RESET/position = Vector2(80, 0)
+nodes/Sway/node = SubResource("AnimationNodeAnimation_ebec5")
+nodes/Sway/position = Vector2(-240, -160)
+nodes/TimeScaleSway/node = SubResource("AnimationNodeTimeScale_ebec5")
+nodes/TimeScaleSway/position = Vector2(180, -180)
+nodes/TimeSeekSway/node = SubResource("AnimationNodeTimeSeek_ebec5")
+nodes/TimeSeekSway/position = Vector2(20, -180)
+nodes/output/position = Vector2(820, -40)
+node_connections = [&"BlendWalk", 0, &"RESET", &"BlendWalk", 1, &"TimeScaleSway", &"OneShotImpact", 0, &"BlendWalk", &"OneShotImpact", 1, &"Impact", &"TimeScaleSway", 0, &"TimeSeekSway", &"TimeSeekSway", 0, &"Sway", &"output", 0, &"OneShotImpact"]
+
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 script = ExtResource("1_y2fp8")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00187863, 0.7, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 cull_mask = 1047539
 environment = ExtResource("2_xgxvm")
 attributes = SubResource("CameraAttributesPractical_4juu5")
@@ -87,16 +125,26 @@ skeleton = NodePath("")
 
 [node name="Footsteps" type="AudioStreamPlayer3D" parent="."]
 unique_name_in_owner = true
-process_mode = 3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 stream = ExtResource("7_hg6s5")
 max_polyphony = 2
 bus = &"Game"
 
 [node name="CameraAnimationPlayer" type="AnimationPlayer" parent="."]
-unique_name_in_owner = true
 libraries = {
 &"": SubResource("AnimationLibrary_2ieo8"),
 &"player_camera": SubResource("AnimationLibrary_wodsf")
 }
-script = ExtResource("9_hg6s5")
+
+[node name="CameraAnimationTree" type="AnimationTree" parent="."]
+unique_name_in_owner = true
+root_node = NodePath("%CameraAnimationTree/..")
+tree_root = SubResource("AnimationNodeBlendTree_ebec5")
+anim_player = NodePath("../CameraAnimationPlayer")
+parameters/BlendWalk/blend_amount = 0.0
+parameters/OneShotImpact/active = false
+parameters/OneShotImpact/internal_active = false
+parameters/OneShotImpact/request = 0
+parameters/TimeScaleSway/scale = 1.0
+parameters/TimeSeekSway/seek_request = -1.0
+script = ExtResource("12_ebec5")
