@@ -15,6 +15,10 @@ const DEBUG_CAPTURE_MOUSE := false
 @export var _move_speed := 3.0
 ## The upward velocity of a jump
 @export var _jump_velocity := 4.5
+@export_subgroup("Velocity Deltas")
+@export var _start_delta := 0.05
+@export var _stop_delta := 0.03
+@export var _air_delta := 0.02
 
 @export_group("Dev controls")
 @export var _dev_controls_enabled := true
@@ -85,14 +89,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
-    # var on_floor_last_frame := is_on_floor()  # updates after move_and_slide()
     _walk_and_jump(delta)
     move_and_slide()
-    # if _camera_animation_player:
-    #     _camera_animation_player.update_state(velocity.length_squared(), is_on_floor())
     if _camera_animation_tree:
-        _camera_animation_tree.update_state(velocity, is_on_floor(), _move_speed)
-    # orthonormalize()
+        _camera_animation_tree.update_state(velocity, is_on_floor(), _move_speed * _speed_mod)
 
 
 func _link_runtime_configurables() -> void:
@@ -136,19 +136,24 @@ func _walk_and_jump(delta: float) -> void:
 
     # TODO: Make this good
     var orig_xz_velocity := velocity - velocity.project(global_basis.y)
-    var start_delta := 0.05
-    var stop_delta := 0.03
-    var air_delta := 0.02
-    var t_delta := (
-        start_delta
-        if orig_xz_velocity.length_squared() < xz_velocity.length_squared()
-        else stop_delta
+    var velocity_delta := (
+        (
+            _start_delta
+            if orig_xz_velocity.length_squared() < xz_velocity.length_squared()
+            else _stop_delta
+        )
+        if is_on_floor()
+        else _air_delta
     )
-    velocity = Vector3(
-        move_toward(orig_xz_velocity.x, xz_velocity.x, t_delta if is_on_floor() else air_delta),
-        move_toward(orig_xz_velocity.y, xz_velocity.y, t_delta if is_on_floor() else air_delta),
-        move_toward(orig_xz_velocity.z, xz_velocity.z, t_delta if is_on_floor() else air_delta),
-    ) + y_velocity
+    velocity_delta *= _speed_mod
+    velocity = (
+        Vector3(
+            move_toward(orig_xz_velocity.x, xz_velocity.x, velocity_delta),
+            move_toward(orig_xz_velocity.y, xz_velocity.y, velocity_delta),
+            move_toward(orig_xz_velocity.z, xz_velocity.z, velocity_delta),
+        )
+        + y_velocity
+    )
 
 
 ## Handle mouse input for camera rotation [br]

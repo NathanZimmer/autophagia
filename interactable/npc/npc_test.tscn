@@ -34,11 +34,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.494925, 1, 7.32095)
 
 [node name="CameraAnimationTree" parent="Player" index="8"]
 parameters/BlendWalk/blend_amount = 0
-parameters/OneShotImpact/active = false
-parameters/OneShotImpact/internal_active = false
-parameters/OneShotImpact/request = 0
-parameters/TimeScaleSway/scale = 1.0
-parameters/TimeSeekSway/seek_request = -1.0
 
 [node name="Npc" parent="." index="4" instance=ExtResource("3_gghw6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 5)
