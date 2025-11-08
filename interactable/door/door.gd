@@ -60,6 +60,7 @@ func _open_close() -> void:
             lever.disable_turning = true
 
     _tween = create_tween()
+    _tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
     if _open:
         _tween.tween_method(_set_rotation_from_curve, _cur_sample_time, 0.0, _cur_sample_time)
     else:

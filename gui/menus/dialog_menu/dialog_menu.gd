@@ -63,6 +63,7 @@ func _scroll_text(start_offset: int, target_length: int, scroll_factor := 1.0) -
         (target_length - _dialog_box.visible_characters)
         / (TEXT_SCROLL_CHARS_PER_SEC * scroll_factor)
     )
+    _dialog_scroll_tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
     _dialog_scroll_tween.tween_method(
         func(chars: int) -> void:
             _dialog_box.visible_characters = chars

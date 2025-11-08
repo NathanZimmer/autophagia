@@ -35,6 +35,7 @@ func update_state(
             elif not is_on_floor:
                 _state = State.AIRBORNE
                 _tween = create_tween()
+                _tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
                 _tween.tween_property(self, BLEND_AMOUNT, 0.0, 1.0 - get(BLEND_AMOUNT))
                 _tween.finished.connect(set.bind(SEEK_REQUEST, 0.0))
         State.AIRBORNE:
@@ -43,7 +44,6 @@ func update_state(
                     _tween.stop()
                 _state = State.IDLE if is_zero_approx(normalized_length) else State.WALKING
                 set(ONESHOT_REQUEST, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
-
 
 func play_footsteps(
     pitch_scale: float,

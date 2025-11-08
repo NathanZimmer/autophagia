@@ -139,5 +139,5 @@ alignment = 0
 unique_name_in_owner = true
 stream = ExtResource("3_8qsfv")
 volume_db = -10.0
-max_polyphony = 32
+max_polyphony = 64
 bus = &"Menus"

@@ -87,7 +87,6 @@ func _unhandled_input(event: InputEvent) -> void:
             _speed_mod = _speed_mod if _speed_mod < _max_speed else _max_speed
             get_tree().get_root().set_input_as_handled()
 
-
 func _physics_process(delta: float) -> void:
     _walk_and_jump(delta)
     move_and_slide()
