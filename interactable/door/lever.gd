@@ -9,16 +9,26 @@ signal turned
 ## * Range: [0, y] where y is the maximum rotation angle in radians [br]
 ## The curve should start and end at y=0 to prevent jumps in rotation on animation start/end
 @export var _curve: Curve = load("uid://c7djvmapq1bjn")
+## Curve used for the lever animation when locked. [br]
+## * Domain: [0, x] where x is the duration of the animation in seconds [br]
+## * Range: [0, y] where y is the maximum rotation angle in radians [br]
+## The curve should start and end at y=0 to prevent jumps in rotation on animation start/end
+@export var _locked_curve: Curve = load("uid://thopqlhxyawo")
 ## Axis to rotate around
 @export var _rotation_axis: Vector3
 ## Index of the point on the curve to emit `turned` signal
 @export var _emit_point: int
+
+## TODO
+@export var locked: bool
 
 @export_group("Audio")
 ## TODO
 @export var _open_stream: AudioStream
 ## TODO
 @export var _close_stream: AudioStream
+## TODO
+@export var _locked_stream: AudioStream
 ## TODO
 @export var _volume_db: float
 
@@ -36,12 +46,13 @@ func _ready() -> void:
         return
 
     _curve.bake()
+    _locked_curve.bake()
     _base_rotation = basis.get_rotation_quaternion()
 
     add_child(_audio_player)
     _audio_player.volume_db = _volume_db
     _audio_player.bus = &"Game"
-    _audio_player.max_polyphony = 2
+    _audio_player.max_polyphony = 16
 
     _timer = Timer.new()
     add_child(_timer)
@@ -61,7 +72,13 @@ func _turn(_body: Node3D) -> void:
         return
     if disable_turning:
         turned.emit()
-        _audio_player.stream = _open_stream
+        _audio_player.stream = _close_stream
+        _audio_player.play()
+        return
+    if locked:
+        _tween = create_tween()
+        _tween.tween_method(_set_rotation_from_curve, 0.0, _locked_curve.max_domain, _locked_curve.max_domain)
+        _audio_player.stream = _locked_stream
         _audio_player.play()
         return
 
@@ -82,7 +99,7 @@ func _turn(_body: Node3D) -> void:
 ## ## Parameters [br]
 ## `sample_time`: Time at which to sample the curve
 func _set_rotation_from_curve(sample_time: float) -> void:
-    var angle := _curve.sample_baked(sample_time)
+    var angle := _locked_curve.sample_baked(sample_time) if locked else _curve.sample_baked(sample_time)
     basis = Basis(_base_rotation * Quaternion(_rotation_axis, angle))
 
 

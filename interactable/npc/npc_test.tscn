@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://coctnof2reudh"]
+[gd_scene load_steps=21 format=3 uid="uid://coctnof2reudh"]
 
 [ext_resource type="PackedScene" uid="uid://bn2tmn3fg0c2c" path="res://common/test.tscn" id="1_1rqvx"]
 [ext_resource type="PackedScene" uid="uid://cfu3lhkhxqp13" path="res://interactable/npc/npc.tscn" id="3_gghw6"]
@@ -14,6 +14,8 @@
 [ext_resource type="AudioStream" uid="uid://bumlq2lwhrlk3" path="res://assets/door/handle_open.wav" id="9_kl0pj"]
 [ext_resource type="Script" uid="uid://nby3c2g37q5b" path="res://interactable/triggers/click_trigger.gd" id="9_xru0j"]
 [ext_resource type="AudioStream" uid="uid://bkd3jvrv1dro2" path="res://assets/door/handle_close.wav" id="10_re6w1"]
+[ext_resource type="Curve" uid="uid://thopqlhxyawo" path="res://interactable/door/default_level_locked_curve.tres" id="12_k6rjs"]
+[ext_resource type="AudioStream" uid="uid://bampav512coom" path="res://assets/door/door_locked.wav" id="14_gxvby"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_gxvby"]
 size = Vector3(1.5, 2.5, 0.1)
@@ -98,10 +100,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 0, 0.0500002)
 mesh = SubResource("BoxMesh_86a0w")
 script = ExtResource("7_yicw0")
 _curve = ExtResource("8_be2ow")
+_locked_curve = ExtResource("12_k6rjs")
 _rotation_axis = Vector3(0, 0, 1)
 _emit_point = 1
 _open_stream = ExtResource("9_kl0pj")
 _close_stream = ExtResource("10_re6w1")
+_locked_stream = ExtResource("14_gxvby")
 _volume_db = -20.0
 metadata/_custom_type_script = "uid://cv0r6v1vg77i7"
 
@@ -111,6 +115,48 @@ _groups = Array[StringName]([&"player"])
 metadata/_custom_type_script = "uid://nby3c2g37q5b"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Door/Lever/ClickTrigger" index="0"]
+shape = SubResource("BoxShape3D_cfd3w")
+
+[node name="Door2" type="AnimatableBody3D" parent="." index="8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.21023, 1.25, 5.10493)
+script = ExtResource("5_kl0pj")
+_curve = ExtResource("6_re6w1")
+_rotation_axis = Vector3(0, 1, 0)
+_open_stream = ExtResource("7_be2ow")
+_close_stream = ExtResource("8_xru0j")
+_opening_stream = ExtResource("9_gxvby")
+metadata/_custom_type_script = "uid://bjl6jcg8k2gju"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Door2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0.0500002)
+material_override = ExtResource("4_408lt")
+mesh = SubResource("BoxMesh_gxvby")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Door2" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0.0500002)
+shape = SubResource("BoxShape3D_k6rjs")
+
+[node name="Lever" type="MeshInstance3D" parent="Door2" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 0, 0.0500002)
+mesh = SubResource("BoxMesh_86a0w")
+script = ExtResource("7_yicw0")
+_curve = ExtResource("8_be2ow")
+_locked_curve = ExtResource("12_k6rjs")
+_rotation_axis = Vector3(0, 0, 1)
+_emit_point = 1
+locked = true
+_open_stream = ExtResource("9_kl0pj")
+_close_stream = ExtResource("10_re6w1")
+_locked_stream = ExtResource("14_gxvby")
+_volume_db = -20.0
+metadata/_custom_type_script = "uid://cv0r6v1vg77i7"
+
+[node name="ClickTrigger" type="Area3D" parent="Door2/Lever" index="0" groups=["lever"]]
+script = ExtResource("9_xru0j")
+_groups = Array[StringName]([&"player"])
+metadata/_custom_type_script = "uid://nby3c2g37q5b"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Door2/Lever/ClickTrigger" index="0"]
 shape = SubResource("BoxShape3D_cfd3w")
 
 [editable path="Player"]
