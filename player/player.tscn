@@ -70,6 +70,7 @@ node_connections = [&"BlendWalk", 0, &"RESET", &"BlendWalk", 1, &"TimeScaleSway"
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 script = ExtResource("1_y2fp8")
+_override_up_dir_on_ready = false
 
 [node name="Camera3D" type="Camera3D" parent="."]
 unique_name_in_owner = true
