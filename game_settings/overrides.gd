@@ -21,8 +21,7 @@ func _ready() -> void:
 
     for bus in AudioServer.bus_count:
         AudioServer.set_bus_volume_db(
-            bus,
-            linear_to_db(load_audio(AudioServer.get_bus_name(bus)) / 100.0)
+            bus, linear_to_db(load_audio(AudioServer.get_bus_name(bus)) / 100.0)
         )
 
 

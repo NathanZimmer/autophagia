@@ -77,7 +77,9 @@ func _turn(_body: Node3D) -> void:
         return
     if locked:
         _tween = create_tween()
-        _tween.tween_method(_set_rotation_from_curve, 0.0, _locked_curve.max_domain, _locked_curve.max_domain)
+        _tween.tween_method(
+            _set_rotation_from_curve, 0.0, _locked_curve.max_domain, _locked_curve.max_domain
+        )
         _audio_player.stream = _locked_stream
         _audio_player.play()
         return
@@ -99,7 +101,9 @@ func _turn(_body: Node3D) -> void:
 ## ## Parameters [br]
 ## `sample_time`: Time at which to sample the curve
 func _set_rotation_from_curve(sample_time: float) -> void:
-    var angle := _locked_curve.sample_baked(sample_time) if locked else _curve.sample_baked(sample_time)
+    var angle := (
+        _locked_curve.sample_baked(sample_time) if locked else _curve.sample_baked(sample_time)
+    )
     basis = Basis(_base_rotation * Quaternion(_rotation_axis, angle))
 
 

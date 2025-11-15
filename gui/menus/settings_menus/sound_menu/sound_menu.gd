@@ -9,10 +9,10 @@ extends MenuControl
 func _ready() -> void:
     super._ready()
 
-    _connect_slider_to_bus(_master_audio_slider,"Master")
-    _connect_slider_to_bus(_game_audio_slider,"Game")
-    _connect_slider_to_bus(_menu_audio_slider,"Menus")
-    _connect_slider_to_bus(_ambient_audio_slider,"Ambient")
+    _connect_slider_to_bus(_master_audio_slider, &"Master")
+    _connect_slider_to_bus(_game_audio_slider, &"Game")
+    _connect_slider_to_bus(_menu_audio_slider, &"Menus")
+    _connect_slider_to_bus(_ambient_audio_slider, &"Ambient")
 
 
 func _connect_slider_to_bus(slider: Node, bus: StringName) -> void:
