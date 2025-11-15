@@ -50,7 +50,6 @@ animation = &"player_camera/sway"
 [sub_resource type="AnimationNodeTimeSeek" id="AnimationNodeTimeSeek_ebec5"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ebec5"]
-graph_offset = Vector2(-375.324, -186.138)
 nodes/BlendWalk/node = SubResource("AnimationNodeBlend2_yllr7")
 nodes/BlendWalk/position = Vector2(400, -140)
 nodes/Impact/node = SubResource("AnimationNodeAnimation_kb6p2")

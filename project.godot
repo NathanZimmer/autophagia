@@ -18,6 +18,7 @@ config/icon="uid://3n2x0n62fk53"
 [audio]
 
 buses/default_bus_layout="uid://bu44dusrxkysh"
+buses/master_audio_linear=100
 
 [autoload]
 

@@ -45,6 +45,7 @@ func update_state(
                 _state = State.IDLE if is_zero_approx(normalized_length) else State.WALKING
                 set(ONESHOT_REQUEST, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 
+
 func play_footsteps(
     pitch_scale: float,
     rand_range: float = 0.0,

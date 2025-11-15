@@ -52,7 +52,8 @@ mouse_filter = 1
 _swap_map = {
 NodePath("MenuContainer/ScrollContainer/VBoxContainer/ControlsButton"): NodePath("ControlsMenu"),
 NodePath("MenuContainer/ScrollContainer/VBoxContainer/QuitButton"): NodePath("QuitMenu"),
-NodePath("MenuContainer/ScrollContainer/VBoxContainer/VisualsButton"): NodePath("VisualsMenu")
+NodePath("MenuContainer/ScrollContainer/VBoxContainer/VisualsButton"): NodePath("VisualsMenu"),
+NodePath("MenuContainer/ScrollContainer/VBoxContainer/SoundButton"): NodePath("SoundMenu")
 }
 
 [node name="Background" type="ColorRect" parent="PauseMenu"]

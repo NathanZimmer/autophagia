@@ -139,7 +139,7 @@ func _walk_and_jump(delta: float) -> void:
             local_velocity.y += _jump_velocity
         else:
             local_velocity.y -= _gravity * delta
-            if local_velocity.y >= TERMINAL_VELOCITY:
+            if local_velocity.y <= -TERMINAL_VELOCITY:
                 local_velocity.y = -TERMINAL_VELOCITY
     else:
         var y_input_dir := Input.get_axis(InputActions.Player.DOWN, InputActions.Player.UP)
