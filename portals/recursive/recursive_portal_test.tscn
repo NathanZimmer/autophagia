@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://bokp8e4x73bod"]
+[gd_scene load_steps=16 format=3 uid="uid://bokp8e4x73bod"]
 
 [ext_resource type="PackedScene" uid="uid://bxni3e6t47b77" path="res://portals/portal_test.tscn" id="1_j3sm2"]
 [ext_resource type="Material" uid="uid://yk4x16701e40" path="res://common/placeholder_triplanar.tres" id="2_sff3r"]
 [ext_resource type="Script" uid="uid://cnxtc27x7m03v" path="res://portals/recursive/recursive_portal_processor.gd" id="3_foilp"]
 [ext_resource type="Script" uid="uid://dg7e58q26ojyv" path="res://portals/portal_body.gd" id="4_1it28"]
+[ext_resource type="AudioStream" uid="uid://cxusn2dc1366p" path="res://assets/door/door_creaking.wav" id="5_1it28"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_e121w"]
 size = Vector2(20, 20)
@@ -626,6 +627,9 @@ transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 
 script = ExtResource("4_1it28")
 size = Vector3(2, 3, 1)
 metadata/_custom_type_script = "uid://dg7e58q26ojyv"
+
+[node name="Door" parent="." index="10"]
+_moving_stream = ExtResource("5_1it28")
 
 [node name="Player" parent="." index="11"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4, 1, 1.5)
