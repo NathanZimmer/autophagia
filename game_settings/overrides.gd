@@ -19,6 +19,11 @@ var _config_file := ConfigFile.new()
 func _ready() -> void:
     _config_file.load(CONFIG_PATH)
 
+    for bus in AudioServer.bus_count:
+        AudioServer.set_bus_volume_db(
+            bus, linear_to_db(load_audio(AudioServer.get_bus_name(bus)) / 100.0)
+        )
+
 
 func save_vsync_mode(mode: DisplayServer.VSyncMode) -> void:
     DisplayServer.window_set_vsync_mode(mode)
@@ -114,6 +119,17 @@ func save_fov(fov: int) -> void:
 
 func load_fov() -> int:
     return _config_file.get_value("player", "camera/field_of_view", 90)
+
+
+func save_audio(bus_name: StringName, level: int) -> void:
+    var bus := AudioServer.get_bus_index(bus_name)
+    AudioServer.set_bus_volume_db(bus, linear_to_db(level / 100.0))
+    _config_file.set_value("audio", "%s_level" % bus_name.to_lower(), level)
+    _save()
+
+
+func load_audio(bus_name: StringName) -> int:
+    return _config_file.get_value("audio", "%s_level" % bus_name.to_lower(), 0)
 
 
 func save_input_action(action: StringName, event: InputEvent) -> void:

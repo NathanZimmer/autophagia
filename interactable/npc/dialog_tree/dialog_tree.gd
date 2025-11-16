@@ -1,4 +1,4 @@
-class_name DialogTree extends Object
+class_name DialogTree extends RefCounted
 ## Holds dialog and reponses in a tree structure. Reads input from a JSON.
 ## Format can be found in dialog_template.json.
 

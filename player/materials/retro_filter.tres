@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://byvayr8jwcepu"]
 
-[ext_resource type="Shader" uid="uid://c7gou5tdd475f" path="res://player/retro_filter.gdshader" id="1_5agxk"]
+[ext_resource type="Shader" uid="uid://c7gou5tdd475f" path="res://player/materials/retro_filter.gdshader" id="1_5agxk"]
 
 [resource]
 shader = ExtResource("1_5agxk")

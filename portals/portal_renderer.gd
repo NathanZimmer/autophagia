@@ -128,7 +128,6 @@ func _create_sub_viewport() -> SubViewport:
 
     add_child(sub_viewport)
 
-    # FIXME: Condition "!viewport->canvas_map.has(p_canvas)" is true.
     var properties := target_viewport.get_property_list()
     for property in properties:
         var key: String = property["name"]
@@ -142,6 +141,8 @@ func _create_sub_viewport() -> SubViewport:
     sub_viewport.use_occlusion_culling = false
     sub_viewport.render_target_update_mode = (SubViewport.UPDATE_WHEN_PARENT_VISIBLE)
     sub_viewport.handle_input_locally = true
+    sub_viewport.audio_listener_enable_2d = false
+    sub_viewport.audio_listener_enable_3d = false
 
     return sub_viewport
 

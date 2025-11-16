@@ -15,6 +15,10 @@ const DEBUG_CAPTURE_MOUSE := false
 @export var _move_speed := 3.0
 ## The upward velocity of a jump
 @export var _jump_velocity := 4.5
+@export_subgroup("Velocity Deltas")
+@export var _start_delta := 0.05
+@export var _stop_delta := 0.03
+@export var _air_delta := 0.02
 
 @export_group("Dev controls")
 @export var _dev_controls_enabled := true
@@ -30,6 +34,8 @@ var _mouse_inverted := false
 
 @onready var camera := %Camera3D
 @onready var _collider := %CollisionShape3D
+# @onready var _camera_animation_player: AnimationPlayer = %CameraAnimationPlayer
+@onready var _camera_animation_tree: AnimationTree = %CameraAnimationTree
 
 
 func _ready() -> void:
@@ -85,7 +91,8 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
     _walk_and_jump(delta)
     move_and_slide()
-    # orthonormalize()
+    if _camera_animation_tree:
+        _camera_animation_tree.update_state(velocity, is_on_floor(), _move_speed * _speed_mod)
 
 
 func _link_runtime_configurables() -> void:
@@ -97,37 +104,50 @@ func _link_runtime_configurables() -> void:
     Overrides.field_of_view_changed.connect(_set_fov)
 
 
-# FIXME: Sometimes the player cannot jump, this is probaly from the basis changing
 ## Handle player input for walking and jumping using the `InputActions.Player` input actions
 func _walk_and_jump(delta: float) -> void:
-    var xz_input_dir := Input.get_vector(
-        InputActions.Player.LEFT,
-        InputActions.Player.RIGHT,
-        InputActions.Player.FORWARD,
-        InputActions.Player.BACK
+    var xz_velocity := (
+        Input.get_vector(
+            InputActions.Player.LEFT,
+            InputActions.Player.RIGHT,
+            InputActions.Player.FORWARD,
+            InputActions.Player.BACK
+        )
+        * _move_speed
+        * _speed_mod
     )
+    var local_velocity := global_basis.inverse() * velocity
 
-    var right := global_basis.x * xz_input_dir.x
-    var forward := global_basis.z * xz_input_dir.y
-    var xz_velocity := (right + forward).normalized() * _move_speed * _speed_mod
+    var velocity_delta := (
+        (
+            _start_delta
+            if (
+                Vector2(local_velocity.x, local_velocity.z).length_squared()
+                < xz_velocity.length_squared()
+            )
+            else _stop_delta
+        )
+        if is_on_floor() or _flying
+        else _air_delta
+    )
+    velocity_delta *= _speed_mod
+    local_velocity.x = move_toward(local_velocity.x, xz_velocity.x, velocity_delta)
+    local_velocity.z = move_toward(local_velocity.z, xz_velocity.y, velocity_delta)
 
-    # Need to handle jumping, falling, and _flying separately from xz movement
-    var y_velocity: Vector3
     if not _flying:
-        y_velocity = velocity.project(global_basis.y)
-        if not is_on_floor():
-            y_velocity -= global_basis.y * _gravity * delta
-            # TODO: Test if this is framerate independent
-            if y_velocity.length() >= TERMINAL_VELOCITY:
-                y_velocity = global_basis.y * -TERMINAL_VELOCITY
         if Input.is_action_just_pressed(InputActions.Player.UP) and is_on_floor():
-            y_velocity += _jump_velocity * global_basis.y
+            local_velocity.y += _jump_velocity
+        else:
+            local_velocity.y -= _gravity * delta
+            if local_velocity.y <= -TERMINAL_VELOCITY:
+                local_velocity.y = -TERMINAL_VELOCITY
     else:
         var y_input_dir := Input.get_axis(InputActions.Player.DOWN, InputActions.Player.UP)
-        var up := global_basis.y * y_input_dir
-        y_velocity = up * _move_speed * _speed_mod
+        local_velocity.y = move_toward(
+            local_velocity.y, y_input_dir * _move_speed * _speed_mod, velocity_delta
+        )
 
-    velocity = xz_velocity + y_velocity
+    velocity = global_basis * local_velocity
 
 
 ## Handle mouse input for camera rotation [br]

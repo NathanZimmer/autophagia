@@ -2,9 +2,10 @@ extends Control
 ## Handles menu and viewport related hotkeys, mouse capturing, crosshair,
 ## and connecting menus
 
-## TODO
+## Raycast to use for setting crosshair icons
 @export var _crosshair_raycast: RayCast3D
-## TODO
+## Map of group name -> texture to display when `_crosshair_raycast` collides
+## with that group
 @export var _crosshair_textures: Dictionary[StringName, Texture2D]
 
 var _raycast_collided: Object
@@ -96,6 +97,7 @@ func _open_note_menu(title: Inventory.Title) -> void:
         _inventory.get_note_texture(title) if _inventory else PlaceholderTexture2D.new()
     )
     _note_menu.set_image(image)
+    _note_menu.play_page_flip()
     _pause(_note_menu)
 
 

@@ -15,10 +15,16 @@ run/main_scene="uid://coctnof2reudh"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="uid://3n2x0n62fk53"
 
+[audio]
+
+buses/default_bus_layout="uid://bu44dusrxkysh"
+buses/master_audio_linear=100
+
 [autoload]
 
 InputActions="*res://game_settings/input_actions.gd"
 Overrides="*res://game_settings/overrides.gd"
+TwoDAudioManager="*res://2d_audio/2d_audio_manager.gd"
 
 [debug]
 

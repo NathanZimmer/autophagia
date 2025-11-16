@@ -86,7 +86,7 @@ func _rebind_input_action(button: Button, action: StringName) -> void:
 
         if event.is_action_pressed(InputActions.UI.CANCEL):
             var original_event := InputMap.action_get_events(action)[0]
-            button.text = original_event.as_text().replace("(Physical)", "")
+            button.text = original_event.as_text()  #.replace("(Physical)", "")
             break
 
         if event.is_released():
@@ -94,6 +94,6 @@ func _rebind_input_action(button: Button, action: StringName) -> void:
         if not (event is InputEventKey or event is InputEventMouseButton):
             continue
 
-        button.text = event.as_text().replace("(Physical)", "")
+        button.text = event.as_text()  #.replace("(Physical)", "")
         Overrides.save_input_action(action, event)
         break

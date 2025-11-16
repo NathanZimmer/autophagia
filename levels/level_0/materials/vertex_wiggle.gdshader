@@ -16,6 +16,7 @@ uniform sampler2D texture_roughness : hint_roughness_r, filter_linear_mipmap, re
 uniform float specular : hint_range(0.0, 1.0, 0.01);
 uniform float metallic : hint_range(0.0, 1.0, 0.01);
 
+uniform bool enable_ambient_occlusion = false;
 uniform sampler2D texture_ambient_occlusion : hint_default_white, filter_linear_mipmap, repeat_enable;
 uniform vec4 ao_texture_channel;
 uniform float ao_light_affect : hint_range(0.0, 1.0, 0.01);
@@ -63,6 +64,8 @@ void fragment() {
 	ROUGHNESS = roughness_tex * roughness;
 
 	// Ambient Occlusion: Enabled
-	AO = dot(texture(texture_ambient_occlusion, base_uv2), ao_texture_channel);
-	AO_LIGHT_AFFECT = ao_light_affect;
+    if (enable_ambient_occlusion) {
+        AO = dot(texture(texture_ambient_occlusion, base_uv2), ao_texture_channel);
+        AO_LIGHT_AFFECT = ao_light_affect;
+    }
 }
