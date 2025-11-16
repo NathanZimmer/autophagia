@@ -128,7 +128,6 @@ func _create_sub_viewport() -> SubViewport:
 
     add_child(sub_viewport)
 
-    # FIXME: Condition "!viewport->canvas_map.has(p_canvas)" is true.
     var properties := target_viewport.get_property_list()
     for property in properties:
         var key: String = property["name"]

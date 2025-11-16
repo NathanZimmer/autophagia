@@ -19,7 +19,7 @@ class_name RecursivePortalProcessor extends PortalProcessor
 # this will need to be fixed eventually
 
 # FIXME: The base renderer has a 1 frame delay
-# FIXME: the second-level portal sometimes has visible seams
+# FIXME: portals sometimes has visible seams
 
 const RECURSION_LIMIT := 10
 

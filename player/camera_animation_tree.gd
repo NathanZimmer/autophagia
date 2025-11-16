@@ -1,7 +1,6 @@
 extends AnimationTree
-## TODO
-# FIXME: Going through a portal that changes the player's basis screws up the animation states,
-# probably because "is_on_ground()" doesn't work consistently when the basis is non-identity
+## Blends animations based on player state
+
 
 enum State { IDLE, WALKING, AIRBORNE }
 
@@ -10,12 +9,15 @@ const SCALE = "parameters/TimeScaleSway/scale"
 const SEEK_REQUEST = "parameters/TimeSeekSway/seek_request"
 const ONESHOT_REQUEST = "parameters/OneShotImpact/request"
 
+const BLEND_FOOTSTEP_THRESHOLD = 0.5
+
 var _state := State.IDLE
 var _tween: Tween
 
 @onready var _footsteps: AudioStreamPlayer3D = %Footsteps
 
 
+## Update animation blend states based on player movement variables
 func update_state(
     velocity: Vector3,
     is_on_floor: bool,
@@ -51,7 +53,7 @@ func play_footsteps(
     rand_range: float = 0.0,
     override_threshold := false,
 ) -> void:
-    if get(BLEND_AMOUNT) < 0.5 and not override_threshold:
+    if get(BLEND_AMOUNT) < BLEND_FOOTSTEP_THRESHOLD and not override_threshold:
         return
     _footsteps.pitch_scale = pitch_scale + randf_range(0.0, rand_range)
     _footsteps.play()

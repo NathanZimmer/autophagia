@@ -19,17 +19,17 @@ signal turned
 ## Index of the point on the curve to emit `turned` signal
 @export var _emit_point: int
 
-## TODO
+## Whether this lever should emit the turned signal when activated
 @export var locked: bool
 
 @export_group("Audio")
-## TODO
-@export var _open_stream: AudioStream
-## TODO
-@export var _close_stream: AudioStream
-## TODO
-@export var _locked_stream: AudioStream
-## TODO
+## Stream to play on lever turn start
+@export var _open_stream: AudioStream = load('uid://bumlq2lwhrlk3')
+## Stream to play when lever turn end
+@export var _close_stream: AudioStream = load('uid://bkd3jvrv1dro2')
+## Stream to play if `locked == True`
+@export var _locked_stream: AudioStream = load('uid://bampav512coom')
+## The base sound level of each audio stream before attenuation, in decibels.
 @export var _volume_db: float
 
 ## Can disable animation and just emit the `turned` signal

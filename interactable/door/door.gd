@@ -13,13 +13,13 @@ class_name Door extends AnimatableBody3D
 @export var _rotation_axis: Vector3
 
 @export_group("Audio")
-## TODO
-@export var _open_stream: AudioStream
-## TODO
-@export var _close_stream: AudioStream
-## TODO
-@export var _opening_stream: AudioStream
-## TODO
+## Stream to play when door finishes opening
+@export var _open_stream: AudioStream = load('uid://bgdrhk43nvnmt')
+## Stream to play when door finishes closing
+@export var _close_stream: AudioStream = load('uid://ch4iuhn677spt')
+## Stream to play when the door begins moving
+@export var _moving_stream: AudioStream = load('uid://cxusn2dc1366p')
+## The base sound level of each audio stream before attenuation, in decibels.
 @export var _volume_db: float
 
 var _open := false
@@ -70,8 +70,8 @@ func _open_close() -> void:
             _curve.max_domain,
             _curve.max_domain - _cur_sample_time
         )
-    _audio_player.stream = _opening_stream
-    _audio_player.play(0.2)
+    _audio_player.stream = _moving_stream
+    _audio_player.play()
 
     await _tween.finished
 
