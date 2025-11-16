@@ -14,11 +14,11 @@ class_name Door extends AnimatableBody3D
 
 @export_group("Audio")
 ## Stream to play when door finishes opening
-@export var _open_stream: AudioStream = load('uid://bgdrhk43nvnmt')
+@export var _open_stream: AudioStream = load("uid://bgdrhk43nvnmt")
 ## Stream to play when door finishes closing
-@export var _close_stream: AudioStream = load('uid://ch4iuhn677spt')
+@export var _close_stream: AudioStream = load("uid://ch4iuhn677spt")
 ## Stream to play when the door begins moving
-@export var _moving_stream: AudioStream = load('uid://cxusn2dc1366p')
+@export var _moving_stream: AudioStream = load("uid://cxusn2dc1366p")
 ## The base sound level of each audio stream before attenuation, in decibels.
 @export var _volume_db: float
 

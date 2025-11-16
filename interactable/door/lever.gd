@@ -24,11 +24,11 @@ signal turned
 
 @export_group("Audio")
 ## Stream to play on lever turn start
-@export var _open_stream: AudioStream = load('uid://bumlq2lwhrlk3')
+@export var _open_stream: AudioStream = load("uid://bumlq2lwhrlk3")
 ## Stream to play when lever turn end
-@export var _close_stream: AudioStream = load('uid://bkd3jvrv1dro2')
+@export var _close_stream: AudioStream = load("uid://bkd3jvrv1dro2")
 ## Stream to play if `locked == True`
-@export var _locked_stream: AudioStream = load('uid://bampav512coom')
+@export var _locked_stream: AudioStream = load("uid://bampav512coom")
 ## The base sound level of each audio stream before attenuation, in decibels.
 @export var _volume_db: float
 
