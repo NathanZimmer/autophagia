@@ -16,6 +16,14 @@ void fragment() {
         if (!(albedo_tex.r > 0.99 && albedo_tex.g < 0.001 && albedo_tex.b > 0.99))
         {
             ALBEDO = albedo_tex.rgb;
+            if (DEBUG)
+            {
+                ALBEDO = albedo_tex.rgb * vec3(
+                    1.0 + 0.5 * float(i % 2 == 0 ? 0 : i),
+                    1.0,
+                    1.0 + 0.5 * float(i % 2 == 0 ? i : 0)
+                );
+            }
             break;
         }
         if (i == viewport_textures.length() - 1)

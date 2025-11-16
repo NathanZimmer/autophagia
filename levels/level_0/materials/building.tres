@@ -23,4 +23,4 @@ shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/uv2_scale = Vector3(1, 1, 1)
 shader_parameter/uv2_offset = Vector3(0, 0, 0)
 shader_parameter/jitter = 0.5
-shader_parameter/resolution = Vector2i(854, 480)
+shader_parameter/resolution = Vector2i(427, 240)

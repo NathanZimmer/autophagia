@@ -43,7 +43,7 @@ signal player_exited_portal
         return _render_layers
 
 ## Layers for the `VisibleOnScreenNotifier3D` to check on
-@export_flags_3d_render var _vis_notifier_render_layers := 0:
+@export_flags_3d_render var _vis_notifier_render_layers := 2:
     set(value):
         if value == _vis_notifier_render_layers:
             return

@@ -85,6 +85,9 @@ func _setup(portals: Array[PortalBody]) -> void:
             portals[i + 1],
             _target_cam.get_parent()
         )
+        portal.portal_entered_screen.connect(_enable_renderers.bind(portal_renderers))
+        portal.portal_exited_screen.connect(_disable_renderers.bind(portal_renderers))
+        portal.portal_exited_screen.emit()
 
     # Backward pass
     for i in range(portals.size() - 1, 0, -2):
@@ -131,6 +134,9 @@ func _setup(portals: Array[PortalBody]) -> void:
             portals[i - 1],
             _target_cam.get_parent()
         )
+        portal.portal_entered_screen.connect(_enable_renderers.bind(portal_renderers))
+        portal.portal_exited_screen.connect(_disable_renderers.bind(portal_renderers))
+        portal.portal_exited_screen.emit()
 
 
 ## Show warning if we don't have % 2 portal children

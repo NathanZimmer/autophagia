@@ -33,6 +33,9 @@ func _setup(portals: Array[PortalBody]) -> void:
         _target_cam.get_parent()
     )
     _main_portal.player_teleported.connect(_ready_teleport_target)
+    _main_portal.portal_entered_screen.connect(_enable_renderers.bind([main_renderer] as Array[PortalRenderer]))
+    _main_portal.portal_exited_screen.connect(_disable_renderers.bind([main_renderer] as Array[PortalRenderer]))
+    _main_portal.portal_exited_screen.emit()
 
     for portal: PortalBody in portals.slice(1):
         var renderer := PortalRenderer.new(
@@ -54,6 +57,11 @@ func _setup(portals: Array[PortalBody]) -> void:
 
         portal.player_entered_portal.connect(func() -> void: _main_portal.teleport_target = portal)
         portal.player_entered_portal.connect(main_renderer.set_reference_node.bind(portal))
+        portal.portal_entered_screen.connect(_enable_renderers.bind([renderer] as Array[PortalRenderer]))
+        portal.portal_exited_screen.connect(_disable_renderers.bind([renderer] as Array[PortalRenderer]))
+        portal.portal_exited_screen.emit()
+
+
 
 
 ## Call `prepare_for_teleport` on the current target

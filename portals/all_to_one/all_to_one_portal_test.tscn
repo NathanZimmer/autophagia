@@ -14,7 +14,7 @@ points = PackedVector3Array(0.25, 1.5, 0.5, -0.25, 1.5, 0.5, 0.25, -1.5, 0.5, 0.
 
 [node name="PortalTest" instance=ExtResource("1_yauhb")]
 
-[node name="Player" parent="." index="6"]
+[node name="Player" parent="." index="7"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.75, 1, -0.25)
 
 [node name="AllToOnePortalProcessorTest" type="Node3D" parent="." index="8"]

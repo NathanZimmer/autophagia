@@ -44,7 +44,7 @@ class_name PortalProcessor extends Node3D
 ## Layers to render the `PortalBody`s on
 @export_flags_3d_render var _portal_render_layer := 2
 ## Layers for the `VisibleOnScreenNotifier3D`s to check on
-@export_flags_3d_render var _vis_notifier_layers := 0
+@export_flags_3d_render var _vis_notifier_layers := 2
 
 @export_group("Collision")
 ## Collision layers for all portals
@@ -107,6 +107,25 @@ func _setup(portals: Array[PortalBody]) -> void:
         portal_0,
         _target_cam.get_parent()
     )
+
+    portal_0.portal_entered_screen.connect(_enable_renderers.bind([renderer_0] as Array[PortalRenderer]))
+    portal_0.portal_exited_screen.connect(_disable_renderers.bind([renderer_0] as Array[PortalRenderer]))
+    portal_0.portal_exited_screen.emit()
+    portal_1.portal_entered_screen.connect(_enable_renderers.bind([renderer_1] as Array[PortalRenderer]))
+    portal_1.portal_exited_screen.connect(_disable_renderers.bind([renderer_1] as Array[PortalRenderer]))
+    portal_1.portal_exited_screen.emit()
+
+
+func _disable_renderers(renderers: Array[PortalRenderer]) -> void:
+    for renderer in renderers:
+        renderer.camera.process_mode = ProcessMode.PROCESS_MODE_DISABLED
+        renderer._sub_viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED
+
+
+func _enable_renderers(renderers: Array[PortalRenderer]) -> void:
+    for renderer in renderers:
+        renderer.camera.process_mode = ProcessMode.PROCESS_MODE_INHERIT
+        renderer._sub_viewport.render_target_update_mode = SubViewport.UPDATE_WHEN_PARENT_VISIBLE
 
 
 ## Show warning if we don't have 2 portal children
