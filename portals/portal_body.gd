@@ -331,6 +331,7 @@ func update_portal_pos() -> void:
 ## prevent a flicker on the first frame after teleportation
 func prepare_for_teleport() -> void:
     update_portal_pos()
+    portal_entered_screen.emit()
     _renderers[0].use_oblique_frustum = false
     for renderer in _renderers:
         renderer.update_camera_position()
