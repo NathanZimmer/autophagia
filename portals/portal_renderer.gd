@@ -19,17 +19,17 @@ const OBLIQUE_FRUSTUM_ENABLED = true
 @export var _reference_node: Node3D
 @export_group("Rendering")
 ## Cull maks for this renderer's camera
-@export_flags_3d_render var _cull_mask := 1:
+@export_flags_3d_render var cull_mask := 1:
     set(value):
-        if value == _cull_mask:
+        if value == cull_mask:
             return
-        _cull_mask = value
+        cull_mask = value
 
         if camera != null:
             camera.cull_mask = value
 
     get:
-        return _cull_mask
+        return cull_mask
 
 var use_oblique_frustum: bool:
     set(value):
@@ -38,7 +38,10 @@ var use_oblique_frustum: bool:
         return camera.use_oblique_frustum
 
 var camera: Camera3D
+var secondary_target_cam: Camera3D
+
 var _sub_viewport: SubViewport
+var _current_target_cam: Camera3D
 
 
 func _ready() -> void:
@@ -54,6 +57,7 @@ func _init(
     target_reference_node: Node3D = null,
     reference_node: Node3D = null,
     cull_mask: int = -1,
+    secondary_target_cam: Camera3D = null,
 ) -> void:
     if target_cam:
         _target_cam = target_cam
@@ -62,7 +66,9 @@ func _init(
     if reference_node:
         _reference_node = reference_node
     if cull_mask >= 0:
-        _cull_mask = cull_mask
+        self.cull_mask = cull_mask
+    if secondary_target_cam:
+        self.secondary_target_cam = secondary_target_cam
 
 
 ## Reinitialize with a new set of parameters [br]
@@ -71,16 +77,20 @@ func _init(
 ## `target_reference_node`: Node to track _target_cam relative to [br]
 ## `reference_node`: Node to position this renderer's camera relative to [br]
 ## `cull_mask`: Cull maks for this renderer's camera [br]
+## `secondary_target_cam`: TODO [br]
 func reset(
     target_cam: Camera3D,
     target_reference_node: Node3D,
     reference_node: Node3D,
     cull_mask: int,
+    secondary_target_cam: Camera3D = null,
 ) -> void:
     _target_cam = target_cam
     _target_reference_node = target_reference_node
     _reference_node = reference_node
-    _cull_mask = cull_mask
+    self.cull_mask = cull_mask
+    if secondary_target_cam:
+        self.secondary_target_cam = secondary_target_cam
 
     _setup()
 
@@ -94,6 +104,7 @@ func _setup() -> void:
     _sub_viewport = _create_sub_viewport()
 
     _sub_viewport.add_child(camera)
+    _current_target_cam = _target_cam
 
 
 ## Create and configure the camera for this portal renderer.
@@ -104,7 +115,7 @@ func _create_camera() -> Camera3D:
     camera.attributes = _target_cam.attributes.duplicate()
     camera.fov = _target_cam.fov
 
-    camera.cull_mask = _cull_mask
+    camera.cull_mask = cull_mask
     if OBLIQUE_FRUSTUM_ENABLED:
         camera.use_oblique_frustum = true
         camera.oblique_normal = _reference_node.global_basis.z
@@ -148,12 +159,12 @@ func _create_sub_viewport() -> SubViewport:
 
 
 ## Update camera position based on [br]
-## * `_target_cam` [br]
+## * `_current_target_cam` [br]
 ## * `_target_reference_node` [br]
 ## * `_reference_node` [br]
 func update_camera_position() -> void:
     camera.global_transform = _get_relative_transform(
-        _target_cam.global_transform,
+        _current_target_cam.global_transform,
         _target_reference_node.global_transform,
         _reference_node.global_transform,
     )
@@ -168,6 +179,18 @@ func get_viewport_texture() -> ViewportTexture:
 ## Set reference node for this renderer's camera
 func set_reference_node(node: Node3D) -> void:
     _reference_node = node
+
+
+## TODO
+func get_sub_viewport() -> SubViewport:
+    return _sub_viewport
+
+
+## TODO
+func set_target_cam(use_secondary_target: bool) -> void:
+    _current_target_cam = (
+        secondary_target_cam if use_secondary_target and secondary_target_cam else _target_cam
+    )
 
 
 ## Transform `target` from `original_ref` into `new_ref` [br]
