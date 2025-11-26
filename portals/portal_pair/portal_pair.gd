@@ -119,7 +119,9 @@ func connect_teleport_signals() -> void:
         pair.fp_portal.player_teleported.connect(
             set_secondary_cam_from_map.bind(true, pair.bp_portal)
         )
-        pair.bp_portal.player_teleported.connect(func() -> void: bp_renderer.set_use_secondary_target(false))
+        pair.bp_portal.player_teleported.connect(
+            func() -> void: bp_renderer.set_use_secondary_target(false)
+        )
 
         pair.back_pass_secondary_cam_updated.connect(set_secondary_cam_from_map)
         pair.connect_teleport_signals()
@@ -200,9 +202,7 @@ func set_up_chain_viewports_active(override_active: bool = false) -> void:
         func(pair: PortalPair) -> bool: return pair.bp_portal.is_portal_on_screen()
     )
     var active: bool = (
-        override_active
-        or bp_portal.is_portal_on_screen()
-        or child_bp_portal_on_screen
+        override_active or bp_portal.is_portal_on_screen() or child_bp_portal_on_screen
     )
     var render_target_update_mode := (
         SubViewport.UPDATE_WHEN_PARENT_VISIBLE if active else SubViewport.UPDATE_DISABLED

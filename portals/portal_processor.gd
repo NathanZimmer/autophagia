@@ -1,7 +1,7 @@
 @tool
-## Automatically create `PortalRenderer` nodes for and
-## setup the link between two `PortalBody` nodes
 class_name PortalProcessor extends Node3D
+## Automatically create `PortalRenderer` nodes for and setup the link between two
+## `PortalBody` nodes
 
 @export_group("Portal Dimensions")
 ## Whether or not to override the size of all `PortalBody`
