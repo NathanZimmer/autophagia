@@ -119,7 +119,7 @@ func connect_teleport_signals() -> void:
         pair.fp_portal.player_teleported.connect(
             set_secondary_cam_from_map.bind(true, pair.bp_portal)
         )
-        pair.bp_portal.player_teleported.connect(func() -> void: bp_renderer.set_target_cam(false))
+        pair.bp_portal.player_teleported.connect(func() -> void: bp_renderer.set_use_secondary_target(false))
 
         pair.back_pass_secondary_cam_updated.connect(set_secondary_cam_from_map)
         pair.connect_teleport_signals()
@@ -130,7 +130,7 @@ func connect_teleport_signals() -> void:
 ## ## Parameters [br]
 ## `use_secondary_target`: Whether `fp_renderer` should use its secondary camera target
 func set_use_secondary_target(use_secondary_target: bool) -> void:
-    fp_renderer.set_target_cam(use_secondary_target)
+    fp_renderer.set_use_secondary_target(use_secondary_target)
     for pair in _child_pairs:
         pair.set_use_secondary_target(true)
 
@@ -142,7 +142,7 @@ func set_use_secondary_target(use_secondary_target: bool) -> void:
 ## `portal`: The portal to use when indexing `_bp_secondary_targets`
 func set_secondary_cam_from_map(use_secondary_target: bool, portal: PortalBody) -> void:
     bp_renderer.secondary_target_cam = _bp_secondary_targets.get(portal)
-    bp_renderer.set_target_cam(use_secondary_target)
+    bp_renderer.set_use_secondary_target(use_secondary_target)
     back_pass_secondary_cam_updated.emit(true, bp_portal)
 
 

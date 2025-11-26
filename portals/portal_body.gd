@@ -341,6 +341,11 @@ func is_player_in_portal() -> bool:
     return _player_in_portal
 
 
+## Return `true` if the player is in the portal's `Area3D`
+func is_portal_on_screen() -> bool:
+    return _portal_on_screen
+
+
 func get_renderers() -> Array[PortalRenderer]:
     return _renderers
 

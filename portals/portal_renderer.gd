@@ -1,5 +1,5 @@
-## Handle camera positioning and rendering of portal to a `ViewportTexture`
 class_name PortalRenderer extends Node
+## Handle camera positioning and rendering of portal to a `ViewportTexture`
 
 const ENVIRONMENT_OVERRIDES: Dictionary[String, Variant] = {
     "tonemap_mode": Environment.TONE_MAPPER_LINEAR,
@@ -77,7 +77,7 @@ func _init(
 ## `target_reference_node`: Node to track _target_cam relative to [br]
 ## `reference_node`: Node to position this renderer's camera relative to [br]
 ## `cull_mask`: Cull maks for this renderer's camera [br]
-## `secondary_target_cam`: TODO [br]
+## `secondary_target_cam`: Optional secondary target [br]
 func reset(
     target_cam: Camera3D,
     target_reference_node: Node3D,
@@ -150,7 +150,7 @@ func _create_sub_viewport() -> SubViewport:
         ProjectSettings.get_setting("display/window/size/viewport_height")
     )
     sub_viewport.use_occlusion_culling = false
-    sub_viewport.render_target_update_mode = (SubViewport.UPDATE_WHEN_PARENT_VISIBLE)
+    sub_viewport.render_target_update_mode = SubViewport.UPDATE_WHEN_PARENT_VISIBLE
     sub_viewport.handle_input_locally = true
     sub_viewport.audio_listener_enable_2d = false
     sub_viewport.audio_listener_enable_3d = false
@@ -181,13 +181,13 @@ func set_reference_node(node: Node3D) -> void:
     _reference_node = node
 
 
-## TODO
+## Get the `SubViewport` this this node renders to
 func get_sub_viewport() -> SubViewport:
     return _sub_viewport
 
 
-## TODO
-func set_target_cam(use_secondary_target: bool) -> void:
+## Set use of secondary target. If `secondary_target_cam == null`, does nothing.
+func set_use_secondary_target(use_secondary_target: bool) -> void:
     _current_target_cam = (
         secondary_target_cam if use_secondary_target and secondary_target_cam else _target_cam
     )
