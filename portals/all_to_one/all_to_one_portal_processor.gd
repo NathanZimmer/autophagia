@@ -1,10 +1,10 @@
 @tool
+class_name AllToOnePortalProcessor extends PortalProcessor
 ## Automatically create `PortalRenderer` nodes for and
 ## setup the link between a set of `PortalBody` nodes. [br]
 ## All portals are linked to the first portal in the node-tree.
 ## The first portal is linked to whatever portal the player passed
 ## through to reach it.
-class_name AllToOnePortalProcessor extends PortalProcessor
 
 var _main_portal: PortalBody
 

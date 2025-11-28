@@ -30,17 +30,17 @@ signal player_exited_portal
 @export var _player: PhysicsBody3D
 @export_group("Rendering")
 ## Layers to render on
-@export_flags_3d_render var _render_layers := 2:
+@export_flags_3d_render var render_layers := 2:
     set(value):
-        if value == _render_layers:
+        if value == render_layers:
             return
-        _render_layers = value
+        render_layers = value
 
         if _mesh != null:
-            _mesh.layers = _render_layers
+            _mesh.layers = render_layers
 
     get:
-        return _render_layers
+        return render_layers
 
 ## Layers for the `VisibleOnScreenNotifier3D` to check on
 @export_flags_3d_render var _vis_notifier_render_layers := 0:
@@ -168,7 +168,7 @@ func reset(
 ) -> void:
     self.size = size
     _renderers = renderers
-    _render_layers = render_layers
+    self.render_layers = render_layers
     _recursion_render_layers = recursion_render_layers
     _collision_layers = collision_layers
     _collision_mask = collision_mask
@@ -232,7 +232,7 @@ func _create_mesh(mesh_material: Material) -> MeshInstance3D:
 
     var mesh_instance := MeshInstance3D.new()
     mesh_instance.mesh = box_mesh
-    mesh_instance.layers = _render_layers
+    mesh_instance.layers = render_layers
     mesh_instance.gi_mode = GeometryInstance3D.GI_MODE_DISABLED
 
     if not Engine.is_editor_hint():
@@ -339,6 +339,15 @@ func prepare_for_teleport() -> void:
 ## Return `true` if the player is in the portal's `Area3D`
 func is_player_in_portal() -> bool:
     return _player_in_portal
+
+
+## Return `true` if the player is in the portal's `Area3D`
+func is_portal_on_screen() -> bool:
+    return _portal_on_screen
+
+
+func get_renderers() -> Array[PortalRenderer]:
+    return _renderers
 
 
 ## Transform `target` from `original_ref` into `new_ref` [br]
