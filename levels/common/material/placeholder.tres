@@ -1,19 +1,19 @@
-[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bvttoqle716m3"]
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://buibxnm8nm51w"]
 
-[ext_resource type="Shader" uid="uid://cpgcx2hfjb56q" path="res://levels/common/material/vertex_wiggle.gdshader" id="1_10223"]
-[ext_resource type="Texture2D" uid="uid://braf1meboexkt" path="res://assets/levels/level_0/textures/building.png" id="1_ahvm8"]
+[ext_resource type="Shader" uid="uid://cpgcx2hfjb56q" path="res://levels/common/material/vertex_wiggle.gdshader" id="1_8pqng"]
+[ext_resource type="Texture2D" uid="uid://bsb4kif4f8y6r" path="res://common/placeholder.png" id="2_gl02m"]
 
 [resource]
 resource_name = "building"
 render_priority = 0
-shader = ExtResource("1_10223")
+shader = ExtResource("1_8pqng")
 shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/texture_albedo = ExtResource("1_ahvm8")
-shader_parameter/albedo_texture_size = Vector2i(256, 256)
+shader_parameter/texture_albedo = ExtResource("2_gl02m")
+shader_parameter/albedo_texture_size = Vector2i(128, 128)
 shader_parameter/point_size = 1.0
 shader_parameter/roughness = 0.5
 shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
-shader_parameter/specular = 0.5
+shader_parameter/specular = 0.0
 shader_parameter/metallic = 0.0
 shader_parameter/enable_ambient_occlusion = false
 shader_parameter/ao_texture_channel = Vector4(0, 0, 0, 0)
