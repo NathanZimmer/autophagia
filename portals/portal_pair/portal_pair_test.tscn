@@ -69,7 +69,6 @@ camera_attributes = SubResource("CameraAttributesPractical_bg81a")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 script = ExtResource("2_a2dbj")
 _portal_render_layer = 0
-_vis_notifier_layers = 2
 metadata/_custom_type_script = "uid://bs2fodq0y6jdg"
 
 [node name="PortalBody" type="Node3D" parent="PortalPair"]
@@ -86,7 +85,6 @@ metadata/_custom_type_script = "uid://dg7e58q26ojyv"
 
 [node name="PortalPair2" type="Node3D" parent="PortalPair"]
 script = ExtResource("2_a2dbj")
-_vis_notifier_layers = 2
 metadata/_custom_type_script = "uid://bs2fodq0y6jdg"
 
 [node name="PortalBody" type="Node3D" parent="PortalPair/PortalPair2"]
@@ -103,7 +101,6 @@ metadata/_custom_type_script = "uid://dg7e58q26ojyv"
 
 [node name="PortalPair4" type="Node3D" parent="PortalPair/PortalPair2"]
 script = ExtResource("2_a2dbj")
-_vis_notifier_layers = 2
 metadata/_custom_type_script = "uid://bs2fodq0y6jdg"
 
 [node name="PortalBody" type="Node3D" parent="PortalPair/PortalPair2/PortalPair4"]
@@ -120,7 +117,6 @@ metadata/_custom_type_script = "uid://dg7e58q26ojyv"
 
 [node name="PortalPair3" type="Node3D" parent="PortalPair"]
 script = ExtResource("2_a2dbj")
-_vis_notifier_layers = 2
 metadata/_custom_type_script = "uid://bs2fodq0y6jdg"
 
 [node name="PortalBody" type="Node3D" parent="PortalPair/PortalPair3"]
@@ -137,7 +133,6 @@ metadata/_custom_type_script = "uid://dg7e58q26ojyv"
 
 [node name="PortalPair4" type="Node3D" parent="PortalPair/PortalPair3"]
 script = ExtResource("2_a2dbj")
-_vis_notifier_layers = 2
 metadata/_custom_type_script = "uid://bs2fodq0y6jdg"
 
 [node name="PortalBody" type="Node3D" parent="PortalPair/PortalPair3/PortalPair4"]
@@ -154,7 +149,6 @@ metadata/_custom_type_script = "uid://dg7e58q26ojyv"
 
 [node name="PortalPair5" type="Node3D" parent="PortalPair/PortalPair3/PortalPair4"]
 script = ExtResource("2_a2dbj")
-_vis_notifier_layers = 2
 metadata/_custom_type_script = "uid://bs2fodq0y6jdg"
 
 [node name="PortalBody" type="Node3D" parent="PortalPair/PortalPair3/PortalPair4/PortalPair5"]
@@ -171,7 +165,6 @@ metadata/_custom_type_script = "uid://dg7e58q26ojyv"
 
 [node name="PortalPair6" type="Node3D" parent="PortalPair/PortalPair3/PortalPair4"]
 script = ExtResource("2_a2dbj")
-_vis_notifier_layers = 2
 metadata/_custom_type_script = "uid://bs2fodq0y6jdg"
 
 [node name="PortalBody" type="Node3D" parent="PortalPair/PortalPair3/PortalPair4/PortalPair6"]

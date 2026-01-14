@@ -1,0 +1,52 @@
+{
+    "Player": {
+        "class": "Player",
+        "uid": "uid://dnhp4dcugklq6",
+        "variables": {}
+    },
+    "PortalPair": {
+        "class": "PortalPair",
+        "uid": "uid://bs2fodq0y6jdg",
+        "variables": {}
+    },
+    "Portal": {
+        "class": "BTGPortalBody",
+        "uid": "uid://co20ahkr1w1pe",
+        "variables": {}
+    },
+    "Portal_001": {
+        "class": "BTGPortalBody",
+        "uid": "uid://co20ahkr1w1pe",
+        "variables": {}
+    },
+    "Portal_002": {
+        "class": "BTGPortalBody",
+        "uid": "uid://co20ahkr1w1pe",
+        "variables": {}
+    },
+    "Portal_003": {
+        "class": "BTGPortalBody",
+        "uid": "uid://co20ahkr1w1pe",
+        "variables": {}
+    },
+    "PortalPair_001": {
+        "class": "PortalPair",
+        "uid": "uid://bs2fodq0y6jdg",
+        "variables": {}
+    },
+    "PortalPair_002": {
+        "class": "PortalPair",
+        "uid": "uid://bs2fodq0y6jdg",
+        "variables": {}
+    },
+    "Portal_004": {
+        "class": "BTGPortalBody",
+        "uid": "uid://co20ahkr1w1pe",
+        "variables": {}
+    },
+    "Portal_005": {
+        "class": "BTGPortalBody",
+        "uid": "uid://co20ahkr1w1pe",
+        "variables": {}
+    }
+}

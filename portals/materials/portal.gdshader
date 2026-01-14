@@ -3,7 +3,7 @@ shader_type spatial;
 const uint MAX_VP_TEXTURES = uint(10);
 const bool DEBUG = false;
 
-render_mode unshaded, cull_disabled;
+render_mode unshaded, cull_disabled, fog_disabled;
 //uniform sampler2D viewport_texture : source_color;
 //uniform sampler2D viewport_texture_1 : source_color;
 //uniform sampler2D viewport_texture_2 : source_color;
