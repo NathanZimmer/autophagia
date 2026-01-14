@@ -79,7 +79,7 @@ environment = ExtResource("2_xgxvm")
 attributes = SubResource("CameraAttributesPractical_4juu5")
 current = true
 fov = 90.0
-far = 400.0
+far = 25.0
 
 [node name="PlayerRayCast3D" type="RayCast3D" parent="Camera3D"]
 target_position = Vector3(0, 0, -2)

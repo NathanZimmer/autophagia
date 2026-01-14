@@ -44,7 +44,7 @@ class_name PortalProcessor extends Node3D
 ## Layers to render the `PortalBody`s on
 @export_flags_3d_render var _portal_render_layer := 2
 ## Layers for the `VisibleOnScreenNotifier3D`s to check on
-@export_flags_3d_render var _vis_notifier_layers := 0
+@export_flags_3d_render var _vis_notifier_layers := 2
 
 @export_group("Collision")
 ## Collision layers for all portals
