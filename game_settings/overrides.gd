@@ -19,11 +19,6 @@ var _config_file := ConfigFile.new()
 func _ready() -> void:
     _config_file.load(CONFIG_PATH)
 
-    for bus in AudioServer.bus_count:
-        AudioServer.set_bus_volume_db(
-            bus, linear_to_db(load_audio(AudioServer.get_bus_name(bus)) / 100.0)
-        )
-
 
 func save_vsync_mode(mode: DisplayServer.VSyncMode) -> void:
     DisplayServer.window_set_vsync_mode(mode)

@@ -24,7 +24,7 @@ buses/master_audio_linear=100
 
 InputActions="*res://game_settings/input_actions.gd"
 Overrides="*res://game_settings/overrides.gd"
-TwoDAudioManager="*res://2d_audio/2d_audio_manager.gd"
+AudioManager="*res://audio/audio_manager.gd"
 
 [debug]
 

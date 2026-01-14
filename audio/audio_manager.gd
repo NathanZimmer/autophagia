@@ -26,13 +26,18 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
+    for bus in AudioServer.bus_count:
+        AudioServer.set_bus_volume_db(
+            bus, linear_to_db(Overrides.load_audio(AudioServer.get_bus_name(bus)) / 100.0)
+        )
+
     _play_white_noise()
 
 
 func _on_node_added(node: Node) -> void:
     if node is Button and not node is TextureButton:
         node.mouse_entered.connect(_play_hover)
-        node.pressed.connect(_play_pressed)
+        node.pressed.connect(play_pressed)
 
 
 func _play_white_noise() -> void:
@@ -52,5 +57,5 @@ func _play_hover() -> void:
     _playback.play_stream(BUTTON_HOVER, 0, 3, randf_range(1.0, 1.0))
 
 
-func _play_pressed() -> void:
+func play_pressed() -> void:
     _playback.play_stream(BUTTON_PRESSED, 0, 10, randf_range(1., 1.1))
