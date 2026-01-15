@@ -1,4 +1,4 @@
-extends AnimationTree
+class_name iCameraAnimationTree extends AnimationTree
 ## Blends animations based on player state
 
 

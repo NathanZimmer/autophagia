@@ -32,10 +32,10 @@ var _flying := false
 var _mouse_sensitivity := 50
 var _mouse_inverted := false
 
-@onready var camera := %Camera3D
-@onready var _collider := %CollisionShape3D
+@onready var camera: Camera3D = %Camera3D
+@onready var _collider: CollisionShape3D = %CollisionShape3D
 # @onready var _camera_animation_player: AnimationPlayer = %CameraAnimationPlayer
-@onready var _camera_animation_tree: AnimationTree = %CameraAnimationTree
+@onready var _camera_animation_tree: iCameraAnimationTree = %CameraAnimationTree
 
 
 func _ready() -> void:

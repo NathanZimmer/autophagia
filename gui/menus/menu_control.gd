@@ -1,4 +1,4 @@
-class_name MenuControl extends Control
+class_name iMenuControl extends Control
 ## Base class for pause menus. Handles opening of sub-menus and closing of its menu. [br]
 ## Requires two nodes be present in the scene (with unique name): [br]
 ## * `MenuContainer`: Container [br]
@@ -8,9 +8,9 @@ class_name MenuControl extends Control
 
 signal menu_exited
 
-@export var _swap_map: Dictionary[Button, MenuControl]
+@export var _swap_map: Dictionary[Button, iMenuControl]
 
-var _child_menus: Array[MenuControl]
+var _child_menus: Array[iMenuControl]
 
 @onready var _back_button: Button = %BackButton
 @onready var _menu_container: Container = %MenuContainer
@@ -18,7 +18,7 @@ var _child_menus: Array[MenuControl]
 
 func _ready() -> void:
     _back_button.pressed.connect(menu_exited.emit)
-    _child_menus.assign(find_children("*", "MenuControl", false))
+    _child_menus.assign(find_children("*", "iMenuControl", false))
     for menu in _child_menus:
         menu.menu_exited.connect(_show_menu)
         menu.process_mode = ProcessMode.PROCESS_MODE_DISABLED

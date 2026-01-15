@@ -1,4 +1,4 @@
-class_name InventoryMenuControl extends MenuControl
+class_name iInventoryMenuControl extends iMenuControl
 ## Handles user interfacing with the Inventory class
 
 signal note_button_pressed

@@ -1,4 +1,4 @@
-extends MenuControl
+extends iMenuControl
 ## Handle input specific to main menu
 
 # TODO: Add sub-menu for starting a new game or loading a save

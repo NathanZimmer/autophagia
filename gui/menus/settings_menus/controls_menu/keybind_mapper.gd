@@ -24,7 +24,7 @@ signal input_received
 ## Text to display on the button when it is waiting for input
 @export var _button_waiting_text := "[press a key, esc to quit]"
 
-@onready var _template_container := %TemplateContainer
+@onready var _template_container: HBoxContainer = %TemplateContainer
 
 
 func _ready() -> void:

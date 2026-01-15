@@ -1,7 +1,7 @@
-extends MenuControl
+extends iMenuControl
 
-@onready var _sensitivity_slider := %SensitivitySlider
-@onready var _invert_mouse_checkbox := %InvertMouseCheckBox
+@onready var _sensitivity_slider: iSliderSpinBox = %SensitivitySlider
+@onready var _invert_mouse_checkbox: CheckBox = %InvertMouseCheckBox
 
 
 func _ready() -> void:

@@ -4,7 +4,7 @@
 [ext_resource type="Material" uid="uid://yk4x16701e40" path="res://common/placeholder_triplanar.tres" id="2_sff3r"]
 [ext_resource type="Script" uid="uid://cnxtc27x7m03v" path="res://portals/recursive/recursive_portal_processor.gd" id="3_foilp"]
 [ext_resource type="Script" uid="uid://dg7e58q26ojyv" path="res://portals/portal_body.gd" id="4_1it28"]
-[ext_resource type="AudioStream" uid="uid://cxusn2dc1366p" path="res://assets/door/door_creaking.wav" id="5_1it28"]
+[ext_resource type="AudioStream" uid="uid://cxusn2dc1366p" path="res://assets/interactable/door/door_creaking.wav" id="5_1it28"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_e121w"]
 size = Vector2(20, 20)
