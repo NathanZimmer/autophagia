@@ -7,12 +7,11 @@ extends Control
 ## Map of group name -> texture to display when `_crosshair_raycast` collides
 ## with that group
 @export var _crosshair_textures: Dictionary[StringName, Texture2D]
+@export var _message_handler: MessageHandler
+@export var _inventory: Inventory
 
 var _raycast_collided: Object
 var _default_crosshair_texture: Texture2D
-
-@export var _message_handler: MessageHandler
-@export var _inventory: Inventory
 
 ## Root pause menus
 @onready var _pause_menu: iMenuControl = %PauseMenu
