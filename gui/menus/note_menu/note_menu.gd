@@ -1,4 +1,4 @@
-class_name NoteMenuControl extends MenuControl
+class_name iNoteMenuControl extends iMenuControl
 ## Menu for displaying images
 
 # TODO: Add support for multiple images when reading from inventory

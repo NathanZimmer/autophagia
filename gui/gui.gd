@@ -11,14 +11,15 @@ extends Control
 var _raycast_collided: Object
 var _default_crosshair_texture: Texture2D
 
-## Root pause menus
-@onready var _pause_menu: MenuControl = %PauseMenu
-@onready var _inventory_menu: InventoryMenuControl = %InventoryMenu
-@onready var _dialog_menu: DialogMenuControl = %DialogMenu
-@onready var _note_menu: NoteMenuControl = %NoteMenu
+@export var _message_handler: MessageHandler
+@export var _inventory: Inventory
 
-@onready var _message_handler: MessageHandler = %MessageHandler
-@onready var _inventory: Inventory = %Inventory
+## Root pause menus
+@onready var _pause_menu: iMenuControl = %PauseMenu
+@onready var _inventory_menu: iInventoryMenuControl = %InventoryMenu
+@onready var _dialog_menu: iDialogMenuControl = %DialogMenu
+@onready var _note_menu: iNoteMenuControl = %NoteMenu
+
 @onready var _crosshair: TextureRect = %Crosshair
 
 
@@ -66,7 +67,7 @@ func _shortcut_input(event: InputEvent) -> void:
 
 
 ## Pause the game, show the mouse and specified pause menu
-func _pause(menu: MenuControl) -> void:
+func _pause(menu: iMenuControl) -> void:
     get_tree().paused = true
     Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
     menu.process_mode = Node.PROCESS_MODE_WHEN_PAUSED
@@ -102,7 +103,7 @@ func _open_note_menu(title: Inventory.Title) -> void:
 
 
 ## Unpause the game, hide the mouse and pause menu
-func _unpause(menu: MenuControl) -> void:
+func _unpause(menu: iMenuControl) -> void:
     get_tree().paused = false
     Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
     menu.process_mode = Node.PROCESS_MODE_DISABLED

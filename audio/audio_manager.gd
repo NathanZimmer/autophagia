@@ -1,6 +1,5 @@
 extends Node
 
-# https://www.bfxr.net/?sfx=Bfxr~Blip~0.06~0~0~0~0.14878757531799164~0~0~0~0~0~0.21~0.1~0~1~0~0~0.25~0~0~0~0~0~0~0~0~0~0~0~0.16~0.33~0.27~2
 const BUTTON_HOVER = preload("uid://ccx0vhpymiblf")
 const BUTTON_PRESSED = preload("uid://wj5dlxr0ka2")
 

@@ -1,4 +1,4 @@
-extends MenuControl
+extends iMenuControl
 
 @onready var _quit_main_button: Button = %QuitMainButton
 @onready var _quit_desktop_button: Button = %QuitDesktopButton

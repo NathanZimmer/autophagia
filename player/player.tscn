@@ -92,15 +92,18 @@ unique_name_in_owner = true
 script = ExtResource("10_8t03j")
 metadata/_custom_type_script = "uid://clawryrmh60wq"
 
-[node name="Inventory" type="Node" parent="."]
+[node name="Inventory" type="Node" parent="." node_paths=PackedStringArray("_message_handler")]
 unique_name_in_owner = true
 script = ExtResource("8_rgyib")
+_message_handler = NodePath("../MessageHandler")
 metadata/_custom_type_script = "uid://bnbt62ete8km4"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Gui" parent="CanvasLayer" node_paths=PackedStringArray("_crosshair_raycast") instance=ExtResource("5_boad6")]
+[node name="Gui" parent="CanvasLayer" node_paths=PackedStringArray("_crosshair_raycast", "_message_handler", "_inventory") instance=ExtResource("5_boad6")]
 _crosshair_raycast = NodePath("../../Camera3D/PlayerRayCast3D")
+_message_handler = NodePath("../../MessageHandler")
+_inventory = NodePath("../../Inventory")
 
 [node name="RetroFilter" type="ColorRect" parent="CanvasLayer"]
 process_mode = 3

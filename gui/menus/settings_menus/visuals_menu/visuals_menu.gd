@@ -1,4 +1,4 @@
-extends MenuControl
+extends iMenuControl
 
 @onready var _fov_spin_box: SpinBox = %FovSpinBox
 @onready var _fps_spin_box: SpinBox = %FpsSpinBox

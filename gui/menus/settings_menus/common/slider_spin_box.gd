@@ -1,4 +1,4 @@
-extends BoxContainer
+class_name iSliderSpinBox extends BoxContainer
 ## Links values of `Slider` and `SpinBox`
 
 ## Emitted when `value` changes
@@ -22,7 +22,7 @@ var value: float:
         return value
 
 @onready var _slider: Slider = %Slider
-@onready var _spin_box := %SpinBox
+@onready var _spin_box: SpinBox = %SpinBox
 
 
 func _ready() -> void:

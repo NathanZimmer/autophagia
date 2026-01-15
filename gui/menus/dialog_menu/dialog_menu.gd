@@ -1,4 +1,4 @@
-class_name DialogMenuControl extends MenuControl
+class_name iDialogMenuControl extends iMenuControl
 ## Uses a DialogTree to display dialog and dialog options on the screen. Handles text formatting
 ## And text/textbox scrolling
 
@@ -55,7 +55,6 @@ func _input(event: InputEvent) -> void:
         accept_event()
 
 
-# https://www.bfxr.net/?sfx=Bfxr~Boom11~0.05~0~0~0~0.21~0~0.28157185878071084~-0.25061825165172236~-0.19999999999999996~0~0.21~0~0~1~0~0~0.2~0~0~0~0~0~0~0~0~0.685665754854192~0~0.03~0.018000000000000002~0~0~11
 func _scroll_text(start_offset: int, target_length: int, scroll_factor := 1.0) -> void:
     _dialog_box.visible_characters += start_offset
     _dialog_scroll_tween = create_tween()

@@ -1,4 +1,4 @@
-extends MenuControl
+extends iMenuControl
 
 
 func _shortcut_input(event: InputEvent) -> void:

@@ -1,9 +1,9 @@
-extends MenuControl
+extends iMenuControl
 
-@onready var _master_audio_slider := %MasterAudioSlider
-@onready var _game_audio_slider := %GameAudioSlider
-@onready var _menu_audio_slider := %MenuAudioSlider
-@onready var _ambient_audio_slider := %AmbientAudioSlider
+@onready var _master_audio_slider: iSliderSpinBox = %MasterAudioSlider
+@onready var _game_audio_slider: iSliderSpinBox = %GameAudioSlider
+@onready var _menu_audio_slider: iSliderSpinBox = %MenuAudioSlider
+@onready var _ambient_audio_slider: iSliderSpinBox = %AmbientAudioSlider
 
 
 func _ready() -> void:
@@ -15,7 +15,7 @@ func _ready() -> void:
     _connect_slider_to_bus(_ambient_audio_slider, &"Ambient")
 
 
-func _connect_slider_to_bus(slider: Node, bus: StringName) -> void:
+func _connect_slider_to_bus(slider: iSliderSpinBox, bus: StringName) -> void:
     slider.slider_drag_ended.connect(
         func(value_changed: bool) -> void:
             if not value_changed:
