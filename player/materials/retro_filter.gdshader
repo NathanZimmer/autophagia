@@ -64,12 +64,16 @@ vec4 crt(vec2 screen_uv) {
     // Darken top halves of pixels
 	float color_dark_offset = 0.0;
 	int y_pos = int(floor(screen_uv.y * screen_resolution.y * 2.0));
+    
 	if (int(floor((float(y_pos) / 2.0))) * 2 == y_pos)
 		color_dark_offset = scanline_intensity;
-
     vec4 adjacent_pixel_color_average = dither(screen_uv - vec2(1.0 / screen_resolution.x, 0))
             * 0.5 + dither(screen_uv - vec2(0, 1.0 / screen_resolution.y)) * 0.5;
     vec4 this_pixel_color = dither(screen_uv);
+    //if (fract(TIME / 3.0 - screen_uv.y) < 0.005)
+    //{
+        //this_pixel_color *= 0.7;
+    //}
 
     return adjacent_pixel_color_average * color_bleed_weight + this_pixel_color
             * (1.0 - color_bleed_weight) - vec4(vec3(color_dark_offset), 0);

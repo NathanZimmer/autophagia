@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dnhp4dcugklq6"]
+[gd_scene format=3 uid="uid://dnhp4dcugklq6"]
 
 [ext_resource type="Script" uid="uid://c1o8i6ob4hruq" path="res://player/player.gd" id="1_y2fp8"]
 [ext_resource type="Environment" uid="uid://cbgre4uktxw6d" path="res://common/main_world_env.tres" id="2_xgxvm"]
@@ -50,6 +50,7 @@ animation = &"player_camera/sway"
 [sub_resource type="AnimationNodeTimeSeek" id="AnimationNodeTimeSeek_ebec5"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ebec5"]
+nodes/output/position = Vector2(820, -40)
 nodes/BlendWalk/node = SubResource("AnimationNodeBlend2_yllr7")
 nodes/BlendWalk/position = Vector2(400, -140)
 nodes/Impact/node = SubResource("AnimationNodeAnimation_kb6p2")
@@ -64,14 +65,13 @@ nodes/TimeScaleSway/node = SubResource("AnimationNodeTimeScale_ebec5")
 nodes/TimeScaleSway/position = Vector2(180, -180)
 nodes/TimeSeekSway/node = SubResource("AnimationNodeTimeSeek_ebec5")
 nodes/TimeSeekSway/position = Vector2(20, -180)
-nodes/output/position = Vector2(820, -40)
-node_connections = [&"BlendWalk", 0, &"RESET", &"BlendWalk", 1, &"TimeScaleSway", &"OneShotImpact", 0, &"BlendWalk", &"OneShotImpact", 1, &"Impact", &"TimeScaleSway", 0, &"TimeSeekSway", &"TimeSeekSway", 0, &"Sway", &"output", 0, &"OneShotImpact"]
+node_connections = [&"output", 0, &"OneShotImpact", &"BlendWalk", 0, &"RESET", &"BlendWalk", 1, &"TimeScaleSway", &"OneShotImpact", 0, &"BlendWalk", &"OneShotImpact", 1, &"Impact", &"TimeScaleSway", 0, &"TimeSeekSway", &"TimeSeekSway", 0, &"Sway"]
 
-[node name="Player" type="CharacterBody3D" groups=["player"]]
+[node name="Player" type="CharacterBody3D" unique_id=2122152516 groups=["player"]]
 script = ExtResource("1_y2fp8")
 _override_up_dir_on_ready = false
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1415068424]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 cull_mask = 1047539
@@ -79,33 +79,33 @@ environment = ExtResource("2_xgxvm")
 attributes = SubResource("CameraAttributesPractical_4juu5")
 current = true
 fov = 90.0
-far = 25.0
+far = 30.0
 
-[node name="PlayerRayCast3D" type="RayCast3D" parent="Camera3D"]
+[node name="PlayerRayCast3D" type="RayCast3D" parent="Camera3D" unique_id=1725491511]
 target_position = Vector3(0, 0, -2)
 collide_with_areas = true
 script = ExtResource("4_8t03j")
 metadata/_custom_type_script = "uid://ck2srl31dxoy2"
 
-[node name="MessageHandler" type="Node" parent="."]
+[node name="MessageHandler" type="Node" parent="." unique_id=1964573056]
 unique_name_in_owner = true
 script = ExtResource("10_8t03j")
 metadata/_custom_type_script = "uid://clawryrmh60wq"
 
-[node name="Inventory" type="Node" parent="." node_paths=PackedStringArray("_message_handler")]
+[node name="Inventory" type="Node" parent="." unique_id=2042895822 node_paths=PackedStringArray("_message_handler")]
 unique_name_in_owner = true
 script = ExtResource("8_rgyib")
 _message_handler = NodePath("../MessageHandler")
 metadata/_custom_type_script = "uid://bnbt62ete8km4"
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1905954674]
 
-[node name="Gui" parent="CanvasLayer" node_paths=PackedStringArray("_crosshair_raycast", "_message_handler", "_inventory") instance=ExtResource("5_boad6")]
+[node name="Gui" parent="CanvasLayer" unique_id=64399052 node_paths=PackedStringArray("_crosshair_raycast", "_message_handler", "_inventory") instance=ExtResource("5_boad6")]
 _crosshair_raycast = NodePath("../../Camera3D/PlayerRayCast3D")
 _message_handler = NodePath("../../MessageHandler")
 _inventory = NodePath("../../Inventory")
 
-[node name="RetroFilter" type="ColorRect" parent="CanvasLayer"]
+[node name="RetroFilter" type="ColorRect" parent="CanvasLayer" unique_id=2018018916]
 process_mode = 3
 material = ExtResource("8_hg6s5")
 anchors_preset = 15
@@ -115,18 +115,18 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=823973827]
 unique_name_in_owner = true
 shape = SubResource("CapsuleShape3D_8l6i1")
 
-[node name="Body" type="MeshInstance3D" parent="."]
+[node name="Body" type="MeshInstance3D" parent="." unique_id=2103892333]
 layers = 512
 cast_shadow = 0
 gi_mode = 0
 mesh = SubResource("CapsuleMesh_dgi16")
 skeleton = NodePath("")
 
-[node name="Footsteps" type="AudioStreamPlayer3D" parent="."]
+[node name="Footsteps" type="AudioStreamPlayer3D" parent="." unique_id=1721837365]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 stream = ExtResource("14_wodsf")
@@ -135,13 +135,11 @@ max_db = 6.0
 max_polyphony = 3
 bus = &"Game"
 
-[node name="CameraAnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_2ieo8"),
-&"player_camera": SubResource("AnimationLibrary_wodsf")
-}
+[node name="CameraAnimationPlayer" type="AnimationPlayer" parent="." unique_id=891798889]
+libraries/ = SubResource("AnimationLibrary_2ieo8")
+libraries/player_camera = SubResource("AnimationLibrary_wodsf")
 
-[node name="CameraAnimationTree" type="AnimationTree" parent="."]
+[node name="CameraAnimationTree" type="AnimationTree" parent="." unique_id=119689546]
 unique_name_in_owner = true
 root_node = NodePath("%CameraAnimationTree/..")
 tree_root = SubResource("AnimationNodeBlendTree_ebec5")

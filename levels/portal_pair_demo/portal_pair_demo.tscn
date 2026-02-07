@@ -1,10 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://xasvxrrmmsak"]
+[gd_scene format=3 uid="uid://xasvxrrmmsak"]
 
 [ext_resource type="PackedScene" uid="uid://bj2fs2x6x7y1m" path="res://assets/levels/portal_pair_demo/portal_pair_demo.blend" id="1_yqikk"]
 
-[node name="PortalPairDemo" type="Node3D"]
+[node name="PortalPairDemo" type="Node3D" unique_id=637187221]
 
-[node name="portal_pair_demo" parent="." instance=ExtResource("1_yqikk")]
+[node name="portal_pair_demo" parent="." unique_id=76414932 instance=ExtResource("1_yqikk")]
 
 [editable path="portal_pair_demo"]
 [editable path="portal_pair_demo/Player"]

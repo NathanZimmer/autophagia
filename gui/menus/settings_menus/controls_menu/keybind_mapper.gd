@@ -3,7 +3,7 @@ extends VBoxContainer
 ## Deletes the orginal template node when done.
 
 ## Emitted when an `InputEvent` is received with that input as its value
-signal input_received
+signal _input_received
 
 ## Map of String to assign to `Label.text` and input action to update on
 ## button press
@@ -68,7 +68,7 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-    input_received.emit(event)
+    _input_received.emit(event)
 
 
 ## Capture all input until rebind is either cancelled or a valid InputEvent is triggered [br]
@@ -80,7 +80,7 @@ func _rebind_input_action(button: Button, action: StringName) -> void:
     var waiting_for_input := true
 
     while waiting_for_input:
-        var event: InputEvent = await input_received
+        var event: InputEvent = await _input_received
         # Explicitly eat all input while waiting for a keypress
         accept_event()
 

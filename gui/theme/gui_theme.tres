@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=13 format=3 uid="uid://bh0is5cj4ulq2"]
+[gd_resource type="Theme" format=3 uid="uid://bh0is5cj4ulq2"]
 
 [ext_resource type="FontFile" uid="uid://bg0grlkrbfbo1" path="res://gui/theme/asvoria-disco-2.otf" id="1_32sf2"]
 [ext_resource type="FontFile" uid="uid://ddd24q66xtnmn" path="res://gui/theme/Unispace Rg.otf" id="1_yyy8s"]
