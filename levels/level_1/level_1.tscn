@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://doiumk6kky02h"]
+
+[ext_resource type="PackedScene" uid="uid://cl26ds1n7qlvu" path="res://assets/levels/level_1/level_1.blend" id="1_k1ttk"]
+
+[node name="Level1" type="Node3D" unique_id=666019375]
+
+[node name="level_1" parent="." unique_id=1058527121 instance=ExtResource("1_k1ttk")]
+
+[editable path="level_1"]

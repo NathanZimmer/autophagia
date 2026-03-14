@@ -68,6 +68,7 @@ nodes/TimeSeekSway/position = Vector2(20, -180)
 node_connections = [&"output", 0, &"OneShotImpact", &"BlendWalk", 0, &"RESET", &"BlendWalk", 1, &"TimeScaleSway", &"OneShotImpact", 0, &"BlendWalk", &"OneShotImpact", 1, &"Impact", &"TimeScaleSway", 0, &"TimeSeekSway", &"TimeSeekSway", 0, &"Sway"]
 
 [node name="Player" type="CharacterBody3D" unique_id=2122152516 groups=["player"]]
+floor_max_angle = 0.87266463
 script = ExtResource("1_y2fp8")
 _override_up_dir_on_ready = false
 
@@ -79,7 +80,7 @@ environment = ExtResource("2_xgxvm")
 attributes = SubResource("CameraAttributesPractical_4juu5")
 current = true
 fov = 90.0
-far = 30.0
+far = 20.0
 
 [node name="PlayerRayCast3D" type="RayCast3D" parent="Camera3D" unique_id=1725491511]
 target_position = Vector3(0, 0, -2)

@@ -16,5 +16,5 @@ fog_light_energy = 0.0
 fog_density = 1.0
 fog_depth_curve = 1.729506
 fog_depth_begin = 5.0
-fog_depth_end = 29.0
+fog_depth_end = 19.0
 volumetric_fog_density = 0.3299

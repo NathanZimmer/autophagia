@@ -1,0 +1,22 @@
+{
+    "Player": {
+        "class": "Player",
+        "uid": "uid://dnhp4dcugklq6",
+        "variables": {}
+    },
+    "Portal": {
+        "class": "BTGPortalBody",
+        "uid": "uid://co20ahkr1w1pe",
+        "variables": {}
+    },
+    "PortalProcessor": {
+        "class": "PortalProcessor",
+        "uid": "uid://6k32ute3x11j",
+        "variables": {}
+    },
+    "Portal_001": {
+        "class": "BTGPortalBody",
+        "uid": "uid://co20ahkr1w1pe",
+        "variables": {}
+    }
+}
