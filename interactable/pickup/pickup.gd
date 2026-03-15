@@ -3,8 +3,8 @@ extends Node3D
 ## On collision, sends an image to the colliding node and then queues itself for deletion.
 ## Colliding node should have a `MessageHandler` child
 
-## Path to the image file
-@export var _note: Inventory.Title
+## TODO
+@export var _note: Journal.Title
 
 
 func _ready() -> void:

@@ -1,5 +1,5 @@
-class_name iInventoryMenuControl extends iMenuControl
-## Handles user interfacing with the Inventory class
+class_name iJournalMenuControl extends iMenuControl
+## Handles user interfacing with the Journal class
 
 signal note_button_pressed
 
@@ -13,9 +13,9 @@ func _shortcut_input(event: InputEvent) -> void:
         accept_event()
 
 
-func add_note(title: Inventory.Title) -> void:
+func add_note(title: Journal.Title) -> void:
     var new_button := NoteButton.instantiate()
-    new_button.set_label(Inventory.get_title_string(title))
+    new_button.set_label(Journal.get_title_string(title))
     new_button.pressed.connect(note_button_pressed.emit.bind(title))
 
     _menu_container.add_child(new_button)

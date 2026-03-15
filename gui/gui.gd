@@ -8,14 +8,14 @@ extends Control
 ## with that group
 @export var _crosshair_textures: Dictionary[StringName, Texture2D]
 @export var _message_handler: MessageHandler
-@export var _inventory: Inventory
+@export var _journal: Journal
 
 var _raycast_collided: Object
 var _default_crosshair_texture: Texture2D
 
 ## Root pause menus
 @onready var _pause_menu: iMenuControl = %PauseMenu
-@onready var _inventory_menu: iInventoryMenuControl = %InventoryMenu
+@onready var _journal_menu: iJournalMenuControl = %JournalMenu
 @onready var _dialog_menu: iDialogMenuControl = %DialogMenu
 @onready var _note_menu: iNoteMenuControl = %NoteMenu
 
@@ -25,22 +25,22 @@ var _default_crosshair_texture: Texture2D
 func _ready() -> void:
     _pause_menu.menu_exited.connect(_unpause.bind(_pause_menu))
     _unpause(_pause_menu)
-    _inventory_menu.menu_exited.connect(_unpause.bind(_inventory_menu))
-    _unpause(_inventory_menu)
+    _journal_menu.menu_exited.connect(_unpause.bind(_journal_menu))
+    _unpause(_journal_menu)
     _dialog_menu.menu_exited.connect(_unpause.bind(_dialog_menu))
     _unpause(_dialog_menu)
     _note_menu.menu_exited.connect(_unpause.bind(_note_menu))
     _unpause(_note_menu)
 
-    _note_menu.inventory_button_pressed.connect(_swap_to_inventory)
-    _inventory_menu.note_button_pressed.connect(_swap_to_note)
+    _note_menu.inventory_button_pressed.connect(_swap_tojournal)
+    _journal_menu.note_button_pressed.connect(_swap_to_note)
 
     if _message_handler:
         _message_handler.dialog_recieved.connect(_open_dialog_menu)
         _message_handler.note_received.connect(_open_note_menu)
 
-    if _inventory:
-        _inventory.note_discovered.connect(_inventory_menu.add_note)
+    if _journal:
+        _journal.note_discovered.connect(_journal_menu.add_note)
 
     _default_crosshair_texture = _crosshair.texture
 
@@ -61,7 +61,7 @@ func _shortcut_input(event: InputEvent) -> void:
             accept_event()
 
         elif event.is_action_pressed(InputActions.UI.INVENTORY):
-            _pause(_inventory_menu)
+            _pause(_journal_menu)
             accept_event()
 
 
@@ -80,21 +80,21 @@ func _open_dialog_menu(dialog: DialogTree) -> void:
 
 
 # TODO: Make this bring up the page that the calling note is on
-func _swap_to_inventory() -> void:
+func _swap_tojournal() -> void:
     _note_menu.process_mode = Node.PROCESS_MODE_DISABLED
     _note_menu.hide()
-    _pause(_inventory_menu)
+    _pause(_journal_menu)
 
 
-func _swap_to_note(title: Inventory.Title) -> void:
-    _inventory_menu.process_mode = Node.PROCESS_MODE_DISABLED
-    _inventory_menu.hide()
+func _swap_to_note(title: Journal.Title) -> void:
+    _journal_menu.process_mode = Node.PROCESS_MODE_DISABLED
+    _journal_menu.hide()
     _open_note_menu(title)
 
 
-func _open_note_menu(title: Inventory.Title) -> void:
+func _open_note_menu(title: Journal.Title) -> void:
     var image: Texture2D = (
-        _inventory.get_note_texture(title) if _inventory else PlaceholderTexture2D.new()
+        _journal.get_note_texture(title) if _journal else PlaceholderTexture2D.new()
     )
     _note_menu.set_image(image)
     _note_menu.play_page_flip()

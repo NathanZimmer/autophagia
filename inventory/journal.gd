@@ -1,5 +1,5 @@
-class_name Inventory extends Node
-## Communicate with message handler to update player inventory
+class_name Journal extends Node
+## Communicate with message handler to update player journal
 
 # TODO: Add support for multi-part notes
 

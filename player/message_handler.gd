@@ -1,5 +1,5 @@
 class_name MessageHandler extends Node
-## Takes in global messages and emits signals for local nodes
+## Handle routing for messages from outside of this node hierarchy
 
 signal dialog_recieved
 signal note_received
@@ -14,5 +14,5 @@ func send_dialog(dialog: DialogTree) -> void:
     dialog_recieved.emit(dialog)
 
 
-func send_note(note: Inventory.Title) -> void:
+func send_note(note: Journal.Title) -> void:
     note_received.emit(note)
