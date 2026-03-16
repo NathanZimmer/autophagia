@@ -4,6 +4,7 @@
 [ext_resource type="Environment" uid="uid://cbgre4uktxw6d" path="res://common/main_world_env.tres" id="2_xgxvm"]
 [ext_resource type="Script" uid="uid://ck2srl31dxoy2" path="res://player/player_raycast_3d.gd" id="4_8t03j"]
 [ext_resource type="PackedScene" uid="uid://cjew08elm562t" path="res://gui/gui.tscn" id="5_boad6"]
+[ext_resource type="Script" uid="uid://bvyrto2wfvoh4" path="res://inventory/inventory.gd" id="6_yllr7"]
 [ext_resource type="Material" uid="uid://byvayr8jwcepu" path="res://player/materials/retro_filter.tres" id="8_hg6s5"]
 [ext_resource type="Script" uid="uid://bnbt62ete8km4" path="res://inventory/journal.gd" id="8_rgyib"]
 [ext_resource type="Animation" uid="uid://3iekuyht51r3" path="res://assets/player/animations/camera_sway.res" id="9_ebec5"]
@@ -98,6 +99,12 @@ unique_name_in_owner = true
 script = ExtResource("8_rgyib")
 _message_handler = NodePath("../MessageHandler")
 metadata/_custom_type_script = "uid://bnbt62ete8km4"
+
+[node name="Inventory" type="Node" parent="." unique_id=1545370011 node_paths=PackedStringArray("_message_handler")]
+unique_name_in_owner = true
+script = ExtResource("6_yllr7")
+_message_handler = NodePath("../MessageHandler")
+metadata/_custom_type_script = "uid://bvyrto2wfvoh4"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1905954674]
 

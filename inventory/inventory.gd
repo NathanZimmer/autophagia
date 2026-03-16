@@ -4,7 +4,10 @@ class_name Inventory extends Node
 const INVENTORY_SIZE = 10
 const MAX_STACK_SIZE = 5
 
-var _items: Array[InventoryItem] = []
+@export var _message_handler: MessageHandler
+
+# TODO: Refactor to use InventoryItem node instead of just info resource??
+var _items: Array[ItemInfo] = []
 var _count: Array[int] = []
 
 
@@ -12,24 +15,31 @@ func _ready() -> void:
     _items.resize(INVENTORY_SIZE)
     _count.resize(INVENTORY_SIZE)
 
+    if _message_handler:
+        _message_handler.item_received.connect(_on_item_received)
+
+
+func _on_item_received(inventory_item: InventoryItem) -> void:
+    inventory_item.count = _add_item(inventory_item.item_info, inventory_item.count)
+
 
 ## TODO
 ## Returns: Number of items that couldn't be added to inventory
-func add_item(item: InventoryItem, count: int) -> int:
+func _add_item(item: ItemInfo, count: int) -> int:
     var keys := range(INVENTORY_SIZE)
     var remaining := count
 
     # Try to slot into existing stacks first
     var valid_indices := keys.filter(func(i: int) -> int: return _items[i] == item)
     for idx: int in valid_indices:
-        remaining = add_item_by_idx(item, idx, remaining)
+        remaining = _add_item_by_idx(item, idx, remaining)
         if not remaining:
             return 0
 
     # If there is still remaining, create new stacks
     valid_indices = keys.filter(func(i: int) -> int: return not _items[i])
     for idx: int in valid_indices:
-        remaining = add_item_by_idx(item, idx, remaining)
+        remaining = _add_item_by_idx(item, idx, remaining)
         if not remaining:
             return 0
 
@@ -38,7 +48,7 @@ func add_item(item: InventoryItem, count: int) -> int:
 
 ## TODO
 ## Returns: Number of items that couldn't be added to inventory index
-func add_item_by_idx(item: InventoryItem, idx: int, count: int) -> int:
+func _add_item_by_idx(item: ItemInfo, idx: int, count: int) -> int:
     if idx > INVENTORY_SIZE - 1:
         push_error(
             "Trying to index past inventory limit: idx=%d, limit=%d" % [idx, INVENTORY_SIZE - 1]

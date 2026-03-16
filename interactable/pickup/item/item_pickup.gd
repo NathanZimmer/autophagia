@@ -1,26 +1,37 @@
 @tool
 extends Node3D
-## On collision, sends an image to the colliding node and then queues itself for deletion.
-## Colliding node should have a `MessageHandler` child
+## On collision, sends an item to the colliding node. Colliding node should have a
+## `MessageHandler` child. Queues iteslf for deletion if its count drops to zero.
 
 ## TODO
-@export var _note: Journal.Title
+@export var _item_info: ItemInfo
+## TODO
+@export var _count := 1
 
+@onready var floating_icon: MeshInstance3D = $FloatingIcon
+
+var _item: InventoryItem
 
 func _ready() -> void:
     if Engine.is_editor_hint():
         return
 
+    _item = InventoryItem.new(_item_info, _count)
+    _item.depleted.connect(queue_free)
+
     var collision_triggers := find_children("*", "CollisionTrigger", false)
     for trigger in collision_triggers:
-        trigger.triggered.connect(_display_image)
+        trigger.triggered.connect(_send_item)
 
 
-func _display_image(body: Node3D) -> void:
+func _send_item(body: Node3D) -> void:
     var handlers := body.find_children("*", "MessageHandler", false)
     if not handlers.is_empty():
-        handlers[0].send_note(_note)
-    queue_free()
+        handlers[0].send_item(_item)
+
+
+# func _set_model(mesh: Mesh) -> void:
+#     floating_icon.mesh = mesh
 
 
 ## Show warning if we don't have a CollisionTrigger child

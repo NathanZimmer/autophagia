@@ -3,6 +3,7 @@ class_name MessageHandler extends Node
 
 signal dialog_recieved
 signal note_received
+signal item_received
 
 
 ## Just prints the message
@@ -16,3 +17,7 @@ func send_dialog(dialog: DialogTree) -> void:
 
 func send_note(note: Journal.Title) -> void:
     note_received.emit(note)
+
+
+func send_item(item: InventoryItem) -> void:
+    item_received.emit(item)

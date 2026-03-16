@@ -32,7 +32,7 @@ func _ready() -> void:
     _note_menu.menu_exited.connect(_unpause.bind(_note_menu))
     _unpause(_note_menu)
 
-    _note_menu.inventory_button_pressed.connect(_swap_tojournal)
+    _note_menu.inventory_button_pressed.connect(_swap_to_journal)
     _journal_menu.note_button_pressed.connect(_swap_to_note)
 
     if _message_handler:
@@ -80,7 +80,7 @@ func _open_dialog_menu(dialog: DialogTree) -> void:
 
 
 # TODO: Make this bring up the page that the calling note is on
-func _swap_tojournal() -> void:
+func _swap_to_journal() -> void:
     _note_menu.process_mode = Node.PROCESS_MODE_DISABLED
     _note_menu.hide()
     _pause(_journal_menu)
@@ -89,13 +89,14 @@ func _swap_tojournal() -> void:
 func _swap_to_note(title: Journal.Title) -> void:
     _journal_menu.process_mode = Node.PROCESS_MODE_DISABLED
     _journal_menu.hide()
-    _open_note_menu(title)
+    _open_note_menu(title, true)
 
 
-func _open_note_menu(title: Journal.Title) -> void:
+func _open_note_menu(title: Journal.Title, from_journal: bool = false) -> void:
     var image: Texture2D = (
         _journal.get_note_texture(title) if _journal else PlaceholderTexture2D.new()
     )
+    _note_menu.opened_from_journal = from_journal
     _note_menu.set_image(image)
     _note_menu.play_page_flip()
     _pause(_note_menu)
