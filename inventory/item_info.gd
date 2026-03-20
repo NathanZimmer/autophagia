@@ -1,3 +1,4 @@
+@tool
 class_name ItemInfo extends Resource
 ## TODO
 
@@ -8,6 +9,8 @@ class_name ItemInfo extends Resource
 ## TODO
 @export var icon: Texture2D
 ## TODO
-@export var model: Mesh
+@export var mesh: Mesh
 ## TODO
-@export var callable: Callable
+@export var function: String
+## TODO
+@export var args: Array[Variant]

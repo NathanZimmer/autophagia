@@ -13,5 +13,4 @@ shader_parameter/rotation_speed = -1.0
 shader_parameter/tilt = 1.885
 shader_parameter/bounce_speed = 1.25
 shader_parameter/bounce_distance = 0.15
-shader_parameter/jitter = 0.5
-shader_parameter/resolution = Vector2i(854, 480)
+shader_parameter/resolution = Vector2i(320, 240)

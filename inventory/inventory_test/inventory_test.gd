@@ -1,9 +1,9 @@
 extends Node2D
 
-@onready var _inventory: Inventory = %Inventory
-
 var item_0: ItemInfo = load("uid://bjit7wcgwvpet")
 var item_1: ItemInfo = load("uid://bw72jyk5h40q5")
+
+@onready var _inventory: Inventory = %Inventory
 
 
 func _ready() -> void:

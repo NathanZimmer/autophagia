@@ -13,8 +13,8 @@ radial_segments = 12
 cap_top = false
 cap_bottom = false
 
-[sub_resource type="QuadMesh" id="QuadMesh_psyp8"]
-size = Vector2(0.55, 0.7)
+[sub_resource type="BoxMesh" id="BoxMesh_v186g"]
+size = Vector3(0.55, 0.7, 0)
 
 [node name="NotePickup" type="Node3D" unique_id=639595155]
 script = ExtResource("1_giga1")
@@ -36,4 +36,4 @@ mesh = SubResource("CylinderMesh_psyp8")
 [node name="FloatingIcon" type="MeshInstance3D" parent="." unique_id=247376703]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 material_override = ExtResource("3_1ucx6")
-mesh = SubResource("QuadMesh_psyp8")
+mesh = SubResource("BoxMesh_v186g")

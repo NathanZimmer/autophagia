@@ -2,18 +2,42 @@
 
 [ext_resource type="PackedScene" uid="uid://bn2tmn3fg0c2c" path="res://common/test.tscn" id="1_lejf7"]
 [ext_resource type="PackedScene" uid="uid://u87ws5522ov" path="res://interactable/pickup/item/item_pickup.tscn" id="2_dfj2o"]
+[ext_resource type="Shader" uid="uid://dj2ckf3xn6sm8" path="res://interactable/pickup/materials/floating_icon.gdshader" id="3_i3p8x"]
 [ext_resource type="Script" uid="uid://c3qhshchoa8wk" path="res://inventory/item_info.gd" id="3_lk1rc"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_tbin1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1twht"]
+render_priority = 0
+shader = ExtResource("3_i3p8x")
+shader_parameter/texture_albedo = SubResource("PlaceholderTexture2D_tbin1")
+shader_parameter/uv_scale = Vector3(1, 1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/rotation_speed = -1.0
+shader_parameter/tilt = 1.885
+shader_parameter/bounce_speed = 1.25
+shader_parameter/bounce_distance = 0.15
+shader_parameter/resolution = Vector2i(320, 240)
+
+[sub_resource type="SphereMesh" id="SphereMesh_1twht"]
+material = SubResource("ShaderMaterial_1twht")
+radius = 0.25
+height = 0.5
 
 [sub_resource type="Resource" id="Resource_i3p8x"]
 script = ExtResource("3_lk1rc")
 name = &"test"
 description = "test"
+mesh = SubResource("SphereMesh_1twht")
+function = "test"
 metadata/_custom_type_script = "uid://c3qhshchoa8wk"
 
 [sub_resource type="Resource" id="Resource_1twht"]
 script = ExtResource("3_lk1rc")
 name = &"test2"
 description = "test2"
+mesh = SubResource("SphereMesh_1twht")
+function = "test"
 metadata/_custom_type_script = "uid://c3qhshchoa8wk"
 
 [node name="ItemPickupTest" unique_id=2120711059 instance=ExtResource("1_lejf7")]

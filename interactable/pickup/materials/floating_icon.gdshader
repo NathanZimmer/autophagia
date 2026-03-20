@@ -1,15 +1,15 @@
 shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_disabled;
+render_mode blend_mix, depth_draw_opaque, cull_back;
 uniform sampler2D texture_albedo : source_color, filter_linear;
 uniform vec3 uv_scale;
 uniform vec2 uv_offset;
-uniform float rotation_speed;
-uniform float tilt = 0.1;
-uniform float bounce_speed;
-uniform float bounce_distance;
+uniform float rotation_speed = -1.0;
+uniform float tilt = 1.885;
+uniform float bounce_speed = 1.25;
+uniform float bounce_distance = 0.15;
 
-uniform float jitter: hint_range(0, 1) = 0.5;
-uniform ivec2 resolution = ivec2(854, 480);
+//uniform float jitter: hint_range(0, 1) = 0.5;
+uniform ivec2 resolution = ivec2(320, 240);
 
 vec2 rotate(vec2 offset, vec2 center_of_rotation, float angle) {
 	mat2 rotam = mat2(

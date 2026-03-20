@@ -8,11 +8,15 @@ extends Node3D
 ## TODO
 @export var _count := 1
 
-@onready var floating_icon: MeshInstance3D = $FloatingIcon
-
 var _item: InventoryItem
 
+@onready var floating_icon: MeshInstance3D = $FloatingIcon
+
+
 func _ready() -> void:
+    if _item_info.mesh:
+        floating_icon.mesh = _item_info.mesh
+
     if Engine.is_editor_hint():
         return
 
@@ -28,10 +32,6 @@ func _send_item(body: Node3D) -> void:
     var handlers := body.find_children("*", "MessageHandler", false)
     if not handlers.is_empty():
         handlers[0].send_item(_item)
-
-
-# func _set_model(mesh: Mesh) -> void:
-#     floating_icon.mesh = mesh
 
 
 ## Show warning if we don't have a CollisionTrigger child

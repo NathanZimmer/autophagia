@@ -5,18 +5,18 @@ class_name iNoteMenuControl extends iMenuControl
 
 signal inventory_button_pressed
 
-@onready var _note: TextureRect = %Note
-@onready var _page_flip: AudioStreamPlayer2D = %PageFlip
-
 ## Whether this menu was navigated to from the journal menu
 var opened_from_journal := false
 
+@onready var _note: TextureRect = %Note
+@onready var _page_flip: AudioStreamPlayer2D = %PageFlip
 
 func _ready() -> void:
     super._ready()
 
     var inventory_button: Button = get_node("%InventoryButton")
     inventory_button.pressed.connect(inventory_button_pressed.emit)
+
 
 func _input(event: InputEvent) -> void:
     if event is InputEventMouseButton and event.is_action_pressed(InputActions.UI.CANCEL):

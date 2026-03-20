@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://bke1pt4mlmugd" path="res://interactable/pickup/item/item_pickup.gd" id="1_b23se"]
 [ext_resource type="Script" uid="uid://c0fkj67ps75ri" path="res://interactable/triggers/collision_trigger.gd" id="2_p8ak2"]
 [ext_resource type="Material" uid="uid://0i0xldxoakos" path="res://interactable/pickup/materials/pickup_ring.tres" id="3_xn426"]
-[ext_resource type="Material" uid="uid://lm2s6rm7ttik" path="res://interactable/pickup/materials/floating_icon.tres" id="4_577ti"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_psyp8"]
 
@@ -12,9 +11,6 @@ height = 0.5
 radial_segments = 12
 cap_top = false
 cap_bottom = false
-
-[sub_resource type="BoxMesh" id="BoxMesh_b23se"]
-size = Vector3(0.4, 0.4, 0.4)
 
 [node name="ItemPickup" type="Node3D" unique_id=639595155]
 script = ExtResource("1_b23se")
@@ -36,5 +32,3 @@ mesh = SubResource("CylinderMesh_psyp8")
 [node name="FloatingIcon" type="MeshInstance3D" parent="." unique_id=247376703]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
-material_override = ExtResource("4_577ti")
-mesh = SubResource("BoxMesh_b23se")
