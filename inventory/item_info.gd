@@ -1,16 +1,17 @@
 @tool
 class_name ItemInfo extends Resource
-## TODO
+## Represents a usable item in the game. Contains all data for displaying this item and
+## function to call on item use.
 
-## TODO
+## The name of this item
 @export var name: StringName
-## TODO
+## Description to be shown in inventory
 @export var description: String
-## TODO
+## Icon for displaying in inventory
 @export var icon: Texture2D
-## TODO
+## Mesh for dispaying as a pickup
 @export var mesh: Mesh
-## TODO
+## Function in `ItemUser` to call when this item is used
 @export var function: String
-## TODO
+## Arguments for `function`
 @export var args: Array[Variant]

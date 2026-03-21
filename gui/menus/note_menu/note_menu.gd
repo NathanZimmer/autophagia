@@ -11,6 +11,7 @@ var opened_from_journal := false
 @onready var _note: TextureRect = %Note
 @onready var _page_flip: AudioStreamPlayer2D = %PageFlip
 
+
 func _ready() -> void:
     super._ready()
 

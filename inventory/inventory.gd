@@ -6,7 +6,6 @@ const MAX_STACK_SIZE = 5
 
 @export var _message_handler: MessageHandler
 
-# TODO: Refactor to use InventoryItem node instead of just info resource??
 var _items: Array[ItemInfo] = []
 var _count: Array[int] = []
 
@@ -23,8 +22,14 @@ func _on_item_received(inventory_item: InventoryItem) -> void:
     inventory_item.count = _add_item(inventory_item.item_info, inventory_item.count)
 
 
-## TODO
-## Returns: Number of items that couldn't be added to inventory
+## Add an item to the first available index (first index with this item or first empty
+## index if this item is not yet in the inventory). if `count` is higher than
+##_`MAX_STACK_SIZE`, moves to next available index. [br]
+## ## Parameters [br]
+## `item`: The type of item to add [br]
+## `count`: The number of that item to add [br]
+## ## Returns [br]
+## Number of items that couldn't be added to inventory
 func _add_item(item: ItemInfo, count: int) -> int:
     var keys := range(INVENTORY_SIZE)
     var remaining := count
@@ -46,8 +51,13 @@ func _add_item(item: ItemInfo, count: int) -> int:
     return remaining
 
 
-## TODO
-## Returns: Number of items that couldn't be added to inventory index
+## Add an item to the inventory at a specific index [br]
+## ## Parameters [br]
+## `item`: The type of item to add [br]
+## `idx`: The inventory index to add to [br]
+## `count`: The number of that item to add [br]
+## ## Returns [br]
+## Number of items that couldn't be added to inventory
 func _add_item_by_idx(item: ItemInfo, idx: int, count: int) -> int:
     if idx > INVENTORY_SIZE - 1:
         push_error(
