@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwvpoqwvrlyog"]
+[gd_scene format=3 uid="uid://cwvpoqwvrlyog"]
 
 [ext_resource type="Theme" uid="uid://bh0is5cj4ulq2" path="res://gui/theme/gui_theme.tres" id="1_8qpma"]
-[ext_resource type="Script" uid="uid://cef741o4jjkgu" path="res://gui/menus/inventory_menu/inventory_menu.gd" id="2_eblhp"]
+[ext_resource type="Script" uid="uid://cef741o4jjkgu" path="res://gui/menus/journal_menu/journal_menu.gd" id="2_eblhp"]
 
-[node name="InventoryMenu" type="Control"]
+[node name="JournalMenu" type="Control" unique_id=301626486]
 process_mode = 2
 layout_mode = 3
 anchors_preset = 15
@@ -15,7 +15,7 @@ theme = ExtResource("1_8qpma")
 script = ExtResource("2_eblhp")
 metadata/_custom_type_script = "uid://cxqrgtmjxn1l5"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=949119423]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -29,7 +29,7 @@ offset_bottom = 240.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MenuContainer" type="GridContainer" parent="ScrollContainer"]
+[node name="MenuContainer" type="GridContainer" parent="ScrollContainer" unique_id=418233231]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
@@ -39,17 +39,17 @@ theme_override_constants/h_separation = 50
 theme_override_constants/v_separation = 30
 columns = 2
 
-[node name="Padding" type="Control" parent="ScrollContainer/MenuContainer"]
+[node name="Padding" type="Control" parent="ScrollContainer/MenuContainer" unique_id=2052357135]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Padding2" type="Control" parent="ScrollContainer/MenuContainer"]
+[node name="Padding2" type="Control" parent="ScrollContainer/MenuContainer" unique_id=758576952]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=1256239575]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 5
@@ -63,7 +63,7 @@ grow_horizontal = 2
 theme_type_variation = &"HeaderMedium"
 text = "Journal"
 
-[node name="BackButton" type="Button" parent="."]
+[node name="BackButton" type="Button" parent="." unique_id=1890228759]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 7

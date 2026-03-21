@@ -5,6 +5,9 @@ class_name iNoteMenuControl extends iMenuControl
 
 signal inventory_button_pressed
 
+## Whether this menu was navigated to from the journal menu
+var opened_from_journal := false
+
 @onready var _note: TextureRect = %Note
 @onready var _page_flip: AudioStreamPlayer2D = %PageFlip
 
@@ -16,10 +19,27 @@ func _ready() -> void:
     inventory_button.pressed.connect(inventory_button_pressed.emit)
 
 
+func _input(event: InputEvent) -> void:
+    if event is InputEventMouseButton and event.is_action_pressed(InputActions.UI.CANCEL):
+        if opened_from_journal:
+            inventory_button_pressed.emit()
+        else:
+            menu_exited.emit()
+        accept_event()
+
+
 func _shortcut_input(event: InputEvent) -> void:
-    super._shortcut_input(event)
-    if event is InputEventKey and event.is_action_pressed(InputActions.UI.INVENTORY):
-        menu_exited.emit()
+    if (
+        event is InputEventKey
+        and (
+            event.is_action_pressed(InputActions.UI.INVENTORY)
+            or event.is_action_pressed(InputActions.UI.CANCEL)
+        )
+    ):
+        if opened_from_journal:
+            inventory_button_pressed.emit()
+        else:
+            menu_exited.emit()
         accept_event()
 
 

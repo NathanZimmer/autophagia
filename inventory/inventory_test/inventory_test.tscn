@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://btsov4kuror4w"]
+
+[ext_resource type="Script" uid="uid://bvyrto2wfvoh4" path="res://inventory/inventory.gd" id="1_1sltk"]
+[ext_resource type="Script" uid="uid://nbks0mwt4fk7" path="res://inventory/inventory_test/inventory_test.gd" id="1_nbhr7"]
+
+[node name="InventoryTest" type="Node2D" unique_id=1418881319]
+script = ExtResource("1_nbhr7")
+
+[node name="Inventory" type="Node" parent="." unique_id=1622543428]
+unique_name_in_owner = true
+script = ExtResource("1_1sltk")
+metadata/_custom_type_script = "uid://bvyrto2wfvoh4"

@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://c7inw4knkw2n4"]
+
+[ext_resource type="PackedScene" uid="uid://bn2tmn3fg0c2c" path="res://common/test.tscn" id="1_nbrs5"]
+[ext_resource type="PackedScene" uid="uid://des31ao11y2f0" path="res://interactable/pickup/note/note_pickup.tscn" id="2_cro2w"]
+
+[node name="NotePickupTest" unique_id=2120711059 instance=ExtResource("1_nbrs5")]
+
+[node name="Pickup" parent="." index="4" unique_id=1002112672 instance=ExtResource("2_cro2w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.5)
+_note = 1
+
+[node name="Pickup2" parent="." index="5" unique_id=1109206401 instance=ExtResource("2_cro2w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.50641, 0, 6.53602)
+
+[editable path="Player"]

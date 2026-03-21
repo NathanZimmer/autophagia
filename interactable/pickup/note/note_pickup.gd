@@ -3,8 +3,8 @@ extends Node3D
 ## On collision, sends an image to the colliding node and then queues itself for deletion.
 ## Colliding node should have a `MessageHandler` child
 
-## Path to the image file
-@export var _note: Inventory.Title
+## TODO
+@export var _note: Journal.Title
 
 
 func _ready() -> void:
@@ -20,7 +20,7 @@ func _display_image(body: Node3D) -> void:
     var handlers := body.find_children("*", "MessageHandler", false)
     if not handlers.is_empty():
         handlers[0].send_note(_note)
-    queue_free()
+        queue_free()
 
 
 ## Show warning if we don't have a CollisionTrigger child

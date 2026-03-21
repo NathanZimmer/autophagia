@@ -4,8 +4,10 @@
 [ext_resource type="Environment" uid="uid://cbgre4uktxw6d" path="res://common/main_world_env.tres" id="2_xgxvm"]
 [ext_resource type="Script" uid="uid://ck2srl31dxoy2" path="res://player/player_raycast_3d.gd" id="4_8t03j"]
 [ext_resource type="PackedScene" uid="uid://cjew08elm562t" path="res://gui/gui.tscn" id="5_boad6"]
+[ext_resource type="Script" uid="uid://bvyrto2wfvoh4" path="res://inventory/inventory.gd" id="6_yllr7"]
+[ext_resource type="Script" uid="uid://xgc14u80w6pu" path="res://inventory/item_user.gd" id="7_kb6p2"]
 [ext_resource type="Material" uid="uid://byvayr8jwcepu" path="res://player/materials/retro_filter.tres" id="8_hg6s5"]
-[ext_resource type="Script" uid="uid://bnbt62ete8km4" path="res://player/inventory.gd" id="8_rgyib"]
+[ext_resource type="Script" uid="uid://bnbt62ete8km4" path="res://inventory/journal.gd" id="8_rgyib"]
 [ext_resource type="Animation" uid="uid://3iekuyht51r3" path="res://assets/player/animations/camera_sway.res" id="9_ebec5"]
 [ext_resource type="Script" uid="uid://clawryrmh60wq" path="res://player/message_handler.gd" id="10_8t03j"]
 [ext_resource type="Animation" uid="uid://ds2ipytexoe1q" path="res://assets/player/animations/camera_impact.res" id="10_yllr7"]
@@ -50,6 +52,7 @@ animation = &"player_camera/sway"
 [sub_resource type="AnimationNodeTimeSeek" id="AnimationNodeTimeSeek_ebec5"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ebec5"]
+graph_offset = Vector2(-220.53894, -32.824303)
 nodes/output/position = Vector2(820, -40)
 nodes/BlendWalk/node = SubResource("AnimationNodeBlend2_yllr7")
 nodes/BlendWalk/position = Vector2(400, -140)
@@ -93,18 +96,29 @@ unique_name_in_owner = true
 script = ExtResource("10_8t03j")
 metadata/_custom_type_script = "uid://clawryrmh60wq"
 
-[node name="Inventory" type="Node" parent="." unique_id=2042895822 node_paths=PackedStringArray("_message_handler")]
+[node name="Journal" type="Node" parent="." unique_id=2042895822 node_paths=PackedStringArray("_message_handler")]
 unique_name_in_owner = true
 script = ExtResource("8_rgyib")
 _message_handler = NodePath("../MessageHandler")
 metadata/_custom_type_script = "uid://bnbt62ete8km4"
 
+[node name="Inventory" type="Node" parent="." unique_id=1545370011 node_paths=PackedStringArray("_message_handler")]
+unique_name_in_owner = true
+script = ExtResource("6_yllr7")
+_message_handler = NodePath("../MessageHandler")
+metadata/_custom_type_script = "uid://bvyrto2wfvoh4"
+
+[node name="ItemUser" type="Node" parent="." unique_id=764778204]
+unique_name_in_owner = true
+script = ExtResource("7_kb6p2")
+metadata/_custom_type_script = "uid://xgc14u80w6pu"
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1905954674]
 
-[node name="Gui" parent="CanvasLayer" unique_id=64399052 node_paths=PackedStringArray("_crosshair_raycast", "_message_handler", "_inventory") instance=ExtResource("5_boad6")]
+[node name="Gui" parent="CanvasLayer" unique_id=64399052 node_paths=PackedStringArray("_crosshair_raycast", "_message_handler", "_journal") instance=ExtResource("5_boad6")]
 _crosshair_raycast = NodePath("../../Camera3D/PlayerRayCast3D")
 _message_handler = NodePath("../../MessageHandler")
-_inventory = NodePath("../../Inventory")
+_journal = NodePath("../../Journal")
 
 [node name="RetroFilter" type="ColorRect" parent="CanvasLayer" unique_id=2018018916]
 process_mode = 3
