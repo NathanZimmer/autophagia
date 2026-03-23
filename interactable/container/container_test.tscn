@@ -1,9 +1,10 @@
-[gd_scene format=3 uid="uid://sec5uqn3bmkr"]
+[gd_scene format=3 uid="uid://1qnoxvcfmxq0"]
 
-[ext_resource type="PackedScene" uid="uid://bn2tmn3fg0c2c" path="res://common/test.tscn" id="1_lejf7"]
-[ext_resource type="PackedScene" uid="uid://u87ws5522ov" path="res://interactable/pickup/item/item_pickup.tscn" id="2_dfj2o"]
-[ext_resource type="Shader" uid="uid://dj2ckf3xn6sm8" path="res://interactable/pickup/materials/floating_icon.gdshader" id="3_i3p8x"]
-[ext_resource type="Script" uid="uid://c3qhshchoa8wk" path="res://inventory/item_info.gd" id="3_lk1rc"]
+[ext_resource type="PackedScene" uid="uid://bn2tmn3fg0c2c" path="res://common/test.tscn" id="1_soyt1"]
+[ext_resource type="PackedScene" uid="uid://u87ws5522ov" path="res://interactable/pickup/item/item_pickup.tscn" id="2_nlb5b"]
+[ext_resource type="Shader" uid="uid://dj2ckf3xn6sm8" path="res://interactable/pickup/materials/floating_icon.gdshader" id="3_gjio2"]
+[ext_resource type="Script" uid="uid://c3qhshchoa8wk" path="res://inventory/item_info.gd" id="4_kug0b"]
+[ext_resource type="PackedScene" uid="uid://bj3nk0xoyapud" path="res://interactable/container/container.tscn" id="5_qf7nj"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_lk1rc"]
 size = Vector2(64, 64)
@@ -12,7 +13,7 @@ size = Vector2(64, 64)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1twht"]
 render_priority = 0
-shader = ExtResource("3_i3p8x")
+shader = ExtResource("3_gjio2")
 shader_parameter/texture_albedo = SubResource("PlaceholderTexture2D_tbin1")
 shader_parameter/uv_scale = Vector3(1, 1, 1)
 shader_parameter/uv_offset = Vector2(0, 0)
@@ -28,7 +29,7 @@ radius = 0.25
 height = 0.5
 
 [sub_resource type="Resource" id="Resource_i3p8x"]
-script = ExtResource("3_lk1rc")
+script = ExtResource("4_kug0b")
 name = &"test"
 description = "test"
 icon = SubResource("PlaceholderTexture2D_lk1rc")
@@ -40,7 +41,7 @@ metadata/_custom_type_script = "uid://c3qhshchoa8wk"
 size = Vector2(64, 64)
 
 [sub_resource type="Resource" id="Resource_1twht"]
-script = ExtResource("3_lk1rc")
+script = ExtResource("4_kug0b")
 name = &"test2"
 description = "test2"
 icon = SubResource("PlaceholderTexture2D_i3p8x")
@@ -48,15 +49,18 @@ mesh = SubResource("SphereMesh_1twht")
 function = "test"
 metadata/_custom_type_script = "uid://c3qhshchoa8wk"
 
-[node name="ItemPickupTest" unique_id=2120711059 instance=ExtResource("1_lejf7")]
+[node name="ContainerTest" unique_id=2120711059 instance=ExtResource("1_soyt1")]
 
-[node name="ItemPickup" parent="." index="4" unique_id=639595155 instance=ExtResource("2_dfj2o")]
+[node name="ItemPickup" parent="." index="4" unique_id=639595155 instance=ExtResource("2_nlb5b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6113267, 0, 5.5277276)
 _item_info = SubResource("Resource_i3p8x")
 
-[node name="ItemPickup2" parent="." index="5" unique_id=630103446 instance=ExtResource("2_dfj2o")]
+[node name="ItemPickup2" parent="." index="5" unique_id=630103446 instance=ExtResource("2_nlb5b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9698763, 0, 6.3440804)
 _item_info = SubResource("Resource_1twht")
 _count = 50
+
+[node name="Container" parent="." index="6" unique_id=293151306 instance=ExtResource("5_qf7nj")]
+transform = Transform3D(0.49999997, 0, -0.86602545, 0, 1, 0, 0.86602545, 0, 0.49999997, 3.5, 0.5, 7.5)
 
 [editable path="Player"]

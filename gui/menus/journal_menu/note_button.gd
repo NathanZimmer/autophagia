@@ -1,4 +1,4 @@
-extends VBoxContainer
+class_name iNoteButton extends VBoxContainer
 ## Container that combines multiple TextureButtons
 
 signal pressed

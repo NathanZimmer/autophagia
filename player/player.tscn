@@ -17,6 +17,35 @@
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_4juu5"]
 
+[sub_resource type="Gradient" id="Gradient_4q42c"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_s1h2m"]
+gradient = SubResource("Gradient_4q42c")
+width = 16
+height = 16
+fill_from = Vector2(1, 0)
+
+[sub_resource type="Gradient" id="Gradient_kvi6p"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xqkfk"]
+gradient = SubResource("Gradient_kvi6p")
+width = 16
+height = 16
+
+[sub_resource type="Gradient" id="Gradient_kb6p2"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wodsf"]
+gradient = SubResource("Gradient_kb6p2")
+width = 16
+height = 16
+fill_from = Vector2(1, 0)
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8l6i1"]
 radius = 0.3
 
@@ -115,10 +144,17 @@ metadata/_custom_type_script = "uid://xgc14u80w6pu"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1905954674]
 
-[node name="Gui" parent="CanvasLayer" unique_id=64399052 node_paths=PackedStringArray("_crosshair_raycast", "_message_handler", "_journal") instance=ExtResource("5_boad6")]
+[node name="Gui" parent="CanvasLayer" unique_id=64399052 node_paths=PackedStringArray("_crosshair_raycast", "_message_handler", "_journal", "_inventory") instance=ExtResource("5_boad6")]
+unique_name_in_owner = true
 _crosshair_raycast = NodePath("../../Camera3D/PlayerRayCast3D")
+_crosshair_textures = Dictionary[StringName, Texture2D]({
+&"container": SubResource("GradientTexture2D_wodsf"),
+&"lever": SubResource("GradientTexture2D_s1h2m"),
+&"npc": SubResource("GradientTexture2D_xqkfk")
+})
 _message_handler = NodePath("../../MessageHandler")
 _journal = NodePath("../../Journal")
+_inventory = NodePath("../../Inventory")
 
 [node name="RetroFilter" type="ColorRect" parent="CanvasLayer" unique_id=2018018916]
 process_mode = 3

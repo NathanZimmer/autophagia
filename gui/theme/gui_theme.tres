@@ -15,6 +15,18 @@ content_margin_left = 1.0
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gemgx"]
 content_margin_left = 1.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v4hft"]
+bg_color = Color(0, 0, 0, 0.39215687)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3854925, 0.38549247, 0.38549247, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vlykk"]
 bg_color = Color(0, 0, 0, 0.392157)
 corner_radius_top_left = 10
@@ -82,6 +94,8 @@ HeaderLarge/font_sizes/font_size = 80
 HeaderLarge/fonts/font = ExtResource("1_32sf2")
 HeaderMedium/font_sizes/font_size = 35
 HeaderSmall/font_sizes/font_size = 15
+InventoryIconPanel/base_type = &"Panel"
+InventoryIconPanel/styles/panel = SubResource("StyleBoxFlat_v4hft")
 KeybindButton/base_type = &"Button"
 KeybindButton/styles/disabled = SubResource("StyleBoxFlat_vlykk")
 KeybindButton/styles/hover = SubResource("StyleBoxFlat_vlykk")

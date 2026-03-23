@@ -29,18 +29,18 @@ func _input(event: InputEvent) -> void:
 
 
 func _shortcut_input(event: InputEvent) -> void:
-    if (
-        event is InputEventKey
-        and (
-            event.is_action_pressed(InputActions.UI.INVENTORY)
-            or event.is_action_pressed(InputActions.UI.CANCEL)
-        )
-    ):
-        if opened_from_journal:
+    if event is InputEventKey:
+        if event.is_action_pressed(InputActions.UI.CANCEL):
+            if opened_from_journal:
+                inventory_button_pressed.emit()
+            else:
+                menu_exited.emit()
+            accept_event()
+        elif event.is_action_pressed(InputActions.UI.JOURNAL):
             inventory_button_pressed.emit()
-        else:
-            menu_exited.emit()
-        accept_event()
+            accept_event()
+        elif event.is_action_pressed(InputActions.UI.INVENTORY):
+            accept_event()
 
 
 func set_image(image_texture: Texture2D) -> void:

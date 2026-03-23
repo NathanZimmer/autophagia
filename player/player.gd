@@ -36,6 +36,7 @@ var _mouse_inverted := false
 @onready var _collider: CollisionShape3D = %CollisionShape3D
 # @onready var _camera_animation_player: AnimationPlayer = %CameraAnimationPlayer
 @onready var _camera_animation_tree: iCameraAnimationTree = %CameraAnimationTree
+@onready var _gui: iGui = %Gui
 
 
 func _ready() -> void:
@@ -93,6 +94,7 @@ func _physics_process(delta: float) -> void:
     move_and_slide()
     if _camera_animation_tree:
         _camera_animation_tree.update_state(velocity, is_on_floor(), _move_speed * _speed_mod)
+    _gui.interact_menus_enabled = is_on_floor()
 
 
 func _link_runtime_configurables() -> void:

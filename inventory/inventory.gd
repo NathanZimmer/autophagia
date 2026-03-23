@@ -1,8 +1,13 @@
 class_name Inventory extends Node
 ## Logic for positioning items in the inventory
 
-const INVENTORY_SIZE = 10
+const INVENTORY_SIZE = 8
 const MAX_STACK_SIZE = 5
+
+## Emit when inventory state changes
+signal updated
+## Emit with an ItemInfo when an item is used
+# signal item_used
 
 @export var _message_handler: MessageHandler
 
@@ -19,7 +24,10 @@ func _ready() -> void:
 
 
 func _on_item_received(inventory_item: InventoryItem) -> void:
-    inventory_item.count = _add_item(inventory_item.item_info, inventory_item.count)
+    var new_count := _add_item(inventory_item.item_info, inventory_item.count)
+    if new_count != inventory_item.count:
+        inventory_item.count = new_count
+        updated.emit()
 
 
 ## Add an item to the first available index (first index with this item or first empty
@@ -78,3 +86,37 @@ func _add_item_by_idx(item: ItemInfo, idx: int, count: int) -> int:
 
     _count[idx] = new_count
     return 0
+
+
+# func _pop_item(idx: int) -> ItemInfo:
+#     if not _items[idx]:
+#         return null
+#     if _count[idx] <= 0:
+#         return null
+#     _count[idx] -= 1
+#     return _items[idx]
+
+# ## TODO
+# func use_item(idx: int) -> void:
+#     var item := _pop_item(idx)
+#     if item:
+#         item_used.emit(item)
+
+# ## TODO
+# func drop_item(idx: int, count: int) -> void:
+#     pass
+#     # TODO: Create an item pickup at the feet of the player.
+#     # Will need to disable opening of GUI while in air to make
+#     # this logic easier.
+
+
+func get_size() -> int:
+    return _items.size()
+
+
+func item_at_idx(idx: int) -> ItemInfo:
+    return _items[idx]
+
+
+func count_at_idx(idx: int) -> int:
+    return _count[idx]

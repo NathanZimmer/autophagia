@@ -30,3 +30,4 @@ class UI:
     const RIGHT: StringName = "ui_right"
     const FULLSCREEN: StringName = "ui_fullscreen"
     const INVENTORY: StringName = "ui_inventory"
+    const JOURNAL: StringName = "ui_journal"

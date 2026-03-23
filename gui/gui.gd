@@ -1,6 +1,9 @@
-extends Control
+class_name iGui extends Control
 ## Handles menu and viewport related hotkeys, mouse capturing, crosshair,
 ## and connecting menus
+
+## TODO
+var interact_menus_enabled := false
 
 ## Raycast to use for setting crosshair icons
 @export var _crosshair_raycast: RayCast3D
@@ -9,6 +12,7 @@ extends Control
 @export var _crosshair_textures: Dictionary[StringName, Texture2D]
 @export var _message_handler: MessageHandler
 @export var _journal: Journal
+@export var _inventory: Inventory
 
 var _raycast_collided: Object
 var _default_crosshair_texture: Texture2D
@@ -18,8 +22,11 @@ var _default_crosshair_texture: Texture2D
 @onready var _journal_menu: iJournalMenuControl = %JournalMenu
 @onready var _dialog_menu: iDialogMenuControl = %DialogMenu
 @onready var _note_menu: iNoteMenuControl = %NoteMenu
+@onready var _inventory_menu: iInventoryMenu = %InventoryMenu
 
 @onready var _crosshair: TextureRect = %Crosshair
+
+# TODO: Remove ability to open any menu while airborne
 
 
 func _ready() -> void:
@@ -31,6 +38,8 @@ func _ready() -> void:
     _unpause(_dialog_menu)
     _note_menu.menu_exited.connect(_unpause.bind(_note_menu))
     _unpause(_note_menu)
+    _inventory_menu.menu_exited.connect(_unpause.bind(_inventory_menu))
+    _unpause(_inventory_menu)
 
     _note_menu.inventory_button_pressed.connect(_swap_to_journal)
     _journal_menu.note_button_pressed.connect(_swap_to_note)
@@ -38,9 +47,13 @@ func _ready() -> void:
     if _message_handler:
         _message_handler.dialog_recieved.connect(_open_dialog_menu)
         _message_handler.note_received.connect(_open_note_menu)
+        _message_handler.inventory_received.connect(_open_container_menu)
 
     if _journal:
         _journal.note_discovered.connect(_journal_menu.add_note)
+
+    if _inventory:
+        _inventory_menu.set_inventory(_inventory)
 
     _default_crosshair_texture = _crosshair.texture
 
@@ -60,9 +73,14 @@ func _shortcut_input(event: InputEvent) -> void:
             _toggle_fullscreen()
             accept_event()
 
-        elif event.is_action_pressed(InputActions.UI.INVENTORY):
-            _pause(_journal_menu)
-            accept_event()
+        elif interact_menus_enabled:
+            if event.is_action_pressed(InputActions.UI.JOURNAL):
+                _pause(_journal_menu)
+                accept_event()
+
+            elif event.is_action_pressed(InputActions.UI.INVENTORY):
+                _pause(_inventory_menu)
+                accept_event()
 
 
 ## Pause the game, show the mouse and specified pause menu
@@ -75,6 +93,8 @@ func _pause(menu: iMenuControl) -> void:
 
 
 func _open_dialog_menu(dialog: DialogTree) -> void:
+    if not interact_menus_enabled:
+        return
     _dialog_menu.set_dialog(dialog)
     _pause(_dialog_menu)
 
@@ -100,6 +120,12 @@ func _open_note_menu(title: Journal.Title, from_journal: bool = false) -> void:
     _note_menu.set_image(image)
     _note_menu.play_page_flip()
     _pause(_note_menu)
+
+
+func _open_container_menu(inventory: Inventory) -> void:
+    if not interact_menus_enabled:
+        return
+    _pause(_inventory_menu)
 
 
 ## Unpause the game, hide the mouse and pause menu

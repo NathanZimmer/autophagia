@@ -10,12 +10,12 @@ extends Node3D
 
 var _item: InventoryItem
 
-@onready var floating_icon: MeshInstance3D = $FloatingIcon
+@onready var _floating_icon: MeshInstance3D = %FloatingIcon
 
 
 func _ready() -> void:
     if _item_info.mesh:
-        floating_icon.mesh = _item_info.mesh
+        _floating_icon.mesh = _item_info.mesh
 
     if Engine.is_editor_hint():
         return
