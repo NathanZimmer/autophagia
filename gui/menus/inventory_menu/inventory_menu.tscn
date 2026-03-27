@@ -4,7 +4,7 @@
 [ext_resource type="Theme" uid="uid://bh0is5cj4ulq2" path="res://gui/theme/gui_theme.tres" id="2_sritr"]
 [ext_resource type="PackedScene" uid="uid://c4b0a3scm2jlc" path="res://gui/menus/inventory_menu/inventory_icon.tscn" id="3_mkw18"]
 [ext_resource type="Environment" uid="uid://cbgre4uktxw6d" path="res://common/main_world_env.tres" id="4_eblhp"]
-[ext_resource type="Material" uid="uid://lm2s6rm7ttik" path="res://interactable/pickup/materials/floating_icon.tres" id="4_mkw18"]
+[ext_resource type="Material" uid="uid://buibxnm8nm51w" path="res://levels/common/material/placeholder.tres" id="5_eblhp"]
 
 [sub_resource type="World3D" id="World3D_sritr"]
 environment = ExtResource("4_eblhp")
@@ -45,14 +45,14 @@ text = "Inventory"
 horizontal_alignment = 1
 uppercase = true
 
-[node name="Panel" type="Panel" parent="MenuContainer" unique_id=811268333]
-custom_minimum_size = Vector2(450, 375)
+[node name="InventoryPanel" type="Panel" parent="MenuContainer" unique_id=811268333]
+custom_minimum_size = Vector2(459.405, 286.71)
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 6
 theme_type_variation = &"InventoryIconPanel"
 
-[node name="HSplitContainer" type="HSplitContainer" parent="MenuContainer/Panel" unique_id=1871728347]
+[node name="HSplitContainer" type="HSplitContainer" parent="MenuContainer/InventoryPanel" unique_id=1871728347]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -60,120 +60,91 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -222.0
-offset_top = -183.0
+offset_top = -138.0
 offset_right = 222.0
-offset_bottom = 183.0
+offset_bottom = 138.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
-split_offsets = PackedInt32Array(316)
 dragging_enabled = false
 dragger_visibility = 2
-split_offset = 316
 
-[node name="VSplitContainer" type="VSplitContainer" parent="MenuContainer/Panel/HSplitContainer" unique_id=1031418813]
+[node name="VSplitContainer" type="VSplitContainer" parent="MenuContainer/InventoryPanel/HSplitContainer" unique_id=1031418813]
 layout_mode = 2
-split_offsets = PackedInt32Array(14)
+split_offsets = PackedInt32Array(0, 0, 0)
 dragging_enabled = false
 dragger_visibility = 2
-split_offset = 14
 
-[node name="InventoryLabel" type="Label" parent="MenuContainer/Panel/HSplitContainer/VSplitContainer" unique_id=989781207]
+[node name="InventoryLabel" type="Label" parent="MenuContainer/InventoryPanel/HSplitContainer/VSplitContainer" unique_id=989781207]
 layout_mode = 2
 text = "Inventory"
 
-[node name="InventoryContainer" type="GridContainer" parent="MenuContainer/Panel/HSplitContainer/VSplitContainer" unique_id=1886414648]
+[node name="InventoryContainer" type="GridContainer" parent="MenuContainer/InventoryPanel/HSplitContainer/VSplitContainer" unique_id=1886414648]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 0
 columns = 4
 
-[node name="InventoryIcon" parent="MenuContainer/Panel/HSplitContainer/VSplitContainer/InventoryContainer" unique_id=1499537967 instance=ExtResource("3_mkw18")]
+[node name="InventoryIcon" parent="MenuContainer/InventoryPanel/HSplitContainer/VSplitContainer/InventoryContainer" unique_id=1499537967 instance=ExtResource("3_mkw18")]
 layout_mode = 2
 
-[node name="InventoryIcon2" parent="MenuContainer/Panel/HSplitContainer/VSplitContainer/InventoryContainer" unique_id=302434828 instance=ExtResource("3_mkw18")]
+[node name="InventoryIcon2" parent="MenuContainer/InventoryPanel/HSplitContainer/VSplitContainer/InventoryContainer" unique_id=2117405442 instance=ExtResource("3_mkw18")]
 layout_mode = 2
 
-[node name="InventoryIcon3" parent="MenuContainer/Panel/HSplitContainer/VSplitContainer/InventoryContainer" unique_id=155133540 instance=ExtResource("3_mkw18")]
+[node name="InventoryIcon3" parent="MenuContainer/InventoryPanel/HSplitContainer/VSplitContainer/InventoryContainer" unique_id=2124251882 instance=ExtResource("3_mkw18")]
 layout_mode = 2
 
-[node name="InventoryIcon4" parent="MenuContainer/Panel/HSplitContainer/VSplitContainer/InventoryContainer" unique_id=1271153566 instance=ExtResource("3_mkw18")]
+[node name="InventoryIcon4" parent="MenuContainer/InventoryPanel/HSplitContainer/VSplitContainer/InventoryContainer" unique_id=1743375560 instance=ExtResource("3_mkw18")]
 layout_mode = 2
 
-[node name="InventoryIcon5" parent="MenuContainer/Panel/HSplitContainer/VSplitContainer/InventoryContainer" unique_id=774714842 instance=ExtResource("3_mkw18")]
+[node name="InventoryIcon5" parent="MenuContainer/InventoryPanel/HSplitContainer/VSplitContainer/InventoryContainer" unique_id=775557653 instance=ExtResource("3_mkw18")]
 layout_mode = 2
 
-[node name="InventoryIcon6" parent="MenuContainer/Panel/HSplitContainer/VSplitContainer/InventoryContainer" unique_id=293994198 instance=ExtResource("3_mkw18")]
+[node name="InventoryIcon6" parent="MenuContainer/InventoryPanel/HSplitContainer/VSplitContainer/InventoryContainer" unique_id=1368362433 instance=ExtResource("3_mkw18")]
 layout_mode = 2
 
-[node name="InventoryIcon7" parent="MenuContainer/Panel/HSplitContainer/VSplitContainer/InventoryContainer" unique_id=883704019 instance=ExtResource("3_mkw18")]
+[node name="InventoryIcon7" parent="MenuContainer/InventoryPanel/HSplitContainer/VSplitContainer/InventoryContainer" unique_id=409235039 instance=ExtResource("3_mkw18")]
 layout_mode = 2
 
-[node name="InventoryIcon8" parent="MenuContainer/Panel/HSplitContainer/VSplitContainer/InventoryContainer" unique_id=845576408 instance=ExtResource("3_mkw18")]
+[node name="InventoryIcon8" parent="MenuContainer/InventoryPanel/HSplitContainer/VSplitContainer/InventoryContainer" unique_id=554385874 instance=ExtResource("3_mkw18")]
 layout_mode = 2
 
-[node name="ToolbarLabel" type="Label" parent="MenuContainer/Panel/HSplitContainer/VSplitContainer" unique_id=382315544]
-visible = false
+[node name="ToolbarLabel" type="Label" parent="MenuContainer/InventoryPanel/HSplitContainer/VSplitContainer" unique_id=382315544]
 layout_mode = 2
 text = "Toolbar"
 
-[node name="InventoryContainer2" type="GridContainer" parent="MenuContainer/Panel/HSplitContainer/VSplitContainer" unique_id=687515097]
-visible = false
+[node name="InventoryContainer2" type="GridContainer" parent="MenuContainer/InventoryPanel/HSplitContainer/VSplitContainer" unique_id=687515097]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 0
 columns = 4
 
-[node name="InventoryIcon" parent="MenuContainer/Panel/HSplitContainer/VSplitContainer/InventoryContainer2" unique_id=1773834386 instance=ExtResource("3_mkw18")]
+[node name="InventoryIcon" parent="MenuContainer/InventoryPanel/HSplitContainer/VSplitContainer/InventoryContainer2" unique_id=1773834386 instance=ExtResource("3_mkw18")]
 layout_mode = 2
 
-[node name="InventoryIcon2" parent="MenuContainer/Panel/HSplitContainer/VSplitContainer/InventoryContainer2" unique_id=1043634455 instance=ExtResource("3_mkw18")]
+[node name="InventoryIcon2" parent="MenuContainer/InventoryPanel/HSplitContainer/VSplitContainer/InventoryContainer2" unique_id=1043634455 instance=ExtResource("3_mkw18")]
 layout_mode = 2
 
-[node name="InventoryIcon3" parent="MenuContainer/Panel/HSplitContainer/VSplitContainer/InventoryContainer2" unique_id=1092782411 instance=ExtResource("3_mkw18")]
+[node name="InventoryIcon3" parent="MenuContainer/InventoryPanel/HSplitContainer/VSplitContainer/InventoryContainer2" unique_id=1092782411 instance=ExtResource("3_mkw18")]
 layout_mode = 2
 
-[node name="InventoryIcon4" parent="MenuContainer/Panel/HSplitContainer/VSplitContainer/InventoryContainer2" unique_id=232234668 instance=ExtResource("3_mkw18")]
+[node name="InventoryIcon4" parent="MenuContainer/InventoryPanel/HSplitContainer/VSplitContainer/InventoryContainer2" unique_id=232234668 instance=ExtResource("3_mkw18")]
 layout_mode = 2
 
-[node name="ToolbarLabel2" type="Label" parent="MenuContainer/Panel/HSplitContainer/VSplitContainer" unique_id=836827192]
-visible = false
-layout_mode = 2
-text = "Container"
-
-[node name="InventoryContainer3" type="GridContainer" parent="MenuContainer/Panel/HSplitContainer/VSplitContainer" unique_id=1632477571]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 0
-columns = 4
-
-[node name="InventoryIcon" parent="MenuContainer/Panel/HSplitContainer/VSplitContainer/InventoryContainer3" unique_id=65699196 instance=ExtResource("3_mkw18")]
-layout_mode = 2
-
-[node name="InventoryIcon2" parent="MenuContainer/Panel/HSplitContainer/VSplitContainer/InventoryContainer3" unique_id=428522042 instance=ExtResource("3_mkw18")]
-layout_mode = 2
-
-[node name="InventoryIcon3" parent="MenuContainer/Panel/HSplitContainer/VSplitContainer/InventoryContainer3" unique_id=1627367519 instance=ExtResource("3_mkw18")]
-layout_mode = 2
-
-[node name="InventoryIcon4" parent="MenuContainer/Panel/HSplitContainer/VSplitContainer/InventoryContainer3" unique_id=857097373 instance=ExtResource("3_mkw18")]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/Panel/HSplitContainer" unique_id=1384195544]
-custom_minimum_size = Vector2(128, 366)
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/InventoryPanel/HSplitContainer" unique_id=1384195544]
+custom_minimum_size = Vector2(128, 276.8)
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 4
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="MenuContainer/Panel/HSplitContainer/VBoxContainer" unique_id=302629008]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="MenuContainer/InventoryPanel/HSplitContainer/VBoxContainer" unique_id=302629008]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="SubViewport" type="SubViewport" parent="MenuContainer/Panel/HSplitContainer/VBoxContainer/SubViewportContainer" unique_id=369818912]
+[node name="SubViewport" type="SubViewport" parent="MenuContainer/InventoryPanel/HSplitContainer/VBoxContainer/SubViewportContainer" unique_id=369818912]
 own_world_3d = true
 world_3d = SubResource("World3D_sritr")
 transparent_bg = true
@@ -181,41 +152,94 @@ handle_input_locally = false
 size = Vector2i(64, 64)
 render_target_update_mode = 4
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MenuContainer/Panel/HSplitContainer/VBoxContainer/SubViewportContainer/SubViewport" unique_id=2026402402]
+[node name="ItemModel" type="MeshInstance3D" parent="MenuContainer/InventoryPanel/HSplitContainer/VBoxContainer/SubViewportContainer/SubViewport" unique_id=2026402402]
+unique_name_in_owner = true
 mesh = SubResource("SphereMesh_sritr")
-surface_material_override/0 = ExtResource("4_mkw18")
+surface_material_override/0 = ExtResource("5_eblhp")
 
-[node name="Camera3D" type="Camera3D" parent="MenuContainer/Panel/HSplitContainer/VBoxContainer/SubViewportContainer/SubViewport" unique_id=1798510342]
+[node name="Camera3D" type="Camera3D" parent="MenuContainer/InventoryPanel/HSplitContainer/VBoxContainer/SubViewportContainer/SubViewport" unique_id=1798510342]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.6007497)
 
-[node name="UseButton" type="Button" parent="MenuContainer/Panel/HSplitContainer/VBoxContainer" unique_id=177419004]
+[node name="UseButton" type="Button" parent="MenuContainer/InventoryPanel/HSplitContainer/VBoxContainer" unique_id=177419004]
+unique_name_in_owner = true
 layout_mode = 2
+focus_mode = 0
 theme_type_variation = &"DialogButton"
 text = "Use"
 
-[node name="MoveButton" type="Button" parent="MenuContainer/Panel/HSplitContainer/VBoxContainer" unique_id=195794768]
+[node name="MoveButton" type="Button" parent="MenuContainer/InventoryPanel/HSplitContainer/VBoxContainer" unique_id=195794768]
+unique_name_in_owner = true
 layout_mode = 2
+focus_mode = 0
 theme_type_variation = &"DialogButton"
 text = "Move"
 
-[node name="DropButton" type="Button" parent="MenuContainer/Panel/HSplitContainer/VBoxContainer" unique_id=1341895540]
+[node name="DropButton" type="Button" parent="MenuContainer/InventoryPanel/HSplitContainer/VBoxContainer" unique_id=1341895540]
+unique_name_in_owner = true
 layout_mode = 2
+focus_mode = 0
 theme_type_variation = &"DialogButton"
 text = "Drop"
 
-[node name="NameLabel" type="Label" parent="MenuContainer/Panel/HSplitContainer/VBoxContainer" unique_id=138247286]
+[node name="NameLabel" type="Label" parent="MenuContainer/InventoryPanel/HSplitContainer/VBoxContainer" unique_id=138247286]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"HeaderSmall"
 text = "Name"
 
-[node name="DescLabel" type="Label" parent="MenuContainer/Panel/HSplitContainer/VBoxContainer" unique_id=1499222715]
+[node name="DescLabel" type="Label" parent="MenuContainer/InventoryPanel/HSplitContainer/VBoxContainer" unique_id=1499222715]
 unique_name_in_owner = true
 layout_mode = 2
 text = "This is how many worlds can fit in the description box. 
 
-This is how you describe what items do and add some flavor text."
+Some flavor text."
 autowrap_mode = 2
+
+[node name="ContainerPanel" type="Panel" parent="MenuContainer" unique_id=2117321344]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(459.405, 103.445)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_type_variation = &"InventoryIconPanel"
+
+[node name="VSplitContainer" type="VSplitContainer" parent="MenuContainer/ContainerPanel" unique_id=342340319]
+layout_mode = 0
+offset_left = 7.7025146
+offset_top = 5.3549957
+offset_right = 451.7025
+offset_bottom = 99.604996
+split_offsets = PackedInt32Array(14)
+dragging_enabled = false
+dragger_visibility = 2
+split_offset = 14
+
+[node name="ContainerLabel" type="Label" parent="MenuContainer/ContainerPanel/VSplitContainer" unique_id=1332672509]
+layout_mode = 2
+text = "Container"
+horizontal_alignment = 1
+
+[node name="InventoryContainer" type="GridContainer" parent="MenuContainer/ContainerPanel/VSplitContainer" unique_id=394903988]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
+columns = 5
+
+[node name="InventoryIcon" parent="MenuContainer/ContainerPanel/VSplitContainer/InventoryContainer" unique_id=925994927 instance=ExtResource("3_mkw18")]
+layout_mode = 2
+
+[node name="InventoryIcon2" parent="MenuContainer/ContainerPanel/VSplitContainer/InventoryContainer" unique_id=714499969 instance=ExtResource("3_mkw18")]
+layout_mode = 2
+
+[node name="InventoryIcon3" parent="MenuContainer/ContainerPanel/VSplitContainer/InventoryContainer" unique_id=522963480 instance=ExtResource("3_mkw18")]
+layout_mode = 2
+
+[node name="InventoryIcon4" parent="MenuContainer/ContainerPanel/VSplitContainer/InventoryContainer" unique_id=178598892 instance=ExtResource("3_mkw18")]
+layout_mode = 2
+
+[node name="InventoryIcon5" parent="MenuContainer/ContainerPanel/VSplitContainer/InventoryContainer" unique_id=868463592 instance=ExtResource("3_mkw18")]
+layout_mode = 2
 
 [node name="BackButton" type="Button" parent="MenuContainer" unique_id=482812051]
 unique_name_in_owner = true
