@@ -1,7 +1,6 @@
 class_name Inventory extends Node
 ## Logic for positioning items in the inventory
 
-const INVENTORY_SIZE = 8
 const MAX_STACK_SIZE = 5
 
 ## Emit when inventory state changes
@@ -9,6 +8,7 @@ signal updated
 ## Emit with an ItemInfo when an item is used
 # signal item_used
 
+@export var _inventory_size: int
 @export var _message_handler: MessageHandler
 
 var _items: Array[ItemInfo] = []
@@ -16,8 +16,8 @@ var _count: Array[int] = []
 
 
 func _ready() -> void:
-    _items.resize(INVENTORY_SIZE)
-    _count.resize(INVENTORY_SIZE)
+    _items.resize(_inventory_size)
+    _count.resize(_inventory_size)
 
     if _message_handler:
         _message_handler.item_received.connect(_on_item_received)
@@ -39,7 +39,7 @@ func _on_item_received(inventory_item: InventoryItem) -> void:
 ## ## Returns [br]
 ## Number of items that couldn't be added to inventory
 func _add_item(item: ItemInfo, count: int) -> int:
-    var keys := range(INVENTORY_SIZE)
+    var keys := range(_inventory_size)
     var remaining := count
 
     # Try to slot into existing stacks first
@@ -67,9 +67,9 @@ func _add_item(item: ItemInfo, count: int) -> int:
 ## ## Returns [br]
 ## Number of items that couldn't be added to inventory
 func _add_item_by_idx(item: ItemInfo, idx: int, count: int) -> int:
-    if idx > INVENTORY_SIZE - 1:
+    if idx > _inventory_size - 1:
         push_error(
-            "Trying to index past inventory limit: idx=%d, limit=%d" % [idx, INVENTORY_SIZE - 1]
+            "Trying to index past inventory limit: idx=%d, limit=%d" % [idx, _inventory_size - 1]
         )
         return count
 
@@ -111,7 +111,7 @@ func _add_item_by_idx(item: ItemInfo, idx: int, count: int) -> int:
 
 
 func get_size() -> int:
-    return _items.size()
+    return _inventory_size
 
 
 func item_at_idx(idx: int) -> ItemInfo:

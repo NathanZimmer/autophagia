@@ -9,24 +9,26 @@ const HOVER_COLOR = Color(1.0, 0.66, 0.66)
 @onready var _name_label: Label = %NameLabel
 @onready var _count_label: Label = %CountLabel
 @onready var _icon_button: TextureButton = %IconButton
+@onready var _selected_overlay: TextureRect = %SelectedOverlay
 
 var _item: ItemInfo
 
 
 func _ready() -> void:
-    _icon_button.pressed.connect(_on_press)
-    _icon_button.mouse_entered.connect(
-        func() -> void: _icon_button.modulate = HOVER_COLOR
-    )
-    _icon_button.mouse_exited.connect(
-        func() -> void: _icon_button.modulate = Color.WHITE
-    )
+    _icon_button.pressed.connect(_on_select)
+    _icon_button.mouse_entered.connect(func() -> void: _icon_button.modulate = HOVER_COLOR)
+    _icon_button.mouse_exited.connect(func() -> void: _icon_button.modulate = Color.WHITE)
     _on_depletion()
 
 
-func _on_press() -> void:
-    _icon_button.grab_focus()
+func _on_select() -> void:
+    # _icon_button.grab_focus()
+    _selected_overlay.show()
     item_selected.emit(_item)
+
+
+func deselct() -> void:
+    _selected_overlay.hide()
 
 
 ## TODO

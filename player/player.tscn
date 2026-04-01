@@ -17,6 +17,16 @@
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_4juu5"]
 
+[sub_resource type="Gradient" id="Gradient_kb6p2"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wodsf"]
+gradient = SubResource("Gradient_kb6p2")
+width = 16
+height = 16
+fill_from = Vector2(1, 0)
+
 [sub_resource type="Gradient" id="Gradient_4q42c"]
 offsets = PackedFloat32Array(0)
 colors = PackedColorArray(1, 0, 0, 1)
@@ -35,16 +45,6 @@ colors = PackedColorArray(0, 1, 0, 1)
 gradient = SubResource("Gradient_kvi6p")
 width = 16
 height = 16
-
-[sub_resource type="Gradient" id="Gradient_kb6p2"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0, 0, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_wodsf"]
-gradient = SubResource("Gradient_kb6p2")
-width = 16
-height = 16
-fill_from = Vector2(1, 0)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8l6i1"]
 radius = 0.3
@@ -134,6 +134,7 @@ metadata/_custom_type_script = "uid://bnbt62ete8km4"
 [node name="Inventory" type="Node" parent="." unique_id=1545370011 node_paths=PackedStringArray("_message_handler")]
 unique_name_in_owner = true
 script = ExtResource("6_yllr7")
+_inventory_size = 12
 _message_handler = NodePath("../MessageHandler")
 metadata/_custom_type_script = "uid://bvyrto2wfvoh4"
 

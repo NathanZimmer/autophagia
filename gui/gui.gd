@@ -47,7 +47,7 @@ func _ready() -> void:
     if _message_handler:
         _message_handler.dialog_recieved.connect(_open_dialog_menu)
         _message_handler.note_received.connect(_open_note_menu)
-        _message_handler.inventory_received.connect(_open_container_menu)
+        _message_handler.inventory_received.connect(_open_container)
 
     if _journal:
         _journal.note_discovered.connect(_journal_menu.add_note)
@@ -122,9 +122,10 @@ func _open_note_menu(title: Journal.Title, from_journal: bool = false) -> void:
     _pause(_note_menu)
 
 
-func _open_container_menu(inventory: Inventory) -> void:
+func _open_container(container: Inventory) -> void:
     if not interact_menus_enabled:
         return
+    _inventory_menu.set_container(container)
     _pause(_inventory_menu)
 
 

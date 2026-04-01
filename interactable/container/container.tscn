@@ -27,4 +27,5 @@ mesh = SubResource("BoxMesh_rxcrq")
 [node name="Inventory" type="Node" parent="." unique_id=92009521]
 unique_name_in_owner = true
 script = ExtResource("4_yrftc")
+_inventory_size = 5
 metadata/_custom_type_script = "uid://bvyrto2wfvoh4"
