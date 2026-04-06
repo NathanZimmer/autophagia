@@ -53,6 +53,12 @@ func _reset() -> void:
     _desc_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 
 
+func set_buttons_disabled(disabled: bool) -> void:
+    _use_button.disabled = disabled
+    _move_button.disabled = disabled
+    _drop_button.disabled = disabled
+
+
 ## TODO
 func set_item(item: ItemInfo) -> void:
     _use_button.grab_focus()

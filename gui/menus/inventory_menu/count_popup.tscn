@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://dsxajqo7gnxts"]
+
+[ext_resource type="Theme" uid="uid://bh0is5cj4ulq2" path="res://gui/theme/gui_theme.tres" id="1_rok4c"]
+[ext_resource type="Script" uid="uid://b70hy8bsuae0f" path="res://gui/menus/inventory_menu/count_popup.gd" id="2_trktu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_222a8"]
+bg_color = Color(0.11858138, 0.11858138, 0.11858138, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3854925, 0.38549247, 0.38549247, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="CountPopup" type="Control" unique_id=1499537967]
+clip_contents = true
+custom_minimum_size = Vector2(140, 70)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_rok4c")
+script = ExtResource("2_trktu")
+
+[node name="Panel" type="Panel" parent="." unique_id=49516741]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.0
+offset_top = -35.0
+offset_right = 70.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"InventoryIconPanel"
+theme_override_styles/panel = SubResource("StyleBoxFlat_222a8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1333249400]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer" unique_id=1016992397]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "Select Count"
+
+[node name="SelectSpinBox" type="SpinBox" parent="Panel/VBoxContainer" unique_id=833141021]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+min_value = 1.0
+value = 1.0
+rounded = true
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=834334361]
+layout_mode = 2
+alignment = 1
+
+[node name="SubmitButton" type="Button" parent="Panel/VBoxContainer/HBoxContainer" unique_id=2061505235]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Submit"
+
+[node name="CancelButton" type="Button" parent="Panel/VBoxContainer/HBoxContainer" unique_id=568000054]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cancel"

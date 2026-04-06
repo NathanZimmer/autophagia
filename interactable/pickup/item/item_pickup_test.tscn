@@ -57,6 +57,6 @@ _item_info = SubResource("Resource_i3p8x")
 [node name="ItemPickup2" parent="." index="5" unique_id=630103446 instance=ExtResource("2_dfj2o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9698763, 0, 6.3440804)
 _item_info = SubResource("Resource_1twht")
-_count = 50
+_count = 16
 
 [editable path="Player"]

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bo4iauy3yrgry" path="res://gui/menus/inventory_menu/inventory_menu.gd" id="1_sritr"]
 [ext_resource type="Theme" uid="uid://bh0is5cj4ulq2" path="res://gui/theme/gui_theme.tres" id="2_sritr"]
 [ext_resource type="PackedScene" uid="uid://cfrfcvsd4exd7" path="res://gui/menus/inventory_menu/selected_item_menu.tscn" id="3_eblhp"]
+[ext_resource type="PackedScene" uid="uid://dsxajqo7gnxts" path="res://gui/menus/inventory_menu/count_popup.tscn" id="4_mkw18"]
 
 [node name="InventoryMenu" type="Control" unique_id=717076251]
 process_mode = 2
@@ -125,3 +126,8 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 text = "Return"
+
+[node name="CountPopup" parent="." unique_id=1499537967 instance=ExtResource("4_mkw18")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1

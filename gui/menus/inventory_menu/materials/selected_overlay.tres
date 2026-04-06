@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://436gfx14qbmw"]
+
+[ext_resource type="Shader" uid="uid://okq11t4x3l22" path="res://gui/menus/inventory_menu/materials/selected_overlay.gdshader" id="1_8so5a"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_8so5a")
+shader_parameter/color = Color(0, 0, 0, 1)

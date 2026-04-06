@@ -88,6 +88,31 @@ func _add_item_by_idx(item: ItemInfo, idx: int, count: int) -> int:
     return 0
 
 
+# FIXME: This doesn't look at stack size at all, make it do that and maybe merge with
+# _add_item_by_idx
+## TODO
+func adjust_count(idx: int, amount: int) -> bool:
+    if idx > _inventory_size - 1:
+        push_error(
+            "Trying to index past inventory limit: idx=%d, limit=%d" % [idx, _inventory_size - 1]
+        )
+        return false
+    var new_amount := _count[idx] + amount
+    if new_amount < 0:
+        push_error(
+            (
+                "Trying to decrement item below zero: idx=%d, count=%d, adjustment=%d"
+                % [idx, _count[idx], amount]
+            )
+        )
+        return true
+    _count[idx] = new_amount
+    if new_amount == 0:
+        _items[idx] = null
+    updated.emit()
+    return new_amount == 0
+
+
 # func _pop_item(idx: int) -> ItemInfo:
 #     if not _items[idx]:
 #         return null
