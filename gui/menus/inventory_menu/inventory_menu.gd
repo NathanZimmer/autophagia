@@ -97,8 +97,15 @@ func _move_to_selected_item() -> void:
         _selected_icon = null
         return
 
-    var from_count := _inventory.count_at_idx(_move_from_icon.index)
-    var to_count := _inventory.count_at_idx(_selected_icon.index)
+    var from_inventory := (
+        _container if _move_from_icon.get_parent() == _container_container else _inventory
+    )
+    var to_inventory := (
+        _container if _selected_icon.get_parent() == _container_container else _inventory
+    )
+
+    var from_count := from_inventory.count_at_idx(_move_from_icon.index)
+    var to_count := to_inventory.count_at_idx(_selected_icon.index)
     var max_movable_count: int = min(Inventory.MAX_STACK_SIZE - to_count, from_count)
     if max_movable_count <= 0:
         _selected_icon.deselct()
@@ -109,10 +116,10 @@ func _move_to_selected_item() -> void:
     var count: int = await _count_popup.count_selected
 
     if _selected_icon._item:
-        _inventory.adjust_count(_selected_icon.index, count)
+        to_inventory.adjust_count(_selected_icon.index, count)
     else:
-        _inventory._add_item_by_idx(_move_from_icon._item, _selected_icon.index, count)
-    var depleted := _inventory.adjust_count(_move_from_icon.index, -1 * count)
+        to_inventory._add_item_by_idx(_move_from_icon._item, _selected_icon.index, count)
+    var depleted := from_inventory.adjust_count(_move_from_icon.index, -1 * count)
     if depleted:
         _move_from_icon.on_depletion()
 
@@ -134,16 +141,18 @@ func _update_inventory_container() -> void:
         else:
             icons[i].on_depletion()
 
-    if not _container:
-        return
+    if _container:
+        _update_container_container()
 
+
+func _update_container_container() -> void:
     var container_icons: Array[iInventoryIcon]
     container_icons.assign(_container_container.get_children())
     for i: int in range(_container.get_size()):
         var item := _container.item_at_idx(i)
         var count := _container.count_at_idx(i)
         if item and count > 0:
-            icons[i].set_item(item, count)
+            container_icons[i].set_item(item, count)
 
 
 func _init_inventory_container() -> void:
@@ -184,7 +193,11 @@ func _end_move_mode() -> void:
         _selected_icon = _move_from_icon
         return
 
-    if _inventory.count_at_idx(_move_from_icon.index) > 0:
+    var from_inventory := (
+        _container if _move_from_icon.get_parent() == _container_container else _inventory
+    )
+
+    if from_inventory.count_at_idx(_move_from_icon.index) > 0:
         _selected_icon.deselct()
         _selected_icon = _move_from_icon
         _move_from_icon = null
@@ -206,10 +219,15 @@ func set_inventory(inventory: Inventory) -> void:
 
 ## TODO
 func set_container(container: Inventory) -> void:
+    if _container:
+        _container.updated.disconnect(_update_container_container)
+
     _container = container
+    _container.updated.connect(_update_container_container)
     _container_panel.show()
     for i: int in range(container.get_size()):
         _add_icon_to(_container_container, i)
+    _update_container_container()
 
 
 func _clear_container() -> void:

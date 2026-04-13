@@ -85,6 +85,7 @@ func _add_item_by_idx(item: ItemInfo, idx: int, count: int) -> int:
         return new_count - MAX_STACK_SIZE
 
     _count[idx] = new_count
+    updated.emit()
     return 0
 
 

@@ -7,6 +7,8 @@ class_name iCountPopup extends Control
 
 signal count_selected
 
+# TODO: Add support for cancelling with ESC
+
 
 func _ready() -> void:
     _submit_button.pressed.connect(_on_count_selected)
