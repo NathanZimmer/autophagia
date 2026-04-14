@@ -7,7 +7,18 @@ class_name iCountPopup extends Control
 
 signal count_selected
 
-# TODO: Add support for cancelling with ESC
+
+func _shortcut_input(event: InputEvent) -> void:
+    if not visible:
+        return
+
+    if event is InputEventKey:
+        if (
+            event.is_action_pressed(InputActions.UI.INVENTORY)
+            or event.is_action_pressed(InputActions.UI.CANCEL)
+        ):
+            _on_cancel()
+            accept_event()
 
 
 func _ready() -> void:

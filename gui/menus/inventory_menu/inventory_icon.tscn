@@ -14,8 +14,7 @@ offset_bottom = 76.0
 theme = ExtResource("1_k8nkp")
 script = ExtResource("2_bp660")
 _overlay_color = Color(0.8771322, 8.771829e-05, 0.01290809, 1)
-_overlay_move_from_color = Color(0.28580436, 0.24273294, 0.9999998, 1)
-_overlay_move_to_color = Color(2.0455568e-06, 0.5077489, 0.05634354, 1)
+_overlay_move_color = Color(0, 0.15658149, 0.99999934, 1)
 
 [node name="Panel" type="Panel" parent="." unique_id=49516741]
 layout_mode = 1

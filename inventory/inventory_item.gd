@@ -17,3 +17,8 @@ var count: int:
 func _init(item_info: ItemInfo = null, count: int = 0) -> void:
     self.item_info = item_info
     self.count = count
+
+
+func reset(item_info: ItemInfo = null, count: int = 0) -> void:
+    self.item_info = item_info
+    self.count = count
