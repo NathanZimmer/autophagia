@@ -8,19 +8,19 @@ enum SelectionMode { DEFAULT, MOVE }
 
 const HOVER_COLOR = Color(1.0, 0.66, 0.66)
 
+@export var _overlay_color: Color
+@export var _overlay_move_color: Color
+
 ## What `Inventory` index this represents
 var index: int = -1  # TODO: Remove this from icon class and store somewhere elsee
 
-@export var _overlay_color: Color
-@export var _overlay_move_color: Color
+var _item: ItemInfo
+var _selection_mode: SelectionMode
 
 @onready var _name_label: Label = %NameLabel
 @onready var _count_label: Label = %CountLabel
 @onready var _icon_button: TextureButton = %IconButton
 @onready var _selected_overlay: TextureRect = %SelectedOverlay
-
-var _item: ItemInfo
-var _selection_mode: SelectionMode
 
 
 func _ready() -> void:

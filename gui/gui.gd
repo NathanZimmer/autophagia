@@ -2,9 +2,6 @@ class_name iGui extends Control
 ## Handles menu and viewport related hotkeys, mouse capturing, crosshair,
 ## and connecting menus
 
-## TODO
-var interact_menus_enabled := false
-
 ## Raycast to use for setting crosshair icons
 @export var _crosshair_raycast: RayCast3D
 ## Map of group name -> texture to display when `_crosshair_raycast` collides
@@ -13,6 +10,9 @@ var interact_menus_enabled := false
 @export var _message_handler: MessageHandler
 @export var _journal: Journal
 @export var _inventory: Inventory
+
+## TODO
+var interact_menus_enabled := false
 
 var _raycast_collided: Object
 var _default_crosshair_texture: Texture2D

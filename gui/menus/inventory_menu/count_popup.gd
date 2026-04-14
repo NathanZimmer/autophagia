@@ -1,11 +1,12 @@
 class_name iCountPopup extends Control
 ## TODO
 
+## TODO
+signal count_selected
+
 @onready var _select_spin_box: SpinBox = %SelectSpinBox
 @onready var _submit_button: Button = %SubmitButton
 @onready var _cancel_button: Button = %CancelButton
-
-signal count_selected
 
 
 func _shortcut_input(event: InputEvent) -> void:

@@ -1,10 +1,10 @@
 class_name Inventory extends Node
 ## Logic for positioning items in the inventory
 
-const MAX_STACK_SIZE = 5
-
 ## Emit when inventory state changes
 signal updated
+
+const MAX_STACK_SIZE = 5
 
 @export var _inventory_size: int
 @export var _message_handler: MessageHandler
