@@ -2,7 +2,7 @@ class_name ClickTrigger extends Area3D
 ## A region of space that can be triggered by calling `try_click` with the correct input action. [br]
 ## Emits the `triggered` signal when these conditions are met.
 
-signal triggered
+signal triggered(click_owner: Node3D)
 
 ## Groups that can trigger this area
 @export var _groups: Array[StringName]

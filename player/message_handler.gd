@@ -1,10 +1,10 @@
 class_name MessageHandler extends Node
 ## Handle routing for messages from outside of this node hierarchy
 
-signal dialog_recieved
-signal note_received
-signal item_received
-signal inventory_received
+signal dialog_recieved(dialog: DialogTree)
+signal note_received(note: Journal.Title)
+signal item_received(item: InventoryItem)
+signal inventory_received(inventory: Inventory)
 
 
 ## Just prints the message

@@ -45,7 +45,7 @@ func _add_item(item: InventoryItem) -> int:
         func(i: int) -> int: return _items[i].item_info == item.item_info
     )
     for idx: int in valid_indices:
-        remainder = adjust_count(idx, remainder)
+        remainder = add_count(idx, remainder)
         if not remainder:
             return 0
 
@@ -59,15 +59,34 @@ func _add_item(item: InventoryItem) -> int:
     return remainder
 
 
-## Add/subtract count to an item to the inventory at a specific index [br]
+## Add count to an item in the inventory at a specific index [br]
 ## ## Parameters [br]
 ## `idx`: The inventory index to add to [br]
-## `count`: The number of that item to add/subtract [br]
+## `count`: The number of that item to add [br]
 ## ## Returns [br]
-## Remainder of items if `count` is positive and `_MAX_STACK_SIZE` is reached, else 0
-func adjust_count(idx: int, count: int) -> int:
+## Sum of items not added to inventory if `_MAX_STACK_SIZE` is reached
+func add_count(idx: int, count: int) -> int:
     var item := _items[idx]
-    var new_count := item.count + count
+    var new_count: int = item.count + abs(count)
+    if new_count > MAX_STACK_SIZE:
+        item.count = MAX_STACK_SIZE
+        updated.emit()
+        return new_count - MAX_STACK_SIZE
+
+    item.count = new_count
+    updated.emit()
+    return 0
+
+
+## Remove count from an item in the inventory at a specific index [br]
+## ## Parameters [br]
+## `idx`: The inventory index to add to [br]
+## `count`: The number of that item to remove [br]
+## ## Returns [br]
+## Sum of remaining items at `idx`
+func remove_count(idx: int, count: int) -> int:
+    var item := _items[idx]
+    var new_count: int = item.count - abs(count)
     if new_count < 0:
         push_error(
             (
@@ -76,17 +95,12 @@ func adjust_count(idx: int, count: int) -> int:
             )
         )
         return 0
-    if new_count > MAX_STACK_SIZE:
-        item.count = MAX_STACK_SIZE
-        updated.emit()
-        return new_count - MAX_STACK_SIZE
-
     item.count = new_count
     if new_count == 0:
         item.reset()
 
     updated.emit()
-    return 0
+    return new_count
 
 
 ## Update Index to new `ItemInfo` and count [br]
@@ -101,12 +115,15 @@ func add_new_item(idx: int, item_info: ItemInfo, count: int) -> int:
     if item.item_info:
         push_warning(
             (
-                "Adding new item to index that is not null. idx=%d, count=%d, adjustment=%d"
-                % [idx, item.count, count]
+                (
+                    "Adding new item to index that is not null. idx=%d, count=%d, adjustment=%d, "
+                    + "item_info=%s, new_item_info=%s"
+                )
+                % [idx, item.count, count, item.item_info, item_info]
             )
         )
     item.reset(item_info, 0)
-    return adjust_count(idx, count)
+    return add_count(idx, count)
 
 
 func get_size() -> int:

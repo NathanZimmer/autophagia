@@ -3,13 +3,16 @@ class_name iGui extends Control
 ## and connecting menus
 
 ## Raycast to use for setting crosshair icons
+@export_group("GUI")
 @export var _crosshair_raycast: RayCast3D
 ## Map of group name -> texture to display when `_crosshair_raycast` collides
 ## with that group
 @export var _crosshair_textures: Dictionary[StringName, Texture2D]
+@export_group("Player Components")
 @export var _message_handler: MessageHandler
 @export var _journal: Journal
 @export var _inventory: Inventory
+@export var _item_user: ItemUser
 
 ## TODO
 var interact_menus_enabled := false
@@ -25,8 +28,6 @@ var _default_crosshair_texture: Texture2D
 @onready var _inventory_menu: iInventoryMenu = %InventoryMenu
 
 @onready var _crosshair: TextureRect = %Crosshair
-
-# TODO: Remove ability to open any menu while airborne
 
 
 func _ready() -> void:
@@ -54,6 +55,8 @@ func _ready() -> void:
 
     if _inventory:
         _inventory_menu.set_inventory(_inventory)
+    if _item_user:
+        _inventory_menu.set_item_user(_item_user)
 
     _default_crosshair_texture = _crosshair.texture
 

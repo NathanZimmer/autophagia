@@ -2,7 +2,7 @@ class_name iInventoryIcon extends Control
 ## TODO
 
 ## TODO
-signal item_selected
+signal item_selected(icon: iInventoryIcon)
 
 enum SelectionMode { DEFAULT, MOVE }
 
@@ -10,9 +10,6 @@ const HOVER_COLOR = Color(1.0, 0.66, 0.66)
 
 @export var _overlay_color: Color
 @export var _overlay_move_color: Color
-
-## What `Inventory` index this represents
-var index: int = -1  # TODO: Remove this from icon class and store somewhere elsee
 
 var _item: ItemInfo
 var _selection_mode: SelectionMode

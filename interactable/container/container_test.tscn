@@ -35,6 +35,8 @@ description = "test"
 icon = SubResource("PlaceholderTexture2D_lk1rc")
 mesh = SubResource("SphereMesh_1twht")
 function = "test"
+args = ["testing this"]
+max_stack_size = null
 metadata/_custom_type_script = "uid://c3qhshchoa8wk"
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_i3p8x"]
@@ -47,6 +49,9 @@ description = "test2"
 icon = SubResource("PlaceholderTexture2D_i3p8x")
 mesh = SubResource("SphereMesh_1twht")
 function = "test"
+args = ["testing this 2"]
+can_use_multiple = null
+max_stack_size = null
 metadata/_custom_type_script = "uid://c3qhshchoa8wk"
 
 [node name="ContainerTest" unique_id=2120711059 instance=ExtResource("1_soyt1")]

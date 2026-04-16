@@ -145,7 +145,7 @@ metadata/_custom_type_script = "uid://xgc14u80w6pu"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1905954674]
 
-[node name="Gui" parent="CanvasLayer" unique_id=64399052 node_paths=PackedStringArray("_crosshair_raycast", "_message_handler", "_journal", "_inventory") instance=ExtResource("5_boad6")]
+[node name="Gui" parent="CanvasLayer" unique_id=64399052 node_paths=PackedStringArray("_crosshair_raycast", "_message_handler", "_journal", "_inventory", "_item_user") instance=ExtResource("5_boad6")]
 unique_name_in_owner = true
 _crosshair_raycast = NodePath("../../Camera3D/PlayerRayCast3D")
 _crosshair_textures = Dictionary[StringName, Texture2D]({
@@ -156,6 +156,7 @@ _crosshair_textures = Dictionary[StringName, Texture2D]({
 _message_handler = NodePath("../../MessageHandler")
 _journal = NodePath("../../Journal")
 _inventory = NodePath("../../Inventory")
+_item_user = NodePath("../../ItemUser")
 
 [node name="RetroFilter" type="ColorRect" parent="CanvasLayer" unique_id=2018018916]
 process_mode = 3

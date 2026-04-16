@@ -1,7 +1,7 @@
 class_name iJournalMenuControl extends iMenuControl
 ## Handles user interfacing with the Journal class
 
-signal note_button_pressed
+signal note_button_pressed(title: Journal.Title)
 
 var NoteButton := preload("uid://cca6tcgscdrsi")
 

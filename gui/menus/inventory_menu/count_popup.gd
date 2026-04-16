@@ -2,7 +2,7 @@ class_name iCountPopup extends Control
 ## TODO
 
 ## TODO
-signal count_selected
+signal count_selected(amount: int)
 
 @onready var _select_spin_box: SpinBox = %SelectSpinBox
 @onready var _submit_button: Button = %SubmitButton

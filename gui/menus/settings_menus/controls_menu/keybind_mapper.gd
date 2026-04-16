@@ -3,7 +3,7 @@ extends VBoxContainer
 ## Deletes the orginal template node when done.
 
 ## Emitted when an `InputEvent` is received with that input as its value
-signal _input_received
+signal _input_received(event: InputEvent)
 
 ## Map of String to assign to `Label.text` and input action to update on
 ## button press
