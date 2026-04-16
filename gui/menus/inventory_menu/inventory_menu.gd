@@ -109,12 +109,12 @@ func _use_selected_item() -> void:
 
 func _drop_selected_item() -> void:
     var idx := _icon_index_map[_selected_icon]
+    var item := _inventory.get_item(idx)
 
-    _count_popup.show_popup(_inventory.get_item(idx).count)
+    _count_popup.show_popup(item.count)
     var count: int = await _count_popup.count_selected
 
-    # TODO: Add item dropping stuff
-
+    _item_user.drop_item(item.item_info, count)
     var remainder := _inventory.remove_count(idx, count)
     if not remainder:
         _selected_item_menu.clear()
@@ -188,6 +188,7 @@ func _set_selected_icon(icon: iInventoryIcon) -> void:
         _selected_icon.deselect()
     _selected_icon = icon
     _selected_item_menu.set_item(icon.get_item())
+    _selected_item_menu.set_drop_button_disabled(_container != null)
 
 
 ## TODO

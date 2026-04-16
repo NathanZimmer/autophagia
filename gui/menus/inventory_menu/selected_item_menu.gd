@@ -59,6 +59,10 @@ func set_buttons_disabled(disabled: bool) -> void:
     _drop_button.disabled = disabled
 
 
+func set_drop_button_disabled(disabled: bool) -> void:
+    _drop_button.disabled = disabled
+
+
 ## TODO
 func set_item(item: ItemInfo) -> void:
     _use_button.grab_focus()
