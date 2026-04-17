@@ -31,6 +31,8 @@ var _move_mode_icon: iInventoryIcon
 @onready var _selected_item_menu: iSelectedItemMenu = %SelectedItemMenu
 @onready var _count_popup: iCountPopup = %CountPopup
 
+@onready var _move_mode_button: Button = %CancelMoveModeButton
+
 @onready var _container_panel: Panel = %ContainerPanel
 @onready var _container_container: GridContainer = %ContainerContainer
 
@@ -42,26 +44,29 @@ func _ready() -> void:
     _selected_item_menu.use_button_pressed.connect(_use_selected_item)
     _selected_item_menu.drop_button_pressed.connect(_drop_selected_item)
     _selected_item_menu.move_button_pressed.connect(_start_move_mode)
+    _move_mode_button.pressed.connect(_end_move_mode)
 
     _init_inventory_container()
     _init_container_container()
 
 
-func _shortcut_input(event: InputEvent) -> void:
-    # super._shortcut_input(event)
-    if event is InputEventKey:
+func _input(event: InputEvent) -> void:
+    if event is InputEventKey or event is InputEventMouseButton:
         if (
             event.is_action_pressed(InputActions.UI.INVENTORY)
             or event.is_action_pressed(InputActions.UI.CANCEL)
         ):
             if _move_mode:
-                _move_mode = false
                 _end_move_mode()
             else:
                 menu_exited.emit()
             accept_event()
-        elif event.is_action_pressed(InputActions.UI.JOURNAL):
-            accept_event()
+
+
+func _shortcut_input(event: InputEvent) -> void:
+    # super._shortcut_input(event)
+    if event is InputEventKey and event.is_action_pressed(InputActions.UI.JOURNAL):
+        accept_event()
 
 
 func _on_exit() -> void:
@@ -188,7 +193,7 @@ func _set_selected_icon(icon: iInventoryIcon) -> void:
         _selected_icon.deselect()
     _selected_icon = icon
     _selected_item_menu.set_item(icon.get_item())
-    _selected_item_menu.set_drop_button_disabled(_container != null)
+    _selected_item_menu.set_buttons_disabled(_container != null, false, _container != null)
 
 
 ## TODO
@@ -244,14 +249,15 @@ func _move_item(icon: iInventoryIcon) -> void:
 func _start_move_mode() -> void:
     _move_mode = true
     _selected_icon.set_selection_mode(iInventoryIcon.SelectionMode.MOVE)
-    # TODO: Show text that says "ESC to cancel" or something
-    _selected_item_menu.set_buttons_disabled(true)
+    _selected_item_menu.set_buttons_disabled(true, true, true)
+    _move_mode_button.show()
 
 
 func _end_move_mode() -> void:
     _move_mode = false
     _selected_icon.set_selection_mode(iInventoryIcon.SelectionMode.DEFAULT)
-    _selected_item_menu.set_buttons_disabled(false)
+    _selected_item_menu.set_buttons_disabled(_container != null, false, _container != null)
+    _move_mode_button.hide()
 
     if not _move_mode_icon:
         return

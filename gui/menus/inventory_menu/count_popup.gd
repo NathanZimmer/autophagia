@@ -9,11 +9,11 @@ signal count_selected(amount: int)
 @onready var _cancel_button: Button = %CancelButton
 
 
-func _shortcut_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
     if not visible:
         return
 
-    if event is InputEventKey:
+    if event is InputEventKey or event is InputEventMouseButton:
         if (
             event.is_action_pressed(InputActions.UI.INVENTORY)
             or event.is_action_pressed(InputActions.UI.CANCEL)

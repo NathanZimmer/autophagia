@@ -11,7 +11,7 @@ environment = ExtResource("2_6ormu")
 [sub_resource type="SphereMesh" id="SphereMesh_sritr"]
 
 [node name="SelectedItemMenu" type="VBoxContainer" unique_id=1453372945]
-custom_minimum_size = Vector2(128, 276.8)
+custom_minimum_size = Vector2(128, 250)
 size_flags_horizontal = 2
 size_flags_vertical = 4
 theme = ExtResource("1_efhkx")

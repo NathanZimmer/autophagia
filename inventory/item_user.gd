@@ -28,7 +28,7 @@ func use_item(item_info: ItemInfo, count: int) -> bool:
 func drop_item(item_info: ItemInfo, count: int) -> void:
     var item_pickup: ItemPickup = Pickup.instantiate()
     owner.get_parent().add_child(item_pickup)
-    item_pickup.reset(item_info, count)
+    item_pickup.reset(item_info, count, true)
 
     item_pickup.global_position = (
         owner.global_position

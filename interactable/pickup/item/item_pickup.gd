@@ -30,8 +30,8 @@ func _ready() -> void:
 
 
 ## TODO
-func reset(item_info: ItemInfo, count: int) -> void:
-    _disable_next_collision = true
+func reset(item_info: ItemInfo, count: int, disable_next_collision := false) -> void:
+    _disable_next_collision = disable_next_collision
     _item_info = item_info
     _count = count
     _floating_icon.mesh = _item_info.mesh
