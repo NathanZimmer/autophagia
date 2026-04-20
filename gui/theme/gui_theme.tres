@@ -1,7 +1,7 @@
 [gd_resource type="Theme" format=3 uid="uid://bh0is5cj4ulq2"]
 
 [ext_resource type="FontFile" uid="uid://bg0grlkrbfbo1" path="res://gui/theme/asvoria-disco-2.otf" id="1_32sf2"]
-[ext_resource type="FontFile" uid="uid://ddd24q66xtnmn" path="res://gui/theme/Unispace Rg.otf" id="1_yyy8s"]
+[ext_resource type="FontFile" uid="uid://b7st6iq73006i" path="res://gui/theme/m5x7.ttf" id="2_32sf2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mdylq"]
 content_margin_left = 1.0
@@ -72,8 +72,8 @@ content_margin_right = 3.0
 bg_color = Color(0, 0, 0, 0.333333)
 
 [resource]
-default_font = ExtResource("1_yyy8s")
-default_font_size = 11
+default_font = ExtResource("2_32sf2")
+default_font_size = 20
 Button/colors/font_disabled_color = Color(0.8, 0.8, 0.8, 0.776471)
 Button/colors/font_hover_color = Color(0.95, 0.57, 0.57, 1)
 Button/colors/font_hover_pressed_color = Color(0.94902, 0.568627, 0.568627, 1)
@@ -92,8 +92,9 @@ DialogButtonSelected/colors/font_focus_color = Color(0.611765, 0.611765, 0.61176
 HeaderLarge/constants/outline_size = 5
 HeaderLarge/font_sizes/font_size = 80
 HeaderLarge/fonts/font = ExtResource("1_32sf2")
-HeaderMedium/font_sizes/font_size = 35
-HeaderSmall/font_sizes/font_size = 15
+HeaderMedium/font_sizes/font_size = 55
+HeaderSmall/constants/outline_size = 5
+HeaderSmall/font_sizes/font_size = 25
 InventoryIconPanel/base_type = &"Panel"
 InventoryIconPanel/styles/panel = SubResource("StyleBoxFlat_v4hft")
 KeybindButton/base_type = &"Button"
@@ -101,17 +102,17 @@ KeybindButton/styles/disabled = SubResource("StyleBoxFlat_vlykk")
 KeybindButton/styles/hover = SubResource("StyleBoxFlat_vlykk")
 KeybindButton/styles/normal = SubResource("StyleBoxFlat_vlykk")
 KeybindButton/styles/pressed = SubResource("StyleBoxFlat_vlykk")
-Label/constants/outline_size = 3
+Label/constants/outline_size = 5
 LabelSmall/base_type = &"Label"
 LabelSmall/constants/outline_size = 4
-LabelSmall/font_sizes/font_size = 9
+LabelSmall/font_sizes/font_size = 15
 LineEdit/styles/focus = SubResource("StyleBoxFlat_32sf2")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_32sf2")
 OptionButton/styles/hover = SubResource("StyleBoxFlat_yyy8s")
 OptionButton/styles/hover_pressed = SubResource("StyleBoxFlat_yyy8s")
 OptionButton/styles/normal = SubResource("StyleBoxFlat_yyy8s")
 OptionButton/styles/pressed = SubResource("StyleBoxFlat_yyy8s")
-RichTextLabel/constants/outline_size = 3
+RichTextLabel/constants/outline_size = 5
 VScrollBar/styles/grabber = SubResource("StyleBoxFlat_dd75y")
 VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_rfa4r")
 VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_rfa4r")

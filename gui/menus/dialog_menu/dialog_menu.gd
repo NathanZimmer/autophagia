@@ -4,8 +4,8 @@ class_name iDialogMenuControl extends iMenuControl
 
 const RED_TAG = "Them"
 const BLUE_TAG = "You"
-const RED_FORMATTED = "[font_size=13][color=dark_salmon]%s[/color][/font_size]\n[indent]%s[/indent]\n"
-const BLUE_FORMATTED = "[font_size=13][color=light_steel_blue]%s[/color][/font_size]\n[indent]%s[/indent]\n"
+const RED_FORMATTED = "[font_size=25][color=dark_salmon]%s[/color][/font_size]\n[indent]%s[/indent]\n"
+const BLUE_FORMATTED = "[font_size=25][color=light_steel_blue]%s[/color][/font_size]\n[indent]%s[/indent]\n"
 
 # Hard limit of 9 because of hand-coded substring call and dialog option numbering
 const MAX_DIALOG_OPTIONS = 9

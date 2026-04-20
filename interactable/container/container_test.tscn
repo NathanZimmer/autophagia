@@ -47,7 +47,7 @@ height = 0.5
 
 [sub_resource type="Resource" id="Resource_1twht"]
 script = ExtResource("4_kug0b")
-name = &"Test Item Two"
+name = &"Test Item 2"
 description = "This is a test description. Use this item to do nothing. Just does nothing."
 icon = SubResource("PlaceholderTexture2D_i3p8x")
 mesh = SubResource("SphereMesh_1twht")

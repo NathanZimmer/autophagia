@@ -45,6 +45,7 @@ func _send_item(body: Node3D) -> void:
 
     var handlers := body.find_children("*", "MessageHandler", false)
     if not handlers.is_empty():
+        AudioManager.play_pressed()
         handlers[0].send_item(_item)
 
 

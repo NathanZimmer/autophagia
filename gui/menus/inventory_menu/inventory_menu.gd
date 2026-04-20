@@ -226,6 +226,10 @@ func _move_item(icon: iInventoryIcon) -> void:
 
     _count_popup.show_popup(max_movable_count)
     var count: int = await _count_popup.count_selected
+    if count == 0:
+        _move_mode_icon.deselect()
+        _move_mode_icon = null
+        return
 
     if _move_mode_icon.get_item():
         to_inventory.add_count(to_idx, count)
@@ -235,11 +239,8 @@ func _move_item(icon: iInventoryIcon) -> void:
     var remainder := from_inventory.remove_count(from_idx, count)
     if not remainder:
         _selected_icon.clear_item()
-        _end_move_mode()
-        return
 
-    _move_mode_icon.deselect()
-    _move_mode_icon = null
+    _end_move_mode()
 
 
 func _start_move_mode() -> void:
@@ -258,15 +259,6 @@ func _end_move_mode() -> void:
     if not _move_mode_icon:
         return
 
-    var from_inventory := (
-        _container if _selected_icon.get_parent() == _container_container else _inventory
-    )
-
-    var idx := _icon_index_map[_selected_icon]
-    if from_inventory.get_item(idx).count > 0:
-        _move_mode_icon.deselect()
-        _move_mode_icon = null
-    else:
-        _selected_icon.deselect()
-        _selected_icon = _move_mode_icon
-        _selected_item_menu.set_item(_selected_icon.get_item())
+    _selected_icon.deselect()
+    _selected_icon = _move_mode_icon
+    _selected_item_menu.set_item(_selected_icon.get_item())
