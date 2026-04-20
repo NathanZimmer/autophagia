@@ -1,11 +1,7 @@
 class_name iInventoryMenu extends iMenuControl
 ## TODO
-# TODO: Make the subviewport container work
 
-# TODO:
-# - Add support for moving items, using items, and dropping items
-# - Add support for moving items between inventory and containers
-# - Create ItemMover, ItemUser, ItemDropper classes?
+# TODO: Make the subviewport container work
 
 # TODO: Get rid of this when toolbar code is added
 const TOOLBAR_SIZE := 4

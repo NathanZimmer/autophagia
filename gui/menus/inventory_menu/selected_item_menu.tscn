@@ -3,12 +3,9 @@
 [ext_resource type="Theme" uid="uid://bh0is5cj4ulq2" path="res://gui/theme/gui_theme.tres" id="1_efhkx"]
 [ext_resource type="Script" uid="uid://cafhr3m1cwwkq" path="res://gui/menus/inventory_menu/selected_item_menu.gd" id="2_5n6st"]
 [ext_resource type="Environment" uid="uid://cbgre4uktxw6d" path="res://common/main_world_env.tres" id="2_6ormu"]
-[ext_resource type="Material" uid="uid://buibxnm8nm51w" path="res://levels/common/material/placeholder.tres" id="3_5n6st"]
 
 [sub_resource type="World3D" id="World3D_sritr"]
 environment = ExtResource("2_6ormu")
-
-[sub_resource type="SphereMesh" id="SphereMesh_sritr"]
 
 [node name="SelectedItemMenu" type="VBoxContainer" unique_id=1453372945]
 custom_minimum_size = Vector2(128, 250)
@@ -33,11 +30,13 @@ render_target_update_mode = 4
 
 [node name="ItemModel" type="MeshInstance3D" parent="ItemSubViewportContainer/SubViewport" unique_id=450555717]
 unique_name_in_owner = true
-mesh = SubResource("SphereMesh_sritr")
-surface_material_override/0 = ExtResource("3_5n6st")
 
 [node name="Camera3D" type="Camera3D" parent="ItemSubViewportContainer/SubViewport" unique_id=286461236]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.6007497)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+projection = 1
+use_oblique_frustum = true
+oblique_normal = Vector3(0, 1, -1)
+oblique_position = Vector3(0, 0, 1)
 
 [node name="UseButton" type="Button" parent="." unique_id=542553683]
 unique_name_in_owner = true
@@ -46,6 +45,13 @@ focus_neighbor_bottom = NodePath("../MoveButton")
 theme_type_variation = &"DialogButton"
 text = "Use"
 
+[node name="DropButton" type="Button" parent="." unique_id=403272933]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_top = NodePath("../MoveButton")
+theme_type_variation = &"DialogButton"
+text = "Drop"
+
 [node name="MoveButton" type="Button" parent="." unique_id=2085405048]
 unique_name_in_owner = true
 layout_mode = 2
@@ -53,13 +59,6 @@ focus_neighbor_top = NodePath("../UseButton")
 focus_neighbor_bottom = NodePath("../DropButton")
 theme_type_variation = &"DialogButton"
 text = "Move"
-
-[node name="DropButton" type="Button" parent="." unique_id=403272933]
-unique_name_in_owner = true
-layout_mode = 2
-focus_neighbor_top = NodePath("../MoveButton")
-theme_type_variation = &"DialogButton"
-text = "Drop"
 
 [node name="NameLabel" type="Label" parent="." unique_id=1622782842]
 unique_name_in_owner = true
@@ -70,6 +69,7 @@ text = "Name"
 [node name="DescLabel" type="Label" parent="." unique_id=709455577]
 unique_name_in_owner = true
 layout_mode = 2
+theme_type_variation = &"LabelSmall"
 text = "This is how many worlds can fit in the description box. 
 
 Some flavor text."
