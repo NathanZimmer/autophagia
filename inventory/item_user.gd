@@ -3,6 +3,8 @@ class_name ItemUser extends Node
 ## global message handlers for global changes. When spawning objects, creates them as
 ## siblings to `owner`
 
+# TODO: Implement skeleton for "using" items
+
 ## TODO
 signal temp_adjusted(amount: int)
 ## TODO

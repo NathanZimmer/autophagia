@@ -14,12 +14,12 @@ signal _input_received(event: InputEvent)
     "Right": InputActions.Player.RIGHT,
     "Jump": InputActions.Player.UP,
     "Interact": InputActions.Player.INTERACT,
-    "Toggle fullscreen": InputActions.UI.FULLSCREEN,
-    "Open/close journal": InputActions.UI.INVENTORY,
+    "Toggle fullscreen": InputActions.Ui.FULLSCREEN,
+    "Open/close journal": InputActions.Ui.INVENTORY,
 }
 ## Map of String to assign to `Label.text` and input action for input that cannot be updated
 @export var _readonly_actions: Dictionary[String, StringName] = {
-    "Close Menu/Cancel": InputActions.UI.CANCEL
+    "Close Menu/Cancel": InputActions.Ui.CANCEL
 }
 ## Text to display on the button when it is waiting for input
 @export var _button_waiting_text := "[press a key, esc to quit]"
@@ -84,7 +84,7 @@ func _rebind_input_action(button: Button, action: StringName) -> void:
         # Explicitly eat all input while waiting for a keypress
         accept_event()
 
-        if event.is_action_pressed(InputActions.UI.CANCEL):
+        if event.is_action_pressed(InputActions.Ui.CANCEL):
             var original_event := InputMap.action_get_events(action)[0]
             button.text = original_event.as_text()  #.replace("(Physical)", "")
             break

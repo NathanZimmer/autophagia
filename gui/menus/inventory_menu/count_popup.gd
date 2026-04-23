@@ -1,7 +1,7 @@
 class_name iCountPopup extends Control
-## TODO
+## Popup menu that automatically hides itself when a count is selected
 
-## TODO
+## Emit when a count is selected
 signal count_selected(amount: int)
 
 @onready var _select_spin_box: SpinBox = %SelectSpinBox
@@ -15,8 +15,8 @@ func _input(event: InputEvent) -> void:
 
     if event is InputEventKey or event is InputEventMouseButton:
         if (
-            event.is_action_pressed(InputActions.UI.INVENTORY)
-            or event.is_action_pressed(InputActions.UI.CANCEL)
+            event.is_action_pressed(InputActions.Ui.INVENTORY)
+            or event.is_action_pressed(InputActions.Ui.CANCEL)
         ):
             _on_cancel()
             accept_event()
@@ -27,7 +27,9 @@ func _ready() -> void:
     _cancel_button.pressed.connect(_on_cancel)
 
 
-## TODO
+## Show this popup and grab focus [br]
+## ## Parameters [br]
+## `max_count`: The max value of the popup SpinBox
 func show_popup(max_count: int) -> void:
     show()
     _select_spin_box.grab_focus()

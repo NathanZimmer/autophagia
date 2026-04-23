@@ -3,7 +3,7 @@ extends Control
 
 
 func _shortcut_input(event: InputEvent) -> void:
-    if event is InputEventKey and event.is_action_pressed(InputActions.UI.FULLSCREEN):
+    if event is InputEventKey and event.is_action_pressed(InputActions.Ui.FULLSCREEN):
         _toggle_fullscreen()
         accept_event()
 

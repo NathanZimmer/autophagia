@@ -1,6 +1,8 @@
 extends Node3D
 ## TODO
 
+# TODO: Rename "Container" to something like "Chest"
+
 @onready var _inventory: Inventory = %Inventory
 
 

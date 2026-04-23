@@ -1,9 +1,9 @@
 extends Node
 ## User-configurable and saveable overrides for ProjectSettings. Handles saving and loading
-##_to the `override.cfg` file and propagating changes throughout the engine.
+## to the `override.cfg` file and propagating changes throughout the engine.
 
 signal vsynch_mode_changed(mode: DisplayServer.VSyncMode)
-signal max_fps_changed(max: int)
+signal max_fps_changed(max_fps: int)
 signal fullscreen_changed(fullscreen: bool)
 
 signal mouse_sensitivity_changed(sensitivity: int)

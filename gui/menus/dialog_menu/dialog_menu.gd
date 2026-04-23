@@ -49,9 +49,9 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
     super._input(event)
 
-    if event.is_action_pressed(InputActions.UI.CANCEL):
+    if event.is_action_pressed(InputActions.Ui.CANCEL):
         _clear_dialog()
-    if event is InputEventKey and event.is_action_pressed(InputActions.UI.INVENTORY):
+    if event is InputEventKey and event.is_action_pressed(InputActions.Ui.INVENTORY):
         accept_event()
 
 

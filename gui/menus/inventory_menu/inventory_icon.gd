@@ -1,14 +1,17 @@
 class_name iInventoryIcon extends Control
-## TODO
+## Inventory menu icon/button that holds an icon, name, and count. Shows an icon when
+## selected with customizable color.
 
-## TODO
+## Emit when this icon is pressed
 signal item_selected(icon: iInventoryIcon)
 
 enum SelectionMode { DEFAULT, MOVE }
 
 const HOVER_COLOR = Color(1.0, 0.66, 0.66)
 
+## Default color to display when this item is selected
 @export var _overlay_color: Color
+## Color to display when this item is selected and set to `SelectionMode.MOVE`
 @export var _overlay_move_color: Color
 
 var _item: ItemInfo
@@ -36,7 +39,8 @@ func _on_select() -> void:
     item_selected.emit(self)
 
 
-## TODO
+## Set selection mode for overlay color [br]
+## `mode`: New selection mode [br]
 func set_selection_mode(mode: SelectionMode) -> void:
     match mode:
         SelectionMode.MOVE:
@@ -46,12 +50,16 @@ func set_selection_mode(mode: SelectionMode) -> void:
     _selection_mode = mode
 
 
+## Reset this object to default selection mode and hide selection overlay
 func deselect() -> void:
     set_selection_mode(SelectionMode.DEFAULT)
     _selected_overlay.hide()
 
 
-## TODO
+## Set the item of this icon [br]
+## ## Parameters [br]
+## `item_info`: `ItemInfo` to grab model, name and description from [br]
+## `count`: Count of this item
 func set_item(item_info: ItemInfo, count: int) -> void:
     _item = item_info
     _name_label.text = item_info.name
@@ -65,7 +73,7 @@ func get_item() -> ItemInfo:
     return _item
 
 
-## TODO
+## Clear this item. Does no deselect.
 func clear_item() -> void:
     _name_label.hide()
     _count_label.hide()

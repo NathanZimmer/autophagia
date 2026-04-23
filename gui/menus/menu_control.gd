@@ -32,13 +32,13 @@ func _ready() -> void:
 # Checking for this in _input because all buttons consume all mouse events when in focus.
 # FIXME: Is this fine or should I implement the "proper" solution of updating the buttons?
 func _input(event: InputEvent) -> void:
-    if event is InputEventMouseButton and event.is_action_pressed(InputActions.UI.CANCEL):
+    if event is InputEventMouseButton and event.is_action_pressed(InputActions.Ui.CANCEL):
         menu_exited.emit()
         accept_event()
 
 
 func _shortcut_input(event: InputEvent) -> void:
-    if event is InputEventKey and event.is_action_pressed(InputActions.UI.CANCEL):
+    if event is InputEventKey and event.is_action_pressed(InputActions.Ui.CANCEL):
         menu_exited.emit()
         accept_event()
 

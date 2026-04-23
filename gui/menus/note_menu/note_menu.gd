@@ -3,7 +3,7 @@ class_name iNoteMenuControl extends iMenuControl
 
 # TODO: Add support for multiple images when reading from inventory
 
-signal inventory_button_pressed
+signal journal_button_pressed
 
 ## Whether this menu was navigated to from the journal menu
 var opened_from_journal := false
@@ -16,13 +16,13 @@ func _ready() -> void:
     super._ready()
 
     var inventory_button: Button = get_node("%InventoryButton")
-    inventory_button.pressed.connect(inventory_button_pressed.emit)
+    inventory_button.pressed.connect(journal_button_pressed.emit)
 
 
 func _input(event: InputEvent) -> void:
-    if event is InputEventMouseButton and event.is_action_pressed(InputActions.UI.CANCEL):
+    if event is InputEventMouseButton and event.is_action_pressed(InputActions.Ui.CANCEL):
         if opened_from_journal:
-            inventory_button_pressed.emit()
+            journal_button_pressed.emit()
         else:
             menu_exited.emit()
         accept_event()
@@ -30,16 +30,16 @@ func _input(event: InputEvent) -> void:
 
 func _shortcut_input(event: InputEvent) -> void:
     if event is InputEventKey:
-        if event.is_action_pressed(InputActions.UI.CANCEL):
+        if event.is_action_pressed(InputActions.Ui.CANCEL):
             if opened_from_journal:
-                inventory_button_pressed.emit()
+                journal_button_pressed.emit()
             else:
                 menu_exited.emit()
             accept_event()
-        elif event.is_action_pressed(InputActions.UI.JOURNAL):
-            inventory_button_pressed.emit()
+        elif event.is_action_pressed(InputActions.Ui.JOURNAL):
+            journal_button_pressed.emit()
             accept_event()
-        elif event.is_action_pressed(InputActions.UI.INVENTORY):
+        elif event.is_action_pressed(InputActions.Ui.INVENTORY):
             accept_event()
 
 

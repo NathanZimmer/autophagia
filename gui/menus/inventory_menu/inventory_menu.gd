@@ -1,7 +1,6 @@
 class_name iInventoryMenu extends iMenuControl
-## TODO
-
-# TODO: Make the subviewport container work
+## Menu for interfacing with player `Inventory` component and container `Inventory`
+## components
 
 # TODO: Get rid of this when toolbar code is added
 const TOOLBAR_SIZE := 4
@@ -49,8 +48,8 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
     if event is InputEventKey or event is InputEventMouseButton:
         if (
-            event.is_action_pressed(InputActions.UI.INVENTORY)
-            or event.is_action_pressed(InputActions.UI.CANCEL)
+            event.is_action_pressed(InputActions.Ui.INVENTORY)
+            or event.is_action_pressed(InputActions.Ui.CANCEL)
         ):
             if _move_mode:
                 _end_move_mode()
@@ -61,10 +60,11 @@ func _input(event: InputEvent) -> void:
 
 func _shortcut_input(event: InputEvent) -> void:
     # super._shortcut_input(event)
-    if event is InputEventKey and event.is_action_pressed(InputActions.UI.JOURNAL):
+    if event is InputEventKey and event.is_action_pressed(InputActions.Ui.JOURNAL):
         accept_event()
 
 
+## Perform cleanup and reset for closing menu
 func _on_exit() -> void:
     if _selected_icon:
         _selected_icon.deselect()
@@ -73,6 +73,7 @@ func _on_exit() -> void:
     _clear_container()
 
 
+## Add `InventoryIcon` children to inventory container
 func _init_inventory_container() -> void:
     for i: int in range(0, TOOLBAR_SIZE):
         _add_icon(_toolbar_container, i)
@@ -80,11 +81,17 @@ func _init_inventory_container() -> void:
         _add_icon(_inventory_container, i)
 
 
+## Add `InventoryIcon` children to the "container" container
 func _init_container_container() -> void:
     for i: int in range(0, MAX_CONTAINER_SIZE):
         _add_icon(_container_container, i)
 
 
+## Adds an icon to the specified container [br]
+## ## Parameters [br]
+## `container`: Node to add `InventoryIcon` child to [br]
+## `container_idx`: Index in this container to add to. This is added to `_icon_index_map`
+## for later use
 func _add_icon(container: Container, container_index: int) -> void:
     var icon: iInventoryIcon = InventoryIcon.instantiate()
     _icon_index_map[icon] = container_index
