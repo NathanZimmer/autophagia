@@ -1,16 +1,16 @@
 class_name iInventoryMenu extends iMenuControl
-## Menu for interfacing with player `Inventory` component and container `Inventory`
+## Menu for interfacing with player `Inventory` component and chest `Inventory`
 ## components
 
 # TODO: Get rid of this when toolbar code is added
 const TOOLBAR_SIZE := 4
 
-const MAX_CONTAINER_SIZE := 5
+const MAX_CHEST_SIZE := 5
 const MAX_INVENTORY_SIZE := 12
 
 var InventoryIcon := preload("uid://c4b0a3scm2jlc")
 var _inventory: Inventory
-var _container: Inventory
+var _chest: Inventory
 var _item_user: ItemUser
 
 ## Map icons in GUI to corresponding indices in Inventory
@@ -28,8 +28,8 @@ var _move_mode_icon: iInventoryIcon
 
 @onready var _move_mode_button: Button = %CancelMoveModeButton
 
-@onready var _container_panel: Panel = %ContainerPanel
-@onready var _container_container: GridContainer = %ContainerContainer
+@onready var _chest_panel: Panel = %ContainerPanel
+@onready var _chest_container: GridContainer = %ContainerContainer
 
 
 func _ready() -> void:
@@ -42,7 +42,7 @@ func _ready() -> void:
     _move_mode_button.pressed.connect(_end_move_mode)
 
     _init_inventory_container()
-    _init_container_container()
+    _init_chest_container()
 
     await get_tree().process_frame
     if not _inventory:
@@ -76,7 +76,7 @@ func _on_exit() -> void:
         _selected_icon.deselect()
         _selected_icon = null
     _selected_item_menu.clear()
-    _clear_container()
+    _clear_chest()
 
 
 ## Add `InventoryIcon` children to inventory container
@@ -87,10 +87,10 @@ func _init_inventory_container() -> void:
         _add_icon(_inventory_container, i)
 
 
-## Add `InventoryIcon` children to the "container" container
-func _init_container_container() -> void:
-    for i: int in range(0, MAX_CONTAINER_SIZE):
-        _add_icon(_container_container, i)
+## Add `InventoryIcon` children to the chest container
+func _init_chest_container() -> void:
+    for i: int in range(0, MAX_CHEST_SIZE):
+        _add_icon(_chest_container, i)
 
 
 ## Adds an icon to the specified container [br]
@@ -150,12 +150,12 @@ func _update_inventory_container() -> void:
             icons[i].clear_item()
 
 
-## Set the `ItemInfo` and count of each invetory icon from `_container`
-func _update_container_container() -> void:
+## Set the `ItemInfo` and count of each invetory icon from `_chest`
+func _update_chest_container() -> void:
     var icons: Array[iInventoryIcon]
-    icons.assign(_container_container.get_children())
-    for i: int in range(_container.get_size()):
-        var item := _container.get_item(i)
+    icons.assign(_chest_container.get_children())
+    for i: int in range(_chest.get_size()):
+        var item := _chest.get_item(i)
         if item.item_info and item.count > 0:
             icons[i].set_item(item.item_info, item.count)
         else:
@@ -176,23 +176,23 @@ func set_item_user(item_user: ItemUser) -> void:
     _item_user = item_user
 
 
-## Set container inventory component and update GUI
-func set_container(container: Inventory) -> void:
-    if _container:
-        _container.updated.disconnect(_update_container_container)
+## Set chest inventory component and update GUI
+func set_chest(chest: Inventory) -> void:
+    if _chest:
+        _chest.updated.disconnect(_update_chest_container)
 
-    _container = container
-    _container.updated.connect(_update_container_container)
-    _container_panel.show()
-    _update_container_container()
+    _chest = chest
+    _chest.updated.connect(_update_chest_container)
+    _chest_panel.show()
+    _update_chest_container()
 
 
-## Disconnect `_container` from all signals and set to `null`
-func _clear_container() -> void:
-    if _container:
-        _container.updated.disconnect(_update_container_container)
-    _container = null
-    _container_panel.hide()
+## Disconnect `_chest` from all signals and set to `null`
+func _clear_chest() -> void:
+    if _chest:
+        _chest.updated.disconnect(_update_chest_container)
+    _chest = null
+    _chest_panel.hide()
 
 
 func _on_icon_selection(icon: iInventoryIcon) -> void:
@@ -209,7 +209,7 @@ func _set_selected_icon(icon: iInventoryIcon) -> void:
         _selected_icon.deselect()
     _selected_icon = icon
     _selected_item_menu.set_item(icon.get_item())
-    _selected_item_menu.set_buttons_disabled(_container != null, false, _container != null)
+    _selected_item_menu.set_buttons_disabled(_chest != null, false, _chest != null)
 
 
 ## Verify that item of `_selected_icon` can be moved to `icon`. If so, move it.
@@ -227,13 +227,9 @@ func _move_item(icon: iInventoryIcon) -> void:
         _move_mode_icon = null
         return
 
-    var from_inventory := (
-        _container if _selected_icon.get_parent() == _container_container else _inventory
-    )
+    var from_inventory := _chest if _selected_icon.get_parent() == _chest_container else _inventory
     var from_idx := _icon_index_map[_selected_icon]
-    var to_inventory := (
-        _container if _move_mode_icon.get_parent() == _container_container else _inventory
-    )
+    var to_inventory := _chest if _move_mode_icon.get_parent() == _chest_container else _inventory
     var to_idx := _icon_index_map[_move_mode_icon]
 
     var from_count := from_inventory.get_item(from_idx).count
@@ -275,7 +271,7 @@ func _start_move_mode() -> void:
 func _end_move_mode() -> void:
     _move_mode = false
     _selected_icon.set_selection_mode(iInventoryIcon.SelectionMode.DEFAULT)
-    _selected_item_menu.set_buttons_disabled(_container != null, false, _container != null)
+    _selected_item_menu.set_buttons_disabled(_chest != null, false, _chest != null)
     _move_mode_button.hide()
 
     if not _move_mode_icon:

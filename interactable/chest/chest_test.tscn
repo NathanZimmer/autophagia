@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://u87ws5522ov" path="res://interactable/pickup/item/item_pickup.tscn" id="2_nlb5b"]
 [ext_resource type="Shader" uid="uid://dj2ckf3xn6sm8" path="res://interactable/pickup/materials/floating_icon.gdshader" id="3_gjio2"]
 [ext_resource type="Script" uid="uid://c3qhshchoa8wk" path="res://inventory/item_info.gd" id="4_kug0b"]
-[ext_resource type="PackedScene" uid="uid://bj3nk0xoyapud" path="res://interactable/container/container.tscn" id="5_qf7nj"]
+[ext_resource type="PackedScene" uid="uid://bj3nk0xoyapud" path="res://interactable/chest/chest.tscn" id="5_qf7nj"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_lk1rc"]
 size = Vector2(64, 64)
@@ -66,7 +66,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9698763, 0, 6.3440804)
 _item_info = SubResource("Resource_1twht")
 _count = 50
 
-[node name="Container" parent="." index="6" unique_id=293151306 instance=ExtResource("5_qf7nj")]
+[node name="Chest" parent="." index="6" unique_id=293151306 instance=ExtResource("5_qf7nj")]
 transform = Transform3D(0.49999997, 0, -0.86602545, 0, 1, 0, 0.86602545, 0, 0.49999997, 3.5, 0.5, 7.5)
 
 [editable path="Player"]

@@ -53,7 +53,7 @@ func _ready() -> void:
     if _message_handler:
         _message_handler.dialog_recieved.connect(_open_dialog_menu)
         _message_handler.note_received.connect(_open_note_menu)
-        _message_handler.inventory_received.connect(_open_container)
+        _message_handler.inventory_received.connect(_open_chest)
 
     if _journal:
         _journal.note_discovered.connect(_journal_menu.add_note)
@@ -139,11 +139,11 @@ func _open_note_menu(title: Journal.Title, from_journal: bool = false) -> void:
     _pause(_note_menu)
 
 
-## Pass container to and open `_inventory_menu`
-func _open_container(container: Inventory) -> void:
+## Pass chest to and open `_inventory_menu`
+func _open_chest(chest: Inventory) -> void:
     if not interact_menus_enabled:
         return
-    _inventory_menu.set_container(container)
+    _inventory_menu.set_chest(chest)
     _pause(_inventory_menu)
 
 

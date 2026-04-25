@@ -51,7 +51,7 @@ enabled=PackedStringArray("res://addons/btg_entity_importer/plugin.cfg", "res://
 player=""
 lever=""
 npc=""
-container=""
+chest=""
 
 [input]
 

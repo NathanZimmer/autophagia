@@ -1,8 +1,6 @@
 extends Node3D
 ## Holds an `Inventory` and `ClickTrigger`. On click, sends its inventory.
 
-# TODO: Rename "Container" to something like "Chest"
-
 @onready var _inventory: Inventory = %Inventory
 
 

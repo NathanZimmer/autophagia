@@ -149,7 +149,7 @@ metadata/_custom_type_script = "uid://xgc14u80w6pu"
 unique_name_in_owner = true
 _crosshair_raycast = NodePath("../../Camera3D/PlayerRayCast3D")
 _crosshair_textures = Dictionary[StringName, Texture2D]({
-&"container": SubResource("GradientTexture2D_wodsf"),
+&"chest": SubResource("GradientTexture2D_wodsf"),
 &"lever": SubResource("GradientTexture2D_s1h2m"),
 &"npc": SubResource("GradientTexture2D_xqkfk")
 })
