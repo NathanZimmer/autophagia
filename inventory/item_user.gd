@@ -5,9 +5,9 @@ class_name ItemUser extends Node
 
 # TODO: Implement skeleton for "using" items
 
-## TODO
+## Emit to adjust player temperature component
 signal temp_adjusted(amount: int)
-## TODO
+## Emit to adjust player hunger component
 signal hunger_adjusted(amount: int)
 
 const PICKUP_SPAWN_OFFSET := Vector3(0, -1, 0)

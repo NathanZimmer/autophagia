@@ -7,6 +7,7 @@ signal item_selected(icon: iInventoryIcon)
 
 enum SelectionMode { DEFAULT, MOVE }
 
+## TODO: Use one constant for this instead of one per file
 const HOVER_COLOR = Color(1.0, 0.66, 0.66)
 
 ## Default color to display when this item is selected
@@ -40,6 +41,7 @@ func _on_select() -> void:
 
 
 ## Set selection mode for overlay color [br]
+## ## Parameters [br]
 ## `mode`: New selection mode [br]
 func set_selection_mode(mode: SelectionMode) -> void:
     match mode:

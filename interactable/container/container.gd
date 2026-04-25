@@ -1,5 +1,5 @@
 extends Node3D
-## TODO
+## Holds an `Inventory` and `ClickTrigger`. On click, sends its inventory.
 
 # TODO: Rename "Container" to something like "Chest"
 
@@ -15,6 +15,7 @@ func _ready() -> void:
         click_trigger.triggered.connect(_send_inventory)
 
 
+## Send `_inventory` to body that has clicked this node
 func _send_inventory(body: Node) -> void:
     var handlers := body.find_children("*", "MessageHandler", false)
     if not handlers.is_empty():

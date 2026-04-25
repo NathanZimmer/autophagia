@@ -44,6 +44,12 @@ func _ready() -> void:
     _init_inventory_container()
     _init_container_container()
 
+    await get_tree().process_frame
+    if not _inventory:
+        push_error("_inventory not defined")
+    if not _item_user:
+        push_error("_item_user not defined")
+
 
 func _input(event: InputEvent) -> void:
     if event is InputEventKey or event is InputEventMouseButton:
@@ -99,6 +105,8 @@ func _add_icon(container: Container, container_index: int) -> void:
     container.add_child(icon)
 
 
+## Show count popup and call `_item_user.use_item` with the selected item and count.
+## Removes count from inventory
 func _use_selected_item() -> void:
     var idx := _icon_index_map[_selected_icon]
     var item := _inventory.get_item(idx)
@@ -115,6 +123,8 @@ func _use_selected_item() -> void:
         _selected_item_menu.clear()
 
 
+## Show count popup and call `_item_user.drop_item` with the selected item and count.
+## Removes count from inventory
 func _drop_selected_item() -> void:
     var idx := _icon_index_map[_selected_icon]
     var item := _inventory.get_item(idx)
@@ -128,7 +138,7 @@ func _drop_selected_item() -> void:
         _selected_item_menu.clear()
 
 
-## TODO
+## Set the `ItemInfo` and count of each invetory icon from `_inventory`
 func _update_inventory_container() -> void:
     var icons: Array[iInventoryIcon]
     icons.assign(_toolbar_container.get_children() + _inventory_container.get_children())
@@ -140,7 +150,7 @@ func _update_inventory_container() -> void:
             icons[i].clear_item()
 
 
-## TODO
+## Set the `ItemInfo` and count of each invetory icon from `_container`
 func _update_container_container() -> void:
     var icons: Array[iInventoryIcon]
     icons.assign(_container_container.get_children())
@@ -152,7 +162,7 @@ func _update_container_container() -> void:
             icons[i].clear_item()
 
 
-## TODO
+## set inventory component and updated GUI
 func set_inventory(inventory: Inventory) -> void:
     if _inventory:
         _inventory.updated.disconnect(_update_inventory_container)
@@ -166,7 +176,7 @@ func set_item_user(item_user: ItemUser) -> void:
     _item_user = item_user
 
 
-## TODO
+## Set container inventory component and update GUI
 func set_container(container: Inventory) -> void:
     if _container:
         _container.updated.disconnect(_update_container_container)
@@ -177,6 +187,7 @@ func set_container(container: Inventory) -> void:
     _update_container_container()
 
 
+## Disconnect `_container` from all signals and set to `null`
 func _clear_container() -> void:
     if _container:
         _container.updated.disconnect(_update_container_container)
@@ -191,6 +202,8 @@ func _on_icon_selection(icon: iInventoryIcon) -> void:
         _set_selected_icon(icon)
 
 
+## if `_selected_icon`, deselect. Set selected icon to `icon` and set item in
+## `_selected_item_menu`
 func _set_selected_icon(icon: iInventoryIcon) -> void:
     if _selected_icon and _selected_icon != icon:
         _selected_icon.deselect()
@@ -199,7 +212,7 @@ func _set_selected_icon(icon: iInventoryIcon) -> void:
     _selected_item_menu.set_buttons_disabled(_container != null, false, _container != null)
 
 
-## TODO
+## Verify that item of `_selected_icon` can be moved to `icon`. If so, move it.
 func _move_item(icon: iInventoryIcon) -> void:
     _move_mode_icon = icon
 
@@ -250,6 +263,7 @@ func _move_item(icon: iInventoryIcon) -> void:
     _end_move_mode()
 
 
+## Enter move mode and perform move mode setup
 func _start_move_mode() -> void:
     _move_mode = true
     _selected_icon.set_selection_mode(iInventoryIcon.SelectionMode.MOVE)
@@ -257,6 +271,7 @@ func _start_move_mode() -> void:
     _move_mode_button.show()
 
 
+## Exit move mode and perform move mode cleanup
 func _end_move_mode() -> void:
     _move_mode = false
     _selected_icon.set_selection_mode(iInventoryIcon.SelectionMode.DEFAULT)
