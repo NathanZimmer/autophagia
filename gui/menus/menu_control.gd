@@ -29,6 +29,11 @@ func _ready() -> void:
         button.pressed.connect(_swap_to_submenu.bind(menu))
 
 
+# TODO: Currently, each menu needs to manually accept events on all menu opening buttons
+# that it does not use (ex: inventory needs to accept joural menu buttons and do nothing).
+# Find a way to do that here instead.
+
+
 # Checking for this in _input because all buttons consume all mouse events when in focus.
 # FIXME: Is this fine or should I implement the "proper" solution of updating the buttons?
 func _input(event: InputEvent) -> void:

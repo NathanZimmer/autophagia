@@ -41,7 +41,9 @@ func _test(count: int, test_inp: String) -> bool:
     return true
 
 
-## TODO
+## Call function from `item_info.function` with arguments `item_info.args` for each `count` [br]
+## ## Returns [br]
+## Whether or not the items are sucessfully used
 func use_item(item_info: ItemInfo, count: int) -> bool:
     var args := [count] + item_info.args
     var arg_count := get_method_argument_count(item_info.function)
@@ -58,6 +60,7 @@ func use_item(item_info: ItemInfo, count: int) -> bool:
     return callv(item_info.function, args)
 
 
+## Create item pickup with `ItemInfo` and `count`
 func drop_item(item_info: ItemInfo, count: int) -> void:
     var item_pickup: ItemPickup = Pickup.instantiate()
     owner.get_parent().add_child(item_pickup)
