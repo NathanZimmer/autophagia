@@ -34,7 +34,7 @@ func _ready() -> void:
 ## `show_spin_box`: Whether to hide the spin box and show alternate single-item popup
 func show_popup(max_count: int, show_spin_box: bool = true) -> void:
     show()
-    _select_spin_box.grab_focus()
+    # _select_spin_box.grab_focus()
     _select_spin_box.max_value = max_count
     _select_spin_box.value = 1
 

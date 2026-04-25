@@ -8,7 +8,7 @@ signal temp_adjusted(amount: int)
 ## Emit to adjust player hunger component
 signal hunger_adjusted(amount: int)
 
-const PICKUP_SPAWN_OFFSET := Vector3(0, -1, 1)
+const PICKUP_SPAWN_OFFSET := Vector3(0, -1, 0)
 const PICKUP_SPAWN_RANGE := Vector3(0.25, 0, 0.25)
 
 const ITEM_SPAWN_OFFSET := Vector3(0, 0.4, 0)
