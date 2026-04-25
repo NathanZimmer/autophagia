@@ -52,7 +52,8 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer" unique_id=1016992397]
+[node name="CountLabel" type="Label" parent="Panel/VBoxContainer" unique_id=1016992397]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 1
@@ -67,8 +68,19 @@ value = 1.0
 rounded = true
 alignment = 1
 
+[node name="ConfirmLabel" type="Label" parent="Panel/VBoxContainer" unique_id=1712626072]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "Confirm"
+vertical_alignment = 1
+
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=834334361]
 layout_mode = 2
+size_flags_vertical = 8
 alignment = 1
 
 [node name="SubmitButton" type="Button" parent="Panel/VBoxContainer/HBoxContainer" unique_id=2061505235]

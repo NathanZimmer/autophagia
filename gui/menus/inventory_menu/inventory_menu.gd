@@ -110,17 +110,22 @@ func _add_icon(container: Container, container_index: int) -> void:
 func _use_selected_item() -> void:
     var idx := _icon_index_map[_selected_icon]
     var item := _inventory.get_item(idx)
+    var item_info := item.item_info
 
-    _count_popup.show_popup(item.count if item.item_info.can_use_multiple else 1)
+    _count_popup.show_popup(
+        item.count if item_info.can_use_multiple else 1, item_info.can_use_multiple
+    )
     var count: int = await _count_popup.count_selected
 
-    var used := _item_user.use_item(item.item_info, item.count)
+    var used := _item_user.use_item(item_info, item.count)
     if not used:
         return
 
     var remainder := _inventory.remove_count(idx, count)
     if not remainder:
         _selected_item_menu.clear()
+    if item_info.closes_menu:
+        menu_exited.emit()
 
 
 ## Show count popup and call `_item_user.drop_item` with the selected item and count.

@@ -33,7 +33,7 @@ name = &"Test Item"
 description = "This is a test description. Use this item to do nothing."
 icon = SubResource("PlaceholderTexture2D_lk1rc")
 mesh = SubResource("BoxMesh_qf7nj")
-function = "test"
+function = "_test"
 args = ["testing this"]
 metadata/_custom_type_script = "uid://c3qhshchoa8wk"
 
@@ -51,7 +51,7 @@ name = &"Test Item 2"
 description = "This is a test description. Use this item to do nothing. Just does nothing."
 icon = SubResource("PlaceholderTexture2D_i3p8x")
 mesh = SubResource("SphereMesh_1twht")
-function = "test"
+function = "_test"
 args = ["testing this 2"]
 metadata/_custom_type_script = "uid://c3qhshchoa8wk"
 

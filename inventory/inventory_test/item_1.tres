@@ -6,5 +6,5 @@
 script = ExtResource("1_0ujeq")
 name = &"item_1"
 description = "test item"
-function = "test"
+function = "_test"
 metadata/_custom_type_script = "uid://c3qhshchoa8wk"

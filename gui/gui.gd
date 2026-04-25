@@ -111,7 +111,8 @@ func _open_dialog_menu(dialog: DialogTree) -> void:
 # TODO: Make this bring up the page that the calling note is on
 ## Swap from `_note_menu` to `_jouranl_menu`
 func _swap_to_journal() -> void:
-    assert(_note_menu.visible)
+    if not _note_menu.visible:
+        push_error("Calling _swap_to_joural while note menu is not open")
     _note_menu.process_mode = Node.PROCESS_MODE_DISABLED
     _note_menu.hide()
     _pause(_journal_menu)
@@ -119,7 +120,8 @@ func _swap_to_journal() -> void:
 
 ## Swap from `_journal_menu` to `_note_menu` open to the given entry
 func _swap_to_note(title: Journal.Title) -> void:
-    assert(_journal_menu.visible)
+    if not _journal_menu.visible:
+        push_error("Calling _swap_to_note while journal menu is not open")
     _journal_menu.process_mode = Node.PROCESS_MODE_DISABLED
     _journal_menu.hide()
     _open_note_menu(title, true)

@@ -33,7 +33,8 @@ name = &"test"
 description = "test"
 icon = SubResource("PlaceholderTexture2D_lk1rc")
 mesh = SubResource("SphereMesh_1twht")
-function = "test"
+function = "_test"
+closes_menu = null
 metadata/_custom_type_script = "uid://c3qhshchoa8wk"
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_i3p8x"]
@@ -45,7 +46,10 @@ name = &"test2"
 description = "test2"
 icon = SubResource("PlaceholderTexture2D_i3p8x")
 mesh = SubResource("SphereMesh_1twht")
-function = "test"
+function = "_test_spawn_ball"
+args = ["Test!"]
+can_use_multiple = false
+closes_menu = true
 metadata/_custom_type_script = "uid://c3qhshchoa8wk"
 
 [node name="ItemPickupTest" unique_id=2120711059 instance=ExtResource("1_lejf7")]

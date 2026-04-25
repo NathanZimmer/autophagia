@@ -15,12 +15,13 @@ class_name ItemInfo extends Resource
 @export_group("Logic")
 ## Function in `ItemUser` to call when this item is used
 @export var function: String
-## Arguments for `function`
+## Arguments for `function` [br]
+## [b]Note:[/b] call to `function` will always have use count prepended to `args`
 @export var args: Array[Variant]
 ## Whether you have to use this item one at a time
 @export var can_use_multiple := true
-## TODO: Implement
-@export var max_stack_size: int
+## Whether using this item closes the inventory menu
+@export var closes_menu := false
 
 
 func _to_string() -> String:
