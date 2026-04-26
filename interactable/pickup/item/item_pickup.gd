@@ -1,21 +1,22 @@
 @tool
-extends Node3D
+class_name ItemPickup extends Node3D
 ## On collision, sends an item to the colliding node. Colliding node should have a
 ## `MessageHandler` child. Queues iteslf for deletion if its count drops to zero.
 
-## TODO
+## The item that this pickup holds
 @export var _item_info: ItemInfo
-## TODO
+## The count of this pickup's item
 @export var _count := 1
 
 var _item: InventoryItem
+var _disable_next_collision := false
 
-@onready var floating_icon: MeshInstance3D = $FloatingIcon
+@onready var _floating_icon: MeshInstance3D = %FloatingIcon
 
 
 func _ready() -> void:
-    if _item_info.mesh:
-        floating_icon.mesh = _item_info.mesh
+    if _item_info and _item_info.mesh:
+        _floating_icon.mesh = _item_info.mesh
 
     if Engine.is_editor_hint():
         return
@@ -28,9 +29,25 @@ func _ready() -> void:
         trigger.triggered.connect(_send_item)
 
 
+## Reset this pickup with a new `item_info` and `count`. Optionally, can disable next
+## collision.
+func reset(item_info: ItemInfo, count: int, disable_next_collision := false) -> void:
+    _disable_next_collision = disable_next_collision
+    _item_info = item_info
+    _count = count
+    _floating_icon.mesh = _item_info.mesh
+    _item.reset(_item_info, _count)
+
+
+## Send `_item` to body that has collided with this node
 func _send_item(body: Node3D) -> void:
+    if _disable_next_collision:
+        _disable_next_collision = false
+        return
+
     var handlers := body.find_children("*", "MessageHandler", false)
     if not handlers.is_empty():
+        AudioManager.play_pressed()
         handlers[0].send_item(_item)
 
 

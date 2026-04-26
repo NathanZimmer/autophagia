@@ -34,7 +34,7 @@ func _ready() -> void:
 
 
 func _on_node_added(node: Node) -> void:
-    if node is Button and not node is TextureButton:
+    if node is BaseButton:
         node.mouse_entered.connect(_play_hover)
         node.pressed.connect(play_pressed)
 

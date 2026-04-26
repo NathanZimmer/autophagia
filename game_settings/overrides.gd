@@ -1,16 +1,16 @@
 extends Node
 ## User-configurable and saveable overrides for ProjectSettings. Handles saving and loading
-##_to the `override.cfg` file and propagating changes throughout the engine.
+## to the `override.cfg` file and propagating changes throughout the engine.
 
-signal vsynch_mode_changed
-signal max_fps_changed
-signal fullscreen_changed
+signal vsynch_mode_changed(mode: DisplayServer.VSyncMode)
+signal max_fps_changed(max_fps: int)
+signal fullscreen_changed(fullscreen: bool)
 
-signal mouse_sensitivity_changed
-signal mouse_inverted_changed
-signal field_of_view_changed
+signal mouse_sensitivity_changed(sensitivity: int)
+signal mouse_inverted_changed(inverted: bool)
+signal field_of_view_changed(fov: int)
 
-signal input_action_changed
+signal input_action_changed(action: StringName, event: InputEvent)
 
 const CONFIG_PATH = "override.cfg"
 var _config_file := ConfigFile.new()

@@ -2,9 +2,8 @@ extends Node
 ## Constants for input map strings
 
 
+## Constants for the player_* input actions
 class Player:
-    ## Constants for the player_* input actions
-
     const LEFT: StringName = "player_left"
     const RIGHT: StringName = "player_right"
     const FORWARD: StringName = "player_forward"
@@ -17,9 +16,8 @@ class Player:
     const COLLISION_TOGGLE: StringName = "player_collision_toggle"
 
 
-class UI:
-    ## Constants for the ui_* input actions
-
+## Constants for the ui_* input actions
+class Ui:
     const ACCEPT: StringName = "ui_accept"
     const CANCEL: StringName = "ui_cancel"
     const SELECT: StringName = "ui_select"
@@ -30,3 +28,4 @@ class UI:
     const RIGHT: StringName = "ui_right"
     const FULLSCREEN: StringName = "ui_fullscreen"
     const INVENTORY: StringName = "ui_inventory"
+    const JOURNAL: StringName = "ui_journal"

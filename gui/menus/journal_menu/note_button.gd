@@ -1,4 +1,4 @@
-extends VBoxContainer
+class_name iNoteButton extends VBoxContainer
 ## Container that combines multiple TextureButtons
 
 signal pressed
@@ -17,6 +17,7 @@ func _ready() -> void:
     for child: TextureButton in _note_container.get_children():
         _buttons.append(child)
         child.pressed.connect(pressed.emit)
+        child.pressed.disconnect(AudioManager.play_pressed)
         child.mouse_entered.connect(_set_color.bind(HOVER_COLOR))
         child.mouse_exited.connect(_set_color.bind(Color.WHITE))
 

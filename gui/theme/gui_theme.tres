@@ -1,7 +1,8 @@
 [gd_resource type="Theme" format=3 uid="uid://bh0is5cj4ulq2"]
 
 [ext_resource type="FontFile" uid="uid://bg0grlkrbfbo1" path="res://gui/theme/asvoria-disco-2.otf" id="1_32sf2"]
-[ext_resource type="FontFile" uid="uid://ddd24q66xtnmn" path="res://gui/theme/Unispace Rg.otf" id="1_yyy8s"]
+[ext_resource type="FontFile" uid="uid://b7st6iq73006i" path="res://gui/theme/m5x7.ttf" id="2_32sf2"]
+[ext_resource type="FontFile" uid="uid://ddd24q66xtnmn" path="res://gui/theme/Unispace Rg.otf" id="2_dd75y"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mdylq"]
 content_margin_left = 1.0
@@ -14,6 +15,18 @@ content_margin_left = 1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gemgx"]
 content_margin_left = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v4hft"]
+bg_color = Color(0, 0, 0, 0.39215687)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3854925, 0.38549247, 0.38549247, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vlykk"]
 bg_color = Color(0, 0, 0, 0.392157)
@@ -60,7 +73,7 @@ content_margin_right = 3.0
 bg_color = Color(0, 0, 0, 0.333333)
 
 [resource]
-default_font = ExtResource("1_yyy8s")
+default_font = ExtResource("2_dd75y")
 default_font_size = 11
 Button/colors/font_disabled_color = Color(0.8, 0.8, 0.8, 0.776471)
 Button/colors/font_hover_color = Color(0.95, 0.57, 0.57, 1)
@@ -81,20 +94,29 @@ HeaderLarge/constants/outline_size = 5
 HeaderLarge/font_sizes/font_size = 80
 HeaderLarge/fonts/font = ExtResource("1_32sf2")
 HeaderMedium/font_sizes/font_size = 35
+HeaderMedium/fonts/font = ExtResource("2_dd75y")
+HeaderSmall/constants/outline_size = 5
 HeaderSmall/font_sizes/font_size = 15
+HeaderSmall/fonts/font = ExtResource("2_dd75y")
+InventoryIconPanel/base_type = &"Panel"
+InventoryIconPanel/styles/panel = SubResource("StyleBoxFlat_v4hft")
 KeybindButton/base_type = &"Button"
 KeybindButton/styles/disabled = SubResource("StyleBoxFlat_vlykk")
 KeybindButton/styles/hover = SubResource("StyleBoxFlat_vlykk")
 KeybindButton/styles/normal = SubResource("StyleBoxFlat_vlykk")
 KeybindButton/styles/pressed = SubResource("StyleBoxFlat_vlykk")
-Label/constants/outline_size = 3
+Label/constants/outline_size = 5
+LabelSmall/base_type = &"Label"
+LabelSmall/constants/outline_size = 4
+LabelSmall/font_sizes/font_size = 15
+LabelSmall/fonts/font = ExtResource("2_32sf2")
 LineEdit/styles/focus = SubResource("StyleBoxFlat_32sf2")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_32sf2")
 OptionButton/styles/hover = SubResource("StyleBoxFlat_yyy8s")
 OptionButton/styles/hover_pressed = SubResource("StyleBoxFlat_yyy8s")
 OptionButton/styles/normal = SubResource("StyleBoxFlat_yyy8s")
 OptionButton/styles/pressed = SubResource("StyleBoxFlat_yyy8s")
-RichTextLabel/constants/outline_size = 3
+RichTextLabel/constants/outline_size = 5
 VScrollBar/styles/grabber = SubResource("StyleBoxFlat_dd75y")
 VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_rfa4r")
 VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_rfa4r")

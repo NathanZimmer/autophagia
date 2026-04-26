@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://bj3nk0xoyapud"]
+
+[ext_resource type="Script" uid="uid://bcemngx60qd87" path="res://interactable/chest/chest.gd" id="1_p678n"]
+[ext_resource type="Script" uid="uid://nby3c2g37q5b" path="res://interactable/triggers/click_trigger.gd" id="2_oaebo"]
+[ext_resource type="Material" uid="uid://buibxnm8nm51w" path="res://levels/common/material/placeholder.tres" id="3_iv3ai"]
+[ext_resource type="Script" uid="uid://bvyrto2wfvoh4" path="res://inventory/inventory.gd" id="4_yrftc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cpwfy"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_rxcrq"]
+material = ExtResource("3_iv3ai")
+
+[node name="Container" type="Node3D" unique_id=293151306]
+script = ExtResource("1_p678n")
+
+[node name="ClickTrigger" type="Area3D" parent="." unique_id=242816594 groups=["chest"]]
+script = ExtResource("2_oaebo")
+_groups = Array[StringName]([&"player"])
+metadata/_custom_type_script = "uid://nby3c2g37q5b"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ClickTrigger" unique_id=1944663811]
+shape = SubResource("BoxShape3D_cpwfy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=318648652]
+mesh = SubResource("BoxMesh_rxcrq")
+
+[node name="Inventory" type="Node" parent="." unique_id=92009521]
+unique_name_in_owner = true
+script = ExtResource("4_yrftc")
+_inventory_size = 5
+metadata/_custom_type_script = "uid://bvyrto2wfvoh4"

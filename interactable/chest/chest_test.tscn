@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://1qnoxvcfmxq0"]
+
+[ext_resource type="PackedScene" uid="uid://bn2tmn3fg0c2c" path="res://common/test.tscn" id="1_soyt1"]
+[ext_resource type="PackedScene" uid="uid://u87ws5522ov" path="res://interactable/pickup/item/item_pickup.tscn" id="2_nlb5b"]
+[ext_resource type="Shader" uid="uid://dj2ckf3xn6sm8" path="res://interactable/pickup/materials/floating_icon.gdshader" id="3_gjio2"]
+[ext_resource type="Script" uid="uid://c3qhshchoa8wk" path="res://inventory/item_info.gd" id="4_kug0b"]
+[ext_resource type="PackedScene" uid="uid://bj3nk0xoyapud" path="res://interactable/chest/chest.tscn" id="5_qf7nj"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_lk1rc"]
+size = Vector2(64, 64)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_tbin1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1twht"]
+render_priority = 0
+shader = ExtResource("3_gjio2")
+shader_parameter/texture_albedo = SubResource("PlaceholderTexture2D_tbin1")
+shader_parameter/uv_scale = Vector3(1, 1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/rotation_speed = -1.0
+shader_parameter/tilt = 1.885
+shader_parameter/bounce_speed = 1.25
+shader_parameter/bounce_distance = 0.15
+shader_parameter/resolution = Vector2i(320, 240)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qf7nj"]
+material = SubResource("ShaderMaterial_1twht")
+size = Vector3(0.4, 0.4, 0.4)
+
+[sub_resource type="Resource" id="Resource_i3p8x"]
+script = ExtResource("4_kug0b")
+name = &"Test Item"
+description = "This is a test description. Use this item to do nothing."
+icon = SubResource("PlaceholderTexture2D_lk1rc")
+mesh = SubResource("BoxMesh_qf7nj")
+function = "_test"
+args = ["testing this"]
+metadata/_custom_type_script = "uid://c3qhshchoa8wk"
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_i3p8x"]
+size = Vector2(64, 64)
+
+[sub_resource type="SphereMesh" id="SphereMesh_1twht"]
+material = SubResource("ShaderMaterial_1twht")
+radius = 0.25
+height = 0.5
+
+[sub_resource type="Resource" id="Resource_1twht"]
+script = ExtResource("4_kug0b")
+name = &"Test Item 2"
+description = "This is a test description. Use this item to do nothing. Just does nothing."
+icon = SubResource("PlaceholderTexture2D_i3p8x")
+mesh = SubResource("SphereMesh_1twht")
+function = "_test"
+args = ["testing this 2"]
+metadata/_custom_type_script = "uid://c3qhshchoa8wk"
+
+[node name="ContainerTest" unique_id=2120711059 instance=ExtResource("1_soyt1")]
+
+[node name="ItemPickup" parent="." index="4" unique_id=639595155 instance=ExtResource("2_nlb5b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6113267, 0, 5.5277276)
+_item_info = SubResource("Resource_i3p8x")
+
+[node name="ItemPickup2" parent="." index="5" unique_id=630103446 instance=ExtResource("2_nlb5b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9698763, 0, 6.3440804)
+_item_info = SubResource("Resource_1twht")
+_count = 50
+
+[node name="Chest" parent="." index="6" unique_id=293151306 instance=ExtResource("5_qf7nj")]
+transform = Transform3D(0.49999997, 0, -0.86602545, 0, 1, 0, 0.86602545, 0, 0.49999997, 3.5, 0.5, 7.5)
+
+[editable path="Player"]

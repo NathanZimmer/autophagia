@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://c4b0a3scm2jlc"]
+
+[ext_resource type="Theme" uid="uid://bh0is5cj4ulq2" path="res://gui/theme/gui_theme.tres" id="1_k8nkp"]
+[ext_resource type="Script" uid="uid://hfb8d5stc3ow" path="res://gui/menus/inventory_menu/inventory_icon.gd" id="2_bp660"]
+[ext_resource type="Material" uid="uid://436gfx14qbmw" path="res://gui/menus/inventory_menu/materials/selected_overlay.tres" id="3_6vhmr"]
+[ext_resource type="Texture2D" uid="uid://bnm7dvr2oy1kw" path="res://assets/gui/menus/inventory_menu/inventory_icon_focused.png" id="3_o6gcb"]
+
+[node name="InventoryIcon" type="Control" unique_id=1499537967]
+custom_minimum_size = Vector2(76, 76)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 76.0
+offset_bottom = 76.0
+theme = ExtResource("1_k8nkp")
+script = ExtResource("2_bp660")
+_overlay_color = Color(0.8771322, 8.771829e-05, 0.01290809, 1)
+_overlay_move_color = Color(0, 0.15658149, 0.99999934, 1)
+
+[node name="Panel" type="Panel" parent="." unique_id=49516741]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -35.0
+offset_right = 70.0
+offset_bottom = 35.0
+grow_vertical = 2
+theme_type_variation = &"InventoryIconPanel"
+
+[node name="IconButton" type="TextureButton" parent="Panel" unique_id=278349513]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+action_mode = 0
+
+[node name="SelectedOverlay" type="TextureRect" parent="Panel" unique_id=76775517]
+unique_name_in_owner = true
+visible = false
+material = ExtResource("3_6vhmr")
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 67.0
+offset_bottom = 67.0
+mouse_filter = 2
+texture = ExtResource("3_o6gcb")
+
+[node name="CountLabel" type="Label" parent="Panel" unique_id=707823508]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -35.0
+offset_right = 32.0
+offset_bottom = 14.0
+grow_horizontal = 2
+theme_type_variation = &"LabelSmall"
+text = "00"
+horizontal_alignment = 2
+
+[node name="NameLabel" type="Label" parent="Panel" unique_id=855314650]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -35.0
+offset_top = -12.0
+offset_right = 35.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_type_variation = &"LabelSmall"
+text = "name_here"
+horizontal_alignment = 1

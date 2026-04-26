@@ -1,14 +1,26 @@
-extends Control
+class_name iGui extends Control
 ## Handles menu and viewport related hotkeys, mouse capturing, crosshair,
 ## and connecting menus
 
 ## Raycast to use for setting crosshair icons
+@export_group("GUI")
+## Raycast to use for picking crosshair texture
 @export var _crosshair_raycast: RayCast3D
 ## Map of group name -> texture to display when `_crosshair_raycast` collides
 ## with that group
 @export var _crosshair_textures: Dictionary[StringName, Texture2D]
+@export_group("Player Components")
+## Player's message handler component
 @export var _message_handler: MessageHandler
+## Player's journal component
 @export var _journal: Journal
+## Player's inventory component
+@export var _inventory: Inventory
+## Player's item user component
+@export var _item_user: ItemUser
+
+## Whether the player can open all non-settings menus
+var interact_menus_enabled := false
 
 var _raycast_collided: Object
 var _default_crosshair_texture: Texture2D
@@ -18,6 +30,7 @@ var _default_crosshair_texture: Texture2D
 @onready var _journal_menu: iJournalMenuControl = %JournalMenu
 @onready var _dialog_menu: iDialogMenuControl = %DialogMenu
 @onready var _note_menu: iNoteMenuControl = %NoteMenu
+@onready var _inventory_menu: iInventoryMenu = %InventoryMenu
 
 @onready var _crosshair: TextureRect = %Crosshair
 
@@ -31,16 +44,24 @@ func _ready() -> void:
     _unpause(_dialog_menu)
     _note_menu.menu_exited.connect(_unpause.bind(_note_menu))
     _unpause(_note_menu)
+    _inventory_menu.menu_exited.connect(_unpause.bind(_inventory_menu))
+    _unpause(_inventory_menu)
 
-    _note_menu.inventory_button_pressed.connect(_swap_to_journal)
+    _note_menu.journal_button_pressed.connect(_swap_to_journal)
     _journal_menu.note_button_pressed.connect(_swap_to_note)
 
     if _message_handler:
         _message_handler.dialog_recieved.connect(_open_dialog_menu)
         _message_handler.note_received.connect(_open_note_menu)
+        _message_handler.inventory_received.connect(_open_chest)
 
     if _journal:
         _journal.note_discovered.connect(_journal_menu.add_note)
+
+    if _inventory:
+        _inventory_menu.set_inventory(_inventory)
+    if _item_user:
+        _inventory_menu.set_item_user(_item_user)
 
     _default_crosshair_texture = _crosshair.texture
 
@@ -52,20 +73,25 @@ func _physics_process(_delta: float) -> void:
 
 func _shortcut_input(event: InputEvent) -> void:
     if event is InputEventKey:
-        if event.is_action_pressed(InputActions.UI.CANCEL):
+        if event.is_action_pressed(InputActions.Ui.CANCEL):
             _pause(_pause_menu)
             accept_event()
 
-        elif event.is_action_pressed(InputActions.UI.FULLSCREEN):
+        elif event.is_action_pressed(InputActions.Ui.FULLSCREEN):
             _toggle_fullscreen()
             accept_event()
 
-        elif event.is_action_pressed(InputActions.UI.INVENTORY):
-            _pause(_journal_menu)
-            accept_event()
+        elif interact_menus_enabled:
+            if event.is_action_pressed(InputActions.Ui.JOURNAL):
+                _pause(_journal_menu)
+                accept_event()
+
+            elif event.is_action_pressed(InputActions.Ui.INVENTORY):
+                _pause(_inventory_menu)
+                accept_event()
 
 
-## Pause the game, show the mouse and specified pause menu
+## Pause the game, show the mouse and given pause menu
 func _pause(menu: iMenuControl) -> void:
     get_tree().paused = true
     Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -74,24 +100,37 @@ func _pause(menu: iMenuControl) -> void:
     _crosshair.hide()
 
 
+## Open the dialog menu with the given `DialogTree`
 func _open_dialog_menu(dialog: DialogTree) -> void:
+    if not interact_menus_enabled:
+        return
     _dialog_menu.set_dialog(dialog)
     _pause(_dialog_menu)
 
 
 # TODO: Make this bring up the page that the calling note is on
+## Swap from `_note_menu` to `_jouranl_menu`
 func _swap_to_journal() -> void:
+    if not _note_menu.visible:
+        push_error("Calling _swap_to_joural while note menu is not open")
     _note_menu.process_mode = Node.PROCESS_MODE_DISABLED
     _note_menu.hide()
     _pause(_journal_menu)
 
 
+## Swap from `_journal_menu` to `_note_menu` open to the given entry
 func _swap_to_note(title: Journal.Title) -> void:
+    if not _journal_menu.visible:
+        push_error("Calling _swap_to_note while journal menu is not open")
     _journal_menu.process_mode = Node.PROCESS_MODE_DISABLED
     _journal_menu.hide()
     _open_note_menu(title, true)
 
 
+## Open the note menu to the given entry [br]
+## ## Parameters [br]
+## `title`: Title of entry to open [br]
+## `from_journal`: If true, closing the menu will bring you back to `_joural_menu`
 func _open_note_menu(title: Journal.Title, from_journal: bool = false) -> void:
     var image: Texture2D = (
         _journal.get_note_texture(title) if _journal else PlaceholderTexture2D.new()
@@ -100,6 +139,14 @@ func _open_note_menu(title: Journal.Title, from_journal: bool = false) -> void:
     _note_menu.set_image(image)
     _note_menu.play_page_flip()
     _pause(_note_menu)
+
+
+## Pass chest to and open `_inventory_menu`
+func _open_chest(chest: Inventory) -> void:
+    if not interact_menus_enabled:
+        return
+    _inventory_menu.set_chest(chest)
+    _pause(_inventory_menu)
 
 
 ## Unpause the game, hide the mouse and pause menu

@@ -5,6 +5,9 @@
 [ext_resource type="Shader" uid="uid://dj2ckf3xn6sm8" path="res://interactable/pickup/materials/floating_icon.gdshader" id="3_i3p8x"]
 [ext_resource type="Script" uid="uid://c3qhshchoa8wk" path="res://inventory/item_info.gd" id="3_lk1rc"]
 
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_lk1rc"]
+size = Vector2(64, 64)
+
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_tbin1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1twht"]
@@ -28,16 +31,25 @@ height = 0.5
 script = ExtResource("3_lk1rc")
 name = &"test"
 description = "test"
+icon = SubResource("PlaceholderTexture2D_lk1rc")
 mesh = SubResource("SphereMesh_1twht")
-function = "test"
+function = "_test"
+closes_menu = null
 metadata/_custom_type_script = "uid://c3qhshchoa8wk"
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_i3p8x"]
+size = Vector2(64, 64)
 
 [sub_resource type="Resource" id="Resource_1twht"]
 script = ExtResource("3_lk1rc")
 name = &"test2"
 description = "test2"
+icon = SubResource("PlaceholderTexture2D_i3p8x")
 mesh = SubResource("SphereMesh_1twht")
-function = "test"
+function = "_test_spawn_ball"
+args = ["Test!"]
+can_use_multiple = false
+closes_menu = true
 metadata/_custom_type_script = "uid://c3qhshchoa8wk"
 
 [node name="ItemPickupTest" unique_id=2120711059 instance=ExtResource("1_lejf7")]
@@ -49,6 +61,6 @@ _item_info = SubResource("Resource_i3p8x")
 [node name="ItemPickup2" parent="." index="5" unique_id=630103446 instance=ExtResource("2_dfj2o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9698763, 0, 6.3440804)
 _item_info = SubResource("Resource_1twht")
-_count = 50
+_count = 16
 
 [editable path="Player"]

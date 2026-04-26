@@ -2,9 +2,9 @@ class_name iSliderSpinBox extends BoxContainer
 ## Links values of `Slider` and `SpinBox`
 
 ## Emitted when `value` changes
-signal value_changed
+signal value_changed(value: float)
 ## Emitted when the value of the spin box changes
-signal spin_box_value_changed
+signal spin_box_value_changed(value: float)
 ## Emitted when the slider's grabber stops being dragged
 signal slider_drag_ended
 
