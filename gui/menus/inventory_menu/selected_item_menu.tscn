@@ -8,57 +8,78 @@
 environment = ExtResource("2_6ormu")
 
 [node name="SelectedItemMenu" type="VBoxContainer" unique_id=1453372945]
-custom_minimum_size = Vector2(128, 250)
+offset_right = 128.0
+offset_bottom = 159.0
 size_flags_horizontal = 2
-size_flags_vertical = 4
+size_flags_vertical = 3
 theme = ExtResource("1_efhkx")
 script = ExtResource("2_5n6st")
 
-[node name="ItemSubViewportContainer" type="SubViewportContainer" parent="." unique_id=256954442]
-unique_name_in_owner = true
+[node name="Label" type="Label" parent="." unique_id=47972484]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+text = "Item"
 
-[node name="SubViewport" type="SubViewport" parent="ItemSubViewportContainer" unique_id=893101860]
-own_world_3d = true
-world_3d = SubResource("World3D_sritr")
-transparent_bg = true
-handle_input_locally = false
-size = Vector2i(64, 64)
-render_target_update_mode = 4
+[node name="ItemHBoxContainer" type="HBoxContainer" parent="." unique_id=327901225]
+layout_mode = 2
 
-[node name="ItemModel" type="MeshInstance3D" parent="ItemSubViewportContainer/SubViewport" unique_id=450555717]
-unique_name_in_owner = true
+[node name="ButtonPanelContainer" type="PanelContainer" parent="ItemHBoxContainer" unique_id=665072396]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_type_variation = &"InventoryPanelContainer"
 
-[node name="Camera3D" type="Camera3D" parent="ItemSubViewportContainer/SubViewport" unique_id=286461236]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
-projection = 1
-use_oblique_frustum = true
-oblique_normal = Vector3(0, 1, -1)
-oblique_position = Vector3(0, 0, 1)
+[node name="ButtonVBoxContainer" type="VBoxContainer" parent="ItemHBoxContainer/ButtonPanelContainer" unique_id=1887880655]
+layout_mode = 2
+alignment = 1
 
-[node name="UseButton" type="Button" parent="." unique_id=542553683]
+[node name="UseButton" type="Button" parent="ItemHBoxContainer/ButtonPanelContainer/ButtonVBoxContainer" unique_id=542553683]
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../MoveButton")
 theme_type_variation = &"DialogButton"
 text = "Use"
 
-[node name="DropButton" type="Button" parent="." unique_id=403272933]
+[node name="DropButton" type="Button" parent="ItemHBoxContainer/ButtonPanelContainer/ButtonVBoxContainer" unique_id=403272933]
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../MoveButton")
 theme_type_variation = &"DialogButton"
 text = "Drop"
 
-[node name="MoveButton" type="Button" parent="." unique_id=2085405048]
+[node name="MoveButton" type="Button" parent="ItemHBoxContainer/ButtonPanelContainer/ButtonVBoxContainer" unique_id=2085405048]
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../UseButton")
 focus_neighbor_bottom = NodePath("../DropButton")
 theme_type_variation = &"DialogButton"
 text = "Move"
+
+[node name="ViewportPanelContainer" type="PanelContainer" parent="ItemHBoxContainer" unique_id=2054042352]
+layout_mode = 2
+theme_type_variation = &"InventoryPanelContainer"
+
+[node name="ItemSubViewportContainer" type="SubViewportContainer" parent="ItemHBoxContainer/ViewportPanelContainer" unique_id=256954442]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SubViewport" type="SubViewport" parent="ItemHBoxContainer/ViewportPanelContainer/ItemSubViewportContainer" unique_id=893101860]
+own_world_3d = true
+world_3d = SubResource("World3D_sritr")
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(96, 60)
+render_target_update_mode = 4
+
+[node name="ItemModel" type="MeshInstance3D" parent="ItemHBoxContainer/ViewportPanelContainer/ItemSubViewportContainer/SubViewport" unique_id=450555717]
+unique_name_in_owner = true
+
+[node name="Camera3D" type="Camera3D" parent="ItemHBoxContainer/ViewportPanelContainer/ItemSubViewportContainer/SubViewport" unique_id=286461236]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+projection = 1
+oblique_normal = Vector3(0, 1, -1)
+oblique_position = Vector3(0, 0, 1)
+far = 10.0
 
 [node name="NameLabel" type="Label" parent="." unique_id=1622782842]
 unique_name_in_owner = true
@@ -69,8 +90,10 @@ text = "Name"
 [node name="DescLabel" type="Label" parent="." unique_id=709455577]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 3
 theme_type_variation = &"LabelSmall"
 text = "This is how many worlds can fit in the description box. 
 
 Some flavor text."
 autowrap_mode = 2
+clip_text = true

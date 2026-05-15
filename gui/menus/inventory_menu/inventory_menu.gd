@@ -5,7 +5,7 @@ class_name iInventoryMenu extends iMenuControl
 # TODO: Get rid of this when toolbar code is added
 const TOOLBAR_SIZE := 4
 
-const MAX_CHEST_SIZE := 5
+const MAX_CHEST_SIZE := 6
 const MAX_INVENTORY_SIZE := 12
 
 var InventoryIcon := preload("uid://c4b0a3scm2jlc")
@@ -26,10 +26,13 @@ var _move_mode_icon: iInventoryIcon
 @onready var _selected_item_menu: iSelectedItemMenu = %SelectedItemMenu
 @onready var _count_popup: iCountPopup = %CountPopup
 
+# @onready var _inventory_panel_container: PanelContainer = %InventoryPanelContainer
+# @onready var _selection_panel_container: PanelContainer = %SelectionPanelContainer
+
 @onready var _move_mode_button: Button = %CancelMoveModeButton
 
-@onready var _chest_panel: Panel = %ContainerPanel
-@onready var _chest_container: GridContainer = %ContainerContainer
+@onready var _chest_panel: PanelContainer = %ChestPanelContainer
+@onready var _chest_container: GridContainer = %ChestContainer
 
 
 func _ready() -> void:
@@ -43,6 +46,10 @@ func _ready() -> void:
 
     _init_inventory_container()
     _init_chest_container()
+
+    # _selection_panel_container.custom_minimum_size.y = (
+    #     _inventory_panel_container.size.y - 54  # 54 for height of status panel + margin
+    # )
 
     await get_tree().process_frame
     if not _inventory:
