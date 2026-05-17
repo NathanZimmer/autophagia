@@ -23,7 +23,7 @@ text = "Item"
 layout_mode = 2
 
 [node name="ButtonPanelContainer" type="PanelContainer" parent="ItemHBoxContainer" unique_id=665072396]
-custom_minimum_size = Vector2(40, 0)
+custom_minimum_size = Vector2(52, 0)
 layout_mode = 2
 theme_type_variation = &"InventoryPanelContainer"
 
@@ -51,7 +51,8 @@ layout_mode = 2
 focus_neighbor_top = NodePath("../UseButton")
 focus_neighbor_bottom = NodePath("../DropButton")
 theme_type_variation = &"DialogButton"
-text = "Move"
+text = "Move
+"
 
 [node name="ViewportPanelContainer" type="PanelContainer" parent="ItemHBoxContainer" unique_id=2054042352]
 layout_mode = 2

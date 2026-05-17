@@ -79,6 +79,13 @@ theme_type_variation = &"InventoryPanelContainer"
 unique_name_in_owner = true
 layout_mode = 2
 
+[node name="CancelMoveModeButton" type="Button" parent="MenuContainer/PlayerHBoxContainer/InfoVBoxContainer/SelectionPanelContainer/SelectedItemMenu" unique_id=632003368]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Cancel"
+alignment = 2
+
 [node name="StatusPanelContainer" type="PanelContainer" parent="MenuContainer/PlayerHBoxContainer/InfoVBoxContainer" unique_id=1091718880]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
@@ -114,15 +121,6 @@ columns = 6
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
-
-[node name="CancelMoveModeButton" type="Button" parent="." unique_id=632003368]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 523.0
-offset_top = 21.0
-offset_right = 565.0
-offset_bottom = 61.0
-text = "Cancel"
 
 [node name="BackButton" type="Button" parent="." unique_id=1758297386]
 unique_name_in_owner = true

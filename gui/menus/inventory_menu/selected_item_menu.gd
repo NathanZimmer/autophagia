@@ -2,6 +2,8 @@ class_name iSelectedItemMenu extends VBoxContainer
 ## Menu for the selected item. Shows model, name, and description. Has buttons for using
 ## dropping, and moving this item.
 
+# FIXME: Figure out best way to manage the vertex snap shader. I.e. 320x240 vs 96x60
+
 ## Emit when the use button is pressed.
 signal use_button_pressed
 
@@ -19,6 +21,8 @@ const NO_ITEM_SELECTED_TEXT = "[select an item]"
 @onready var _drop_button: Button = %DropButton
 @onready var _name_label: Label = %NameLabel
 @onready var _desc_label: Label = %DescLabel
+
+var _move_mode := false
 
 
 func _ready() -> void:
@@ -63,6 +67,12 @@ func set_buttons_disabled(disable_use: bool, disable_move: bool, disable_drop: b
     _use_button.disabled = disable_use
     _move_button.disabled = disable_move
     _drop_button.disabled = disable_drop
+
+
+# TODO: Finish this
+func toggle_move_mode() -> void:
+    _move_mode = not _move_mode
+    _move_button.text = "Cancel" if _move_mode else "Move"
 
 
 ## Set the item to be displayed in the menu

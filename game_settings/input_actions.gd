@@ -11,6 +11,7 @@ class Player:
     const UP: StringName = "player_up"
     const DOWN: StringName = "player_down"
     const INTERACT: StringName = "player_interact"
+    const USE_ITEM: StringName = "player_use_item"
     const B: StringName = "player_b"
     const FLIGHT_TOGGLE: StringName = "player_flight_toggle"
     const COLLISION_TOGGLE: StringName = "player_collision_toggle"

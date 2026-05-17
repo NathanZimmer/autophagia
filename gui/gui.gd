@@ -31,6 +31,7 @@ var _default_crosshair_texture: Texture2D
 @onready var _dialog_menu: iDialogMenuControl = %DialogMenu
 @onready var _note_menu: iNoteMenuControl = %NoteMenu
 @onready var _inventory_menu: iInventoryMenu = %InventoryMenu
+@onready var _toolbar: iToolbar = %Toolbar
 
 @onready var _crosshair: TextureRect = %Crosshair
 
@@ -60,8 +61,10 @@ func _ready() -> void:
 
     if _inventory:
         _inventory_menu.set_inventory(_inventory)
+        _toolbar.set_inventory(_inventory)
     if _item_user:
         _inventory_menu.set_item_user(_item_user)
+        _toolbar.set_item_user(_item_user)
 
     _default_crosshair_texture = _crosshair.texture
 
@@ -98,6 +101,7 @@ func _pause(menu: iMenuControl) -> void:
     menu.process_mode = Node.PROCESS_MODE_WHEN_PAUSED
     menu.show()
     _crosshair.hide()
+    _toolbar.hide()
 
 
 ## Open the dialog menu with the given `DialogTree`
@@ -156,6 +160,7 @@ func _unpause(menu: iMenuControl) -> void:
     menu.process_mode = Node.PROCESS_MODE_DISABLED
     menu.hide()
     _crosshair.show()
+    _toolbar.show()
 
 
 ## Toggle window mode between `WINDOW_MODE_FULLSCREEN` and `WINDOW_MODE_WINDOWED`

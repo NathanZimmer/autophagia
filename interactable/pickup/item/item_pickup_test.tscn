@@ -34,7 +34,7 @@ description = "test"
 icon = SubResource("PlaceholderTexture2D_lk1rc")
 mesh = SubResource("SphereMesh_1twht")
 function = "_test"
-closes_menu = null
+args = ["Testing!"]
 metadata/_custom_type_script = "uid://c3qhshchoa8wk"
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_i3p8x"]

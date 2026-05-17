@@ -29,7 +29,7 @@ var _move_mode_icon: iInventoryIcon
 # @onready var _inventory_panel_container: PanelContainer = %InventoryPanelContainer
 # @onready var _selection_panel_container: PanelContainer = %SelectionPanelContainer
 
-@onready var _move_mode_button: Button = %CancelMoveModeButton
+# @onready var _move_mode_button: Button = %CancelMoveModeButton
 
 @onready var _chest_panel: PanelContainer = %ChestPanelContainer
 @onready var _chest_container: GridContainer = %ChestContainer
@@ -41,8 +41,14 @@ func _ready() -> void:
 
     _selected_item_menu.use_button_pressed.connect(_use_selected_item)
     _selected_item_menu.drop_button_pressed.connect(_drop_selected_item)
-    _selected_item_menu.move_button_pressed.connect(_start_move_mode)
-    _move_mode_button.pressed.connect(_end_move_mode)
+    _selected_item_menu.move_button_pressed.connect(
+        func() -> void:
+            if _move_mode:
+                _end_move_mode()
+            else:
+                _start_move_mode()
+    )
+    # _move_mode_button.pressed.connect(_end_move_mode)
 
     _init_inventory_container()
     _init_chest_container()
@@ -274,17 +280,19 @@ func _move_item(icon: iInventoryIcon) -> void:
 ## Enter move mode and perform move mode setup
 func _start_move_mode() -> void:
     _move_mode = true
+    _selected_item_menu.toggle_move_mode()
     _selected_icon.set_selection_mode(iInventoryIcon.SelectionMode.MOVE)
-    _selected_item_menu.set_buttons_disabled(true, true, true)
-    _move_mode_button.show()
+    _selected_item_menu.set_buttons_disabled(true, false, true)
+    # _move_mode_button.show()
 
 
 ## Exit move mode and perform move mode cleanup
 func _end_move_mode() -> void:
     _move_mode = false
+    _selected_item_menu.toggle_move_mode()
     _selected_icon.set_selection_mode(iInventoryIcon.SelectionMode.DEFAULT)
     _selected_item_menu.set_buttons_disabled(_chest != null, false, _chest != null)
-    _move_mode_button.hide()
+    # _move_mode_button.hide()
 
     if not _move_mode_icon:
         return
