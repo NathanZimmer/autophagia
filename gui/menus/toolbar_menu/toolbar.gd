@@ -17,6 +17,7 @@ var _selected_icon: iInventoryIcon
 
 @onready var _toolbar_container: GridContainer = %ToolbarContainer
 
+
 func _ready() -> void:
     _init_toolbar_container()
     _selected_icon = _toolbar_container.get_child(0)
@@ -65,6 +66,7 @@ func _use_selected_item() -> void:
     if not used:
         return
 
+    _inventory.remove_count(idx, 1)
     # var remainder := _inventory.remove_count(idx, 1)
 
 

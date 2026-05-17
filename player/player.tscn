@@ -138,11 +138,6 @@ _inventory_size = 12
 _message_handler = NodePath("../MessageHandler")
 metadata/_custom_type_script = "uid://bvyrto2wfvoh4"
 
-[node name="ItemUser" type="Node" parent="." unique_id=764778204]
-unique_name_in_owner = true
-script = ExtResource("7_kb6p2")
-metadata/_custom_type_script = "uid://xgc14u80w6pu"
-
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1905954674]
 
 [node name="Gui" parent="CanvasLayer" unique_id=64399052 node_paths=PackedStringArray("_crosshair_raycast", "_message_handler", "_journal", "_inventory", "_item_user") instance=ExtResource("5_boad6")]
@@ -167,6 +162,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="ItemUser" type="Node" parent="." unique_id=764778204]
+unique_name_in_owner = true
+script = ExtResource("7_kb6p2")
+metadata/_custom_type_script = "uid://xgc14u80w6pu"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=823973827]
 unique_name_in_owner = true

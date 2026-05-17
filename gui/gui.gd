@@ -65,6 +65,9 @@ func _ready() -> void:
     if _item_user:
         _inventory_menu.set_item_user(_item_user)
         _toolbar.set_item_user(_item_user)
+        _item_user.item_place_mode.connect(
+            func(enabled: bool) -> void: _crosshair.visible = not enabled
+        )
 
     _default_crosshair_texture = _crosshair.texture
 
