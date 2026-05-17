@@ -15,14 +15,14 @@ signal drop_button_pressed
 
 const NO_ITEM_SELECTED_TEXT = "[select an item]"
 
+var _move_mode := false
+
 @onready var _item_model: MeshInstance3D = %ItemModel
 @onready var _use_button: Button = %UseButton
 @onready var _move_button: Button = %MoveButton
 @onready var _drop_button: Button = %DropButton
 @onready var _name_label: Label = %NameLabel
 @onready var _desc_label: Label = %DescLabel
-
-var _move_mode := false
 
 
 func _ready() -> void:

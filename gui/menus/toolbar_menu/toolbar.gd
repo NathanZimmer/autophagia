@@ -1,4 +1,4 @@
-class_name  iToolbar extends HBoxContainer
+class_name iToolbar extends HBoxContainer
 ## TODO
 
 # TODO: Reduce code duplication from inventory_menu
@@ -8,8 +8,6 @@ const TOOLBAR_SIZE := 4
 
 var InventoryIcon := preload("uid://c4b0a3scm2jlc")
 
-@onready var _toolbar_container: GridContainer = %ToolbarContainer
-
 var _inventory: Inventory
 var _item_user: ItemUser
 
@@ -17,6 +15,7 @@ var _item_user: ItemUser
 var _icon_index_map: Dictionary[iInventoryIcon, int]
 var _selected_icon: iInventoryIcon
 
+@onready var _toolbar_container: GridContainer = %ToolbarContainer
 
 func _ready() -> void:
     _init_toolbar_container()
@@ -66,7 +65,7 @@ func _use_selected_item() -> void:
     if not used:
         return
 
-    var _remainder := _inventory.remove_count(idx, 1)
+    # var remainder := _inventory.remove_count(idx, 1)
 
 
 ## Add `InventoryIcon` children to inventory container
