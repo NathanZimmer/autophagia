@@ -4,10 +4,12 @@ class_name ItemUser extends Node
 ## siblings to `owner`
 
 ## Emit to adjust player temperature component
-signal temp_adjusted(amount: int)
+# signal temp_adjusted(amount: int)
 ## Emit to adjust player hunger component
-signal hunger_adjusted(amount: int)
+# signal hunger_adjusted(amount: int)
 
+# FIXME: Make this properly block pause menu and allow canceling the placement,
+# AKA: putting the item back in your inventory
 ## TODO
 signal item_place_mode(enabled: bool)
 
@@ -51,7 +53,7 @@ func _test_spawn_ball(count: int, test_inp: String, block_menuing: bool = false)
     print(count, test_inp)
 
     _block_menuing = block_menuing
-    item_place_mode.emit(true)
+    item_place_mode.emit(block_menuing)
 
     var sphere_mesh := SphereMesh.new()
     sphere_mesh.radius = 0.25

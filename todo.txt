@@ -1,0 +1,6 @@
+LATER:
+1. Review all code, update and add docstrings (add "emits" section?). Abastract and fix
+tech debt a little bit. Specifically, fix the way that node references are passed around.
+Make the tight coupling better by making the required references optional? Make the bad
+error hanlding better by adding a warning message if the optional components are missing?
+Fix that whole mess tbh.

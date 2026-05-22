@@ -57,7 +57,7 @@ func _unhandled_input(event: InputEvent) -> void:
             return
 
         _rotate_cam(event)
-        get_tree().get_root().set_input_as_handled()
+        # get_tree().get_root().set_input_as_handled()
 
     elif event is InputEventKey:
         if DEBUG_CAPTURE_MOUSE and event.is_action_pressed("ui_cancel"):
@@ -68,25 +68,25 @@ func _unhandled_input(event: InputEvent) -> void:
 
         elif event.is_action_pressed(InputActions.Player.FLIGHT_TOGGLE) and _dev_controls_enabled:
             _flying = !_flying
-            get_tree().get_root().set_input_as_handled()
+            # get_tree().get_root().set_input_as_handled()
 
         elif (
             event.is_action_pressed(InputActions.Player.COLLISION_TOGGLE) and _dev_controls_enabled
         ):
             _collider.disabled = not _collider.disabled
-            get_tree().get_root().set_input_as_handled()
+            # get_tree().get_root().set_input_as_handled()
 
     elif event is InputEventMouseButton:
         var mw_input_scale: float = 0.1
         if event.is_action_pressed("mw_down") and _dev_controls_enabled:
             _speed_mod -= mw_input_scale
             _speed_mod = _speed_mod if _speed_mod > _min_speed else _min_speed
-            get_tree().get_root().set_input_as_handled()
+            # get_tree().get_root().set_input_as_handled()
 
         elif event.is_action_pressed("mw_up") and _dev_controls_enabled:
             _speed_mod += mw_input_scale
             _speed_mod = _speed_mod if _speed_mod < _max_speed else _max_speed
-            get_tree().get_root().set_input_as_handled()
+            # get_tree().get_root().set_input_as_handled()
 
 
 func _physics_process(delta: float) -> void:

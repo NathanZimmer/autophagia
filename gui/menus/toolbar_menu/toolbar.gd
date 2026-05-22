@@ -11,17 +11,14 @@ var InventoryIcon := preload("uid://c4b0a3scm2jlc")
 var _inventory: Inventory
 var _item_user: ItemUser
 
-## Map icons in GUI to corresponding indices in Inventory
-var _icon_index_map: Dictionary[iInventoryIcon, int]
-var _selected_icon: iInventoryIcon
+var _selected_index := 0
 
 @onready var _toolbar_container: GridContainer = %ToolbarContainer
 
 
 func _ready() -> void:
     _init_toolbar_container()
-    _selected_icon = _toolbar_container.get_child(0)
-    _selected_icon._on_select()
+    _toolbar_container.get_child(0)._on_select()
 
     await get_tree().process_frame
     if not _inventory:
@@ -37,26 +34,36 @@ func _input(event: InputEvent) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-    if not event is InputEventKey:
+    if not (event is InputEventKey or event is InputEventMouseButton):
         return
     if event.is_released():
         return
 
-    var keycode: int = event.keycode - 48
-    if not (keycode <= TOOLBAR_SIZE and keycode > 0):
-        return
+    var new_index: int
+    if event is InputEventMouseButton:
+        if event.is_action_pressed("mw_up"):
+            new_index = _selected_index + 1
+        elif event.is_action_pressed("mw_down"):
+            new_index = _selected_index - 1
+        else:
+            return
+        new_index = wrap(new_index, 0, TOOLBAR_SIZE)
+    else:
+        var keycode: int = event.keycode - 49
+        if not (keycode < TOOLBAR_SIZE and keycode >= 0):
+            return
+        new_index = keycode
 
-    # TODO: Add option to use scroll wheel to change selected item
-    _selected_icon.deselect()
-    _selected_icon = _toolbar_container.get_child(keycode - 1)
-    _selected_icon._on_select()
+    _toolbar_container.get_child(_selected_index).deselect()
+    _selected_index = new_index
+    _toolbar_container.get_child(new_index)._on_select()
+
     accept_event()
 
 
 ## TODO
 func _use_selected_item() -> void:
-    var idx := _icon_index_map[_selected_icon]
-    var item := _inventory.get_item(idx)
+    var item := _inventory.get_item(_selected_index)
     var item_info := item.item_info
 
     if not item_info:
@@ -66,24 +73,21 @@ func _use_selected_item() -> void:
     if not used:
         return
 
-    _inventory.remove_count(idx, 1)
+    _inventory.remove_count(_selected_index, 1)
     # var remainder := _inventory.remove_count(idx, 1)
 
 
 ## Add `InventoryIcon` children to inventory container
 func _init_toolbar_container() -> void:
-    for i: int in range(0, TOOLBAR_SIZE):
-        _add_icon(_toolbar_container, i)
+    for _i: int in range(0, TOOLBAR_SIZE):
+        _add_icon(_toolbar_container)
 
 
 ## Adds an icon to the specified container [br]
 ## ## Parameters [br]
 ## `container`: Node to add `InventoryIcon` child to [br]
-## `container_idx`: Index in this container to add to. This is added to `_icon_index_map`
-## for later use
-func _add_icon(container: Container, container_index: int) -> void:
+func _add_icon(container: Container) -> void:
     var icon: iInventoryIcon = InventoryIcon.instantiate()
-    _icon_index_map[icon] = container_index
     # icon.item_selected.connect(_on_icon_selection)
     container.add_child(icon)
 
