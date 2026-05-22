@@ -13,6 +13,14 @@ signal field_of_view_changed(fov: int)
 signal input_action_changed(action: StringName, event: InputEvent)
 
 const CONFIG_PATH = "override.cfg"
+const DEFAULT_VSYNC_MODE = DisplayServer.VSyncMode.VSYNC_ENABLED
+const DEFAULT_MAX_FPS = 0
+const DEFAULT_WINDOW_MODE = DisplayServer.WindowMode.WINDOW_MODE_WINDOWED
+const DEFAULT_MOUSE_SENSITIVITY = 50
+const DEFAULT_MOUSE_INVERTED = false
+const DEFAULT_FOV = 90
+const DEFAULT_AUDIO_LEVEL = 100
+
 var _config_file := ConfigFile.new()
 
 
@@ -29,7 +37,7 @@ func save_vsync_mode(mode: DisplayServer.VSyncMode) -> void:
 
 func load_vsync_mode() -> DisplayServer.VSyncMode:
     var project_vsync: DisplayServer.VSyncMode = _config_file.get_value(
-        "display", "window/vsync/vsync_mode", DisplayServer.VSyncMode.VSYNC_ENABLED
+        "display", "window/vsync/vsync_mode", DEFAULT_VSYNC_MODE
     )
     var display_vsync := DisplayServer.window_get_vsync_mode()
     if project_vsync != display_vsync:
@@ -50,7 +58,7 @@ func save_max_fps(max_fps: int) -> void:
 
 
 func load_max_fps() -> int:
-    var project_fps: int = _config_file.get_value("application", "run/max_fps", 0)
+    var project_fps: int = _config_file.get_value("application", "run/max_fps", DEFAULT_MAX_FPS)
     var engine_fps := Engine.max_fps
     if engine_fps != project_fps:
         push_warning(
@@ -73,7 +81,7 @@ func save_fullscreen(fullscreen: bool) -> void:
 
 func load_fullscreen() -> bool:
     var project_fs: DisplayServer.WindowMode = _config_file.get_value(
-        "display", "window/size/mode", DisplayServer.WindowMode.WINDOW_MODE_WINDOWED
+        "display", "window/size/mode", DEFAULT_WINDOW_MODE
     )
     var display_fs := DisplayServer.window_get_mode()
     if project_fs != display_fs:
@@ -93,7 +101,7 @@ func save_mouse_sensitivity(sensitivity: int) -> void:
 
 
 func load_mouse_sensitivity() -> int:
-    return _config_file.get_value("player", "camera/mouse_sensitivity", 50)
+    return _config_file.get_value("player", "camera/mouse_sensitivity", DEFAULT_MOUSE_SENSITIVITY)
 
 
 func save_mouse_inverted(inverted: bool) -> void:
@@ -103,7 +111,7 @@ func save_mouse_inverted(inverted: bool) -> void:
 
 
 func load_mouse_inverted() -> bool:
-    return _config_file.get_value("player", "camera/mouse_inverted", false)
+    return _config_file.get_value("player", "camera/mouse_inverted", DEFAULT_MOUSE_INVERTED)
 
 
 func save_fov(fov: int) -> void:
@@ -113,7 +121,7 @@ func save_fov(fov: int) -> void:
 
 
 func load_fov() -> int:
-    return _config_file.get_value("player", "camera/field_of_view", 90)
+    return _config_file.get_value("player", "camera/field_of_view", DEFAULT_FOV)
 
 
 func save_audio(bus_name: StringName, level: int) -> void:
@@ -124,7 +132,7 @@ func save_audio(bus_name: StringName, level: int) -> void:
 
 
 func load_audio(bus_name: StringName) -> int:
-    return _config_file.get_value("audio", "%s_level" % bus_name.to_lower(), 0)
+    return _config_file.get_value("audio", "%s_level" % bus_name.to_lower(), DEFAULT_AUDIO_LEVEL)
 
 
 func save_input_action(action: StringName, event: InputEvent) -> void:
