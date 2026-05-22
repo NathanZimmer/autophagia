@@ -6,3 +6,6 @@
 
 # Blender ignores
 *.blend1
+
+# Overrides
+override.cfg
