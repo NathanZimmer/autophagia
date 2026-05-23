@@ -16,7 +16,7 @@ var _selected_index := 0
 
 func _ready() -> void:
     _init_toolbar_container()
-    _toolbar_container.get_child(0)._on_select()
+    _toolbar_container.get_child(0).select()
 
     await get_tree().process_frame
     if not _inventory:
@@ -55,7 +55,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
     _toolbar_container.get_child(_selected_index).deselect()
     _selected_index = new_index
-    _toolbar_container.get_child(new_index)._on_select()
+    _toolbar_container.get_child(new_index).select()
 
     accept_event()
 

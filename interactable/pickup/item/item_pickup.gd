@@ -5,8 +5,8 @@ class_name ItemPickup extends Node3D
 
 ## The item that this pickup holds
 @export var _item_info: ItemInfo
-## The count of this pickup's item
-@export var _count := 1
+## The start count of this pickup's item
+@export var _start_count := 1
 
 var _item: InventoryItem
 var _disable_next_collision := false
@@ -21,7 +21,7 @@ func _ready() -> void:
     if Engine.is_editor_hint():
         return
 
-    _item = InventoryItem.new(_item_info, _count)
+    _item = InventoryItem.new(_item_info, _start_count)
     _item.depleted.connect(queue_free)
 
     var collision_triggers := find_children("*", "CollisionTrigger", false)
@@ -34,9 +34,8 @@ func _ready() -> void:
 func reset(item_info: ItemInfo, count: int, disable_next_collision := false) -> void:
     _disable_next_collision = disable_next_collision
     _item_info = item_info
-    _count = count
     _floating_icon.mesh = _item_info.mesh
-    _item.reset(_item_info, _count)
+    _item.reset(_item_info, count)
 
 
 ## Send `_item` to body that has collided with this node
@@ -47,8 +46,10 @@ func _send_item(body: Node3D) -> void:
 
     var handlers := body.find_children("*", "MessageHandler", false)
     if not handlers.is_empty():
-        AudioManager.play_pressed()
+        var count_before := _item.count
         handlers[0].send_item(_item)
+        if count_before > _item.count:
+            AudioManager.play_pressed()
 
 
 ## Show warning if we don't have a CollisionTrigger child
