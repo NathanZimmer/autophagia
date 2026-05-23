@@ -162,31 +162,19 @@ func _update_inventory_container() -> void:
     var icons: Array[iInventoryIcon]
     icons.assign(_toolbar_container.get_children() + _inventory_container.get_children())
 
-    var next_index := 0
     var toolbar_size := _inventory.get_toolbar_size()
-    for i: int in range(MAX_TOOLBAR_SIZE):
-        if next_index < toolbar_size:
-            var icon := icons[next_index]
-            icon.set_used(true)
-            _icon_index_map[icon] = next_index
-            var item := _inventory.get_item(next_index)
-
-            if item.item_info and item.count > 0:
-                icon.set_item(item.item_info, item.count)
-            else:
-                icon.clear_item()
-
-            next_index += 1
-        else:
-            icons[i].set_used(false)
-
     var inventory_size := _inventory.get_size()
-    for i: int in range(MAX_TOOLBAR_SIZE, MAX_TOOLBAR_SIZE + MAX_INVENTORY_SIZE):
-        if next_index < inventory_size:
-            var icon := icons[i]
+    var next_index := 0
+
+    for i: int in range(MAX_TOOLBAR_SIZE + MAX_INVENTORY_SIZE):
+        var icon := icons[i]
+        var max_size := toolbar_size if i < MAX_TOOLBAR_SIZE else inventory_size
+
+        if next_index < max_size:
             icon.set_used(true)
             _icon_index_map[icon] = next_index
             var item := _inventory.get_item(next_index)
+
             if item.item_info and item.count > 0:
                 icon.set_item(item.item_info, item.count)
             else:
@@ -194,7 +182,7 @@ func _update_inventory_container() -> void:
 
             next_index += 1
         else:
-            icons[i].set_used(false)
+            icon.set_used(false)
 
 
 ## Set the `ItemInfo` and count of each invetory icon from `_chest`
@@ -202,14 +190,17 @@ func _update_chest_container() -> void:
     var icons: Array[iInventoryIcon]
     icons.assign(_chest_container.get_children())
 
-    var next_index := 0
     var chest_size := _chest.get_size()
+    var next_index := 0
+
     for i: int in range(MAX_CHEST_SIZE):
+        var icon := icons[next_index]
+
         if next_index < chest_size:
-            var icon := icons[next_index]
             icon.set_used(true)
             _icon_index_map[icon] = next_index
             var item := _chest.get_item(next_index)
+
             if item.item_info and item.count > 0:
                 icon.set_item(item.item_info, item.count)
             else:
@@ -217,7 +208,7 @@ func _update_chest_container() -> void:
 
             next_index += 1
         else:
-            icons[i].set_used(false)
+            icon.set_used(false)
 
 
 ## set inventory component and updated GUI
