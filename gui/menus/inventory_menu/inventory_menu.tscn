@@ -38,6 +38,7 @@ size_flags_vertical = 4
 alignment = 1
 
 [node name="InventoryPanelContainer" type="PanelContainer" parent="MenuContainer/PlayerHBoxContainer" unique_id=1085916475]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -70,7 +71,7 @@ size_flags_horizontal = 4
 alignment = 1
 
 [node name="SelectionPanelContainer" type="PanelContainer" parent="MenuContainer/PlayerHBoxContainer/InfoVBoxContainer" unique_id=296932975]
-custom_minimum_size = Vector2(0, 210)
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"InventoryPanelContainer"
@@ -87,6 +88,7 @@ text = "Cancel"
 alignment = 2
 
 [node name="StatusPanelContainer" type="PanelContainer" parent="MenuContainer/PlayerHBoxContainer/InfoVBoxContainer" unique_id=1091718880]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_vertical = 4

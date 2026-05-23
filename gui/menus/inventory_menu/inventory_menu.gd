@@ -27,10 +27,9 @@ var _move_mode_icon: iInventoryIcon
 @onready var _selected_item_menu: iSelectedItemMenu = %SelectedItemMenu
 @onready var _count_popup: iCountPopup = %CountPopup
 
-# @onready var _inventory_panel_container: PanelContainer = %InventoryPanelContainer
-# @onready var _selection_panel_container: PanelContainer = %SelectionPanelContainer
-
-# @onready var _move_mode_button: Button = %CancelMoveModeButton
+@onready var _inventory_panel_container: PanelContainer = %InventoryPanelContainer
+@onready var _selection_panel_container: PanelContainer = %SelectionPanelContainer
+@onready var _status_panel_container: PanelContainer = %StatusPanelContainer
 
 @onready var _chest_panel: PanelContainer = %ChestPanelContainer
 @onready var _chest_container: GridContainer = %ChestContainer
@@ -49,14 +48,16 @@ func _ready() -> void:
             else:
                 _start_move_mode()
     )
-    # _move_mode_button.pressed.connect(_end_move_mode)
+    _inventory_panel_container.resized.connect(
+        func() -> void:
+            var margin := 4  # Margin of selection and status parent container
+            _selection_panel_container.custom_minimum_size.y = (
+                _inventory_panel_container.size.y - _status_panel_container.size.y - margin
+            )
+    )
 
     _init_inventory_container()
     _init_chest_container()
-
-    # _selection_panel_container.custom_minimum_size.y = (
-    #     _inventory_panel_container.size.y - 54  # 54 for height of status panel + margin
-    # )
 
     await get_tree().process_frame
     if not _inventory:
