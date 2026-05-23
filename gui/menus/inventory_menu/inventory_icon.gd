@@ -20,6 +20,7 @@ const THEME_UNUSED = &"InventoryIconPanelUnused"
 
 var _item: ItemInfo
 var _selection_mode: SelectionMode
+var _used := false
 
 @onready var _name_label: Label = %NameLabel
 @onready var _count_label: Label = %CountLabel
@@ -30,6 +31,7 @@ var _selection_mode: SelectionMode
 
 func _ready() -> void:
     _selected_overlay.material.set("shader_parameter/color", _overlay_color)
+    _panel.theme_type_variation = THEME_UNUSED
 
     _icon_button.pressed.connect(_on_select)
     _icon_button.mouse_entered.connect(func() -> void: _icon_button.modulate = HOVER_COLOR)
@@ -39,8 +41,7 @@ func _ready() -> void:
 
 
 func _on_select() -> void:
-    # _icon_button.grab_focus()
-    if _panel.theme_type_variation == THEME_UNUSED:
+    if not _used:
         return
     _selected_overlay.show()
     item_selected.emit(self)
@@ -92,10 +93,14 @@ func clear_item() -> void:
     _count_label.text = "None"
 
 
+## TODO
 func set_unused() -> void:
     clear_item()
+    _used = false
     _panel.theme_type_variation = THEME_UNUSED
 
 
+## TODO
 func set_used() -> void:
+    _used = true
     _panel.theme_type_variation = THEME_DEFAULT
