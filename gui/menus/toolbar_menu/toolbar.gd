@@ -104,14 +104,16 @@ func _update_toolbar_container() -> void:
     for i: int in range(MAX_TOOLBAR_SIZE):
         if next_index < toolbar_size:
             var item := _inventory.get_item(next_index)
+            var icon := icons[next_index]
+            icon.set_used(true)
             if item.item_info and item.count > 0:
-                icons[next_index].set_item(item.item_info, item.count)
+                icon.set_item(item.item_info, item.count)
             else:
-                icons[next_index].clear_item()
+                icon.clear_item()
 
             next_index += 1
         else:
-            icons[i].set_unused()
+            icons[i].set_used(false)
 
 
 ## set inventory component and updated GUI

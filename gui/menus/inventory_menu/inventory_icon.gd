@@ -88,19 +88,14 @@ func clear_item() -> void:
     _count_label.hide()
     _icon_button.texture_normal = null
 
+
     _item = null
     _name_label.text = "None"
     _count_label.text = "None"
 
 
 ## TODO
-func set_unused() -> void:
-    clear_item()
-    _used = false
-    _panel.theme_type_variation = THEME_UNUSED
-
-
-## TODO
-func set_used() -> void:
-    _used = true
-    _panel.theme_type_variation = THEME_DEFAULT
+func set_used(used: bool) -> void:
+    _used = used
+    _icon_button.disabled = not used
+    _panel.theme_type_variation = THEME_DEFAULT if used else THEME_UNUSED

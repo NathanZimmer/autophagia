@@ -167,7 +167,7 @@ func _update_inventory_container() -> void:
     for i: int in range(MAX_TOOLBAR_SIZE):
         if next_index < toolbar_size:
             var icon := icons[next_index]
-            icon.set_used()
+            icon.set_used(true)
             _icon_index_map[icon] = next_index
             var item := _inventory.get_item(next_index)
 
@@ -178,13 +178,13 @@ func _update_inventory_container() -> void:
 
             next_index += 1
         else:
-            icons[i].set_unused()
+            icons[i].set_used(false)
 
     var inventory_size := _inventory.get_size()
     for i: int in range(MAX_TOOLBAR_SIZE, MAX_TOOLBAR_SIZE + MAX_INVENTORY_SIZE):
         if next_index < inventory_size:
             var icon := icons[i]
-            icon.set_used()
+            icon.set_used(true)
             _icon_index_map[icon] = next_index
             var item := _inventory.get_item(next_index)
             if item.item_info and item.count > 0:
@@ -194,19 +194,30 @@ func _update_inventory_container() -> void:
 
             next_index += 1
         else:
-            icons[i].set_unused()
+            icons[i].set_used(false)
 
 
 ## Set the `ItemInfo` and count of each invetory icon from `_chest`
 func _update_chest_container() -> void:
     var icons: Array[iInventoryIcon]
     icons.assign(_chest_container.get_children())
-    for i: int in range(_chest.get_size()):
-        var item := _chest.get_item(i)
-        if item.item_info and item.count > 0:
-            icons[i].set_item(item.item_info, item.count)
+
+    var next_index := 0
+    var chest_size := _chest.get_size()
+    for i: int in range(MAX_CHEST_SIZE):
+        if next_index < chest_size:
+            var icon := icons[next_index]
+            icon.set_used(true)
+            _icon_index_map[icon] = next_index
+            var item := _chest.get_item(next_index)
+            if item.item_info and item.count > 0:
+                icon.set_item(item.item_info, item.count)
+            else:
+                icon.clear_item()
+
+            next_index += 1
         else:
-            icons[i].clear_item()
+            icons[i].set_used(false)
 
 
 ## set inventory component and updated GUI
