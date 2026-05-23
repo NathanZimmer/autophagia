@@ -134,7 +134,8 @@ metadata/_custom_type_script = "uid://bnbt62ete8km4"
 [node name="Inventory" type="Node" parent="." unique_id=1545370011 node_paths=PackedStringArray("_message_handler")]
 unique_name_in_owner = true
 script = ExtResource("6_yllr7")
-_inventory_size = 12
+_inventory_size = 8
+_toolbar_size = 2
 _message_handler = NodePath("../MessageHandler")
 metadata/_custom_type_script = "uid://bvyrto2wfvoh4"
 

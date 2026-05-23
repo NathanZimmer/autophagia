@@ -3,8 +3,8 @@ class_name iToolbar extends HBoxContainer
 
 # TODO: Reduce code duplication from inventory_menu
 
-# TODO: Get rid of this when toolbar code is added
-const TOOLBAR_SIZE := 4
+## Max toolbar size the UI can support without scaling changes
+const MAX_TOOLBAR_SIZE := 4
 
 var InventoryIcon := preload("uid://c4b0a3scm2jlc")
 
@@ -41,16 +41,17 @@ func _unhandled_input(event: InputEvent) -> void:
 
     var new_index: int
     if event is InputEventMouseButton:
-        if event.is_action_pressed("mw_up"):
+        if event.is_action_pressed(InputActions.Ui.NEXT):
             new_index = _selected_index + 1
-        elif event.is_action_pressed("mw_down"):
+        elif event.is_action_pressed(InputActions.Ui.PREV):
             new_index = _selected_index - 1
         else:
             return
-        new_index = wrap(new_index, 0, TOOLBAR_SIZE)
+        new_index = wrap(new_index, 0, _inventory.get_toolbar_size())
     else:
+        # PC Specific non-rebindable settings, no need for input map
         var keycode: int = event.keycode - 49
-        if not (keycode < TOOLBAR_SIZE and keycode >= 0):
+        if not (keycode < _inventory.get_toolbar_size() and keycode >= 0):
             return
         new_index = keycode
 
@@ -63,6 +64,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 ## TODO
 func _use_selected_item() -> void:
+    AudioManager.play_pressed()
     var item := _inventory.get_item(_selected_index)
     var item_info := item.item_info
 
@@ -79,7 +81,7 @@ func _use_selected_item() -> void:
 
 ## Add `InventoryIcon` children to inventory container
 func _init_toolbar_container() -> void:
-    for _i: int in range(0, TOOLBAR_SIZE):
+    for _i: int in range(0, MAX_TOOLBAR_SIZE):
         _add_icon(_toolbar_container)
 
 
@@ -96,12 +98,20 @@ func _add_icon(container: Container) -> void:
 func _update_toolbar_container() -> void:
     var icons: Array[iInventoryIcon]
     icons.assign(_toolbar_container.get_children())
-    for i: int in range(TOOLBAR_SIZE):
-        var item := _inventory.get_item(i)
-        if item.item_info and item.count > 0:
-            icons[i].set_item(item.item_info, item.count)
+
+    var toolbar_size := _inventory.get_toolbar_size()
+    var next_index := 0
+    for i: int in range(MAX_TOOLBAR_SIZE):
+        if next_index < toolbar_size:
+            var item := _inventory.get_item(next_index)
+            if item.item_info and item.count > 0:
+                icons[next_index].set_item(item.item_info, item.count)
+            else:
+                icons[next_index].clear_item()
+
+            next_index += 1
         else:
-            icons[i].clear_item()
+            icons[i].set_unused()
 
 
 ## set inventory component and updated GUI

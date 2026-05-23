@@ -10,6 +10,9 @@ enum SelectionMode { DEFAULT, MOVE }
 ## TODO: Use one constant for this instead of one per file
 const HOVER_COLOR = Color(1.0, 0.66, 0.66)
 
+const THEME_DEFAULT = &"InventoryIconPanel"
+const THEME_UNUSED = &"InventoryIconPanelUnused"
+
 ## Default color to display when this item is selected
 @export var _overlay_color: Color
 ## Color to display when this item is selected and set to `SelectionMode.MOVE`
@@ -22,6 +25,7 @@ var _selection_mode: SelectionMode
 @onready var _count_label: Label = %CountLabel
 @onready var _icon_button: TextureButton = %IconButton
 @onready var _selected_overlay: TextureRect = %SelectedOverlay
+@onready var _panel: Panel = %Panel
 
 
 func _ready() -> void:
@@ -36,6 +40,8 @@ func _ready() -> void:
 
 func _on_select() -> void:
     # _icon_button.grab_focus()
+    if _panel.theme_type_variation == THEME_UNUSED:
+        return
     _selected_overlay.show()
     item_selected.emit(self)
 
@@ -84,3 +90,12 @@ func clear_item() -> void:
     _item = null
     _name_label.text = "None"
     _count_label.text = "None"
+
+
+func set_unused() -> void:
+    clear_item()
+    _panel.theme_type_variation = THEME_UNUSED
+
+
+func set_used() -> void:
+    _panel.theme_type_variation = THEME_DEFAULT

@@ -7,6 +7,7 @@ signal updated
 const MAX_STACK_SIZE = 5
 
 @export var _inventory_size: int
+@export var _toolbar_size: int
 @export var _message_handler: MessageHandler
 
 var _items: Array[InventoryItem]
@@ -128,6 +129,10 @@ func add_new_item(idx: int, item_info: ItemInfo, count: int) -> int:
 
 func get_size() -> int:
     return _inventory_size
+
+
+func get_toolbar_size() -> int:
+    return _toolbar_size
 
 
 func get_item(idx: int) -> InventoryItem:

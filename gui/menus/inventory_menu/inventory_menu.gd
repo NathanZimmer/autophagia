@@ -2,11 +2,12 @@ class_name iInventoryMenu extends iMenuControl
 ## Menu for interfacing with player `Inventory` component and chest `Inventory`
 ## components
 
-# TODO: Get rid of this when toolbar code is added
-const TOOLBAR_SIZE := 4
-
+## Max toolbar size the UI can support without scaling changes
+const MAX_TOOLBAR_SIZE := 4
+## Max inventory size (minus the toolbar) the UI can support without scaling changes
+const MAX_INVENTORY_SIZE := 8
+## Max Chest size the UI can support without scaling changes
 const MAX_CHEST_SIZE := 6
-const MAX_INVENTORY_SIZE := 12
 
 var InventoryIcon := preload("uid://c4b0a3scm2jlc")
 var _inventory: Inventory
@@ -94,9 +95,9 @@ func _on_exit() -> void:
 
 ## Add `InventoryIcon` children to inventory container
 func _init_inventory_container() -> void:
-    for i: int in range(0, TOOLBAR_SIZE):
+    for i: int in range(0, MAX_TOOLBAR_SIZE):
         _add_icon(_toolbar_container, i)
-    for i: int in range(TOOLBAR_SIZE, MAX_INVENTORY_SIZE):
+    for i: int in range(MAX_TOOLBAR_SIZE, MAX_TOOLBAR_SIZE + MAX_INVENTORY_SIZE):
         _add_icon(_inventory_container, i)
 
 
@@ -160,12 +161,40 @@ func _drop_selected_item() -> void:
 func _update_inventory_container() -> void:
     var icons: Array[iInventoryIcon]
     icons.assign(_toolbar_container.get_children() + _inventory_container.get_children())
-    for i: int in range(_inventory.get_size()):
-        var item := _inventory.get_item(i)
-        if item.item_info and item.count > 0:
-            icons[i].set_item(item.item_info, item.count)
+
+    var next_index := 0
+    var toolbar_size := _inventory.get_toolbar_size()
+    for i: int in range(MAX_TOOLBAR_SIZE):
+        if next_index < toolbar_size:
+            var icon := icons[next_index]
+            icon.set_used()
+            _icon_index_map[icon] = next_index
+            var item := _inventory.get_item(next_index)
+
+            if item.item_info and item.count > 0:
+                icon.set_item(item.item_info, item.count)
+            else:
+                icon.clear_item()
+
+            next_index += 1
         else:
-            icons[i].clear_item()
+            icons[i].set_unused()
+
+    var inventory_size := _inventory.get_size()
+    for i: int in range(MAX_TOOLBAR_SIZE, MAX_TOOLBAR_SIZE + MAX_INVENTORY_SIZE):
+        if next_index < inventory_size:
+            var icon := icons[i]
+            icon.set_used()
+            _icon_index_map[icon] = next_index
+            var item := _inventory.get_item(next_index)
+            if item.item_info and item.count > 0:
+                icon.set_item(item.item_info, item.count)
+            else:
+                icon.clear_item()
+
+            next_index += 1
+        else:
+            icons[i].set_unused()
 
 
 ## Set the `ItemInfo` and count of each invetory icon from `_chest`
