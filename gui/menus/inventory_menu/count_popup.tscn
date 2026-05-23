@@ -66,6 +66,8 @@ size_flags_horizontal = 4
 min_value = 1.0
 value = 1.0
 rounded = true
+allow_greater = true
+allow_lesser = true
 alignment = 1
 
 [node name="ConfirmLabel" type="Label" parent="Panel/VBoxContainer" unique_id=1712626072]

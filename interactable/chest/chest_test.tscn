@@ -3,11 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://bn2tmn3fg0c2c" path="res://common/test.tscn" id="1_soyt1"]
 [ext_resource type="PackedScene" uid="uid://u87ws5522ov" path="res://interactable/pickup/item/item_pickup.tscn" id="2_nlb5b"]
 [ext_resource type="Shader" uid="uid://dj2ckf3xn6sm8" path="res://interactable/pickup/materials/floating_icon.gdshader" id="3_gjio2"]
+[ext_resource type="Texture2D" uid="uid://ltip2yr1ygo5" path="res://assets/gui/menus/inventory_menu/placeholder_icon.png" id="3_ppjgg"]
 [ext_resource type="Script" uid="uid://c3qhshchoa8wk" path="res://inventory/item_info.gd" id="4_kug0b"]
 [ext_resource type="PackedScene" uid="uid://bj3nk0xoyapud" path="res://interactable/chest/chest.tscn" id="5_qf7nj"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_lk1rc"]
-size = Vector2(64, 64)
+[ext_resource type="Texture2D" uid="uid://d3ge7iaibvgyx" path="res://assets/gui/menus/inventory_menu/placeholder_icon_2.png" id="6_3r1aw"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_tbin1"]
 
@@ -31,14 +30,11 @@ size = Vector3(0.4, 0.4, 0.4)
 script = ExtResource("4_kug0b")
 name = &"Test Item"
 description = "This is a test description. Use this item to do nothing."
-icon = SubResource("PlaceholderTexture2D_lk1rc")
+icon = ExtResource("3_ppjgg")
 mesh = SubResource("BoxMesh_qf7nj")
 function = "_test"
 args = ["testing this"]
 metadata/_custom_type_script = "uid://c3qhshchoa8wk"
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_i3p8x"]
-size = Vector2(64, 64)
 
 [sub_resource type="SphereMesh" id="SphereMesh_1twht"]
 material = SubResource("ShaderMaterial_1twht")
@@ -49,7 +45,7 @@ height = 0.5
 script = ExtResource("4_kug0b")
 name = &"Test Item 2"
 description = "This is a test description. Use this item to do nothing. Just does nothing."
-icon = SubResource("PlaceholderTexture2D_i3p8x")
+icon = ExtResource("6_3r1aw")
 mesh = SubResource("SphereMesh_1twht")
 function = "_test"
 args = ["testing this 2"]

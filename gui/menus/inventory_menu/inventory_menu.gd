@@ -2,11 +2,12 @@ class_name iInventoryMenu extends iMenuControl
 ## Menu for interfacing with player `Inventory` component and chest `Inventory`
 ## components
 
-# TODO: Get rid of this when toolbar code is added
-const TOOLBAR_SIZE := 4
-
-const MAX_CHEST_SIZE := 5
-const MAX_INVENTORY_SIZE := 12
+## Max toolbar size the UI can support without scaling changes
+const MAX_TOOLBAR_SIZE := 4
+## Max inventory size (minus the toolbar) the UI can support without scaling changes
+const MAX_INVENTORY_SIZE := 8
+## Max Chest size the UI can support without scaling changes
+const MAX_CHEST_SIZE := 6
 
 var InventoryIcon := preload("uid://c4b0a3scm2jlc")
 var _inventory: Inventory
@@ -26,10 +27,12 @@ var _move_mode_icon: iInventoryIcon
 @onready var _selected_item_menu: iSelectedItemMenu = %SelectedItemMenu
 @onready var _count_popup: iCountPopup = %CountPopup
 
-@onready var _move_mode_button: Button = %CancelMoveModeButton
+@onready var _inventory_panel_container: PanelContainer = %InventoryPanelContainer
+@onready var _selection_panel_container: PanelContainer = %SelectionPanelContainer
+@onready var _status_panel_container: PanelContainer = %StatusPanelContainer
 
-@onready var _chest_panel: Panel = %ContainerPanel
-@onready var _chest_container: GridContainer = %ContainerContainer
+@onready var _chest_panel: PanelContainer = %ChestPanelContainer
+@onready var _chest_container: GridContainer = %ChestContainer
 
 
 func _ready() -> void:
@@ -38,8 +41,20 @@ func _ready() -> void:
 
     _selected_item_menu.use_button_pressed.connect(_use_selected_item)
     _selected_item_menu.drop_button_pressed.connect(_drop_selected_item)
-    _selected_item_menu.move_button_pressed.connect(_start_move_mode)
-    _move_mode_button.pressed.connect(_end_move_mode)
+    _selected_item_menu.move_button_pressed.connect(
+        func() -> void:
+            if _move_mode:
+                _end_move_mode()
+            else:
+                _start_move_mode()
+    )
+    _inventory_panel_container.resized.connect(
+        func() -> void:
+            var margin := 4  # Margin of selection and status parent container
+            _selection_panel_container.custom_minimum_size.y = (
+                _inventory_panel_container.size.y - _status_panel_container.size.y - margin
+            )
+    )
 
     _init_inventory_container()
     _init_chest_container()
@@ -81,9 +96,9 @@ func _on_exit() -> void:
 
 ## Add `InventoryIcon` children to inventory container
 func _init_inventory_container() -> void:
-    for i: int in range(0, TOOLBAR_SIZE):
+    for i: int in range(0, MAX_TOOLBAR_SIZE):
         _add_icon(_toolbar_container, i)
-    for i: int in range(TOOLBAR_SIZE, MAX_INVENTORY_SIZE):
+    for i: int in range(MAX_TOOLBAR_SIZE, MAX_TOOLBAR_SIZE + MAX_INVENTORY_SIZE):
         _add_icon(_inventory_container, i)
 
 
@@ -147,24 +162,54 @@ func _drop_selected_item() -> void:
 func _update_inventory_container() -> void:
     var icons: Array[iInventoryIcon]
     icons.assign(_toolbar_container.get_children() + _inventory_container.get_children())
-    for i: int in range(_inventory.get_size()):
-        var item := _inventory.get_item(i)
-        if item.item_info and item.count > 0:
-            icons[i].set_item(item.item_info, item.count)
+
+    var toolbar_size := _inventory.get_toolbar_size()
+    var inventory_size := _inventory.get_size()
+    var next_index := 0
+
+    for i: int in range(MAX_TOOLBAR_SIZE + MAX_INVENTORY_SIZE):
+        var icon := icons[i]
+        var max_size := toolbar_size if i < MAX_TOOLBAR_SIZE else inventory_size
+
+        if next_index < max_size:
+            icon.set_used(true)
+            _icon_index_map[icon] = next_index
+            var item := _inventory.get_item(next_index)
+
+            if item.item_info and item.count > 0:
+                icon.set_item(item.item_info, item.count)
+            else:
+                icon.clear_item()
+
+            next_index += 1
         else:
-            icons[i].clear_item()
+            icon.set_used(false)
 
 
 ## Set the `ItemInfo` and count of each invetory icon from `_chest`
 func _update_chest_container() -> void:
     var icons: Array[iInventoryIcon]
     icons.assign(_chest_container.get_children())
-    for i: int in range(_chest.get_size()):
-        var item := _chest.get_item(i)
-        if item.item_info and item.count > 0:
-            icons[i].set_item(item.item_info, item.count)
+
+    var chest_size := _chest.get_size()
+    var next_index := 0
+
+    for i: int in range(MAX_CHEST_SIZE):
+        var icon := icons[next_index]
+
+        if next_index < chest_size:
+            icon.set_used(true)
+            _icon_index_map[icon] = next_index
+            var item := _chest.get_item(next_index)
+
+            if item.item_info and item.count > 0:
+                icon.set_item(item.item_info, item.count)
+            else:
+                icon.clear_item()
+
+            next_index += 1
         else:
-            icons[i].clear_item()
+            icon.set_used(false)
 
 
 ## set inventory component and updated GUI
@@ -267,17 +312,19 @@ func _move_item(icon: iInventoryIcon) -> void:
 ## Enter move mode and perform move mode setup
 func _start_move_mode() -> void:
     _move_mode = true
+    _selected_item_menu.toggle_move_mode()
     _selected_icon.set_selection_mode(iInventoryIcon.SelectionMode.MOVE)
-    _selected_item_menu.set_buttons_disabled(true, true, true)
-    _move_mode_button.show()
+    _selected_item_menu.set_buttons_disabled(true, false, true)
+    # _move_mode_button.show()
 
 
 ## Exit move mode and perform move mode cleanup
 func _end_move_mode() -> void:
     _move_mode = false
+    _selected_item_menu.toggle_move_mode()
     _selected_icon.set_selection_mode(iInventoryIcon.SelectionMode.DEFAULT)
     _selected_item_menu.set_buttons_disabled(_chest != null, false, _chest != null)
-    _move_mode_button.hide()
+    # _move_mode_button.hide()
 
     if not _move_mode_icon:
         return

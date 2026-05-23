@@ -10,6 +10,9 @@ enum SelectionMode { DEFAULT, MOVE }
 ## TODO: Use one constant for this instead of one per file
 const HOVER_COLOR = Color(1.0, 0.66, 0.66)
 
+const THEME_DEFAULT = &"InventoryIconPanel"
+const THEME_UNUSED = &"InventoryIconPanelUnused"
+
 ## Default color to display when this item is selected
 @export var _overlay_color: Color
 ## Color to display when this item is selected and set to `SelectionMode.MOVE`
@@ -17,15 +20,18 @@ const HOVER_COLOR = Color(1.0, 0.66, 0.66)
 
 var _item: ItemInfo
 var _selection_mode: SelectionMode
+var _used := false
 
 @onready var _name_label: Label = %NameLabel
 @onready var _count_label: Label = %CountLabel
 @onready var _icon_button: TextureButton = %IconButton
 @onready var _selected_overlay: TextureRect = %SelectedOverlay
+@onready var _panel: Panel = %Panel
 
 
 func _ready() -> void:
     _selected_overlay.material.set("shader_parameter/color", _overlay_color)
+    _panel.theme_type_variation = THEME_UNUSED
 
     _icon_button.pressed.connect(_on_select)
     _icon_button.mouse_entered.connect(func() -> void: _icon_button.modulate = HOVER_COLOR)
@@ -35,7 +41,8 @@ func _ready() -> void:
 
 
 func _on_select() -> void:
-    # _icon_button.grab_focus()
+    if not _used:
+        return
     _selected_overlay.show()
     item_selected.emit(self)
 
@@ -84,3 +91,12 @@ func clear_item() -> void:
     _item = null
     _name_label.text = "None"
     _count_label.text = "None"
+
+
+## Set whether this icon maps to an index in the inventory [br]
+## ## Parameters [br]
+## `used`: Whether this icon can be used
+func set_used(used: bool) -> void:
+    _used = used
+    _icon_button.disabled = not used
+    _panel.theme_type_variation = THEME_DEFAULT if used else THEME_UNUSED

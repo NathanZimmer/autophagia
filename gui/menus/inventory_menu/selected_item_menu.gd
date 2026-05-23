@@ -2,6 +2,8 @@ class_name iSelectedItemMenu extends VBoxContainer
 ## Menu for the selected item. Shows model, name, and description. Has buttons for using
 ## dropping, and moving this item.
 
+# FIXME: Figure out best way to manage the vertex snap shader. I.e. 320x240 vs 96x60
+
 ## Emit when the use button is pressed.
 signal use_button_pressed
 
@@ -11,7 +13,13 @@ signal move_button_pressed
 ## Emit when the drop button is pressed.
 signal drop_button_pressed
 
+## Text to display in place of the item desc when no item is selected
 const NO_ITEM_SELECTED_TEXT = "[select an item]"
+## Text to display in place of the move button text during "move mode"
+const ALT_MOVE_TEXT = "Cancel"
+
+var _move_mode := false
+var _default_move_text: String
 
 @onready var _item_model: MeshInstance3D = %ItemModel
 @onready var _use_button: Button = %UseButton
@@ -27,6 +35,7 @@ func _ready() -> void:
     _use_button.pressed.connect(use_button_pressed.emit)
     _move_button.pressed.connect(move_button_pressed.emit)
     _drop_button.pressed.connect(drop_button_pressed.emit)
+    _default_move_text = _move_button.text
 
 
 ## Clears the menu and hides all elements.
@@ -63,6 +72,12 @@ func set_buttons_disabled(disable_use: bool, disable_move: bool, disable_drop: b
     _use_button.disabled = disable_use
     _move_button.disabled = disable_move
     _drop_button.disabled = disable_drop
+
+
+## Toggle move mode (AKA, toggle move button behavior)
+func toggle_move_mode() -> void:
+    _move_mode = not _move_mode
+    _move_button.text = ALT_MOVE_TEXT if _move_mode else _default_move_text
 
 
 ## Set the item to be displayed in the menu

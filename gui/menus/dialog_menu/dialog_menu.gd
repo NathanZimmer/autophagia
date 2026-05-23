@@ -80,13 +80,15 @@ func _unhandled_input(event: InputEvent) -> void:
     # there is no controller equivilant
     if not event is InputEventKey:
         return
-    if not (event.keycode < 47 + MAX_DIALOG_OPTIONS and event.keycode > 47):
+
+    var keycode: int = event.keycode - 48
+    if not (keycode <= MAX_DIALOG_OPTIONS and event.keycode > 0):
         return
 
     var buttons := _button_container.get_children()
-    if not buttons[event.keycode - 49].visible:
+    if not buttons[keycode - 1].visible:
         return
-    buttons[event.keycode - 49].pressed.emit()
+    buttons[keycode - 1].pressed.emit()
     accept_event()
 
 

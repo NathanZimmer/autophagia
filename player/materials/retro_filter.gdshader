@@ -74,7 +74,8 @@ vec4 crt(vec2 screen_uv) {
     //{
         //this_pixel_color *= 0.7;
     //}
-
+    
+    // TODO: Make this work when the screen is black
     return adjacent_pixel_color_average * color_bleed_weight + this_pixel_color
             * (1.0 - color_bleed_weight) - vec4(vec3(color_dark_offset), 0);
 }

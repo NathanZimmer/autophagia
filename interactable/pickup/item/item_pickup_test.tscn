@@ -34,7 +34,7 @@ description = "test"
 icon = SubResource("PlaceholderTexture2D_lk1rc")
 mesh = SubResource("SphereMesh_1twht")
 function = "_test"
-closes_menu = null
+args = ["Testing!"]
 metadata/_custom_type_script = "uid://c3qhshchoa8wk"
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_i3p8x"]
@@ -47,7 +47,19 @@ description = "test2"
 icon = SubResource("PlaceholderTexture2D_i3p8x")
 mesh = SubResource("SphereMesh_1twht")
 function = "_test_spawn_ball"
-args = ["Test!"]
+args = ["Test!", false]
+can_use_multiple = false
+closes_menu = true
+metadata/_custom_type_script = "uid://c3qhshchoa8wk"
+
+[sub_resource type="Resource" id="Resource_lk1rc"]
+script = ExtResource("3_lk1rc")
+name = &"test3"
+description = "test3"
+icon = SubResource("PlaceholderTexture2D_i3p8x")
+mesh = SubResource("SphereMesh_1twht")
+function = "_test_spawn_ball"
+args = ["Test!", false]
 can_use_multiple = false
 closes_menu = true
 metadata/_custom_type_script = "uid://c3qhshchoa8wk"
@@ -63,4 +75,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9698763, 0, 6.3440804)
 _item_info = SubResource("Resource_1twht")
 _count = 16
 
-[editable path="Player"]
+[node name="ItemPickup3" parent="." index="6" unique_id=689836438 instance=ExtResource("2_dfj2o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.559321, 0, 6.8481755)
+_item_info = SubResource("Resource_lk1rc")

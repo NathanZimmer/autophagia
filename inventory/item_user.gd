@@ -4,9 +4,14 @@ class_name ItemUser extends Node
 ## siblings to `owner`
 
 ## Emit to adjust player temperature component
-signal temp_adjusted(amount: int)
+# signal temp_adjusted(amount: int)
 ## Emit to adjust player hunger component
-signal hunger_adjusted(amount: int)
+# signal hunger_adjusted(amount: int)
+
+# FIXME: Make this properly block pause menu and allow canceling the placement,
+# AKA: putting the item back in your inventory
+## TODO
+signal item_place_mode(enabled: bool)
 
 const PICKUP_SPAWN_OFFSET := Vector3(0, -1, 0)
 const PICKUP_SPAWN_RANGE := Vector3(0.25, 0, 0.25)
@@ -16,9 +21,39 @@ const ITEM_SPAWN_DISTANCE := -1
 
 var Pickup := preload("uid://u87ws5522ov")
 
+# TODO: Add a "item placer mode" for when used items need to be positioned in the world.
+var _block_menuing := false
 
-func _test_spawn_ball(count: int, test_inp: String) -> bool:
+
+func _input(event: InputEvent) -> void:
+    if not _block_menuing:
+        return
+
+    if event is InputEventMouseButton:
+        if event.is_action_pressed(InputActions.Ui.CANCEL):
+            _block_menuing = false
+            item_place_mode.emit(false)
+        elif event.is_action_pressed(InputActions.Player.INTERACT):
+            _block_menuing = false
+            item_place_mode.emit(false)
+        get_viewport().set_input_as_handled()
+    elif event is InputEventKey:
+        if event.is_action_pressed(InputActions.Ui.CANCEL):
+            _block_menuing = false
+        get_viewport().set_input_as_handled()
+
+
+# func _shortcut_input(event: InputEvent) -> void:
+#     if event is InputEventKey and event.is_action_pressed(InputActions.Ui.CANCEL):
+#         _block_menuing = false
+#     get_viewport().set_input_as_handled()
+
+
+func _test_spawn_ball(count: int, test_inp: String, block_menuing: bool = false) -> bool:
     print(count, test_inp)
+
+    _block_menuing = block_menuing
+    item_place_mode.emit(block_menuing)
 
     var sphere_mesh := SphereMesh.new()
     sphere_mesh.radius = 0.25
