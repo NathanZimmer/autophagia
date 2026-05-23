@@ -74,7 +74,7 @@ func set_buttons_disabled(disable_use: bool, disable_move: bool, disable_drop: b
     _drop_button.disabled = disable_drop
 
 
-## TODO
+## Toggle move mode (AKA, toggle move button behavior)
 func toggle_move_mode() -> void:
     _move_mode = not _move_mode
     _move_button.text = ALT_MOVE_TEXT if _move_mode else _default_move_text

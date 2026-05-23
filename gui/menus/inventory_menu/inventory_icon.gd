@@ -88,13 +88,14 @@ func clear_item() -> void:
     _count_label.hide()
     _icon_button.texture_normal = null
 
-
     _item = null
     _name_label.text = "None"
     _count_label.text = "None"
 
 
-## TODO
+## Set whether this icon maps to an index in the inventory [br]
+## ## Parameters [br]
+## `used`: Whether this icon can be used
 func set_used(used: bool) -> void:
     _used = used
     _icon_button.disabled = not used

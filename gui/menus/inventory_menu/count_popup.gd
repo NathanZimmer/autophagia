@@ -10,6 +10,19 @@ signal count_selected(amount: int)
 @onready var _cancel_button: Button = %CancelButton
 
 
+func _ready() -> void:
+    _submit_button.pressed.connect(_on_count_selected)
+    _cancel_button.pressed.connect(_on_cancel)
+    # Enable wrapping
+    _select_spin_box.value_changed.connect(
+        func(value: float) -> void:
+            if int(value) == _select_spin_box.min_value - 1:
+                _select_spin_box.value = _select_spin_box.max_value
+            elif int(value) == _select_spin_box.max_value + 1:
+                _select_spin_box.value = _select_spin_box.min_value
+    )
+
+
 func _input(event: InputEvent) -> void:
     if not visible:
         return
@@ -21,11 +34,6 @@ func _input(event: InputEvent) -> void:
         ):
             _on_cancel()
             accept_event()
-
-
-func _ready() -> void:
-    _submit_button.pressed.connect(_on_count_selected)
-    _cancel_button.pressed.connect(_on_cancel)
 
 
 ## Show this popup and grab focus [br]

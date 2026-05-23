@@ -1,7 +1,5 @@
 class_name iToolbar extends HBoxContainer
-## TODO
-
-# TODO: Reduce code duplication from inventory_menu
+## Menu for quick accessing `Inventory` indices from zero to toolbar size
 
 ## Max toolbar size the UI can support without scaling changes
 const MAX_TOOLBAR_SIZE := 4
@@ -62,7 +60,7 @@ func _unhandled_input(event: InputEvent) -> void:
     accept_event()
 
 
-## TODO
+## Call `_item_user.use_item` with the selected item. Removes one from inventory
 func _use_selected_item() -> void:
     AudioManager.play_pressed()
     var item := _inventory.get_item(_selected_index)
@@ -103,9 +101,9 @@ func _update_toolbar_container() -> void:
     var next_index := 0
     for i: int in range(MAX_TOOLBAR_SIZE):
         if next_index < toolbar_size:
-            var item := _inventory.get_item(next_index)
             var icon := icons[next_index]
             icon.set_used(true)
+            var item := _inventory.get_item(next_index)
             if item.item_info and item.count > 0:
                 icon.set_item(item.item_info, item.count)
             else:
