@@ -31,7 +31,7 @@ var _used := false
 
 func _ready() -> void:
     _selected_overlay.material.set("shader_parameter/color", _overlay_color)
-    _panel.theme_type_variation = THEME_UNUSED
+    set_used(false)
 
     _icon_button.pressed.connect(select)
     _icon_button.mouse_entered.connect(func() -> void: _icon_button.modulate = HOVER_COLOR)

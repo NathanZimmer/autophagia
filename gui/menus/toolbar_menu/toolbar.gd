@@ -18,12 +18,6 @@ func _ready() -> void:
     _init_toolbar_container()
     _toolbar_container.get_child(0).select()
 
-    await get_tree().process_frame
-    if not _inventory:
-        push_error("_inventory not defined")
-    if not _item_user:
-        push_error("_item_user not defined")
-
 
 func _input(event: InputEvent) -> void:
     if event is InputEventMouseButton and event.is_action_pressed(InputActions.Player.USE_ITEM):
@@ -32,6 +26,8 @@ func _input(event: InputEvent) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+    if not Utils.verify_component(_inventory):
+        return
     if not (event is InputEventKey or event is InputEventMouseButton):
         return
     if event.is_released():
@@ -62,6 +58,9 @@ func _unhandled_input(event: InputEvent) -> void:
 
 ## Call `_item_user.use_item` with the selected item. Removes one from inventory
 func _use_selected_item() -> void:
+    if Utils.verify_component_list([_inventory, _item_user]):
+        return
+
     AudioManager.play_pressed()
     var item := _inventory.get_item(_selected_index)
     var item_info := item.item_info
@@ -94,6 +93,9 @@ func _add_icon(container: Container) -> void:
 
 ## Set the `ItemInfo` and count of each invetory icon from `_inventory`
 func _update_toolbar_container() -> void:
+    if Utils.verify_component(_inventory):
+        return
+
     var icons: Array[iInventoryIcon]
     icons.assign(_toolbar_container.get_children())
 

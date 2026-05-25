@@ -10,9 +10,10 @@ const MAX_INVENTORY_SIZE := 8
 const MAX_CHEST_SIZE := 6
 
 var InventoryIcon := preload("uid://c4b0a3scm2jlc")
+
 var _inventory: Inventory
-var _chest: Inventory
 var _item_user: ItemUser
+var _chest: Inventory
 
 ## Map icons in GUI to corresponding indices in Inventory
 var _icon_index_map: Dictionary[iInventoryIcon, int]
@@ -58,12 +59,6 @@ func _ready() -> void:
 
     _init_inventory_container()
     _init_chest_container()
-
-    await get_tree().process_frame
-    if not _inventory:
-        push_error("_inventory not defined")
-    if not _item_user:
-        push_error("_item_user not defined")
 
 
 func _input(event: InputEvent) -> void:
@@ -123,6 +118,9 @@ func _add_icon(container: Container, container_index: int) -> void:
 ## Show count popup and call `_item_user.use_item` with the selected item and count.
 ## Removes count from inventory
 func _use_selected_item() -> void:
+    if not Utils.verify_component_list([_inventory, _item_user]):
+        return
+
     var idx := _icon_index_map[_selected_icon]
     var item := _inventory.get_item(idx)
     var item_info := item.item_info
@@ -146,6 +144,9 @@ func _use_selected_item() -> void:
 ## Show count popup and call `_item_user.drop_item` with the selected item and count.
 ## Removes count from inventory
 func _drop_selected_item() -> void:
+    if not Utils.verify_component_list([_inventory, _item_user]):
+        return
+
     var idx := _icon_index_map[_selected_icon]
     var item := _inventory.get_item(idx)
 
@@ -160,6 +161,9 @@ func _drop_selected_item() -> void:
 
 ## Set the `ItemInfo` and count of each invetory icon from `_inventory`
 func _update_inventory_container() -> void:
+    if not Utils.verify_component_list([_inventory, _item_user]):
+        return
+
     var icons: Array[iInventoryIcon]
     icons.assign(_toolbar_container.get_children() + _inventory_container.get_children())
 
@@ -264,8 +268,10 @@ func _set_selected_icon(icon: iInventoryIcon) -> void:
 
 ## Verify that item of `_selected_icon` can be moved to `icon`. If so, move it.
 func _move_item(icon: iInventoryIcon) -> void:
-    _move_mode_icon = icon
+    if not Utils.verify_component(_inventory):
+        return
 
+    _move_mode_icon = icon
     if _selected_icon == _move_mode_icon:
         return
 

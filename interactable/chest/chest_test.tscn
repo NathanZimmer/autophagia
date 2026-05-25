@@ -60,7 +60,6 @@ _item_info = SubResource("Resource_i3p8x")
 [node name="ItemPickup2" parent="." index="5" unique_id=630103446 instance=ExtResource("2_nlb5b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9698763, 0, 6.3440804)
 _item_info = SubResource("Resource_1twht")
-_count = 50
 
 [node name="Chest" parent="." index="6" unique_id=293151306 instance=ExtResource("5_qf7nj")]
 transform = Transform3D(0.49999997, 0, -0.86602545, 0, 1, 0, 0.86602545, 0, 0.49999997, 3.5, 0.5, 7.5)

@@ -51,18 +51,18 @@ func _ready() -> void:
     _note_menu.journal_button_pressed.connect(_swap_to_journal)
     _journal_menu.note_button_pressed.connect(_swap_to_note)
 
-    if _message_handler:
+    if Utils.verify_component(_message_handler):
         _message_handler.dialog_recieved.connect(_open_dialog_menu)
         _message_handler.note_received.connect(_open_note_menu)
         _message_handler.inventory_received.connect(_open_chest)
 
-    if _journal:
+    if Utils.verify_component(_journal):
         _journal.note_discovered.connect(_journal_menu.add_note)
 
-    if _inventory:
+    if Utils.verify_component(_inventory):
         _inventory_menu.set_inventory(_inventory)
         _toolbar.set_inventory(_inventory)
-    if _item_user:
+    if Utils.verify_component(_item_user):
         _inventory_menu.set_item_user(_item_user)
         _toolbar.set_item_user(_item_user)
         _item_user.item_place_mode.connect(
@@ -73,7 +73,7 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-    if _crosshair_raycast:
+    if Utils.verify_component(_crosshair_raycast):
         _set_crosshair_texture()
 
 
