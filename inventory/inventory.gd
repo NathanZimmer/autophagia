@@ -18,7 +18,7 @@ func _ready() -> void:
     for i in range(_inventory_size):
         _items[i] = InventoryItem.new()
 
-    if Utils.verify_component(_message_handler):
+    if Utils.verify_component(self, _message_handler):
         _message_handler.item_received.connect(_on_item_received)
 
 

@@ -118,7 +118,7 @@ func _add_icon(container: Container, container_index: int) -> void:
 ## Show count popup and call `_item_user.use_item` with the selected item and count.
 ## Removes count from inventory
 func _use_selected_item() -> void:
-    if not Utils.verify_component_list([_inventory, _item_user]):
+    if not Utils.verify_component_list(self, [_inventory, _item_user]):
         return
 
     var idx := _icon_index_map[_selected_icon]
@@ -144,7 +144,7 @@ func _use_selected_item() -> void:
 ## Show count popup and call `_item_user.drop_item` with the selected item and count.
 ## Removes count from inventory
 func _drop_selected_item() -> void:
-    if not Utils.verify_component_list([_inventory, _item_user]):
+    if not Utils.verify_component_list(self, [_inventory, _item_user]):
         return
 
     var idx := _icon_index_map[_selected_icon]
@@ -161,7 +161,7 @@ func _drop_selected_item() -> void:
 
 ## Set the `ItemInfo` and count of each invetory icon from `_inventory`
 func _update_inventory_container() -> void:
-    if not Utils.verify_component_list([_inventory, _item_user]):
+    if not Utils.verify_component_list(self, [_inventory, _item_user]):
         return
 
     var icons: Array[iInventoryIcon]
@@ -268,7 +268,7 @@ func _set_selected_icon(icon: iInventoryIcon) -> void:
 
 ## Verify that item of `_selected_icon` can be moved to `icon`. If so, move it.
 func _move_item(icon: iInventoryIcon) -> void:
-    if not Utils.verify_component(_inventory):
+    if not Utils.verify_component(self, _inventory):
         return
 
     _move_mode_icon = icon

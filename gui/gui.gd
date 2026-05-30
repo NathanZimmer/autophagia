@@ -51,18 +51,18 @@ func _ready() -> void:
     _note_menu.journal_button_pressed.connect(_swap_to_journal)
     _journal_menu.note_button_pressed.connect(_swap_to_note)
 
-    if Utils.verify_component(_message_handler):
+    if Utils.verify_component(self, _message_handler):
         _message_handler.dialog_recieved.connect(_open_dialog_menu)
         _message_handler.note_received.connect(_open_note_menu)
         _message_handler.inventory_received.connect(_open_chest)
 
-    if Utils.verify_component(_journal):
+    if Utils.verify_component(self, _journal):
         _journal.note_discovered.connect(_journal_menu.add_note)
 
-    if Utils.verify_component(_inventory):
+    if Utils.verify_component(self, _inventory):
         _inventory_menu.set_inventory(_inventory)
         _toolbar.set_inventory(_inventory)
-    if Utils.verify_component(_item_user):
+    if Utils.verify_component(self, _item_user):
         _inventory_menu.set_item_user(_item_user)
         _toolbar.set_item_user(_item_user)
         _item_user.item_place_mode.connect(
@@ -73,18 +73,20 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-    if Utils.verify_component(_crosshair_raycast):
+    if Utils.verify_component(self, _crosshair_raycast):
         _set_crosshair_texture()
+
+
+func _input(event: InputEvent) -> void:
+    if event is InputEventKey and event.is_action_pressed(InputActions.Ui.FULLSCREEN):
+        Overrides.save_fullscreen(!Overrides.load_fullscreen())
+        accept_event()
 
 
 func _shortcut_input(event: InputEvent) -> void:
     if event is InputEventKey:
         if event.is_action_pressed(InputActions.Ui.CANCEL):
             _pause(_pause_menu)
-            accept_event()
-
-        elif event.is_action_pressed(InputActions.Ui.FULLSCREEN):
-            _toggle_fullscreen()
             accept_event()
 
         elif interact_menus_enabled:
@@ -164,12 +166,6 @@ func _unpause(menu: iMenuControl) -> void:
     menu.hide()
     _crosshair.show()
     _toolbar.show()
-
-
-## Toggle window mode between `WINDOW_MODE_FULLSCREEN` and `WINDOW_MODE_WINDOWED`
-func _toggle_fullscreen() -> void:
-    var fullscreen := Overrides.load_fullscreen()
-    Overrides.save_fullscreen(!fullscreen)
 
 
 func _set_crosshair_texture() -> void:

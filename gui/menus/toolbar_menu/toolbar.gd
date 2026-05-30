@@ -26,7 +26,7 @@ func _input(event: InputEvent) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-    if not Utils.verify_component(_inventory):
+    if not Utils.verify_component(self, _inventory):
         return
     if not (event is InputEventKey or event is InputEventMouseButton):
         return
@@ -58,7 +58,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 ## Call `_item_user.use_item` with the selected item. Removes one from inventory
 func _use_selected_item() -> void:
-    if Utils.verify_component_list([_inventory, _item_user]):
+    if Utils.verify_component_list(self, [_inventory, _item_user]):
         return
 
     AudioManager.play_pressed()
@@ -93,7 +93,7 @@ func _add_icon(container: Container) -> void:
 
 ## Set the `ItemInfo` and count of each invetory icon from `_inventory`
 func _update_toolbar_container() -> void:
-    if Utils.verify_component(_inventory):
+    if Utils.verify_component(self, _inventory):
         return
 
     var icons: Array[iInventoryIcon]

@@ -34,8 +34,7 @@ func _ready() -> void:
 # Find a way to do that here instead.
 
 
-# Checking for this in _input because all buttons consume all mouse events when in focus.
-# FIXME: Is this fine or should I implement the "proper" solution of updating the buttons?
+# Checking for this in _input because buttons consume all input when focused
 func _input(event: InputEvent) -> void:
     if event is InputEventMouseButton and event.is_action_pressed(InputActions.Ui.CANCEL):
         menu_exited.emit()

@@ -15,7 +15,8 @@ signal _input_received(event: InputEvent)
     "Jump": InputActions.Player.UP,
     "Interact": InputActions.Player.INTERACT,
     "Toggle fullscreen": InputActions.Ui.FULLSCREEN,
-    "Open/close journal": InputActions.Ui.INVENTORY,
+    "Open/close journal": InputActions.Ui.JOURNAL,
+    "Open/close inventory": InputActions.Ui.INVENTORY,
 }
 ## Map of String to assign to `Label.text` and input action for input that cannot be updated
 @export var _readonly_actions: Dictionary[String, StringName] = {
@@ -40,7 +41,7 @@ func _ready() -> void:
         var label: Label = new_container.get_child(0)
         label.text = action_label + " "
         var button: Button = new_container.get_child(1)
-        button.text = event.as_text().replace("(Physical)", "")
+        button.text = _as_text(event)
 
         button.pressed.connect(_rebind_input_action.bind(button, action))
 
@@ -59,7 +60,7 @@ func _ready() -> void:
 
         var event_strings: Array[String] = []
         for event in events:
-            event_strings.append(event.as_text().replace("(Physical)", ""))
+            event_strings.append(_as_text(event))
         button.text = ", ".join(event_strings)
         button.disabled = true
         button.tooltip_text = "Not editable"
@@ -69,6 +70,11 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
     _input_received.emit(event)
+
+
+## Remove the tags from event text
+func _as_text(event: InputEvent) -> String:
+    return event.as_text().replace(" - Physical", "")
 
 
 ## Capture all input until rebind is either cancelled or a valid InputEvent is triggered [br]
@@ -84,16 +90,26 @@ func _rebind_input_action(button: Button, action: StringName) -> void:
         # Explicitly eat all input while waiting for a keypress
         accept_event()
 
-        if event.is_action_pressed(InputActions.Ui.CANCEL):
-            var original_event := InputMap.action_get_events(action)[0]
-            button.text = original_event.as_text()  #.replace("(Physical)", "")
+        if event.is_released() or event is InputEventKey and event.is_echo():
+            continue
+
+        AudioManager.play_pressed()
+
+        var original_event := InputMap.action_get_events(action)[0]
+        if (
+            event.is_action_pressed(InputActions.Ui.CANCEL)
+            or _as_text(event) == _as_text(original_event)
+        ):
+            button.text = _as_text(original_event)
             break
 
-        if event.is_released():
-            continue
-        if not (event is InputEventKey or event is InputEventMouseButton):
+        var event_is_used := _configurable_actions.values().any(
+            func(configurable_action: StringName) -> bool:
+                return event.is_action_pressed(configurable_action)
+        )
+        if not (event is InputEventKey or event is InputEventMouseButton) or event_is_used:
             continue
 
-        button.text = event.as_text()  #.replace("(Physical)", "")
+        button.text = _as_text(event)
         Overrides.save_input_action(action, event)
         break
