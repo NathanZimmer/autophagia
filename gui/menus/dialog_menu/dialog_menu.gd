@@ -46,13 +46,17 @@ func _ready() -> void:
     option_template.queue_free()
 
 
-func _input(event: InputEvent) -> void:
-    super._input(event)
+func _shortcut_input(event: InputEvent) -> void:
+    super._shortcut_input(event)
 
-    if event.is_action_pressed(InputActions.Ui.CANCEL):
-        _clear_dialog()
-    if event is InputEventKey and event.is_action_pressed(InputActions.Ui.INVENTORY):
-        accept_event()
+    if event is InputEventKey or event is InputEventMouseButton:
+        if (
+            event.is_action_pressed(InputActions.Ui.INVENTORY)
+            or event.is_action_pressed(InputActions.Ui.JOURNAL)
+        ):
+            accept_event()
+        elif event.is_action_pressed(InputActions.Ui.CANCEL):
+            _clear_dialog()
 
 
 func _scroll_text(start_offset: int, target_length: int, scroll_factor := 1.0) -> void:
@@ -76,11 +80,10 @@ func _scroll_text(start_offset: int, target_length: int, scroll_factor := 1.0) -
 
 
 func _unhandled_input(event: InputEvent) -> void:
-    # Not going to bother with adding 1-9 to input map since rebinding isn't allowed and
-    # there is no controller equivilant
     if not event is InputEventKey:
         return
 
+    # PC Specific non-rebindable settings, no need for input map
     var keycode: int = event.keycode - 48
     if not (keycode <= MAX_DIALOG_OPTIONS and event.keycode > 0):
         return

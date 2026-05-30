@@ -7,13 +7,16 @@ var NoteButton := preload("uid://cca6tcgscdrsi")
 
 
 func _shortcut_input(event: InputEvent) -> void:
-    super._shortcut_input(event)
-    if event is InputEventKey:
-        if event.is_action_pressed(InputActions.Ui.JOURNAL):
-            menu_exited.emit()
-            accept_event()
-        elif event.is_action_pressed(InputActions.Ui.INVENTORY):
-            accept_event()
+    if not (event is InputEventKey or event is InputEventMouseButton):
+        return
+
+    if event.is_action_pressed(InputActions.Ui.JOURNAL):
+        menu_exited.emit()
+        accept_event()
+    elif event.is_action_pressed(InputActions.Ui.INVENTORY):
+        accept_event()
+    else:
+        super._shortcut_input(event)
 
 
 func add_note(title: Journal.Title) -> void:

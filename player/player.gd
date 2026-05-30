@@ -57,7 +57,7 @@ func _unhandled_input(event: InputEvent) -> void:
             return
 
         _rotate_cam(event)
-        # get_tree().get_root().set_input_as_handled()
+        get_tree().get_root().set_input_as_handled()
 
     elif event is InputEventKey:
         if DEBUG_CAPTURE_MOUSE and event.is_action_pressed("ui_cancel"):

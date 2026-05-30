@@ -68,7 +68,6 @@ offset_top = -80.0
 offset_right = 453.0
 offset_bottom = 0.0
 grow_vertical = 0
-_toolbar_size = 2
 
 [node name="PauseMenu" parent="." unique_id=2004941361 node_paths=PackedStringArray("_swap_map") instance=ExtResource("3_ytf3d")]
 unique_name_in_owner = true

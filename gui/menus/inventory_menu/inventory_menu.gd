@@ -61,22 +61,20 @@ func _ready() -> void:
     _init_chest_container()
 
 
-func _input(event: InputEvent) -> void:
-    if event is InputEventKey or event is InputEventMouseButton:
-        if (
-            event.is_action_pressed(InputActions.Ui.INVENTORY)
-            or event.is_action_pressed(InputActions.Ui.CANCEL)
-        ):
-            if _move_mode:
-                _end_move_mode()
-            else:
-                menu_exited.emit()
-            accept_event()
-
-
 func _shortcut_input(event: InputEvent) -> void:
-    # super._shortcut_input(event)
-    if event is InputEventKey and event.is_action_pressed(InputActions.Ui.JOURNAL):
+    if not (event is InputEventKey or event is InputEventMouseButton):
+        return
+
+    if (
+        event.is_action_pressed(InputActions.Ui.INVENTORY)
+        or event.is_action_pressed(InputActions.Ui.CANCEL)
+    ):
+        if _move_mode:
+            _end_move_mode()
+        else:
+            menu_exited.emit()
+        accept_event()
+    elif event.is_action_pressed(InputActions.Ui.JOURNAL):
         accept_event()
 
 
@@ -161,7 +159,7 @@ func _drop_selected_item() -> void:
 
 ## Set the `ItemInfo` and count of each invetory icon from `_inventory`
 func _update_inventory_container() -> void:
-    if not Utils.verify_component_list(self, [_inventory, _item_user]):
+    if not Utils.verify_component(self, _inventory):
         return
 
     var icons: Array[iInventoryIcon]

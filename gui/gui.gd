@@ -77,26 +77,23 @@ func _physics_process(_delta: float) -> void:
         _set_crosshair_texture()
 
 
-func _input(event: InputEvent) -> void:
-    if event is InputEventKey and event.is_action_pressed(InputActions.Ui.FULLSCREEN):
+func _shortcut_input(event: InputEvent) -> void:
+    if not (event is InputEventKey or event is InputEventMouseButton):
+        return
+
+    if event.is_action_pressed(InputActions.Ui.CANCEL):
+        _pause(_pause_menu)
+        accept_event()
+    elif event.is_action_pressed(InputActions.Ui.FULLSCREEN):
         Overrides.save_fullscreen(!Overrides.load_fullscreen())
         accept_event()
+    elif event.is_action_pressed(InputActions.Ui.JOURNAL):
+        _pause(_journal_menu)
+        accept_event()
 
-
-func _shortcut_input(event: InputEvent) -> void:
-    if event is InputEventKey:
-        if event.is_action_pressed(InputActions.Ui.CANCEL):
-            _pause(_pause_menu)
-            accept_event()
-
-        elif interact_menus_enabled:
-            if event.is_action_pressed(InputActions.Ui.JOURNAL):
-                _pause(_journal_menu)
-                accept_event()
-
-            elif event.is_action_pressed(InputActions.Ui.INVENTORY):
-                _pause(_inventory_menu)
-                accept_event()
+    elif interact_menus_enabled and event.is_action_pressed(InputActions.Ui.INVENTORY):
+        _pause(_inventory_menu)
+        accept_event()
 
 
 ## Pause the game, show the mouse and given pause menu
