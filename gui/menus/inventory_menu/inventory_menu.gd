@@ -127,6 +127,9 @@ func _use_selected_item() -> void:
         item.count if item_info.can_use_multiple else 1, item_info.can_use_multiple
     )
     var count: int = await _count_popup.count_selected
+    # NOTE: Can probably remove this check once item user is implemented
+    if count == 0:
+        return
 
     var used := _item_user.use_item(item_info, item.count)
     if not used:

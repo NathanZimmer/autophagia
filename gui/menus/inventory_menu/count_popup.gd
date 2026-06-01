@@ -34,7 +34,7 @@ func _shortcut_input(event: InputEvent) -> void:
         accept_event()
 
 
-## Show this popup and enable processing[br]
+## Show this popup and enable processing [br]
 ## ## Parameters [br]
 ## `max_count`: The max value of the popup SpinBox [br]
 ## `show_spin_box`: Whether to hide the spin box and show alternate single-item popup
@@ -52,6 +52,7 @@ func show_popup(max_count: int, show_spin_box: bool = true) -> void:
 func _on_count_selected() -> void:
     count_selected.emit(int(_select_spin_box.value))
     hide()
+    process_mode = Node.PROCESS_MODE_DISABLED
 
 
 ## Hide this popup and disable processing

@@ -2,6 +2,8 @@ class_name iDialogMenuControl extends iMenuControl
 ## Uses a DialogTree to display dialog and dialog options on the screen. Handles text formatting
 ## And text/textbox scrolling
 
+# TODO: Rework this menu to support adjusting text sizes
+
 const RED_TAG = "Them"
 const BLUE_TAG = "You"
 const RED_FORMATTED = "[font_size=13][color=dark_salmon]%s[/color][/font_size]\n[indent]%s[/indent]\n"
