@@ -62,7 +62,24 @@ func _ready() -> void:
 
 
 func _shortcut_input(event: InputEvent) -> void:
-    if not (event is InputEventKey or event is InputEventMouseButton):
+    if not event is InputEventKey:
+        return
+
+    if (
+        event.is_action_pressed(InputActions.Ui.INVENTORY)
+        or event.is_action_pressed(InputActions.Ui.CANCEL)
+    ):
+        if _move_mode:
+            _end_move_mode()
+        else:
+            menu_exited.emit()
+        accept_event()
+    elif event.is_action_pressed(InputActions.Ui.JOURNAL):
+        accept_event()
+
+
+func _gui_input(event: InputEvent) -> void:
+    if not event is InputEventMouseButton:
         return
 
     if (

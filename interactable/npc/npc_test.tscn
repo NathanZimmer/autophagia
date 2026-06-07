@@ -16,6 +16,12 @@
 [ext_resource type="AudioStream" uid="uid://bkd3jvrv1dro2" path="res://assets/interactable/door/handle_close.wav" id="10_re6w1"]
 [ext_resource type="Curve" uid="uid://thopqlhxyawo" path="res://interactable/door/default_level_locked_curve.tres" id="12_k6rjs"]
 [ext_resource type="AudioStream" uid="uid://bampav512coom" path="res://assets/interactable/door/door_locked.wav" id="14_gxvby"]
+[ext_resource type="PackedScene" uid="uid://u87ws5522ov" path="res://interactable/pickup/item/item_pickup.tscn" id="17_484xe"]
+[ext_resource type="Shader" uid="uid://dj2ckf3xn6sm8" path="res://interactable/pickup/materials/floating_icon.gdshader" id="18_e7ile"]
+[ext_resource type="Texture2D" uid="uid://ltip2yr1ygo5" path="res://assets/gui/menus/inventory_menu/placeholder_icon.png" id="19_fgx5w"]
+[ext_resource type="Script" uid="uid://c3qhshchoa8wk" path="res://inventory/item_info.gd" id="19_ogdmf"]
+[ext_resource type="PackedScene" uid="uid://bj3nk0xoyapud" path="res://interactable/chest/chest.tscn" id="20_e7ile"]
+[ext_resource type="Texture2D" uid="uid://d3ge7iaibvgyx" path="res://assets/gui/menus/inventory_menu/placeholder_icon_2.png" id="22_ypygn"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_e121w"]
 size = Vector2(20, 20)
@@ -34,6 +40,49 @@ size = Vector3(0.3, 0.1, 0.3)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cfd3w"]
 size = Vector3(0.3, 0.1, 0.3)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_tbin1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uwoio"]
+render_priority = 0
+shader = ExtResource("18_e7ile")
+shader_parameter/texture_albedo = SubResource("PlaceholderTexture2D_tbin1")
+shader_parameter/uv_scale = Vector3(1, 1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/rotation_speed = -1.0
+shader_parameter/tilt = 1.885
+shader_parameter/bounce_speed = 1.25
+shader_parameter/bounce_distance = 0.15
+shader_parameter/resolution = Vector2i(320, 240)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qf7nj"]
+material = SubResource("ShaderMaterial_uwoio")
+size = Vector3(0.4, 0.4, 0.4)
+
+[sub_resource type="Resource" id="Resource_gt76n"]
+script = ExtResource("19_ogdmf")
+name = &"Test Item"
+description = "This is a test description. Use this item to do nothing."
+icon = ExtResource("19_fgx5w")
+mesh = SubResource("BoxMesh_qf7nj")
+function = "_test"
+args = ["testing this"]
+metadata/_custom_type_script = "uid://c3qhshchoa8wk"
+
+[sub_resource type="SphereMesh" id="SphereMesh_1twht"]
+material = SubResource("ShaderMaterial_uwoio")
+radius = 0.25
+height = 0.5
+
+[sub_resource type="Resource" id="Resource_cvy6v"]
+script = ExtResource("19_ogdmf")
+name = &"Test Item 2"
+description = "This is a test description. Use this item to do nothing. Just does nothing."
+icon = ExtResource("22_ypygn")
+mesh = SubResource("SphereMesh_1twht")
+function = "_test_spawn_ball"
+args = ["testing this 2"]
+metadata/_custom_type_script = "uid://c3qhshchoa8wk"
 
 [node name="Test2" unique_id=1138663306 instance=ExtResource("1_1rqvx")]
 
@@ -161,5 +210,16 @@ metadata/_custom_type_script = "uid://nby3c2g37q5b"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Door2/Lever/ClickTrigger" index="0" unique_id=494164585]
 shape = SubResource("BoxShape3D_cfd3w")
+
+[node name="Container" parent="." index="10" unique_id=293151306 instance=ExtResource("20_e7ile")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.5, 7)
+
+[node name="ItemPickup" parent="." index="11" unique_id=639595155 instance=ExtResource("17_484xe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3613267, 0, 5.2777276)
+_item_info = SubResource("Resource_gt76n")
+
+[node name="ItemPickup2" parent="." index="12" unique_id=82023563 instance=ExtResource("17_484xe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7198763, 0, 6.0940804)
+_item_info = SubResource("Resource_cvy6v")
 
 [editable path="Player"]

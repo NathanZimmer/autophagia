@@ -160,6 +160,7 @@ offset_right = 8.0
 offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("7_xqkfk")
 
 [node name="FpsCounter" type="Label" parent="." unique_id=2056583028]

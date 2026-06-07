@@ -78,12 +78,28 @@ func _physics_process(_delta: float) -> void:
 
 
 func _shortcut_input(event: InputEvent) -> void:
-    if not (event is InputEventKey or event is InputEventMouseButton):
+    if not event is InputEventKey:
         return
 
     if event.is_action_pressed(InputActions.Ui.CANCEL):
         _pause(_pause_menu)
         accept_event()
+    elif event.is_action_pressed(InputActions.Ui.FULLSCREEN):
+        Overrides.save_fullscreen(!Overrides.load_fullscreen())
+        accept_event()
+    elif event.is_action_pressed(InputActions.Ui.JOURNAL):
+        _pause(_journal_menu)
+        accept_event()
+
+    elif interact_menus_enabled and event.is_action_pressed(InputActions.Ui.INVENTORY):
+        _pause(_inventory_menu)
+        accept_event()
+
+
+func _gui_input(event: InputEvent) -> void:
+    if not event is InputEventMouseButton:
+        return
+
     elif event.is_action_pressed(InputActions.Ui.FULLSCREEN):
         Overrides.save_fullscreen(!Overrides.load_fullscreen())
         accept_event()

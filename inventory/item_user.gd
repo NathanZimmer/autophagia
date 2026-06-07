@@ -70,7 +70,7 @@ func _test_spawn_ball(count: int, test_inp: String, block_menuing: bool = false)
 
 
 func _test(count: int, test_inp: String) -> bool:
-    print(count, test_inp)
+    print(count, " ", test_inp)
     return true
 
 
