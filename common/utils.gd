@@ -1,6 +1,9 @@
 extends Node
 ## Generic utility functions
 
+## Push warning for `verify_component_list()` calls with `required=false`
+const WARN_MISSING_OPTIONAL = false
+
 
 ## Verifies a component exists [br]
 ## ## Parameters [br]
@@ -10,12 +13,12 @@ extends Node
 ## ## Returns [br]
 ## True if component is valid, false otherwise
 func verify_component(caller: Variant, component: Variant, required: bool = false) -> bool:
+    var valid := component != null
     if required:
-        assert(component, "%s %s: Required component is null" % str(caller))
-    elif not component:
+        assert(valid, "%s %s: Required component is null" % str(caller))
+    elif not valid and WARN_MISSING_OPTIONAL:
         push_warning("%s: Optional component is null" % str(caller))
-        return false
-    return true
+    return valid
 
 
 ## Verifies all components in an array exist [br]
@@ -32,9 +35,8 @@ func verify_component_list(caller: Variant, components: Array, required: bool = 
             valid,
             "%s: One or more required components is null: %s" % [str(caller), str(components)]
         )
-    elif not valid:
+    elif not valid and WARN_MISSING_OPTIONAL:
         push_warning(
             "%s: One or more optional components is null: %s" % [str(caller), str(components)]
         )
-        return false
-    return true
+    return valid

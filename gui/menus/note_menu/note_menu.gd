@@ -36,7 +36,6 @@ func _shortcut_input(event: InputEvent) -> void:
         accept_event()
 
 
-
 func _gui_input(event: InputEvent) -> void:
     if not event is InputEventMouseButton:
         return

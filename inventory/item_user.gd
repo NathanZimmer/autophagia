@@ -48,7 +48,7 @@ func _input(event: InputEvent) -> void:
 
 
 func _test_spawn_ball(count: int, test_inp: String, block_menuing: bool = false) -> bool:
-    print(count, test_inp)
+    print(count, " ", test_inp)
 
     _block_menuing = block_menuing
     item_place_mode.emit(block_menuing)

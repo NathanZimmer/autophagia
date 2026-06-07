@@ -100,7 +100,7 @@ func _gui_input(event: InputEvent) -> void:
     if not event is InputEventMouseButton:
         return
 
-    elif event.is_action_pressed(InputActions.Ui.FULLSCREEN):
+    if event.is_action_pressed(InputActions.Ui.FULLSCREEN):
         Overrides.save_fullscreen(!Overrides.load_fullscreen())
         accept_event()
     elif event.is_action_pressed(InputActions.Ui.JOURNAL):

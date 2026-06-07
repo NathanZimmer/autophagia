@@ -77,7 +77,7 @@ func _input(event: InputEvent) -> void:
 
 ## Remove the tags from event text
 func _as_text(event: InputEvent) -> String:
-    return event.as_text().replace(" - Physical", "").replace( "(Double Click)", "")
+    return event.as_text().replace(" - Physical", "").replace("(Double Click)", "")
 
 
 ## Capture all input until rebind is either cancelled or a valid InputEvent is triggered [br]

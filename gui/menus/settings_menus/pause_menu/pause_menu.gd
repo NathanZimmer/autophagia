@@ -13,6 +13,7 @@ func _shortcut_input(event: InputEvent) -> void:
     else:
         super._shortcut_input(event)
 
+
 func _gui_input(event: InputEvent) -> void:
     if not event is InputEventMouseButton:
         return
