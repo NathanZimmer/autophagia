@@ -16,7 +16,6 @@ var _selected_index := 0
 
 func _ready() -> void:
     _init_toolbar_container()
-    _toolbar_container.get_child(0).select()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -126,6 +125,7 @@ func set_inventory(inventory: Inventory) -> void:
     _inventory = inventory
     _inventory.updated.connect(_update_toolbar_container)
     _update_toolbar_container()
+    _toolbar_container.get_child(0).select()
 
 
 func set_item_user(item_user: ItemUser) -> void:
