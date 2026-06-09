@@ -28,6 +28,8 @@ signal _input_received(event: InputEvent)
 ## Text to display on the button when it is waiting for input
 @export var _button_waiting_text := "[press a key, esc to quit]"
 
+var _keybind_buttons: Array[Button]
+
 @onready var _template_container: HBoxContainer = %TemplateContainer
 
 
@@ -45,8 +47,11 @@ func _ready() -> void:
         label.text = action_label + " "
         var button: Button = new_container.get_child(1)
         button.text = _as_text(event)
+        _keybind_buttons.append(button)
 
         button.pressed.connect(_rebind_input_action.bind(button, action))
+
+    _mark_duplicate_actions()
 
     for action_label: String in _readonly_actions.keys():
         var action: StringName = _readonly_actions[action_label]
@@ -100,19 +105,31 @@ func _rebind_input_action(button: Button, action: StringName) -> void:
 
         var original_event := InputMap.action_get_events(action)[0]
         if (
-            event.is_action_pressed(InputActions.Ui.CANCEL)
+            event is InputEventKey and event.is_action_pressed(InputActions.Ui.CANCEL)
             or _as_text(event) == _as_text(original_event)
         ):
             button.text = _as_text(original_event)
             break
 
-        var event_is_used := _configurable_actions.values().any(
-            func(configurable_action: StringName) -> bool:
-                return event.is_action_pressed(configurable_action)
-        )
-        if not (event is InputEventKey or event is InputEventMouseButton) or event_is_used:
+        if not (event is InputEventKey or event is InputEventMouseButton):
             continue
 
         button.text = _as_text(event)
+        _mark_duplicate_actions()
         Overrides.save_input_action(action, event)
         break
+
+
+## Loop over binding buttons and set any duplicate values to red
+func _mark_duplicate_actions() -> void:
+    var button_groups: Dictionary[String, Array] = {}
+
+    for button in _keybind_buttons:
+        button_groups.get_or_add(button.text, []).append(button)
+
+    for buttons: Array in button_groups.values():
+        if buttons.size() == 1:
+            buttons[0].remove_theme_color_override(&"font_color")
+            continue
+        for button: Button in buttons:
+            button.add_theme_color_override(&"font_color", Color.RED)
