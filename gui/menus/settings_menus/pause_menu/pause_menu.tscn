@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bf7p8kgbqyedn"]
+[gd_scene format=3 uid="uid://bf7p8kgbqyedn"]
 
 [ext_resource type="PackedScene" uid="uid://batthwrq0f4ok" path="res://gui/menus/settings_menus/base_menu.tscn" id="1_ddhtv"]
 [ext_resource type="Script" uid="uid://5k4f31cd5f3g" path="res://gui/menus/settings_menus/pause_menu/pause_menu.gd" id="2_1gpq8"]
@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dxuules11p6ca" path="res://gui/menus/settings_menus/visuals_menu/visuals_menu.tscn" id="4_vwsmh"]
 [ext_resource type="PackedScene" uid="uid://cgu3q262me86h" path="res://gui/menus/settings_menus/sound_menu/sound_menu.tscn" id="6_25nc6"]
 
-[node name="PauseMenu" node_paths=PackedStringArray("_swap_map") instance=ExtResource("1_ddhtv")]
+[node name="PauseMenu" unique_id=716133289 node_paths=PackedStringArray("_swap_map") instance=ExtResource("1_ddhtv")]
 script = ExtResource("2_1gpq8")
 _swap_map = {
 NodePath("MenuContainer/ScrollContainer/VBoxContainer/ControlsButton"): NodePath("ControlsMenu"),
@@ -16,40 +16,59 @@ NodePath("MenuContainer/ScrollContainer/VBoxContainer/VisualsButton"): NodePath(
 NodePath("MenuContainer/ScrollContainer/VBoxContainer/SoundButton"): NodePath("SoundMenu")
 }
 
+[node name="MenuContainer" parent="." index="0"]
+mouse_filter = 2
+
+[node name="Padding" parent="MenuContainer" index="0"]
+mouse_filter = 2
+
 [node name="Label" parent="MenuContainer" index="1"]
 text = "PAUSE"
 
-[node name="ControlsButton" type="Button" parent="MenuContainer/ScrollContainer/VBoxContainer" index="0"]
+[node name="ScrollContainer" parent="MenuContainer" index="2"]
+mouse_filter = 2
+
+[node name="VBoxContainer" parent="MenuContainer/ScrollContainer" index="0"]
+mouse_filter = 2
+
+[node name="ControlsButton" type="Button" parent="MenuContainer/ScrollContainer/VBoxContainer" index="0" unique_id=1851465242]
 layout_mode = 2
+mouse_filter = 1
 text = "Controls"
 
-[node name="VisualsButton" type="Button" parent="MenuContainer/ScrollContainer/VBoxContainer" index="1"]
+[node name="VisualsButton" type="Button" parent="MenuContainer/ScrollContainer/VBoxContainer" index="1" unique_id=739300860]
 layout_mode = 2
+mouse_filter = 1
 text = "Visuals"
 
-[node name="SoundButton" type="Button" parent="MenuContainer/ScrollContainer/VBoxContainer" index="2"]
+[node name="SoundButton" type="Button" parent="MenuContainer/ScrollContainer/VBoxContainer" index="2" unique_id=740308639]
 layout_mode = 2
+mouse_filter = 1
 text = "Sound"
 
-[node name="QuitButton" type="Button" parent="MenuContainer/ScrollContainer/VBoxContainer" index="4"]
+[node name="BackButton" parent="MenuContainer/ScrollContainer/VBoxContainer" index="3"]
+mouse_filter = 1
+
+[node name="QuitButton" type="Button" parent="MenuContainer/ScrollContainer/VBoxContainer" index="4" unique_id=1779816240]
 layout_mode = 2
+mouse_filter = 1
 text = "QUIT"
 
-[node name="ControlsMenu" parent="." index="1" instance=ExtResource("2_t7424")]
+[node name="ControlsMenu" parent="." index="1" unique_id=866779121 instance=ExtResource("2_t7424")]
 process_mode = 0
 visible = false
 layout_mode = 1
 
-[node name="QuitMenu" parent="." index="2" instance=ExtResource("3_nbojc")]
+[node name="QuitMenu" parent="." index="2" unique_id=2036583829 instance=ExtResource("3_nbojc")]
 process_mode = 0
 visible = false
 layout_mode = 1
 
-[node name="VisualsMenu" parent="." index="3" instance=ExtResource("4_vwsmh")]
+[node name="VisualsMenu" parent="." index="3" unique_id=610216646 instance=ExtResource("4_vwsmh")]
 process_mode = 0
 visible = false
 layout_mode = 1
 
-[node name="SoundMenu" parent="." index="4" instance=ExtResource("6_25nc6")]
+[node name="SoundMenu" parent="." index="4" unique_id=1708829858 instance=ExtResource("6_25nc6")]
 visible = false
 layout_mode = 1

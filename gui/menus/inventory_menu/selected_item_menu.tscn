@@ -12,6 +12,7 @@ offset_right = 128.0
 offset_bottom = 159.0
 size_flags_horizontal = 2
 size_flags_vertical = 3
+mouse_filter = 2
 theme = ExtResource("1_efhkx")
 script = ExtResource("2_5n6st")
 
@@ -21,20 +22,24 @@ text = "Item"
 
 [node name="ItemHBoxContainer" type="HBoxContainer" parent="." unique_id=327901225]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="ButtonPanelContainer" type="PanelContainer" parent="ItemHBoxContainer" unique_id=665072396]
 custom_minimum_size = Vector2(52, 0)
 layout_mode = 2
+mouse_filter = 2
 theme_type_variation = &"InventoryPanelContainer"
 
 [node name="ButtonVBoxContainer" type="VBoxContainer" parent="ItemHBoxContainer/ButtonPanelContainer" unique_id=1887880655]
 layout_mode = 2
+mouse_filter = 2
 alignment = 1
 
 [node name="UseButton" type="Button" parent="ItemHBoxContainer/ButtonPanelContainer/ButtonVBoxContainer" unique_id=542553683]
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../MoveButton")
+mouse_filter = 1
 theme_type_variation = &"DialogButton"
 text = "Use"
 
@@ -42,6 +47,7 @@ text = "Use"
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../MoveButton")
+mouse_filter = 1
 theme_type_variation = &"DialogButton"
 text = "Drop"
 
@@ -50,12 +56,14 @@ unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../UseButton")
 focus_neighbor_bottom = NodePath("../DropButton")
+mouse_filter = 1
 theme_type_variation = &"DialogButton"
 text = "Move
 "
 
 [node name="ViewportPanelContainer" type="PanelContainer" parent="ItemHBoxContainer" unique_id=2054042352]
 layout_mode = 2
+mouse_filter = 2
 theme_type_variation = &"InventoryPanelContainer"
 
 [node name="ItemSubViewportContainer" type="SubViewportContainer" parent="ItemHBoxContainer/ViewportPanelContainer" unique_id=256954442]
@@ -63,6 +71,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
 
 [node name="SubViewport" type="SubViewport" parent="ItemHBoxContainer/ViewportPanelContainer/ItemSubViewportContainer" unique_id=893101860]
 own_world_3d = true

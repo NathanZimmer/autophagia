@@ -3,12 +3,14 @@
 [ext_resource type="Theme" uid="uid://bh0is5cj4ulq2" path="res://gui/theme/gui_theme.tres" id="1_tagiv"]
 
 [node name="StatusMenu" type="VBoxContainer" unique_id=1261897637]
+mouse_filter = 2
 theme = ExtResource("1_tagiv")
 alignment = 1
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=41153916]
 custom_minimum_size = Vector2(140, 15)
 layout_mode = 2
+mouse_filter = 2
 color = Color(0.15965405, 1.92523e-07, 0.8260272, 1)
 
 [node name="Label" type="Label" parent="ColorRect" unique_id=17852561]
@@ -23,6 +25,7 @@ text = "Temp."
 [node name="ColorRect2" type="ColorRect" parent="." unique_id=1610635624]
 custom_minimum_size = Vector2(140, 15)
 layout_mode = 2
+mouse_filter = 2
 color = Color(0.11402089, 0.6159528, 0, 1)
 
 [node name="Label" type="Label" parent="ColorRect2" unique_id=2059334785]

@@ -23,26 +23,35 @@ func _ready() -> void:
     )
 
 
-func _input(event: InputEvent) -> void:
-    if not visible:
+func _shortcut_input(event: InputEvent) -> void:
+    if not event is InputEventKey:
         return
 
-    if event is InputEventKey or event is InputEventMouseButton:
-        if (
-            event.is_action_pressed(InputActions.Ui.INVENTORY)
-            or event.is_action_pressed(InputActions.Ui.CANCEL)
-        ):
-            _on_cancel()
-            accept_event()
+    if event.is_action_pressed(InputActions.Ui.CANCEL):
+        _on_cancel()
+        accept_event()
+    elif event.is_action_pressed(InputActions.Ui.INVENTORY):
+        accept_event()
 
 
-## Show this popup and grab focus [br]
+func _gui_input(event: InputEvent) -> void:
+    if not event is InputEventMouseButton:
+        return
+
+    if event.is_action_pressed(InputActions.Ui.CANCEL):
+        _on_cancel()
+        accept_event()
+    elif event.is_action_pressed(InputActions.Ui.INVENTORY):
+        accept_event()
+
+
+## Show this popup and enable processing [br]
 ## ## Parameters [br]
 ## `max_count`: The max value of the popup SpinBox [br]
 ## `show_spin_box`: Whether to hide the spin box and show alternate single-item popup
 func show_popup(max_count: int, show_spin_box: bool = true) -> void:
     show()
-    # _select_spin_box.grab_focus()
+    process_mode = Node.PROCESS_MODE_INHERIT
     _select_spin_box.max_value = max_count
     _select_spin_box.value = 1
 
@@ -54,8 +63,11 @@ func show_popup(max_count: int, show_spin_box: bool = true) -> void:
 func _on_count_selected() -> void:
     count_selected.emit(int(_select_spin_box.value))
     hide()
+    process_mode = Node.PROCESS_MODE_DISABLED
 
 
+## Hide this popup and disable processing
 func _on_cancel() -> void:
     count_selected.emit(0)
     hide()
+    process_mode = Node.PROCESS_MODE_DISABLED

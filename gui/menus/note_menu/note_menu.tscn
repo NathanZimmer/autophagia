@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bxy2u38wtphx1"]
+[gd_scene format=3 uid="uid://bxy2u38wtphx1"]
 
 [ext_resource type="Theme" uid="uid://bh0is5cj4ulq2" path="res://gui/theme/gui_theme.tres" id="1_bjjcs"]
 [ext_resource type="Script" uid="uid://cgn0j5oxntxjr" path="res://gui/menus/note_menu/note_menu.gd" id="2_kblmo"]
 [ext_resource type="AudioStream" uid="uid://drnlxiu8es341" path="res://assets/gui/sound/page_flip.wav" id="3_kblmo"]
 
-[node name="NoteMenu" type="Control"]
+[node name="NoteMenu" type="Control" unique_id=2023396387]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,7 +15,7 @@ theme = ExtResource("1_bjjcs")
 script = ExtResource("2_kblmo")
 metadata/_custom_type_script = "uid://cxqrgtmjxn1l5"
 
-[node name="MenuContainer" type="VBoxContainer" parent="."]
+[node name="MenuContainer" type="VBoxContainer" parent="." unique_id=547814788]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
@@ -29,32 +29,37 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
-[node name="Note" type="TextureRect" parent="MenuContainer"]
+[node name="Note" type="TextureRect" parent="MenuContainer" unique_id=731639263]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
 expand_mode = 2
 stretch_mode = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MenuContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuContainer" unique_id=2051337160]
 layout_mode = 2
+mouse_filter = 2
 alignment = 1
 
-[node name="BackButton" type="Button" parent="MenuContainer/HBoxContainer"]
+[node name="BackButton" type="Button" parent="MenuContainer/HBoxContainer" unique_id=819619905]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Return"
 
-[node name="InventoryButton" type="Button" parent="MenuContainer/HBoxContainer"]
+[node name="InventoryButton" type="Button" parent="MenuContainer/HBoxContainer" unique_id=899921874]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Journal"
 
-[node name="PageFlip" type="AudioStreamPlayer2D" parent="."]
+[node name="PageFlip" type="AudioStreamPlayer2D" parent="." unique_id=1723982967]
 unique_name_in_owner = true
 stream = ExtResource("3_kblmo")
 volume_db = 20.0

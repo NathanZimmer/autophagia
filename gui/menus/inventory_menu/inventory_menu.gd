@@ -10,9 +10,10 @@ const MAX_INVENTORY_SIZE := 8
 const MAX_CHEST_SIZE := 6
 
 var InventoryIcon := preload("uid://c4b0a3scm2jlc")
+
 var _inventory: Inventory
-var _chest: Inventory
 var _item_user: ItemUser
+var _chest: Inventory
 
 ## Map icons in GUI to corresponding indices in Inventory
 var _icon_index_map: Dictionary[iInventoryIcon, int]
@@ -59,29 +60,38 @@ func _ready() -> void:
     _init_inventory_container()
     _init_chest_container()
 
-    await get_tree().process_frame
-    if not _inventory:
-        push_error("_inventory not defined")
-    if not _item_user:
-        push_error("_item_user not defined")
-
-
-func _input(event: InputEvent) -> void:
-    if event is InputEventKey or event is InputEventMouseButton:
-        if (
-            event.is_action_pressed(InputActions.Ui.INVENTORY)
-            or event.is_action_pressed(InputActions.Ui.CANCEL)
-        ):
-            if _move_mode:
-                _end_move_mode()
-            else:
-                menu_exited.emit()
-            accept_event()
-
 
 func _shortcut_input(event: InputEvent) -> void:
-    # super._shortcut_input(event)
-    if event is InputEventKey and event.is_action_pressed(InputActions.Ui.JOURNAL):
+    if not event is InputEventKey:
+        return
+
+    if (
+        event.is_action_pressed(InputActions.Ui.INVENTORY)
+        or event.is_action_pressed(InputActions.Ui.CANCEL)
+    ):
+        if _move_mode:
+            _end_move_mode()
+        else:
+            menu_exited.emit()
+        accept_event()
+    elif event.is_action_pressed(InputActions.Ui.JOURNAL):
+        accept_event()
+
+
+func _gui_input(event: InputEvent) -> void:
+    if not event is InputEventMouseButton:
+        return
+
+    if (
+        event.is_action_pressed(InputActions.Ui.INVENTORY)
+        or event.is_action_pressed(InputActions.Ui.CANCEL)
+    ):
+        if _move_mode:
+            _end_move_mode()
+        else:
+            menu_exited.emit()
+        accept_event()
+    elif event.is_action_pressed(InputActions.Ui.JOURNAL):
         accept_event()
 
 
@@ -123,6 +133,9 @@ func _add_icon(container: Container, container_index: int) -> void:
 ## Show count popup and call `_item_user.use_item` with the selected item and count.
 ## Removes count from inventory
 func _use_selected_item() -> void:
+    if not Utils.verify_component_list(self, [_inventory, _item_user]):
+        return
+
     var idx := _icon_index_map[_selected_icon]
     var item := _inventory.get_item(idx)
     var item_info := item.item_info
@@ -131,6 +144,9 @@ func _use_selected_item() -> void:
         item.count if item_info.can_use_multiple else 1, item_info.can_use_multiple
     )
     var count: int = await _count_popup.count_selected
+    # NOTE: Can probably remove this check once item user is implemented
+    if count == 0:
+        return
 
     var used := _item_user.use_item(item_info, item.count)
     if not used:
@@ -146,6 +162,9 @@ func _use_selected_item() -> void:
 ## Show count popup and call `_item_user.drop_item` with the selected item and count.
 ## Removes count from inventory
 func _drop_selected_item() -> void:
+    if not Utils.verify_component_list(self, [_inventory, _item_user]):
+        return
+
     var idx := _icon_index_map[_selected_icon]
     var item := _inventory.get_item(idx)
 
@@ -160,6 +179,9 @@ func _drop_selected_item() -> void:
 
 ## Set the `ItemInfo` and count of each invetory icon from `_inventory`
 func _update_inventory_container() -> void:
+    if not Utils.verify_component(self, _inventory):
+        return
+
     var icons: Array[iInventoryIcon]
     icons.assign(_toolbar_container.get_children() + _inventory_container.get_children())
 
@@ -264,8 +286,10 @@ func _set_selected_icon(icon: iInventoryIcon) -> void:
 
 ## Verify that item of `_selected_icon` can be moved to `icon`. If so, move it.
 func _move_item(icon: iInventoryIcon) -> void:
-    _move_mode_icon = icon
+    if not Utils.verify_component(self, _inventory):
+        return
 
+    _move_mode_icon = icon
     if _selected_icon == _move_mode_icon:
         return
 

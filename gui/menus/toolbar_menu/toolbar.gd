@@ -16,29 +16,29 @@ var _selected_index := 0
 
 func _ready() -> void:
     _init_toolbar_container()
-    _toolbar_container.get_child(0)._on_select()
-
-    await get_tree().process_frame
-    if not _inventory:
-        push_error("_inventory not defined")
-    if not _item_user:
-        push_error("_item_user not defined")
-
-
-func _input(event: InputEvent) -> void:
-    if event is InputEventMouseButton and event.is_action_pressed(InputActions.Player.USE_ITEM):
-        _use_selected_item()
-        accept_event()
 
 
 func _unhandled_input(event: InputEvent) -> void:
+    if not Utils.verify_component(self, _inventory):
+        return
     if not (event is InputEventKey or event is InputEventMouseButton):
         return
     if event.is_released():
         return
 
-    var new_index: int
-    if event is InputEventMouseButton:
+    if event.is_action_pressed(InputActions.Player.USE_ITEM):
+        _use_selected_item()
+        accept_event()
+        return
+
+    # Handle scrolling or swapping with number keys
+    var new_index := -1
+    if event is InputEventKey:
+        var keycode: int = event.keycode - 49
+        if keycode < _inventory.get_toolbar_size() and keycode >= 0:
+            new_index = keycode
+
+    if new_index == -1:
         if event.is_action_pressed(InputActions.Ui.NEXT):
             new_index = _selected_index + 1
         elif event.is_action_pressed(InputActions.Ui.PREV):
@@ -46,22 +46,22 @@ func _unhandled_input(event: InputEvent) -> void:
         else:
             return
         new_index = wrap(new_index, 0, _inventory.get_toolbar_size())
-    else:
-        # PC Specific non-rebindable settings, no need for input map
-        var keycode: int = event.keycode - 49
-        if not (keycode < _inventory.get_toolbar_size() and keycode >= 0):
-            return
-        new_index = keycode
+
+    if new_index == -1:
+        return
 
     _toolbar_container.get_child(_selected_index).deselect()
     _selected_index = new_index
-    _toolbar_container.get_child(new_index)._on_select()
+    _toolbar_container.get_child(new_index).select()
 
     accept_event()
 
 
 ## Call `_item_user.use_item` with the selected item. Removes one from inventory
 func _use_selected_item() -> void:
+    if not Utils.verify_component_list(self, [_inventory, _item_user]):
+        return
+
     AudioManager.play_pressed()
     var item := _inventory.get_item(_selected_index)
     var item_info := item.item_info
@@ -94,6 +94,9 @@ func _add_icon(container: Container) -> void:
 
 ## Set the `ItemInfo` and count of each invetory icon from `_inventory`
 func _update_toolbar_container() -> void:
+    if not Utils.verify_component(self, _inventory):
+        return
+
     var icons: Array[iInventoryIcon]
     icons.assign(_toolbar_container.get_children())
 
@@ -122,6 +125,7 @@ func set_inventory(inventory: Inventory) -> void:
     _inventory = inventory
     _inventory.updated.connect(_update_toolbar_container)
     _update_toolbar_container()
+    _toolbar_container.get_child(0).select()
 
 
 func set_item_user(item_user: ItemUser) -> void:

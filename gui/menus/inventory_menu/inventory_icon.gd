@@ -31,16 +31,17 @@ var _used := false
 
 func _ready() -> void:
     _selected_overlay.material.set("shader_parameter/color", _overlay_color)
-    _panel.theme_type_variation = THEME_UNUSED
+    set_used(false)
 
-    _icon_button.pressed.connect(_on_select)
+    _icon_button.pressed.connect(select)
     _icon_button.mouse_entered.connect(func() -> void: _icon_button.modulate = HOVER_COLOR)
     _icon_button.mouse_exited.connect(func() -> void: _icon_button.modulate = Color.WHITE)
     _icon_button.mouse_entered.disconnect(AudioManager._play_hover)
     clear_item()
 
 
-func _on_select() -> void:
+## Select this icon, if possible
+func select() -> void:
     if not _used:
         return
     _selected_overlay.show()

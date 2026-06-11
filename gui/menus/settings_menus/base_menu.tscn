@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://batthwrq0f4ok"]
+[gd_scene format=3 uid="uid://batthwrq0f4ok"]
 
 [ext_resource type="Script" uid="uid://cxqrgtmjxn1l5" path="res://gui/menus/menu_control.gd" id="1_30g5b"]
 [ext_resource type="Theme" uid="uid://bh0is5cj4ulq2" path="res://gui/theme/gui_theme.tres" id="2_gxbvi"]
 
-[node name="BaseMenu" type="Control"]
+[node name="BaseMenu" type="Control" unique_id=1930713987]
 process_mode = 2
 layout_mode = 3
 anchors_preset = 15
@@ -14,7 +14,7 @@ grow_vertical = 2
 script = ExtResource("1_30g5b")
 metadata/_custom_type_script = "uid://cxqrgtmjxn1l5"
 
-[node name="MenuContainer" type="VBoxContainer" parent="."]
+[node name="MenuContainer" type="VBoxContainer" parent="." unique_id=1357461351]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -22,14 +22,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme = ExtResource("2_gxbvi")
 
-[node name="Padding" type="Control" parent="MenuContainer"]
+[node name="Padding" type="Control" parent="MenuContainer" unique_id=1110380395]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 4
+mouse_filter = 2
 
-[node name="Label" type="Label" parent="MenuContainer"]
+[node name="Label" type="Label" parent="MenuContainer" unique_id=1035730741]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"HeaderMedium"
@@ -37,19 +39,22 @@ text = "menu_label"
 horizontal_alignment = 1
 uppercase = true
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MenuContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MenuContainer" unique_id=646639642]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
+mouse_filter = 2
 theme = ExtResource("2_gxbvi")
 horizontal_scroll_mode = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/ScrollContainer" unique_id=963297923]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 
-[node name="BackButton" type="Button" parent="MenuContainer/ScrollContainer/VBoxContainer"]
+[node name="BackButton" type="Button" parent="MenuContainer/ScrollContainer/VBoxContainer" unique_id=1628000253]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 1
 text = "Return"

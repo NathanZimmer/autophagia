@@ -10,7 +10,7 @@
 [sub_resource type="BoxMesh" id="BoxMesh_rxcrq"]
 material = ExtResource("3_iv3ai")
 
-[node name="Container" type="Node3D" unique_id=293151306]
+[node name="Chest" type="Node3D" unique_id=293151306]
 script = ExtResource("1_p678n")
 
 [node name="ClickTrigger" type="Area3D" parent="." unique_id=242816594 groups=["chest"]]

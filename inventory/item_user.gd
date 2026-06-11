@@ -28,18 +28,16 @@ var _block_menuing := false
 func _input(event: InputEvent) -> void:
     if not _block_menuing:
         return
+    if not (event is InputEventKey or event is InputEventMouseButton):
+        return
 
-    if event is InputEventMouseButton:
-        if event.is_action_pressed(InputActions.Ui.CANCEL):
-            _block_menuing = false
-            item_place_mode.emit(false)
-        elif event.is_action_pressed(InputActions.Player.INTERACT):
-            _block_menuing = false
-            item_place_mode.emit(false)
+    if event.is_action_pressed(InputActions.Ui.CANCEL):
+        _block_menuing = false
+        item_place_mode.emit(false)
         get_viewport().set_input_as_handled()
-    elif event is InputEventKey:
-        if event.is_action_pressed(InputActions.Ui.CANCEL):
-            _block_menuing = false
+    elif event.is_action_pressed(InputActions.Player.INTERACT):
+        _block_menuing = false
+        item_place_mode.emit(false)
         get_viewport().set_input_as_handled()
 
 
@@ -50,7 +48,7 @@ func _input(event: InputEvent) -> void:
 
 
 func _test_spawn_ball(count: int, test_inp: String, block_menuing: bool = false) -> bool:
-    print(count, test_inp)
+    print(count, " ", test_inp)
 
     _block_menuing = block_menuing
     item_place_mode.emit(block_menuing)
@@ -72,7 +70,7 @@ func _test_spawn_ball(count: int, test_inp: String, block_menuing: bool = false)
 
 
 func _test(count: int, test_inp: String) -> bool:
-    print(count, test_inp)
+    print(count, " ", test_inp)
     return true
 
 

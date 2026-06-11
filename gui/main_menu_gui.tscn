@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bloen661m8pv3"]
+[gd_scene format=3 uid="uid://bloen661m8pv3"]
 
 [ext_resource type="Script" uid="uid://cvsebnu23qq2q" path="res://gui/main_menu_gui.gd" id="1_aqy43"]
 [ext_resource type="Shader" uid="uid://drg8e2kipk5th" path="res://gui/materials/scroll.gdshader" id="2_5478m"]
@@ -16,7 +16,7 @@ shader_parameter/scroll_speed = Vector2(0.003, -0.015)
 shader = ExtResource("2_5478m")
 shader_parameter/scroll_speed = Vector2(0, -0.02)
 
-[node name="MainMenuGui" type="Control"]
+[node name="MainMenuGui" type="Control" unique_id=1357984378]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,7 +25,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_aqy43")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="." unique_id=842989428]
 material = SubResource("ShaderMaterial_oixfu")
 layout_mode = 1
 anchors_preset = 15
@@ -35,7 +35,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_ksbxp")
 
-[node name="BackgroundJustText" type="TextureRect" parent="."]
+[node name="BackgroundJustText" type="TextureRect" parent="." unique_id=756375283]
 material = SubResource("ShaderMaterial_6yfcd")
 layout_mode = 1
 anchors_preset = 15
@@ -45,7 +45,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_fsb0b")
 
-[node name="Vignette" type="TextureRect" parent="."]
+[node name="Vignette" type="TextureRect" parent="." unique_id=2027721663]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -54,7 +54,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_42l5o")
 
-[node name="BlackAdjustment" type="ColorRect" parent="."]
+[node name="BlackAdjustment" type="ColorRect" parent="." unique_id=412841998]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -63,7 +63,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.313726)
 
-[node name="RetroFilter" type="ColorRect" parent="."]
+[node name="RetroFilter" type="ColorRect" parent="." unique_id=991636049]
 process_mode = 3
 material = ExtResource("6_5478m")
 layout_mode = 1
@@ -74,7 +74,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="MainMenu" parent="." node_paths=PackedStringArray("_swap_map") instance=ExtResource("2_qfd26")]
+[node name="MainMenu" parent="." unique_id=147555848 node_paths=PackedStringArray("_swap_map") instance=ExtResource("2_qfd26")]
 layout_mode = 1
 _swap_map = {
 NodePath("MenuContainer/ScrollContainer/VBoxContainer/ControlsButton"): NodePath("ControlsMenu"),

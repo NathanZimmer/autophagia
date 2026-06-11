@@ -33,7 +33,7 @@ var _notes: Dictionary[Title, Note] = {
 
 
 func _ready() -> void:
-    if _message_handler:
+    if Utils.verify_component(self, _message_handler):
         _message_handler.note_received.connect(_discover_note)
 
 
