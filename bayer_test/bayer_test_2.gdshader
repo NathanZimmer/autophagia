@@ -23,7 +23,7 @@ const float FAR = 20.0;
 //const vec2 PIXEL_SIZE_FAR = vec2(96.00142915023542, 24.0);
 //const vec2 PIXEL_SIZE_NEAR = vec2(96.00142915023542, 24.0);
 //const vec2 PIXEL_SIZE_FAR = vec2(38400.57166009417, 9600.0);
-
+uniform float scale = 1.0;
 uniform sampler2D albedo_texture : filter_nearest_mipmap_anisotropic;
 
 uniform mat4 bayer_matrix_4x4 = mat4(
@@ -47,7 +47,7 @@ float dither(float color, vec2 uv, int dim) {
     
     //ivec2 m_pos = ivec2(int(uv.x) % 4, int(uv.y) % 4);
     float bayer_factor = bayer_matrix_4x4[m_pos.x][m_pos.y];
-    //return bayer_factor;
+    return bayer_factor;
     int scaled_color = int(round(
         (color * 255.0 + threshold_scale * (bayer_factor - 0.5))
     ));
@@ -68,8 +68,25 @@ vec4 dither(vec2 test, vec2 uv) {
     );
 }
 
+varying vec2 angle_to_view;
+void vertex() {
+    //vec3 nvm = CAMERA_DIRECTION_WORLD;
+    //vec3 local_normal = NORMAL;
+    //angle_to_view = vec3(
+        //abs(dot(nvm, vec3(local_normal.x, 1.0, 1.0))),
+        //abs(dot(nvm, vec3(1.0, local_normal.y, 1.0))),
+        //abs(dot(nvm, vec3(1.0, 1.0, local_normal.z)))
+    //);
+    NORMAL = normalize((MODELVIEW_MATRIX * vec4(NORMAL, 0.0)).xyz);
+    //angle_to_view = vec3(
+            //acos(dot(normalize(NORMAL.xz), vec2(0.0, -1.0))) / TAU,
+            //0.0 * acos(dot(normalize(NORMAL.yz), vec2(0.0, -1.0))) / TAU,
+            //0.0);
+    angle_to_view = abs(NORMAL.xy);
+}
+
 void fragment() {
-    const float depth = length(VERTEX);
+    //const float depth = length(VERTEX);
     
     //const vec2 angle_to_center = vec2(
             //abs(SCREEN_UV.x - 0.5) * H_FOV_DEG,
@@ -78,32 +95,93 @@ void fragment() {
             //cos(radians(angle_to_center.x)) / depth,
             //cos(radians(angle_to_center.y)) / depth);
     
-    const float factored_depth = pow(2.0, floor(log2(depth)));
-    //const float mix_factor = sin(((depth - factored_depth) / factored_depth) * (PI / 2.0));
-    const float mix_factor = (depth - factored_depth) / factored_depth;
+    //vec2 vertex_x = vec2(VERTEX.x, VERTEX.z);
+    //vec2 view_x = vec2(VIEW.x, VIEW.z);
+    //vec2 vertex_y = vec2(VERTEX.y, VERTEX.z);
+    //vec2 view_y = vec2(VIEW.y, VIEW.z);
+    //float x_angle_to_center = cos(dot(vertex_x, view_x));
+    //float y_angle_to_center = cos(dot(vertex_y, view_y));
+    //vec2 corrected_depth = vec2(
+            //length(vertex_x) * cos(x_angle_to_center),
+            //length(vertex_y) * cos(y_angle_to_center));
+    //ALBEDO = vec3(x_angle_to_center, y_angle_to_center, 0.0);
+    //float x_angle_to_center = acos(dot(-VIEW.xz, vec2(0.0, -1.0))) / TAU;
+    //float y_angle_to_center = acos(dot(VIEW.yz, vec2(0.0, -1.0))) / TAU;
+    //ALBEDO = vec3(x_angle_to_center, 0.0, 0.0);
     
-    const vec2 pixel_world_size = vec2(
-            (1.0 / factored_depth) * H_ANGLE_FACTOR_DEG,
-            (1.0 / factored_depth) * V_ANGLE_FACTOR_DEG);
-    const vec2 pixel_world_size_x2 = vec2(
-            (1.0 / factored_depth) * H_ANGLE_FACTOR_DEG * 0.5,
-            (1.0 / factored_depth) * V_ANGLE_FACTOR_DEG * 0.5);
-            
-    //ALBEDO = dither(vec2(
-                //(mix(pixel_world_size.x, pixel_world_size_x2.x, mix_factor) * UV.x), 
-                //(mix(pixel_world_size.y, pixel_world_size_x2.y, mix_factor) * UV.y)), UV).rgb;
-    //ALBEDO = mix(dither(vec2((pixel_world_size.x * UV.x), (pixel_world_size.y * UV.y)), UV).rgb,
-            //dither(vec2((pixel_world_size_x2.x * UV.x), (pixel_world_size_x2.y * UV.y)), UV).rgb,
-            //mix_factor);
-    ALBEDO = mix(dither(vec2((pixel_world_size.x * UV.x), (pixel_world_size.y * UV.y)), UV).rgb,
-            dither(vec2((pixel_world_size_x2.x * UV.x), (pixel_world_size_x2.y * UV.y)), UV).rgb,
+    //vec2 dir = abs(RESOLUTION * 0.5 - SCREEN_UV * RESOLUTION);
+    //ALBEDO = vec3(pow(atan(dir.x) / TAU, 2.0), 0.0, 0.0);
+    //vec2 center = vec2(0.5, 0.5);
+    //vec2 pos = SCREEN_UV - center;
+    //pos.x *= VIEWPORT_SIZE.x / VIEWPORT_SIZE.y; 
+    //float angle = atan(pos.y, pos.x); 
+    //ALBEDO = vec3(abs(angle) / TAU);
+    
+    float depth = length(VERTEX);
+    float x_angle = acos(dot(normalize(VERTEX.xz), vec2(0.0, -1.0)));
+    float y_angle = acos(dot(normalize(VERTEX.yz), vec2(0.0, -1.0)));
+    vec2 corrected_depth = vec2(length(VERTEX.xz) * cos(x_angle), length(VERTEX.yz) * cos(y_angle));
+    //vec2 stepped_depth = pow(vec2(2.0, 2.0), floor(log2(vec2(depth, depth))));
+    //float mix_factor = (depth - stepped_depth.x) / stepped_depth.x;
+    vec2 stepped_depth = pow(vec2(2.0, 2.0), floor(log2(corrected_depth)));
+    float mix_factor = (length(corrected_depth) - length(stepped_depth)) / length(stepped_depth);
+    vec2 pixel_size_world = vec2(
+            (1.0 / stepped_depth.x) * H_ANGLE_FACTOR_DEG * (1.0 - angle_to_view.x),
+            (1.0 / stepped_depth.y) * V_ANGLE_FACTOR_DEG * (1.0 - angle_to_view.y));
+    vec2 pixel_size_world_x2 = vec2(
+            (1.0 / stepped_depth.x) * H_ANGLE_FACTOR_DEG * 0.5 * (1.0 - angle_to_view.x),
+            (1.0 / stepped_depth.y) * V_ANGLE_FACTOR_DEG * 0.5 * (1.0 - angle_to_view.y));
+    
+    ALBEDO = mix(dither(vec2((pixel_size_world.x * UV.x * scale), (pixel_size_world.y * UV.y * scale)), UV).rgb,
+            dither(vec2((pixel_size_world_x2.x * UV.x * scale), (pixel_size_world_x2.y * UV.y * scale)), UV).rgb,
             mix_factor);
+            
+    //ALBEDO *= vec3(angle_to_view, 0.0);
+    
+    //ALBEDO = vec3(x_angle, y_angle, 0.0);
+    //ALBEDO = vec3(length(VERTEX.xz) * cos(x_angle), length(VERTEX.yz) * cos(y_angle), 0.0);
+    //vec2 pixel_world_size = vec2(
+            //(1.0 / corrected_depth.x) * H_ANGLE_FACTOR_DEG,
+            //(1.0 / corrected_depth.y) * V_ANGLE_FACTOR_DEG);
     //ALBEDO = dither(vec2((pixel_world_size.x * UV.x), (pixel_world_size.y * UV.y)), UV).rgb;
-    //vec4 color = texture(albedo_texture, pixel_world_size);
-    //ALBEDO = color.rgb;
-    //ALPHA = color.a;
-    //const float scaled_depth = pow((1.0 / depth), 3.0);
-    //ALBEDO = vec3(depth / 100.0);
+    
+    ////const float factored_depth = pow(2.0, floor(log2(depth)));
+    //const float factored_depth = depth;
+    ////const float mix_factor = sin(((depth - factored_depth) / factored_depth) * (PI / 2.0));
+    //const float mix_factor = (depth - factored_depth) / factored_depth;
+    //
+    ////float angle_x = abs(dot(vec3(VIEW.x, 0.0, 0.0), normal));
+    ////float angle_y = abs(dot(vec3(0.0, VIEW.y, 0.0), normal));
+    ////float angle_z = abs(dot(vec3(0.0, VIEW.z, 0.0), normal));
+    ////const float skew_scale_factor = 100.0;
+    //
+    //vec2 pixel_world_size = vec2(
+            //(1.0 / corrected_depth.x) * H_ANGLE_FACTOR_DEG, // * (2.0 - angle_x),
+            //(1.0 / corrected_depth.y) * V_ANGLE_FACTOR_DEG);
+    //vec2 pixel_world_size_x2 = vec2(
+            //(1.0 / factored_depth) * H_ANGLE_FACTOR_DEG * 0.5, // * (2.0 - angle_x),
+            //(1.0 / factored_depth) * V_ANGLE_FACTOR_DEG * 0.5);
+            //
+    ////ALBEDO = dither(vec2(
+                ////(mix(pixel_world_size.x, pixel_world_size_x2.x, mix_factor) * UV.x), 
+                ////(mix(pixel_world_size.y, pixel_world_size_x2.y, mix_factor) * UV.y)), UV).rgb;
+    ////ALBEDO = mix(dither(vec2((pixel_world_size.x * UV.x), (pixel_world_size.y * UV.y)), UV).rgb,
+            ////dither(vec2((pixel_world_size_x2.x * UV.x), (pixel_world_size_x2.y * UV.y)), UV).rgb,
+            ////mix_factor);
+    //
+    ////ALBEDO = mix(dither(vec2((pixel_world_size.x * UV.x * scale), (pixel_world_size.y * UV.y * scale)), UV).rgb,
+            ////dither(vec2((pixel_world_size_x2.x * UV.x * scale), (pixel_world_size_x2.y * UV.y * scale)), UV).rgb,
+            ////mix_factor);
+            //
+    ////float angle_to_normal_x = dot(NORMAL, VIEW * VIEW_MATRIX[0].xyz);
+    ////float angle_to_normal_y = dot(NORMAL, VIEW * VIEW_MATRIX[1].xyz);
+    //
+    ////ALBEDO = dither(vec2((pixel_world_size.x * UV.x), (pixel_world_size.y * UV.y)), UV).rgb;
+    ////vec4 color = texture(albedo_texture, pixel_world_size);
+    ////ALBEDO = color.rgb;
+    ////ALPHA = color.a;
+    ////const float scaled_depth = pow((1.0 / depth), 3.0);
+    ////ALBEDO = vec3(depth / 100.0);
 }
 
 //

@@ -48,6 +48,7 @@ width = 16
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u5t4v"]
 render_priority = 0
 shader = ExtResource("3_u5t4v")
+shader_parameter/scale = 1.0
 shader_parameter/albedo_texture = ExtResource("5_u5t4v")
 shader_parameter/bayer_matrix_4x4 = Projection(0, 0.5, 0.125, 0.625, 0.75, 0.25, 0.875, 0.375, 0.1875, 0.6875, 0.0625, 0.5625, 0.9375, 0.4375, 0.8125, 0.3125)
 shader_parameter/color_palette = SubResource("GradientTexture1D_cgo6f")
@@ -111,7 +112,6 @@ mesh = SubResource("SphereMesh_vmisi")
 
 [node name="MeshInstance3D8" type="MeshInstance3D" parent="." unique_id=775917337]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -7.5)
-visible = false
 mesh = SubResource("PlaneMesh_8eoo8")
 
 [node name="MeshInstance3D9" type="MeshInstance3D" parent="." unique_id=147872042]
@@ -121,13 +121,13 @@ mesh = SubResource("PlaneMesh_u5t4v")
 
 [node name="density_test" parent="." unique_id=1919283386 instance=ExtResource("6_8eoo8")]
 
-[node name="Cube" parent="density_test" index="0" unique_id=1846805542]
+[node name="Cube" parent="density_test" index="0" unique_id=1514410926]
 material_override = SubResource("ShaderMaterial_u5t4v")
 
-[node name="Cube_001" parent="density_test" index="1" unique_id=788595023]
+[node name="Cube_001" parent="density_test" index="1" unique_id=1820116296]
 material_override = SubResource("ShaderMaterial_u5t4v")
 
-[node name="Cube_002" parent="density_test" index="2" unique_id=209085211]
+[node name="Cube_002" parent="density_test" index="2" unique_id=857017728]
 material_override = SubResource("ShaderMaterial_u5t4v")
 
 [editable path="density_test"]
