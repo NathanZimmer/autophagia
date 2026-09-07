@@ -47,19 +47,14 @@ func _ready() -> void:
 
     _link_runtime_configurables()
 
+    print(camera.get_camera_projection().get_fov())
+
     if DEBUG_CAPTURE_MOUSE:
         Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
-func _unhandled_input(event: InputEvent) -> void:
-    if event is InputEventMouseMotion:
-        if DEBUG_CAPTURE_MOUSE and Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
-            return
-
-        _rotate_cam(event)
-        get_tree().get_root().set_input_as_handled()
-
-    elif event is InputEventKey:
+func _input(event: InputEvent) -> void:
+    if event is InputEventKey:
         if DEBUG_CAPTURE_MOUSE and event.is_action_pressed("ui_cancel"):
             if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
                 Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -87,6 +82,15 @@ func _unhandled_input(event: InputEvent) -> void:
             _speed_mod += mw_input_scale
             _speed_mod = _speed_mod if _speed_mod < _max_speed else _max_speed
             # get_tree().get_root().set_input_as_handled()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+    if event is InputEventMouseMotion:
+        if DEBUG_CAPTURE_MOUSE and Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
+            return
+
+        _rotate_cam(event)
+        get_tree().get_root().set_input_as_handled()
 
 
 func _physics_process(delta: float) -> void:

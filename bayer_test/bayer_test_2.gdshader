@@ -24,7 +24,7 @@ const float FAR = 20.0;
 //const vec2 PIXEL_SIZE_NEAR = vec2(96.00142915023542, 24.0);
 //const vec2 PIXEL_SIZE_FAR = vec2(38400.57166009417, 9600.0);
 uniform float scale = 1.0;
-uniform sampler2D albedo_texture : filter_nearest_mipmap_anisotropic;
+uniform sampler2D texture_albedo : filter_nearest_mipmap_anisotropic;
 
 uniform mat4 bayer_matrix_4x4 = mat4(
     vec4(0.0, 0.5, 0.125, 0.625),
@@ -37,6 +37,14 @@ uniform mat4 bayer_matrix_4x4 = mat4(
 uniform sampler2D color_palette;
 uniform int palette_bit_depth: hint_range(1, 8) = 1;
 uniform float threshold_scale : hint_range(0.0, 255) = 0.0;
+
+varying vec3 uv1_triplanar_pos;
+
+uniform float uv1_blend_sharpness : hint_range(0.0, 150.0, 0.001);
+varying vec3 uv1_power_normal;
+
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
 
 float dither(float color, vec2 uv, int dim) {
     const vec2 step_factor = vec2(1.0, 1.0);
@@ -58,7 +66,7 @@ float dither(float color, vec2 uv, int dim) {
 }
 
 vec4 dither(vec2 test, vec2 uv) {
-    vec4 color = texture(albedo_texture, uv);
+    vec4 color = texture(texture_albedo, uv);
     //return color;
     return vec4(
         dither(color.r, test, 0),
@@ -83,9 +91,26 @@ void vertex() {
             //0.0 * acos(dot(normalize(NORMAL.yz), vec2(0.0, -1.0))) / TAU,
             //0.0);
     angle_to_view = abs(NORMAL.xy);
+    
+    vec3 normal = MODEL_NORMAL_MATRIX * NORMAL;
+    // UV1 Triplanar: Enabled (with World Triplanar)
+	uv1_power_normal = pow(abs(normal), vec3(uv1_blend_sharpness));
+	uv1_triplanar_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz * uv1_scale + uv1_offset;
+	uv1_power_normal /= dot(uv1_power_normal, vec3(1.0));
+	uv1_triplanar_pos *= vec3(1.0, -1.0, 1.0);
+}
+
+vec4 triplanar_texture(sampler2D p_sampler, vec3 p_weights, vec3 p_triplanar_pos) {
+	vec4 samp = vec4(0.0);
+	samp += texture(p_sampler, p_triplanar_pos.xy) * p_weights.z;
+	samp += texture(p_sampler, p_triplanar_pos.xz) * p_weights.y;
+	samp += texture(p_sampler, p_triplanar_pos.zy * vec2(-1.0, 1.0)) * p_weights.x;
+	return samp;
 }
 
 void fragment() {
+    vec4 albedo_tex = triplanar_texture(texture_albedo, uv1_power_normal, uv1_triplanar_pos);
+    //ALBEDO = albedo_tex.rgb;
     //const float depth = length(VERTEX);
     
     //const vec2 angle_to_center = vec2(
@@ -125,12 +150,13 @@ void fragment() {
     //float mix_factor = (depth - stepped_depth.x) / stepped_depth.x;
     vec2 stepped_depth = pow(vec2(2.0, 2.0), floor(log2(corrected_depth)));
     float mix_factor = (length(corrected_depth) - length(stepped_depth)) / length(stepped_depth);
+    // FIXME: Why does the pixel stretching on the floor move along the world z instead of local z??
     vec2 pixel_size_world = vec2(
-            (1.0 / stepped_depth.x) * H_ANGLE_FACTOR_DEG * (1.0 - angle_to_view.x),
-            (1.0 / stepped_depth.y) * V_ANGLE_FACTOR_DEG * (1.0 - angle_to_view.y));
+            (1.0 / stepped_depth.x) * H_ANGLE_FACTOR_DEG * (1.0 - /*angle_to_view.x*/ 0.0),
+            (1.0 / stepped_depth.y) * V_ANGLE_FACTOR_DEG * (1.0 - /*angle_to_view.y*/ 0.0));
     vec2 pixel_size_world_x2 = vec2(
-            (1.0 / stepped_depth.x) * H_ANGLE_FACTOR_DEG * 0.5 * (1.0 - angle_to_view.x),
-            (1.0 / stepped_depth.y) * V_ANGLE_FACTOR_DEG * 0.5 * (1.0 - angle_to_view.y));
+            (1.0 / stepped_depth.x) * H_ANGLE_FACTOR_DEG * 0.5 * (1.0 - /*angle_to_view.x*/ 0.0),
+            (1.0 / stepped_depth.y) * V_ANGLE_FACTOR_DEG * 0.5 * (1.0 - /*angle_to_view.y*/ 0.0));
     
     ALBEDO = mix(dither(vec2((pixel_size_world.x * UV.x * scale), (pixel_size_world.y * UV.y * scale)), UV).rgb,
             dither(vec2((pixel_size_world_x2.x * UV.x * scale), (pixel_size_world_x2.y * UV.y * scale)), UV).rgb,
@@ -177,7 +203,7 @@ void fragment() {
     ////float angle_to_normal_y = dot(NORMAL, VIEW * VIEW_MATRIX[1].xyz);
     //
     ////ALBEDO = dither(vec2((pixel_world_size.x * UV.x), (pixel_world_size.y * UV.y)), UV).rgb;
-    ////vec4 color = texture(albedo_texture, pixel_world_size);
+    ////vec4 color = texture(texture_albedo, pixel_world_size);
     ////ALBEDO = color.rgb;
     ////ALPHA = color.a;
     ////const float scaled_depth = pow((1.0 / depth), 3.0);

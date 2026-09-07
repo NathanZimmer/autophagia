@@ -149,9 +149,13 @@ func _create_sub_viewport() -> SubViewport:
         ProjectSettings.get_setting("display/window/size/viewport_width"),
         ProjectSettings.get_setting("display/window/size/viewport_height")
     )
+    # sub_viewport.size = Vector2i(30, 30)
     sub_viewport.use_occlusion_culling = false
+    # sub_viewport.use_occlusion_culling = true
     sub_viewport.render_target_update_mode = SubViewport.UPDATE_WHEN_PARENT_VISIBLE
-    sub_viewport.handle_input_locally = true
+    # sub_viewport.handle_input_locally = true
+    sub_viewport.gui_disable_input = true
+
     sub_viewport.audio_listener_enable_2d = false
     sub_viewport.audio_listener_enable_3d = false
 

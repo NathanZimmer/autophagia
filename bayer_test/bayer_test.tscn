@@ -4,8 +4,9 @@
 [ext_resource type="Material" uid="uid://yk4x16701e40" path="res://common/placeholder_triplanar.tres" id="2_mgjqo"]
 [ext_resource type="Shader" uid="uid://c440feid1gfeo" path="res://bayer_test/bayer_test_2.gdshader" id="3_u5t4v"]
 [ext_resource type="Shader" uid="uid://fx4tvie18wye" path="res://bayer_test/bayer_test.gdshader" id="3_vysql"]
-[ext_resource type="Texture2D" uid="uid://crousdp5ogamm" path="res://assets/interactable/pickup/pickup_ring_noise.png" id="5_u5t4v"]
+[ext_resource type="Texture2D" uid="uid://bsb4kif4f8y6r" path="res://common/placeholder.png" id="5_mxdxx"]
 [ext_resource type="PackedScene" uid="uid://c4ay1s3hcksm6" path="res://bayer_test/density_test.blend" id="6_8eoo8"]
+[ext_resource type="Material" uid="uid://r7pelrn3dpnf" path="res://bayer_test/triplanar_test.tres" id="7_j71fs"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_vysql"]
 material = ExtResource("2_mgjqo")
@@ -49,11 +50,14 @@ width = 16
 render_priority = 0
 shader = ExtResource("3_u5t4v")
 shader_parameter/scale = 1.0
-shader_parameter/albedo_texture = ExtResource("5_u5t4v")
+shader_parameter/texture_albedo = ExtResource("5_mxdxx")
 shader_parameter/bayer_matrix_4x4 = Projection(0, 0.5, 0.125, 0.625, 0.75, 0.25, 0.875, 0.375, 0.1875, 0.6875, 0.0625, 0.5625, 0.9375, 0.4375, 0.8125, 0.3125)
 shader_parameter/color_palette = SubResource("GradientTexture1D_cgo6f")
 shader_parameter/palette_bit_depth = 4
 shader_parameter/threshold_scale = 63.0000029925
+shader_parameter/uv1_blend_sharpness = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_8eoo8"]
 lightmap_size_hint = Vector2i(27, 27)
@@ -66,6 +70,10 @@ lightmap_size_hint = Vector2i(54, 54)
 material = SubResource("ShaderMaterial_u5t4v")
 size = Vector2(5, 5)
 orientation = 2
+
+[sub_resource type="SphereMesh" id="SphereMesh_j71fs"]
+lightmap_size_hint = Vector2i(9, 5)
+material = ExtResource("7_j71fs")
 
 [node name="BayerTest" type="Node3D" unique_id=581550073]
 
@@ -129,5 +137,9 @@ material_override = SubResource("ShaderMaterial_u5t4v")
 
 [node name="Cube_002" parent="density_test" index="2" unique_id=857017728]
 material_override = SubResource("ShaderMaterial_u5t4v")
+
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="." unique_id=1229346971]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.5, -3)
+mesh = SubResource("SphereMesh_j71fs")
 
 [editable path="density_test"]

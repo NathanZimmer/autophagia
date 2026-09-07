@@ -178,12 +178,12 @@ common/physics_ticks_per_second=288
 
 [player]
 
-camera/mouse_inverted=false
 camera/field_of_view=90
 camera/mouse_sensitivity=50
 
 [rendering]
 
+anti_aliasing/screen_space_roughness_limiter/enabled=false
 scaling_3d/fsr_sharpness=0.0
 lightmapping/primitive_meshes/texel_size=0.4
 occlusion_culling/use_occlusion_culling=true
