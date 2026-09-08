@@ -154,7 +154,7 @@ _journal = NodePath("../../Journal")
 _inventory = NodePath("../../Inventory")
 _item_user = NodePath("../../ItemUser")
 
-[node name="RetroFilter" type="ColorRect" parent="CanvasLayer" unique_id=2018018916]
+[node name="ScreenFilter" type="ColorRect" parent="CanvasLayer" unique_id=2018018916]
 process_mode = 3
 material = ExtResource("8_hg6s5")
 anchors_preset = 15
