@@ -12,6 +12,7 @@ uniform int palette_bit_depth : hint_range(1, 8) = 1;
  * less visible information. Usually 255 / palette_bit_depth
  */
 uniform float threshold_scale : hint_range(0.0, 255) = 255.0;
+uniform float bleed_weight : hint_range(0.0, 1.0);
 
 const mat4 bayer_matrix = mat4(
     vec4(0.0, 0.5, 0.125, 0.625), vec4(0.75, 0.25, 0.875, 0.375),
@@ -33,4 +34,11 @@ vec4 dither(vec2 screen_uv, vec4 frag_coord) {
   return vec4(shifted_normalized_color, 1.0);
 }
 
-void fragment() { COLOR = dither(SCREEN_UV, FRAGCOORD); }
+void fragment() {
+  vec4 adj_average =
+      (dither(SCREEN_UV - vec2(1.0 / 640.0, 0), FRAGCOORD - vec4(1, 0, 0, 0)) +
+       dither(SCREEN_UV - vec2(0, 1.0 / 480.0), FRAGCOORD - vec4(0, 1, 0, 0))) *
+      0.5;
+  COLOR = dither(SCREEN_UV, FRAGCOORD) * (1.0 - bleed_weight) +
+          adj_average * bleed_weight;
+}
