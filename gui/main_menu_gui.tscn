@@ -6,7 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://brn42r7odb2vt" path="res://assets/gui/menus/main_menu/background_just_text.png" id="3_fsb0b"]
 [ext_resource type="Texture2D" uid="uid://b7384d8vugrfe" path="res://assets/gui/menus/main_menu/background.png" id="3_ksbxp"]
 [ext_resource type="Texture2D" uid="uid://c0ja4c8vvxwhl" path="res://assets/gui/menus/main_menu/vignette.png" id="4_42l5o"]
-[ext_resource type="Material" uid="uid://byvayr8jwcepu" path="res://player/materials/retro_filter.tres" id="6_5478m"]
+[ext_resource type="Material" uid="uid://byvayr8jwcepu" path="res://player/materials/crt.tres" id="6_5478m"]
+[ext_resource type="Material" uid="uid://cl4wjoty18yvj" path="res://player/materials/dither.tres" id="7_oixfu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oixfu"]
 shader = ExtResource("2_5478m")
@@ -25,9 +26,21 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_aqy43")
 
-[node name="Background" type="TextureRect" parent="." unique_id=842989428]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1628080188]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 480.0
+scale = Vector2(1.5, 1.5)
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=81427689]
+disable_3d = true
+handle_input_locally = false
+audio_listener_enable_2d = true
+size = Vector2i(640, 480)
+render_target_update_mode = 4
+
+[node name="Background" type="TextureRect" parent="SubViewportContainer/SubViewport" unique_id=842989428]
 material = SubResource("ShaderMaterial_oixfu")
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -35,9 +48,8 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_ksbxp")
 
-[node name="BackgroundJustText" type="TextureRect" parent="." unique_id=756375283]
+[node name="BackgroundJustText" type="TextureRect" parent="SubViewportContainer/SubViewport" unique_id=756375283]
 material = SubResource("ShaderMaterial_6yfcd")
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -45,8 +57,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_fsb0b")
 
-[node name="Vignette" type="TextureRect" parent="." unique_id=2027721663]
-layout_mode = 1
+[node name="Vignette" type="TextureRect" parent="SubViewportContainer/SubViewport" unique_id=2027721663]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -54,16 +65,34 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_42l5o")
 
-[node name="BlackAdjustment" type="ColorRect" parent="." unique_id=412841998]
-layout_mode = 1
+[node name="BlackAdjustment" type="ColorRect" parent="SubViewportContainer/SubViewport" unique_id=412841998]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.313726)
+color = Color(0, 0, 0, 0.15686275)
 
-[node name="RetroFilter" type="ColorRect" parent="." unique_id=991636049]
+[node name="MainMenu" parent="SubViewportContainer/SubViewport" unique_id=147555848 node_paths=PackedStringArray("_swap_map") instance=ExtResource("2_qfd26")]
+_swap_map = {
+NodePath("MenuContainer/ScrollContainer/VBoxContainer/ControlsButton"): NodePath("ControlsMenu"),
+NodePath("MenuContainer/ScrollContainer/VBoxContainer/QuitButton"): NodePath("QuitMenu"),
+NodePath("MenuContainer/ScrollContainer/VBoxContainer/VisualsButton"): NodePath("VisualsMenu"),
+NodePath("MenuContainer/ScrollContainer/VBoxContainer/SoundButton"): NodePath("SoundMenu")
+}
+
+[node name="DitherFilter" type="ColorRect" parent="SubViewportContainer/SubViewport" unique_id=2113634768]
+process_mode = 3
+material = ExtResource("7_oixfu")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="CrtFilter" type="ColorRect" parent="." unique_id=991636049]
 process_mode = 3
 material = ExtResource("6_5478m")
 layout_mode = 1
@@ -73,12 +102,3 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-
-[node name="MainMenu" parent="." unique_id=147555848 node_paths=PackedStringArray("_swap_map") instance=ExtResource("2_qfd26")]
-layout_mode = 1
-_swap_map = {
-NodePath("MenuContainer/ScrollContainer/VBoxContainer/ControlsButton"): NodePath("ControlsMenu"),
-NodePath("MenuContainer/ScrollContainer/VBoxContainer/QuitButton"): NodePath("QuitMenu"),
-NodePath("MenuContainer/ScrollContainer/VBoxContainer/VisualsButton"): NodePath("VisualsMenu"),
-NodePath("MenuContainer/ScrollContainer/VBoxContainer/SoundButton"): NodePath("SoundMenu")
-}

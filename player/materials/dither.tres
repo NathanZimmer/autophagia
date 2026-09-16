@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cl4wjoty18yvj"]
+
+[ext_resource type="Shader" uid="uid://b43ppjcv5in3e" path="res://player/materials/dither.gdshader" id="1_spyqs"]
+
+[resource]
+shader = ExtResource("1_spyqs")
+shader_parameter/palette_bit_depth = 4
+shader_parameter/threshold_scale = 51.0000024225

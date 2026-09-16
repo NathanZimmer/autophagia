@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://byvayr8jwcepu"]
+
+[ext_resource type="Shader" uid="uid://c7gou5tdd475f" path="res://player/materials/crt.gdshader" id="1_5agxk"]
+
+[resource]
+shader = ExtResource("1_5agxk")
+shader_parameter/pixel_rgb_mix = 0.15
+shader_parameter/scanline_darken_mix = 0.6

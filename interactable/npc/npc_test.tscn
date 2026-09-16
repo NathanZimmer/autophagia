@@ -223,5 +223,3 @@ _start_count = 3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7198763, 0, 6.0940804)
 _item_info = SubResource("Resource_cvy6v")
 _start_count = 10
-
-[editable path="Player"]

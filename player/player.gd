@@ -32,6 +32,8 @@ var _flying := false
 var _mouse_sensitivity := 50
 var _mouse_inverted := false
 
+@onready var camera_remote_transform: RemoteTransform3D = %CameraRemoteTransform3D
+@onready var camera_sub_viewport: SubViewport = %CameraSubViewport
 @onready var camera: Camera3D = %Camera3D
 @onready var _collider: CollisionShape3D = %CollisionShape3D
 # @onready var _camera_animation_player: AnimationPlayer = %CameraAnimationPlayer
@@ -156,20 +158,20 @@ func _walk_and_jump(delta: float) -> void:
 ## ## Parameters [br]
 ## `event`: mouse movement to be used to rotate the camera.
 func _rotate_cam(event: InputEventMouseMotion) -> void:
-    var viewport_transform: Transform2D = get_tree().root.get_final_transform()
+    var viewport_transform: Transform2D = camera_sub_viewport.get_final_transform()
     var motion: Vector2 = event.xformed_by(viewport_transform).relative
     var degrees_per_unit: float = 0.001
 
     motion *= _mouse_sensitivity * degrees_per_unit
 
     rotate_object_local(Vector3.DOWN, deg_to_rad(motion.x))
-    camera.rotate_object_local(
+    camera_remote_transform.rotate_object_local(
         Vector3.LEFT, deg_to_rad(-1 * motion.y if _mouse_inverted else motion.y)
     )
-    camera.rotation.x = clamp(
-        camera.rotation.x, deg_to_rad(_min_x_rotation), deg_to_rad(_max_x_rotation)
+    camera_remote_transform.rotation.x = clamp(
+        camera_remote_transform.rotation.x, deg_to_rad(_min_x_rotation), deg_to_rad(_max_x_rotation)
     )
-    camera.orthonormalize()
+    camera_remote_transform.orthonormalize()
 
 
 func _set_mouse_sensitivity(value: int) -> void:
