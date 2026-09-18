@@ -28,6 +28,7 @@ theme = ExtResource("1_rok4c")
 script = ExtResource("2_trktu")
 
 [node name="Panel" type="Panel" parent="." unique_id=49516741]
+z_index = 3
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

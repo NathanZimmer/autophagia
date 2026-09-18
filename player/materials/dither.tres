@@ -6,4 +6,4 @@
 shader = ExtResource("1_spyqs")
 shader_parameter/palette_bit_depth = 4
 shader_parameter/threshold_scale = 63.0000029925
-shader_parameter/bleed_weight = 0.30000001425
+shader_parameter/bleed_weight = 0.0

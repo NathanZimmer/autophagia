@@ -141,6 +141,7 @@ process_mode = 3
 offset_right = 640.0
 offset_bottom = 480.0
 scale = Vector2(1.5, 1.5)
+stretch = true
 
 [node name="GuiSubViewport" type="SubViewport" parent="CanvasLayer/GuiSubViewportContainer" unique_id=458934473]
 unique_name_in_owner = true
@@ -173,7 +174,7 @@ environment = ExtResource("2_xgxvm")
 attributes = SubResource("CameraAttributesPractical_4juu5")
 current = true
 fov = 90.0
-far = 20.0
+far = 70.0
 
 [node name="Gui" parent="CanvasLayer/GuiSubViewportContainer/GuiSubViewport" unique_id=64399052 node_paths=PackedStringArray("_crosshair_raycast", "_message_handler", "_journal", "_inventory", "_item_user") instance=ExtResource("5_boad6")]
 unique_name_in_owner = true
