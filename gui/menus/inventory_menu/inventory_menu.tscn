@@ -129,10 +129,12 @@ columns = 6
 unique_name_in_owner = true
 process_mode = 4
 visible = false
+z_index = 1
 layout_mode = 1
 
 [node name="BackButton" type="Button" parent="." unique_id=1758297386]
 unique_name_in_owner = true
+z_index = 1
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5

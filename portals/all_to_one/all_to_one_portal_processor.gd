@@ -17,7 +17,11 @@ func _setup(portals: Array[PortalBody]) -> void:
     _main_portal = portals[0]
 
     var main_renderer := PortalRenderer.new(
-        _target_cam, _main_portal, portals[1], _world_render_layers & ~_portal_render_layer
+        _target_cam,
+        _target_transform,
+        _main_portal,
+        portals[1],
+        _world_render_layers & ~_portal_render_layer
     )
     _main_portal.add_child(main_renderer)
 
@@ -36,7 +40,11 @@ func _setup(portals: Array[PortalBody]) -> void:
 
     for portal: PortalBody in portals.slice(1):
         var renderer := PortalRenderer.new(
-            _target_cam, portal, _main_portal, _world_render_layers & ~_portal_render_layer
+            _target_cam,
+            _target_transform,
+            portal,
+            _main_portal,
+            _world_render_layers & ~_portal_render_layer
         )
         portal.add_child(renderer)
 

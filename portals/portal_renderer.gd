@@ -11,8 +11,10 @@ const OBLIQUE_FRUSTUM_ENABLED = true
 # is ok for now because we aren't using it for anything
 
 @export_group("Reference Targets")
-## Target to track the position of
+## Camera to copy configuration from
 @export var _target_cam: Camera3D
+## Target to track the position of
+@export var _target_transform: Node3D
 ## Node to track _target_cam relative to
 @export var _target_reference_node: Node3D
 ## Node to position this renderer's camera relative to
@@ -41,7 +43,7 @@ var camera: Camera3D
 var secondary_target_cam: Camera3D
 
 var _sub_viewport: SubViewport
-var _current_target_cam: Camera3D
+var _current_target_transform: Node3D
 
 
 func _ready() -> void:
@@ -54,6 +56,7 @@ func _physics_process(_delta: float) -> void:
 
 func _init(
     target_cam: Camera3D = null,
+    target_transform: Node3D = null,
     target_reference_node: Node3D = null,
     reference_node: Node3D = null,
     cull_mask: int = -1,
@@ -61,6 +64,8 @@ func _init(
 ) -> void:
     if target_cam:
         _target_cam = target_cam
+    if target_transform:
+        _target_transform = target_transform
     if target_reference_node:
         _target_reference_node = target_reference_node
     if reference_node:
@@ -73,19 +78,22 @@ func _init(
 
 ## Reinitialize with a new set of parameters [br]
 ## ## Parameters [br]
-## `target_cam`: Target to track the position of [br]
+## `target_cam`: Camera to copy configuration from [br]
+## `target_transform`: Target to track the position of [br]
 ## `target_reference_node`: Node to track _target_cam relative to [br]
 ## `reference_node`: Node to position this renderer's camera relative to [br]
 ## `cull_mask`: Cull maks for this renderer's camera [br]
 ## `secondary_target_cam`: Optional secondary target [br]
 func reset(
     target_cam: Camera3D,
+    target_transform: Node3D,
     target_reference_node: Node3D,
     reference_node: Node3D,
     cull_mask: int,
     secondary_target_cam: Camera3D = null,
 ) -> void:
     _target_cam = target_cam
+    _target_transform = target_transform
     _target_reference_node = target_reference_node
     _reference_node = reference_node
     self.cull_mask = cull_mask
@@ -104,7 +112,7 @@ func _setup() -> void:
     _sub_viewport = _create_sub_viewport()
 
     _sub_viewport.add_child(camera)
-    _current_target_cam = _target_cam
+    _current_target_transform = _target_transform
 
 
 ## Create and configure the camera for this portal renderer.
@@ -140,31 +148,34 @@ func _create_sub_viewport() -> SubViewport:
     add_child(sub_viewport)
 
     var properties := target_viewport.get_property_list()
+    var props_to_ignore: Array[String] = ["owner"]
     for property in properties:
         var key: String = property["name"]
         var val: Variant = target_viewport.get(key)
-        sub_viewport.set(key, val)
+        if key not in props_to_ignore:
+            sub_viewport.set(key, val)
 
-    sub_viewport.size = Vector2i(
-        ProjectSettings.get_setting("display/window/size/viewport_width"),
-        ProjectSettings.get_setting("display/window/size/viewport_height")
-    )
+    # sub_viewport.size = Vector2i(
+    #     ProjectSettings.get_setting("display/window/size/viewport_width"),
+    #     ProjectSettings.get_setting("display/window/size/viewport_height")
+    # )
+    sub_viewport.size = _target_cam.get_viewport().size
     sub_viewport.use_occlusion_culling = false
     sub_viewport.render_target_update_mode = SubViewport.UPDATE_WHEN_PARENT_VISIBLE
-    sub_viewport.handle_input_locally = true
     sub_viewport.audio_listener_enable_2d = false
     sub_viewport.audio_listener_enable_3d = false
+    sub_viewport.gui_disable_input = true
 
     return sub_viewport
 
 
 ## Update camera position based on [br]
-## * `_current_target_cam` [br]
+## * `_current_target_transform` [br]
 ## * `_target_reference_node` [br]
 ## * `_reference_node` [br]
 func update_camera_position() -> void:
     camera.global_transform = _get_relative_transform(
-        _current_target_cam.global_transform,
+        _current_target_transform.global_transform,
         _target_reference_node.global_transform,
         _reference_node.global_transform,
     )
@@ -188,8 +199,8 @@ func get_sub_viewport() -> SubViewport:
 
 ## Set use of secondary target. If `secondary_target_cam == null`, does nothing.
 func set_use_secondary_target(use_secondary_target: bool) -> void:
-    _current_target_cam = (
-        secondary_target_cam if use_secondary_target and secondary_target_cam else _target_cam
+    _current_target_transform = (
+        secondary_target_cam if use_secondary_target and secondary_target_cam else _target_transform
     )
 
 

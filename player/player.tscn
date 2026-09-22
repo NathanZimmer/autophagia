@@ -6,9 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://cjew08elm562t" path="res://gui/gui.tscn" id="5_boad6"]
 [ext_resource type="Script" uid="uid://bvyrto2wfvoh4" path="res://inventory/inventory.gd" id="6_yllr7"]
 [ext_resource type="Script" uid="uid://xgc14u80w6pu" path="res://inventory/item_user.gd" id="7_kb6p2"]
-[ext_resource type="Material" uid="uid://byvayr8jwcepu" path="res://player/materials/crt.tres" id="8_hg6s5"]
+[ext_resource type="Shader" uid="uid://b43ppjcv5in3e" path="res://player/materials/dither.gdshader" id="7_tqiix"]
+[ext_resource type="Texture2D" uid="uid://bv3hpe76swrmk" path="res://assets/player/player_vingette.png" id="8_32hag"]
 [ext_resource type="Script" uid="uid://bnbt62ete8km4" path="res://inventory/journal.gd" id="8_rgyib"]
 [ext_resource type="Material" uid="uid://cl4wjoty18yvj" path="res://player/materials/dither.tres" id="8_wodsf"]
+[ext_resource type="Material" uid="uid://csfsfuk3hnof4" path="res://player/materials/scanlines.tres" id="9_32hag"]
 [ext_resource type="Animation" uid="uid://3iekuyht51r3" path="res://assets/player/animations/camera_sway.res" id="9_ebec5"]
 [ext_resource type="Script" uid="uid://clawryrmh60wq" path="res://player/message_handler.gd" id="10_8t03j"]
 [ext_resource type="Animation" uid="uid://ds2ipytexoe1q" path="res://assets/player/animations/camera_impact.res" id="10_yllr7"]
@@ -46,6 +48,11 @@ colors = PackedColorArray(0, 1, 0, 1)
 gradient = SubResource("Gradient_kvi6p")
 width = 16
 height = 16
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_32hag"]
+shader = ExtResource("7_tqiix")
+shader_parameter/palette_bit_depth = 4
+shader_parameter/threshold_scale = 0.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8l6i1"]
 radius = 0.3
@@ -107,7 +114,7 @@ _override_up_dir_on_ready = false
 [node name="CameraRemoteTransform3D" type="RemoteTransform3D" parent="." unique_id=646738961]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
-remote_path = NodePath("../CanvasLayer/GuiSubViewportContainer/GuiSubViewport/CameraSubViewportContainer/CameraSubViewport/Camera3D")
+remote_path = NodePath("../CanvasLayer/CameraSubViewportContainer/CameraSubViewport/Camera3D")
 
 [node name="PlayerRayCast3D" type="RayCast3D" parent="CameraRemoteTransform3D" unique_id=1725491511]
 target_position = Vector3(0, 0, -2)
@@ -136,37 +143,25 @@ metadata/_custom_type_script = "uid://bvyrto2wfvoh4"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1905954674]
 
-[node name="GuiSubViewportContainer" type="SubViewportContainer" parent="CanvasLayer" unique_id=1183169217]
-process_mode = 3
-offset_right = 640.0
-offset_bottom = 480.0
-scale = Vector2(1.5, 1.5)
-stretch = true
-
-[node name="GuiSubViewport" type="SubViewport" parent="CanvasLayer/GuiSubViewportContainer" unique_id=458934473]
-unique_name_in_owner = true
-disable_3d = true
-handle_input_locally = false
-audio_listener_enable_2d = true
-size = Vector2i(640, 480)
-render_target_update_mode = 4
-
-[node name="CameraSubViewportContainer" type="SubViewportContainer" parent="CanvasLayer/GuiSubViewportContainer/GuiSubViewport" unique_id=540922304]
+[node name="CameraSubViewportContainer" type="SubViewportContainer" parent="CanvasLayer" unique_id=540922304]
+texture_filter = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 stretch = true
+stretch_shrink = 2
 
-[node name="CameraSubViewport" type="SubViewport" parent="CanvasLayer/GuiSubViewportContainer/GuiSubViewport/CameraSubViewportContainer" unique_id=194002813]
+[node name="CameraSubViewport" type="SubViewport" parent="CanvasLayer/CameraSubViewportContainer" unique_id=194002813]
 unique_name_in_owner = true
 handle_input_locally = false
 audio_listener_enable_3d = true
-size = Vector2i(640, 480)
+oversampling = false
+size = Vector2i(320, 240)
 render_target_update_mode = 4
 
-[node name="Camera3D" type="Camera3D" parent="CanvasLayer/GuiSubViewportContainer/GuiSubViewport/CameraSubViewportContainer/CameraSubViewport" unique_id=1415068424]
+[node name="Camera3D" type="Camera3D" parent="CanvasLayer/CameraSubViewportContainer/CameraSubViewport" unique_id=1415068424]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 cull_mask = 1047539
@@ -174,22 +169,11 @@ environment = ExtResource("2_xgxvm")
 attributes = SubResource("CameraAttributesPractical_4juu5")
 current = true
 fov = 90.0
-far = 70.0
+far = 30.0
 
-[node name="Gui" parent="CanvasLayer/GuiSubViewportContainer/GuiSubViewport" unique_id=64399052 node_paths=PackedStringArray("_crosshair_raycast", "_message_handler", "_journal", "_inventory", "_item_user") instance=ExtResource("5_boad6")]
-unique_name_in_owner = true
-_crosshair_raycast = NodePath("../../../../CameraRemoteTransform3D/PlayerRayCast3D")
-_crosshair_textures = Dictionary[StringName, Texture2D]({
-&"chest": SubResource("GradientTexture2D_wodsf"),
-&"lever": SubResource("GradientTexture2D_s1h2m"),
-&"npc": SubResource("GradientTexture2D_xqkfk")
-})
-_message_handler = NodePath("../../../../MessageHandler")
-_journal = NodePath("../../../../Journal")
-_inventory = NodePath("../../../../Inventory")
-_item_user = NodePath("../../../../ItemUser")
+[node name="CanvasLayer" type="CanvasLayer" parent="CanvasLayer/CameraSubViewportContainer/CameraSubViewport" unique_id=799433340]
 
-[node name="DitherFilter" type="ColorRect" parent="CanvasLayer/GuiSubViewportContainer/GuiSubViewport" unique_id=348638873]
+[node name="DitherFilter" type="ColorRect" parent="CanvasLayer/CameraSubViewportContainer/CameraSubViewport/CanvasLayer" unique_id=517660945]
 process_mode = 3
 material = ExtResource("8_wodsf")
 anchors_preset = 15
@@ -200,15 +184,54 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0)
 
-[node name="CrtFilter" type="ColorRect" parent="CanvasLayer" unique_id=2018018916]
+[node name="Gui" parent="CanvasLayer" unique_id=64399052 node_paths=PackedStringArray("_crosshair_raycast", "_message_handler", "_journal", "_inventory", "_item_user") instance=ExtResource("5_boad6")]
+unique_name_in_owner = true
+_crosshair_raycast = NodePath("../../CameraRemoteTransform3D/PlayerRayCast3D")
+_crosshair_textures = Dictionary[StringName, Texture2D]({
+&"chest": SubResource("GradientTexture2D_wodsf"),
+&"lever": SubResource("GradientTexture2D_s1h2m"),
+&"npc": SubResource("GradientTexture2D_xqkfk")
+})
+_message_handler = NodePath("../../MessageHandler")
+_journal = NodePath("../../Journal")
+_inventory = NodePath("../../Inventory")
+_item_user = NodePath("../../ItemUser")
+
+[node name="GuiColorLimit" type="ColorRect" parent="CanvasLayer" unique_id=1615969292]
 process_mode = 3
-material = ExtResource("8_hg6s5")
+z_index = 3
+material = SubResource("ShaderMaterial_32hag")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="ScanlineFilter" type="ColorRect" parent="CanvasLayer" unique_id=348638873]
+process_mode = 3
+z_index = 4
+material = ExtResource("9_32hag")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="vingette" type="TextureRect" parent="CanvasLayer" unique_id=214662888]
+process_mode = 3
+modulate = Color(1, 1, 1, 0.50980395)
+z_index = 5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("8_32hag")
 
 [node name="ItemUser" type="Node" parent="." unique_id=764778204]
 unique_name_in_owner = true

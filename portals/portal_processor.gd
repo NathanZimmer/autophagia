@@ -34,9 +34,10 @@ class_name PortalProcessor extends Node3D
         return _size
 
 @export_group("Reference Target")
-## Target to track the position of. If left blank, will use the base
-## viewport's `Camera3D`
+## Camera to copy configuration from. If left blank, will use player camera
 @export var _target_cam: Camera3D
+## Target to track the position of. If left blank, will use the player camera
+@export var _target_transform: Node3D
 
 @export_group("Rendering")
 ## Render layers for the `PortalRenderer` cameras
@@ -58,7 +59,9 @@ func _ready() -> void:
         return
 
     if not _target_cam:
-        _target_cam = get_viewport().get_camera_3d()
+        _target_cam = PlayerManager.get_camera()
+    if not _target_transform:
+        _target_transform = PlayerManager.get_camera_transform()
 
     var portals: Array[PortalBody]
     portals.assign(find_children("*", "PortalBody", false))
@@ -75,12 +78,20 @@ func _setup(portals: Array[PortalBody]) -> void:
     var portal_1: PortalBody = portals[1]
 
     var renderer_0 := PortalRenderer.new(
-        _target_cam, portal_0, portal_1, _world_render_layers & ~_portal_render_layer
+        _target_cam,
+        _target_transform,
+        portal_0,
+        portal_1,
+        _world_render_layers & ~_portal_render_layer
     )
     portal_0.add_child(renderer_0)
 
     var renderer_1 := PortalRenderer.new(
-        _target_cam, portal_1, portal_0, _world_render_layers & ~_portal_render_layer
+        _target_cam,
+        _target_transform,
+        portal_1,
+        portal_0,
+        _world_render_layers & ~_portal_render_layer
     )
     portal_1.add_child(renderer_1)
 
@@ -93,7 +104,7 @@ func _setup(portals: Array[PortalBody]) -> void:
         _collision_mask,
         _vis_notifier_layers,
         portal_1,
-        _target_cam.get_parent()
+        PlayerManager.get_player()
     )
 
     portal_1.reset(
@@ -105,7 +116,7 @@ func _setup(portals: Array[PortalBody]) -> void:
         _collision_mask,
         _vis_notifier_layers,
         portal_0,
-        _target_cam.get_parent()
+        PlayerManager.get_player()
     )
 
 

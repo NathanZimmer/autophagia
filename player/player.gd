@@ -1,5 +1,5 @@
-extends CharacterBody3D
-## Handles player movement, jumping, and gravity
+class_name iPlayer extends CharacterBody3D
+## Handles player movement
 
 const TERMINAL_VELOCITY := 50.0
 ## If true, this script will control mouse capture mode with "ui_cancel" input.
@@ -23,6 +23,7 @@ const DEBUG_CAPTURE_MOUSE := false
 @export_group("Dev controls")
 @export var _dev_controls_enabled := true
 @export var _override_up_dir_on_ready := true
+@export var _no_clip_on_start := false
 @export var _min_speed := 0.1
 @export var _max_speed := 10.0
 
@@ -41,11 +42,18 @@ var _mouse_inverted := false
 @onready var _gui: iGui = %Gui
 
 
+func _init() -> void:
+    PlayerManager.set_player(self)
+
+
 func _ready() -> void:
     # Input.set_use_accumulated_input(false)
 
     if _override_up_dir_on_ready:
         up_direction = global_basis.y
+    if _no_clip_on_start:
+        _flying = true
+        _collider.disabled = true
 
     _link_runtime_configurables()
 

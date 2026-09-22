@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://csfsfuk3hnof4"]
+
+[ext_resource type="Shader" uid="uid://dsa51gv6mnhum" path="res://player/materials/scanlines.gdshader" id="1_qg44c"]
+
+[resource]
+shader = ExtResource("1_qg44c")
+shader_parameter/bleed_weight = 0.0
+shader_parameter/scanline_weight = 0.2000000095

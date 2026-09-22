@@ -47,6 +47,7 @@ func _setup(portals: Array[PortalBody]) -> void:
 
         var base_renderer := PortalRenderer.new(
             _target_cam,
+            _target_transform,
             portal,
             portals[i + 1],
             (_forward_pass_render_layers | _world_render_layers) & ~_portal_render_layer
@@ -59,6 +60,7 @@ func _setup(portals: Array[PortalBody]) -> void:
         var recursion_level := 1
         while j < portals.size():
             var renderer := PortalRenderer.new(
+                portal_renderers[-1].camera,
                 portal_renderers[-1].camera,
                 portals[j],
                 portals[j + 1],
@@ -94,6 +96,7 @@ func _setup(portals: Array[PortalBody]) -> void:
 
         var base_renderer := PortalRenderer.new(
             _target_cam,
+            _target_transform,
             portal,
             portals[i - 1],
             (_back_pass_render_layers | _world_render_layers) & ~_portal_render_layer
@@ -106,6 +109,7 @@ func _setup(portals: Array[PortalBody]) -> void:
         var recursion_level := 0
         while j >= 0:
             var renderer := PortalRenderer.new(
+                portal_renderers[-1].camera,
                 portal_renderers[-1].camera,
                 portals[j],
                 portals[j - 1],

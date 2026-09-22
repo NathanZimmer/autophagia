@@ -30,6 +30,7 @@ InputActions="*res://game_settings/input_actions.gd"
 Overrides="*res://game_settings/overrides.gd"
 AudioManager="*res://audio/audio_manager.gd"
 Utils="*uid://cyjm15klrck67"
+PlayerManager="*uid://ctgvoqjb4t4hb"
 
 [debug]
 
@@ -38,8 +39,8 @@ gdscript/warnings/untyped_declaration=1
 
 [display]
 
-window/size/viewport_width=960
-window/size/viewport_height=720
+window/size/viewport_width=640
+window/size/viewport_height=480
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 

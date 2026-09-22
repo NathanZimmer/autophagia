@@ -4,5 +4,6 @@
 
 [resource]
 shader = ExtResource("1_5agxk")
-shader_parameter/pixel_rgb_mix = 0.202000009595
-shader_parameter/scanline_darken_mix = 0.070000003325
+shader_parameter/pixel_rgb_mix = 0.0
+shader_parameter/scanline_darken_mix = 0.0
+shader_parameter/scanline_color = Vector3(0, 0, 0)

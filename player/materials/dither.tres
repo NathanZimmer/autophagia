@@ -4,5 +4,5 @@
 
 [resource]
 shader = ExtResource("1_spyqs")
-shader_parameter/palette_bit_depth = 3
-shader_parameter/threshold_scale = 85.0000040375
+shader_parameter/palette_bit_depth = 4
+shader_parameter/threshold_scale = 0.150000007125
