@@ -1,13 +1,17 @@
-class_name iPlayer extends CharacterBody3D
-## Handles player movement
+class_name iPlayerBody extends CharacterBody3D
+## Handles player controls and movement
 
 const TERMINAL_VELOCITY := 50.0
 ## If true, this script will control mouse capture mode with "ui_cancel" input.
 ## Use for scenes where the gui scripts aren't loaded and input isn't captured.
 const DEBUG_CAPTURE_MOUSE := false
 
+## Emitted when `is_on_floor()` changes
+signal is_on_floor_changed(is_on_floor: bool)
+
 @export_group("Camera settings")
 # @export_range(1, 100, 1) var _mouse_sensitivity := 50
+@export var _camera: PlayerCamera
 @export var _min_x_rotation := -89.0
 @export var _max_x_rotation := 89.0
 
@@ -22,7 +26,7 @@ const DEBUG_CAPTURE_MOUSE := false
 
 @export_group("Dev controls")
 @export var _dev_controls_enabled := true
-@export var _override_up_dir_on_ready := true
+@export var _override_up_dir_on_ready := false
 @export var _no_clip_on_start := false
 @export var _min_speed := 0.1
 @export var _max_speed := 10.0
@@ -32,19 +36,15 @@ var _speed_mod := 1.0  # Modifier to player speed that can be adjusted with mous
 var _flying := false
 var _mouse_sensitivity := 50
 var _mouse_inverted := false
+## If we were on the floor last frame
+var _was_on_floor := false
 
-@onready var camera_remote_transform: RemoteTransform3D = %CameraRemoteTransform3D
-@onready var camera_sub_viewport: SubViewport = %CameraSubViewport
-@onready var camera: Camera3D = %Camera3D
+@onready var _camera_remote_transform: RemoteTransform3D = %CameraRemoteTransform3D
+@onready var _camera_sub_viewport: SubViewport = %CameraSubViewport
 @onready var _collider: CollisionShape3D = %CollisionShape3D
 # @onready var _camera_animation_player: AnimationPlayer = %CameraAnimationPlayer
 @onready var _camera_animation_tree: iCameraAnimationTree = %CameraAnimationTree
-@onready var _gui: iGui = %Gui
-
-
-func _init() -> void:
-    PlayerManager.set_player(self)
-
+@onready var _player_ray_cast_3d: PlayerRayCast3D = %PlayerRayCast3D
 
 func _ready() -> void:
     # Input.set_use_accumulated_input(false)
@@ -56,6 +56,8 @@ func _ready() -> void:
         _collider.disabled = true
 
     _link_runtime_configurables()
+
+    _camera_remote_transform.remote_path = _camera.get_path()
 
     if DEBUG_CAPTURE_MOUSE:
         Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -104,7 +106,11 @@ func _physics_process(delta: float) -> void:
     move_and_slide()
     if _camera_animation_tree:
         _camera_animation_tree.update_state(velocity, is_on_floor(), _move_speed * _speed_mod)
-    _gui.interact_menus_enabled = is_on_floor()
+
+    var on_floor := is_on_floor()
+    if on_floor != _was_on_floor:
+        is_on_floor_changed.emit(on_floor)
+        _was_on_floor = on_floor
 
 
 func _link_runtime_configurables() -> void:
@@ -162,24 +168,24 @@ func _walk_and_jump(delta: float) -> void:
     velocity = global_basis * local_velocity
 
 
-## Handle mouse input for camera rotation [br]
+## Handle mouse input for _camera rotation [br]
 ## ## Parameters [br]
-## `event`: mouse movement to be used to rotate the camera.
+## `event`: mouse movement to be used to rotate the _camera.
 func _rotate_cam(event: InputEventMouseMotion) -> void:
-    var viewport_transform: Transform2D = camera_sub_viewport.get_final_transform()
+    var viewport_transform: Transform2D = _camera_sub_viewport.get_final_transform()
     var motion: Vector2 = event.xformed_by(viewport_transform).relative
     var degrees_per_unit: float = 0.001
 
     motion *= _mouse_sensitivity * degrees_per_unit
 
     rotate_object_local(Vector3.DOWN, deg_to_rad(motion.x))
-    camera_remote_transform.rotate_object_local(
+    _camera_remote_transform.rotate_object_local(
         Vector3.LEFT, deg_to_rad(-1 * motion.y if _mouse_inverted else motion.y)
     )
-    camera_remote_transform.rotation.x = clamp(
-        camera_remote_transform.rotation.x, deg_to_rad(_min_x_rotation), deg_to_rad(_max_x_rotation)
+    _camera_remote_transform.rotation.x = clamp(
+        _camera_remote_transform.rotation.x, deg_to_rad(_min_x_rotation), deg_to_rad(_max_x_rotation)
     )
-    camera_remote_transform.orthonormalize()
+    _camera_remote_transform.orthonormalize()
 
 
 func _set_mouse_sensitivity(value: int) -> void:
@@ -191,4 +197,9 @@ func _set_mouse_inverted(value: bool) -> void:
 
 
 func _set_fov(value: int) -> void:
-    camera.fov = value
+    _camera.fov = value
+
+
+## TODO
+func get_raycast_collision_signal() -> Signal:
+    return _player_ray_cast_3d.collision_changed

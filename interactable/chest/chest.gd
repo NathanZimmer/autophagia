@@ -1,5 +1,6 @@
 extends Node3D
-## Holds an `Inventory` and `ClickTrigger`. On click, sends its inventory.
+## Holds an `Inventory` and `ClickTrigger`. On click, sends its inventory to the click
+## owner if they have a MessageHandler component
 
 @onready var _inventory: Inventory = %Inventory
 
@@ -15,10 +16,10 @@ func _ready() -> void:
 
 ## Send `_inventory` to body that has clicked this node
 func _send_inventory(body: Node) -> void:
-    var handlers := body.find_children("*", "MessageHandler", false)
-    if not handlers.is_empty():
+    var handler: MessageHandler = body.find_children("*", "MessageHandler", false).get(0)
+    if handler:
         AudioManager.play_pressed()
-        handlers[0].send_inventory(_inventory)
+        handler.send_message(_inventory)
 
 
 ## Show warning if we don't have a ClickTrigger child

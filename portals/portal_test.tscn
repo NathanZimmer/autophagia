@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://bxni3e6t47b77"]
 
 [ext_resource type="PackedScene" uid="uid://bn2tmn3fg0c2c" path="res://common/test.tscn" id="1_xvypx"]
-[ext_resource type="Script" uid="uid://cp6qrare12hxe" path="res://portals/portal_renderer.gd" id="2_5k0mg"]
 [ext_resource type="Material" uid="uid://yk4x16701e40" path="res://common/placeholder_triplanar.tres" id="2_dnn1i"]
 [ext_resource type="Script" uid="uid://6k32ute3x11j" path="res://portals/portal_processor.gd" id="5_wguh8"]
 [ext_resource type="Script" uid="uid://dg7e58q26ojyv" path="res://portals/portal_body.gd" id="6_1mtnw"]
@@ -46,7 +45,7 @@ size = Vector3(0.3, 0.1, 0.3)
 
 [node name="PortalTest" unique_id=426342448 instance=ExtResource("1_xvypx")]
 
-[node name="Floor" parent="." index="1"]
+[node name="Floor" parent="." index="1" unique_id=783915003]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0, 0)
 
 [node name="Floor2" type="MeshInstance3D" parent="." index="2" unique_id=1578593538]
@@ -59,204 +58,7 @@ mesh = SubResource("PlaneMesh_e121w")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor2/StaticBody3D" index="0" unique_id=1722375525]
 shape = SubResource("ConvexPolygonShape3D_03x48")
 
-[node name="PortalBodyToPortalBodyTest" type="Node3D" parent="." index="3" unique_id=2132854959]
-
-[node name="PortalFrame" type="StaticBody3D" parent="PortalBodyToPortalBodyTest" index="0" unique_id=1220978654]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 1.75, 5)
-metadata/_edit_group_ = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PortalBodyToPortalBodyTest/PortalFrame" index="0" unique_id=1824270928]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, -0.25, 0)
-layers = 17
-mesh = SubResource("BoxMesh_mxf2q")
-skeleton = NodePath("../../../..")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="PortalBodyToPortalBodyTest/PortalFrame" index="1" unique_id=821080500]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.25, 0)
-layers = 17
-mesh = SubResource("BoxMesh_mxf2q")
-skeleton = NodePath("../../../..")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="PortalBodyToPortalBodyTest/PortalFrame" index="2" unique_id=1288893693]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 1.5, 0)
-layers = 17
-mesh = SubResource("BoxMesh_mxf2q")
-skeleton = NodePath("../../../..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PortalBodyToPortalBodyTest/PortalFrame" index="3" unique_id=1578348682]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, -0.25, 0)
-shape = SubResource("ConvexPolygonShape3D_xvypx")
-
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="PortalBodyToPortalBodyTest/PortalFrame" index="4" unique_id=1353185495]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.25, 0)
-shape = SubResource("ConvexPolygonShape3D_xvypx")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="PortalBodyToPortalBodyTest/PortalFrame" index="5" unique_id=1958836550]
-transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 1.5, 0)
-shape = SubResource("ConvexPolygonShape3D_xvypx")
-
-[node name="PortalFrame2" type="StaticBody3D" parent="PortalBodyToPortalBodyTest" index="1" unique_id=1877035177]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1.75, 5)
-metadata/_edit_group_ = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PortalBodyToPortalBodyTest/PortalFrame2" index="0" unique_id=360038328]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, -0.25, 0)
-layers = 17
-mesh = SubResource("BoxMesh_mxf2q")
-skeleton = NodePath("../../../..")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="PortalBodyToPortalBodyTest/PortalFrame2" index="1" unique_id=364381397]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.25, 0)
-layers = 17
-mesh = SubResource("BoxMesh_mxf2q")
-skeleton = NodePath("../../../..")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="PortalBodyToPortalBodyTest/PortalFrame2" index="2" unique_id=2000312369]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 1.5, 0)
-layers = 17
-mesh = SubResource("BoxMesh_mxf2q")
-skeleton = NodePath("../../../..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PortalBodyToPortalBodyTest/PortalFrame2" index="3" unique_id=866249545]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, -0.25, 0)
-shape = SubResource("ConvexPolygonShape3D_xvypx")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="PortalBodyToPortalBodyTest/PortalFrame2" index="4" unique_id=663804903]
-transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 1.5, 0)
-shape = SubResource("ConvexPolygonShape3D_xvypx")
-
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="PortalBodyToPortalBodyTest/PortalFrame2" index="5" unique_id=393178807]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.25, 0)
-shape = SubResource("ConvexPolygonShape3D_xvypx")
-
-[node name="PortalBody" type="Node3D" parent="PortalBodyToPortalBodyTest" index="2" unique_id=1736566269 node_paths=PackedStringArray("teleport_target", "_player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 1.5, 5)
-script = ExtResource("6_1mtnw")
-size = Vector3(2, 3, 0.5)
-teleport_target = NodePath("../PortalBody2")
-_player = NodePath("../../Player")
-metadata/_custom_type_script = "uid://dg7e58q26ojyv"
-
-[node name="PortalRenderer" type="Node" parent="PortalBodyToPortalBodyTest/PortalBody" index="0" unique_id=1544194051 node_paths=PackedStringArray("_target_cam", "_target_transform", "_target_reference_node", "_reference_node")]
-script = ExtResource("2_5k0mg")
-_target_cam = NodePath("../../../Player/CanvasLayer/GuiSubViewportContainer/GuiSubViewport/CameraSubViewportContainer/CameraSubViewport/Camera3D")
-_target_transform = NodePath("../../../Player/CameraRemoteTransform3D")
-_target_reference_node = NodePath("..")
-_reference_node = NodePath("../../PortalBody2")
-metadata/_custom_type_script = "uid://cp6qrare12hxe"
-
-[node name="PortalBody2" type="Node3D" parent="PortalBodyToPortalBodyTest" index="3" unique_id=472277712 node_paths=PackedStringArray("teleport_target", "_player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1.5, 5)
-script = ExtResource("6_1mtnw")
-size = Vector3(2, 3, 0.5)
-teleport_target = NodePath("../PortalBody")
-_player = NodePath("../../Player")
-metadata/_custom_type_script = "uid://dg7e58q26ojyv"
-
-[node name="PortalRenderer2" type="Node" parent="PortalBodyToPortalBodyTest/PortalBody2" index="0" unique_id=53236178 node_paths=PackedStringArray("_target_cam", "_target_transform", "_target_reference_node", "_reference_node")]
-script = ExtResource("2_5k0mg")
-_target_cam = NodePath("../../../Player/CanvasLayer/GuiSubViewportContainer/GuiSubViewport/CameraSubViewportContainer/CameraSubViewport/Camera3D")
-_target_transform = NodePath("../../../Player/CameraRemoteTransform3D")
-_target_reference_node = NodePath("..")
-_reference_node = NodePath("../../PortalBody")
-metadata/_custom_type_script = "uid://cp6qrare12hxe"
-
-[node name="PortalBodyToNode3DTest" type="Node3D" parent="." index="4" unique_id=1696078368]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
-
-[node name="PortalFrame" type="StaticBody3D" parent="PortalBodyToNode3DTest" index="0" unique_id=548315265]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 1.75, 5)
-metadata/_edit_group_ = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PortalBodyToNode3DTest/PortalFrame" index="0" unique_id=99477241]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, -0.25, 0)
-layers = 17
-mesh = SubResource("BoxMesh_mxf2q")
-skeleton = NodePath("../../../..")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="PortalBodyToNode3DTest/PortalFrame" index="1" unique_id=487598681]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.25, 0)
-layers = 17
-mesh = SubResource("BoxMesh_mxf2q")
-skeleton = NodePath("../../../..")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="PortalBodyToNode3DTest/PortalFrame" index="2" unique_id=1395354626]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 1.5, 0)
-layers = 17
-mesh = SubResource("BoxMesh_mxf2q")
-skeleton = NodePath("../../../..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PortalBodyToNode3DTest/PortalFrame" index="3" unique_id=1785175353]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, -0.25, 0)
-shape = SubResource("ConvexPolygonShape3D_xvypx")
-
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="PortalBodyToNode3DTest/PortalFrame" index="4" unique_id=378147549]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.25, 0)
-shape = SubResource("ConvexPolygonShape3D_xvypx")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="PortalBodyToNode3DTest/PortalFrame" index="5" unique_id=1742924652]
-transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 1.5, 0)
-shape = SubResource("ConvexPolygonShape3D_xvypx")
-
-[node name="PortalFrame2" type="StaticBody3D" parent="PortalBodyToNode3DTest" index="1" unique_id=465039348]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1.75, 5)
-metadata/_edit_group_ = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PortalBodyToNode3DTest/PortalFrame2" index="0" unique_id=951609025]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, -0.25, 0)
-layers = 17
-mesh = SubResource("BoxMesh_mxf2q")
-skeleton = NodePath("../../../..")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="PortalBodyToNode3DTest/PortalFrame2" index="1" unique_id=1427749203]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.25, 0)
-layers = 17
-mesh = SubResource("BoxMesh_mxf2q")
-skeleton = NodePath("../../../..")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="PortalBodyToNode3DTest/PortalFrame2" index="2" unique_id=1714208095]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 1.5, 0)
-layers = 17
-mesh = SubResource("BoxMesh_mxf2q")
-skeleton = NodePath("../../../..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PortalBodyToNode3DTest/PortalFrame2" index="3" unique_id=1764043596]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, -0.25, 0)
-shape = SubResource("ConvexPolygonShape3D_xvypx")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="PortalBodyToNode3DTest/PortalFrame2" index="4" unique_id=819741666]
-transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 1.5, 0)
-shape = SubResource("ConvexPolygonShape3D_xvypx")
-
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="PortalBodyToNode3DTest/PortalFrame2" index="5" unique_id=1363579516]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.25, 0)
-shape = SubResource("ConvexPolygonShape3D_xvypx")
-
-[node name="PortalBody" type="Node3D" parent="PortalBodyToNode3DTest" index="2" unique_id=914261446 node_paths=PackedStringArray("teleport_target", "_player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 1.5, 5)
-script = ExtResource("6_1mtnw")
-size = Vector3(2, 3, 0.5)
-teleport_target = NodePath("../Node3D")
-_player = NodePath("../../Player")
-metadata/_custom_type_script = "uid://dg7e58q26ojyv"
-
-[node name="PortalRenderer" type="Node" parent="PortalBodyToNode3DTest/PortalBody" index="0" unique_id=927346058 node_paths=PackedStringArray("_target_cam", "_target_transform", "_target_reference_node", "_reference_node")]
-script = ExtResource("2_5k0mg")
-_target_cam = NodePath("../../../Player/CanvasLayer/GuiSubViewportContainer/GuiSubViewport/CameraSubViewportContainer/CameraSubViewport/Camera3D")
-_target_transform = NodePath("../../../Player/CameraRemoteTransform3D")
-_target_reference_node = NodePath("..")
-_reference_node = NodePath("../../Node3D")
-metadata/_custom_type_script = "uid://cp6qrare12hxe"
-
-[node name="Node3D" type="Node3D" parent="PortalBodyToNode3DTest" index="3" unique_id=123860295]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1.5, 5)
-
-[node name="Cube2" type="MeshInstance3D" parent="PortalBodyToNode3DTest" index="4" unique_id=750147631]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.5, 1.5)
-mesh = SubResource("BoxMesh_03x48")
-skeleton = NodePath("../..")
-
-[node name="PortalProcessorTest" type="Node3D" parent="." index="5" unique_id=984016761]
+[node name="PortalProcessorTest" type="Node3D" parent="." index="3" unique_id=984016761]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
 
 [node name="PortalFrame" type="StaticBody3D" parent="PortalProcessorTest" index="0" unique_id=1960621744]
@@ -355,8 +157,8 @@ transform = Transform3D(0.965926, 0.183013, 0.183013, -0.258819, 0.683013, 0.683
 mesh = SubResource("BoxMesh_03x48")
 skeleton = NodePath("../..")
 
-[node name="Door" type="AnimatableBody3D" parent="." index="6" unique_id=396486041]
-transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, -0.60493, 1.25, 6.62552)
+[node name="Door" type="AnimatableBody3D" parent="." index="4" unique_id=396486041]
+transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 5.39507, 1.25, 4.62552)
 script = ExtResource("6_4875n")
 _curve = ExtResource("7_qu64i")
 _rotation_axis = Vector3(0, 1, 0)
@@ -396,10 +198,5 @@ metadata/_custom_type_script = "uid://nby3c2g37q5b"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Door/Lever/ClickTrigger" index="0" unique_id=1633581225]
 shape = SubResource("BoxShape3D_iu12d")
 
-[node name="Camera3D" parent="Player/CanvasLayer/GuiSubViewportContainer/GuiSubViewport/CameraSubViewportContainer/CameraSubViewport" index="0" unique_id=1415068424]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 9)
-
-[node name="Cube" parent="." index="8"]
+[node name="Cube" parent="." index="5" unique_id=1354377479]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.5, 1.5)
-
-[editable path="Player"]

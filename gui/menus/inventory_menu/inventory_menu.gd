@@ -1,6 +1,5 @@
 class_name iInventoryMenu extends iMenuControl
-## Menu for interfacing with player `Inventory` component and chest `Inventory`
-## components
+## Menu for interfacing with player and chest `Inventory` components
 
 ## Max toolbar size the UI can support without scaling changes
 const MAX_TOOLBAR_SIZE := 4
@@ -140,10 +139,12 @@ func _use_selected_item() -> void:
     var item := _inventory.get_item(idx)
     var item_info := item.item_info
 
+    _back_button.disabled = true
     _count_popup.show_popup(
         item.count if item_info.can_use_multiple else 1, item_info.can_use_multiple
     )
     var count: int = await _count_popup.count_selected
+    _back_button.disabled = false
     # NOTE: Can probably remove this check once item user is implemented
     if count == 0:
         return
@@ -168,8 +169,10 @@ func _drop_selected_item() -> void:
     var idx := _icon_index_map[_selected_icon]
     var item := _inventory.get_item(idx)
 
+    _back_button.disabled = true
     _count_popup.show_popup(item.count)
     var count: int = await _count_popup.count_selected
+    _back_button.disabled = false
 
     _item_user.drop_item(item.item_info, count)
     var remainder := _inventory.remove_count(idx, count)
@@ -255,6 +258,7 @@ func set_chest(chest: Inventory) -> void:
 
     _chest = chest
     _chest.updated.connect(_update_chest_container)
+    _selected_item_menu.set_context(iSelectedItemMenu.MenuContext.CHEST)
     _chest_panel.show()
     _update_chest_container()
 
@@ -265,6 +269,7 @@ func _clear_chest() -> void:
         _chest.updated.disconnect(_update_chest_container)
     _chest = null
     _chest_panel.hide()
+    _selected_item_menu.set_context(iSelectedItemMenu.MenuContext.INVENTORY)
 
 
 func _on_icon_selection(icon: iInventoryIcon) -> void:
@@ -281,7 +286,6 @@ func _set_selected_icon(icon: iInventoryIcon) -> void:
         _selected_icon.deselect()
     _selected_icon = icon
     _selected_item_menu.set_item(icon.get_item())
-    _selected_item_menu.set_buttons_disabled(_chest != null, false, _chest != null)
 
 
 ## Verify that item of `_selected_icon` can be moved to `icon`. If so, move it.
@@ -338,8 +342,7 @@ func _start_move_mode() -> void:
     _move_mode = true
     _selected_item_menu.toggle_move_mode()
     _selected_icon.set_selection_mode(iInventoryIcon.SelectionMode.MOVE)
-    _selected_item_menu.set_buttons_disabled(true, false, true)
-    # _move_mode_button.show()
+    _back_button.disabled = true
 
 
 ## Exit move mode and perform move mode cleanup
@@ -347,8 +350,7 @@ func _end_move_mode() -> void:
     _move_mode = false
     _selected_item_menu.toggle_move_mode()
     _selected_icon.set_selection_mode(iInventoryIcon.SelectionMode.DEFAULT)
-    _selected_item_menu.set_buttons_disabled(_chest != null, false, _chest != null)
-    # _move_mode_button.hide()
+    _back_button.disabled = false
 
     if not _move_mode_icon:
         return

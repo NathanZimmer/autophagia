@@ -1,0 +1,108 @@
+[gd_scene format=3 uid="uid://clc3miucdly1l"]
+
+[ext_resource type="Script" uid="uid://c1o8i6ob4hruq" path="res://player/player_body.gd" id="1_xa6m0"]
+[ext_resource type="Script" uid="uid://ck2srl31dxoy2" path="res://player/player_raycast_3d.gd" id="2_pwlsx"]
+[ext_resource type="AudioStream" uid="uid://bnji7bs7grmhs" path="res://assets/player/sound/footstep_2.wav" id="3_nempf"]
+[ext_resource type="Animation" uid="uid://djrqyxbnoaicn" path="res://assets/player/animations/camera_reset.res" id="4_64r4e"]
+[ext_resource type="Animation" uid="uid://ds2ipytexoe1q" path="res://assets/player/animations/camera_impact.res" id="5_i2wpr"]
+[ext_resource type="Animation" uid="uid://3iekuyht51r3" path="res://assets/player/animations/camera_sway.res" id="6_xltgo"]
+[ext_resource type="Script" uid="uid://c7vyaxwgerejy" path="res://player/camera_animation_tree.gd" id="7_1ipql"]
+[ext_resource type="Script" uid="uid://clawryrmh60wq" path="res://player/message_handler.gd" id="7_xa6m0"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8l6i1"]
+radius = 0.3
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2ieo8"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wodsf"]
+_data = {
+&"RESET": ExtResource("4_64r4e"),
+&"impact": ExtResource("5_i2wpr"),
+&"sway": ExtResource("6_xltgo")
+}
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_yllr7"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kb6p2"]
+animation = &"player_camera/impact"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_ebec5"]
+mix_mode = 1
+break_loop_at_end = true
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_32hag"]
+animation = &"player_camera/RESET"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ebec5"]
+animation = &"player_camera/sway"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_ebec5"]
+
+[sub_resource type="AnimationNodeTimeSeek" id="AnimationNodeTimeSeek_ebec5"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ebec5"]
+nodes/output/position = Vector2(820, -40)
+nodes/BlendWalk/node = SubResource("AnimationNodeBlend2_yllr7")
+nodes/BlendWalk/position = Vector2(400, -140)
+nodes/Impact/node = SubResource("AnimationNodeAnimation_kb6p2")
+nodes/Impact/position = Vector2(340, 120)
+nodes/OneShotImpact/node = SubResource("AnimationNodeOneShot_ebec5")
+nodes/OneShotImpact/position = Vector2(600, -60)
+nodes/RESET/node = SubResource("AnimationNodeAnimation_32hag")
+nodes/RESET/position = Vector2(80, 0)
+nodes/Sway/node = SubResource("AnimationNodeAnimation_ebec5")
+nodes/Sway/position = Vector2(-240, -160)
+nodes/TimeScaleSway/node = SubResource("AnimationNodeTimeScale_ebec5")
+nodes/TimeScaleSway/position = Vector2(180, -180)
+nodes/TimeSeekSway/node = SubResource("AnimationNodeTimeSeek_ebec5")
+nodes/TimeSeekSway/position = Vector2(20, -180)
+node_connections = [&"output", 0, &"OneShotImpact", &"BlendWalk", 0, &"RESET", &"BlendWalk", 1, &"TimeScaleSway", &"OneShotImpact", 0, &"BlendWalk", &"OneShotImpact", 1, &"Impact", &"TimeScaleSway", 0, &"TimeSeekSway", &"TimeSeekSway", 0, &"Sway"]
+
+[node name="PlayerBody" type="CharacterBody3D" unique_id=222323715 groups=["player"]]
+floor_max_angle = 0.87266463
+script = ExtResource("1_xa6m0")
+
+[node name="CameraRemoteTransform3D" type="RemoteTransform3D" parent="." unique_id=1401696687]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+
+[node name="PlayerRayCast3D" type="RayCast3D" parent="CameraRemoteTransform3D" unique_id=2110549663]
+unique_name_in_owner = true
+target_position = Vector3(0, 0, -2)
+collide_with_areas = true
+script = ExtResource("2_pwlsx")
+metadata/_custom_type_script = "uid://ck2srl31dxoy2"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1074586140]
+unique_name_in_owner = true
+shape = SubResource("CapsuleShape3D_8l6i1")
+
+[node name="Footsteps" type="AudioStreamPlayer3D" parent="." unique_id=185516636]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+stream = ExtResource("3_nempf")
+volume_db = 3.0
+max_db = 6.0
+max_polyphony = 3
+bus = &"Game"
+
+[node name="CameraAnimationPlayer" type="AnimationPlayer" parent="." unique_id=353975555]
+libraries/ = SubResource("AnimationLibrary_2ieo8")
+libraries/player_camera = SubResource("AnimationLibrary_wodsf")
+
+[node name="CameraAnimationTree" type="AnimationTree" parent="." unique_id=384967161]
+unique_name_in_owner = true
+root_node = NodePath("%CameraAnimationTree/..")
+tree_root = SubResource("AnimationNodeBlendTree_ebec5")
+anim_player = NodePath("../CameraAnimationPlayer")
+parameters/BlendWalk/blend_amount = 0.0
+parameters/OneShotImpact/active = false
+parameters/OneShotImpact/internal_active = false
+parameters/OneShotImpact/request = 0
+parameters/TimeScaleSway/scale = 1.0
+parameters/TimeSeekSway/seek_request = -1.0
+script = ExtResource("7_1ipql")
+
+[node name="MessageHandler" type="Node" parent="." unique_id=298570489]
+script = ExtResource("7_xa6m0")
+metadata/_custom_type_script = "uid://clawryrmh60wq"

@@ -1,5 +1,5 @@
 class_name MessageHandler extends Node
-## Handle routing for messages from outside of this node hierarchy
+## Handle propagation of messages from physics interactions (raycasts, Area3D collisions, etc.)
 
 signal dialog_recieved(dialog: DialogTree)
 signal note_received(note: Journal.Title)
@@ -7,22 +7,19 @@ signal item_received(item: InventoryItem)
 signal inventory_received(inventory: Inventory)
 
 
-## Just prints the message
-func send_message(message: Variant) -> void:
-    print(message)
+## Send message to this handler
+func send_message(object: Variant) -> void:
 
-
-func send_dialog(dialog: DialogTree) -> void:
-    dialog_recieved.emit(dialog)
-
-
-func send_note(note: Journal.Title) -> void:
-    note_received.emit(note)
-
-
-func send_item(item: InventoryItem) -> void:
-    item_received.emit(item)
-
-
-func send_inventory(inventory: Inventory) -> void:
-    inventory_received.emit(inventory)
+    var signal_to_emit: Signal
+    if object is DialogTree:
+        signal_to_emit = dialog_recieved
+    elif object is Journal.Title:
+        signal_to_emit = note_received
+    elif object is InventoryItem:
+        signal_to_emit = item_received
+    elif object is Inventory:
+        signal_to_emit = inventory_received
+    else:
+        push_warning("No response defined for type %s" % Utils.get_type(object))
+        return
+    signal_to_emit.emit(object)

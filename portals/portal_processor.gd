@@ -36,8 +36,6 @@ class_name PortalProcessor extends Node3D
 @export_group("Reference Target")
 ## Camera to copy configuration from. If left blank, will use player camera
 @export var _target_cam: Camera3D
-## Target to track the position of. If left blank, will use the player camera
-@export var _target_transform: Node3D
 
 @export_group("Rendering")
 ## Render layers for the `PortalRenderer` cameras
@@ -53,15 +51,17 @@ class_name PortalProcessor extends Node3D
 ## Collision mask for all portals
 @export_flags_3d_physics var _collision_mask := 1
 
+var _target_body: PhysicsBody3D
+var _portal_viewports: Array[PortalViewportServer.PortalViewport]
 
 func _ready() -> void:
     if Engine.is_editor_hint():
         return
 
     if not _target_cam:
-        _target_cam = PlayerManager.get_camera()
-    if not _target_transform:
-        _target_transform = PlayerManager.get_camera_transform()
+        _target_cam = PlayerInterface.get_camera()
+    _target_body = PlayerInterface.get_body()
+
 
     var portals: Array[PortalBody]
     portals.assign(find_children("*", "PortalBody", false))
@@ -77,21 +77,25 @@ func _setup(portals: Array[PortalBody]) -> void:
     var portal_0: PortalBody = portals[0]
     var portal_1: PortalBody = portals[1]
 
+    # TODO: Add support for returning viewports to the server when the player is not
+    # looking
+    _portal_viewports.assign(PortalViewportServer.get_viewports(2))
+
     var renderer_0 := PortalRenderer.new(
         _target_cam,
-        _target_transform,
         portal_0,
         portal_1,
-        _world_render_layers & ~_portal_render_layer
+        _world_render_layers & ~_portal_render_layer,
+        _portal_viewports[0]
     )
     portal_0.add_child(renderer_0)
 
     var renderer_1 := PortalRenderer.new(
         _target_cam,
-        _target_transform,
         portal_1,
         portal_0,
-        _world_render_layers & ~_portal_render_layer
+        _world_render_layers & ~_portal_render_layer,
+        _portal_viewports[1]
     )
     portal_1.add_child(renderer_1)
 
@@ -104,7 +108,7 @@ func _setup(portals: Array[PortalBody]) -> void:
         _collision_mask,
         _vis_notifier_layers,
         portal_1,
-        PlayerManager.get_player()
+        _target_body
     )
 
     portal_1.reset(
@@ -116,7 +120,7 @@ func _setup(portals: Array[PortalBody]) -> void:
         _collision_mask,
         _vis_notifier_layers,
         portal_0,
-        PlayerManager.get_player()
+        _target_body
     )
 
 

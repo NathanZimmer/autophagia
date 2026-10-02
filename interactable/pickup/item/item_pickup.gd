@@ -39,15 +39,15 @@ func reset(item_info: ItemInfo, count: int, disable_next_collision := false) -> 
 
 
 ## Send `_item` to body that has collided with this node
-func _send_item(body: Node3D) -> void:
+func _send_item(body: Node) -> void:
     if _disable_next_collision:
         _disable_next_collision = false
         return
 
-    var handlers := body.find_children("*", "MessageHandler", false)
-    if not handlers.is_empty():
+    var handler: MessageHandler = body.find_children("*", "MessageHandler", false).get(0)
+    if handler:
         var count_before := _item.count
-        handlers[0].send_item(_item)
+        handler.send_message(_item)
         if count_before > _item.count:
             AudioManager.play_pressed()
 
