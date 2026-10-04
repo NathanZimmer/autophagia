@@ -1,19 +1,15 @@
 class_name PortalRenderer extends Node
 ## Handle camera positioning and rendering of portal to a `ViewportTexture`
 
-const ENVIRONMENT_OVERRIDES: Dictionary[String, Variant] = {
-    "tonemap_mode": Environment.TONE_MAPPER_LINEAR,
-    "tonemap_exposure": 1.0,
-}
-const OBLIQUE_OFFSET = 0.1
-const OBLIQUE_FRUSTUM_ENABLED = true
+const _OBLIQUE_OFFSET = 0.1
+const _OBLIQUE_FRUSTUM_ENABLED = true
 # NOTE: Enabling the oblique frustum breaks the depth buffer. this
 # is ok for now because we aren't using it for anything
 
 @export_group("Reference Targets")
-## Target to track the position of
-@export var _target_cam: Camera3D
-## Node to track _target_cam relative to
+## Camera to follow relative position of
+@export var _target_cam: TrackedCamera
+## Node to follow _target_cam relative to
 @export var _target_reference_node: Node3D
 ## Node to position this renderer's camera relative to
 @export var _reference_node: Node3D
@@ -25,31 +21,25 @@ const OBLIQUE_FRUSTUM_ENABLED = true
             return
         cull_mask = value
 
-        if camera != null:
-            camera.cull_mask = value
+        if _camera != null:
+            _camera.cull_mask = value
 
     get:
         return cull_mask
 
 var use_oblique_frustum: bool:
     set(value):
-        camera.use_oblique_frustum = value
+        _camera.use_oblique_frustum = value
     get:
-        return camera.use_oblique_frustum
+        return _camera.use_oblique_frustum
 
-var camera: Camera3D
-var secondary_target_cam: Camera3D
-
+var _camera: Camera3D
 var _sub_viewport: SubViewport
-var _current_target_cam: Camera3D
 
 
 func _ready() -> void:
     _setup()
-
-
-func _physics_process(_delta: float) -> void:
-    update_camera_position()
+    _target_cam.transform_changed.connect(update_camera_position)
 
 
 func _init(
@@ -57,7 +47,7 @@ func _init(
     target_reference_node: Node3D = null,
     reference_node: Node3D = null,
     cull_mask: int = -1,
-    secondary_target_cam: Camera3D = null,
+    portal_viewport: PortalViewportServer.PortalViewport = null,
 ) -> void:
     if target_cam:
         _target_cam = target_cam
@@ -67,108 +57,56 @@ func _init(
         _reference_node = reference_node
     if cull_mask >= 0:
         self.cull_mask = cull_mask
-    if secondary_target_cam:
-        self.secondary_target_cam = secondary_target_cam
+    if portal_viewport:
+        _camera = portal_viewport.camera
+        _sub_viewport = portal_viewport.viewport
+        add_child(_sub_viewport)
 
 
 ## Reinitialize with a new set of parameters [br]
 ## ## Parameters [br]
-## `target_cam`: Target to track the position of [br]
+## `target_cam`: Camera to copy configuration from [br]
 ## `target_reference_node`: Node to track _target_cam relative to [br]
 ## `reference_node`: Node to position this renderer's camera relative to [br]
 ## `cull_mask`: Cull maks for this renderer's camera [br]
-## `secondary_target_cam`: Optional secondary target [br]
 func reset(
     target_cam: Camera3D,
     target_reference_node: Node3D,
     reference_node: Node3D,
     cull_mask: int,
-    secondary_target_cam: Camera3D = null,
+    portal_viewport: PortalViewportServer.PortalViewport,
 ) -> void:
     _target_cam = target_cam
     _target_reference_node = target_reference_node
     _reference_node = reference_node
     self.cull_mask = cull_mask
-    if secondary_target_cam:
-        self.secondary_target_cam = secondary_target_cam
+    _camera = portal_viewport.camera
+    _sub_viewport = portal_viewport.viewport
 
     _setup()
 
 
 ## Initialize `camera` and `_sub_viewport`
 func _setup() -> void:
-    if is_instance_valid(_sub_viewport):
-        _sub_viewport.queue_free()
-
-    camera = _create_camera()
-    _sub_viewport = _create_sub_viewport()
-
-    _sub_viewport.add_child(camera)
-    _current_target_cam = _target_cam
-
-
-## Create and configure the camera for this portal renderer.
-## Does not add it as a child
-func _create_camera() -> Camera3D:
-    var camera := Camera3D.new()
-    camera.environment = _target_cam.environment.duplicate()
-    camera.attributes = _target_cam.attributes.duplicate()
-    camera.fov = _target_cam.fov
-
-    camera.cull_mask = cull_mask
-    if OBLIQUE_FRUSTUM_ENABLED:
-        camera.use_oblique_frustum = true
-        camera.oblique_normal = _reference_node.global_basis.z
-        camera.oblique_position = _reference_node.global_position
-        camera.oblique_offset = OBLIQUE_OFFSET
-
-    var environment := camera.environment
-    for key in ENVIRONMENT_OVERRIDES:
-        environment.set(key, ENVIRONMENT_OVERRIDES[key])
-
-    return camera
-
-
-# FIXME: Viewport configuration is off from the main viewport,
-# but I'm not sure where
-## Create and cofigure the SubViewport for this portal renderer.
-## Adds it as a child.
-func _create_sub_viewport() -> SubViewport:
-    var sub_viewport := SubViewport.new()
-    var target_viewport := _target_cam.get_viewport()
-
-    add_child(sub_viewport)
-
-    var properties := target_viewport.get_property_list()
-    for property in properties:
-        var key: String = property["name"]
-        var val: Variant = target_viewport.get(key)
-        sub_viewport.set(key, val)
-
-    sub_viewport.size = Vector2i(
-        ProjectSettings.get_setting("display/window/size/viewport_width"),
-        ProjectSettings.get_setting("display/window/size/viewport_height")
-    )
-    sub_viewport.use_occlusion_culling = false
-    sub_viewport.render_target_update_mode = SubViewport.UPDATE_WHEN_PARENT_VISIBLE
-    sub_viewport.handle_input_locally = true
-    sub_viewport.audio_listener_enable_2d = false
-    sub_viewport.audio_listener_enable_3d = false
-
-    return sub_viewport
+    _camera.cull_mask = cull_mask
+    if _OBLIQUE_FRUSTUM_ENABLED:
+        _camera.use_oblique_frustum = true
+        _camera.oblique_normal = _reference_node.global_basis.z
+        _camera.oblique_position = _reference_node.global_position
+        _camera.oblique_offset = _OBLIQUE_OFFSET
 
 
 ## Update camera position based on [br]
-## * `_current_target_cam` [br]
+## * `reference_transform` [br]
 ## * `_target_reference_node` [br]
 ## * `_reference_node` [br]
-func update_camera_position() -> void:
-    camera.global_transform = _get_relative_transform(
-        _current_target_cam.global_transform,
+func update_camera_position(reference_transform: Transform3D) -> void:
+    _camera.global_transform = (Utils.get_relative_transform(
+        reference_transform,
         _target_reference_node.global_transform,
-        _reference_node.global_transform,
-    )
-    camera.orthonormalize()
+        _reference_node.global_transform
+    ))
+    _camera.orthonormalize()
 
 
 ## Get the viewport texture of this renderer's sub-viewport
@@ -179,32 +117,3 @@ func get_viewport_texture() -> ViewportTexture:
 ## Set reference node for this renderer's camera
 func set_reference_node(node: Node3D) -> void:
     _reference_node = node
-
-
-## Get the `SubViewport` this this node renders to
-func get_sub_viewport() -> SubViewport:
-    return _sub_viewport
-
-
-## Set use of secondary target. If `secondary_target_cam == null`, does nothing.
-func set_use_secondary_target(use_secondary_target: bool) -> void:
-    _current_target_cam = (
-        secondary_target_cam if use_secondary_target and secondary_target_cam else _target_cam
-    )
-
-
-## Transform `target` from `original_ref` into `new_ref` [br]
-## ## Parameters [br]
-## `target`: The global transform of interest [br]
-## `original_ref`: The global reference transform to convert from [br]
-## `new_ref`: The global reference transform to convert to [br]
-## ## Returns [br]
-## `new_transform`: The global transform of `target` rotated from
-## `original_ref` into `new_ref` [br]
-func _get_relative_transform(
-    target: Transform3D,
-    orignal_ref: Transform3D,
-    new_ref: Transform3D,
-) -> Transform3D:
-    var transform_offset := orignal_ref.affine_inverse() * target  # Get offset to orignal reference
-    return new_ref * transform_offset  # Apply offest to new reference

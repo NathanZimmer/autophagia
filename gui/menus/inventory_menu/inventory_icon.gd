@@ -7,7 +7,7 @@ signal item_selected(icon: iInventoryIcon)
 
 enum SelectionMode { DEFAULT, MOVE }
 
-## TODO: Use one constant for this instead of one per file
+# TODO: Use one constant for this instead of one per file
 const HOVER_COLOR = Color(1.0, 0.66, 0.66)
 
 const THEME_DEFAULT = &"InventoryIconPanel"

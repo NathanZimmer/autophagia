@@ -16,10 +16,10 @@ func _ready() -> void:
         trigger.triggered.connect(_display_image)
 
 
-func _display_image(body: Node3D) -> void:
-    var handlers := body.find_children("*", "MessageHandler", false)
-    if not handlers.is_empty():
-        handlers[0].send_note(_note)
+func _display_image(body: Node) -> void:
+    var handler: MessageHandler = body.find_children("*", "MessageHandler", false).get(0)
+    if handler:
+        handler.send_message(_note)
         queue_free()
 
 

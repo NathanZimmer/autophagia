@@ -30,6 +30,8 @@ InputActions="*res://game_settings/input_actions.gd"
 Overrides="*res://game_settings/overrides.gd"
 AudioManager="*res://audio/audio_manager.gd"
 Utils="*uid://cyjm15klrck67"
+Player="*uid://dnhp4dcugklq6"
+PortalViewportServer="*uid://chsmgyci43p05"
 
 [debug]
 
@@ -45,7 +47,7 @@ window/stretch/scale_mode="integer"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/btg_entity_importer/plugin.cfg", "res://addons/portal_body_gizmo/plugin.cfg")
+enabled=PackedStringArray("res://addons/btg_entity_importer/plugin.cfg", "res://addons/player_proxy_gizmo/plugin.cfg", "res://addons/portal_body_gizmo/plugin.cfg")
 
 [global_group]
 

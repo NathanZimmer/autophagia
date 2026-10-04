@@ -20,10 +20,10 @@ func _ready() -> void:
 
 
 func _start_dialog(body: Node) -> void:
-    var handlers := body.find_children("*", "MessageHandler", false)
-    if not handlers.is_empty():
+    var handler: MessageHandler = body.find_children("*", "MessageHandler", false).get(0)
+    if handler:
         AudioManager.play_pressed()
-        handlers[0].send_dialog(_dialog)
+        handler.send_message(_dialog)
 
 
 ## Show warning if we don't have a ClickTrigger child

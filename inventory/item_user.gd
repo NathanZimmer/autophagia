@@ -10,14 +10,21 @@ class_name ItemUser extends Node
 
 # FIXME: Make this properly block pause menu and allow canceling the placement,
 # AKA: putting the item back in your inventory
+
 ## TODO
 signal item_place_mode(enabled: bool)
 
-const PICKUP_SPAWN_OFFSET := Vector3(0, -1, 0)
-const PICKUP_SPAWN_RANGE := Vector3(0.25, 0, 0.25)
+## Offset from center of _player_body to spawn dropped pickups
+const _PICKUP_SPAWN_OFFSET := Vector3(0, -1, 0)
+## Bounds for item drop position randomization, position will be [-n/2, n/2]
+const _PICKUP_SPAWN_RANGE := Vector3(0.25, 0, 0.25)
+## Distance along foward vector to place items
+const _ITEM_SPAWN_DISTANCE := -1
 
-const ITEM_SPAWN_OFFSET := Vector3(0, 0.4, 0)
-const ITEM_SPAWN_DISTANCE := -1
+## Player body node. Used for dropping item pickups
+@export var _player_body: iPlayerBody
+## Player camera node. Used for item placing mechanic
+@export var _player_camera: TrackedCamera
 
 var Pickup := preload("uid://u87ws5522ov")
 
@@ -56,15 +63,12 @@ func _test_spawn_ball(count: int, test_inp: String, block_menuing: bool = false)
     var sphere_mesh := SphereMesh.new()
     sphere_mesh.radius = 0.25
     sphere_mesh.height = 0.5
-    # sphere_mesh.material = PlaceholderMaterial.new()
     var mesh_instance := MeshInstance3D.new()
     mesh_instance.mesh = sphere_mesh
 
-    # TODO: Determine how we should spawn objects. If we want to spawn them directly in
-    # front of the player, we will need the camera forward vector
-    owner.get_parent().add_child(mesh_instance)
+    get_tree().root.add_child(mesh_instance)
     mesh_instance.global_position = (
-        owner.global_position + ITEM_SPAWN_OFFSET + owner.global_basis.z * ITEM_SPAWN_DISTANCE
+        _player_camera.global_position + _player_camera.global_basis.z * _ITEM_SPAWN_DISTANCE
     )
     return true
 
@@ -96,15 +100,15 @@ func use_item(item_info: ItemInfo, count: int) -> bool:
 ## Create item pickup with `ItemInfo` and `count`
 func drop_item(item_info: ItemInfo, count: int) -> void:
     var item_pickup: ItemPickup = Pickup.instantiate()
-    owner.get_parent().add_child(item_pickup)
+    get_tree().root.add_child(item_pickup)
     item_pickup.reset(item_info, count, true)
 
     item_pickup.global_position = (
-        owner.global_position
-        + PICKUP_SPAWN_OFFSET
+        _player_body.global_position
+        + _PICKUP_SPAWN_OFFSET
         + Vector3(
-            randf_range(PICKUP_SPAWN_RANGE.x / -2, PICKUP_SPAWN_RANGE.x / 2),
-            randf_range(PICKUP_SPAWN_RANGE.y / -2, PICKUP_SPAWN_RANGE.y / 2),
-            randf_range(PICKUP_SPAWN_RANGE.z / -2, PICKUP_SPAWN_RANGE.z / 2),
+            randf_range(_PICKUP_SPAWN_RANGE.x / -2, _PICKUP_SPAWN_RANGE.x / 2),
+            randf_range(_PICKUP_SPAWN_RANGE.y / -2, _PICKUP_SPAWN_RANGE.y / 2),
+            randf_range(_PICKUP_SPAWN_RANGE.z / -2, _PICKUP_SPAWN_RANGE.z / 2),
         )
     )

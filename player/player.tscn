@@ -1,19 +1,17 @@
 [gd_scene format=3 uid="uid://dnhp4dcugklq6"]
 
-[ext_resource type="Script" uid="uid://c1o8i6ob4hruq" path="res://player/player.gd" id="1_y2fp8"]
+[ext_resource type="Script" uid="uid://s78jbdfnoudb" path="res://player/player.gd" id="1_y2fp8"]
 [ext_resource type="Environment" uid="uid://cbgre4uktxw6d" path="res://common/main_world_env.tres" id="2_xgxvm"]
-[ext_resource type="Script" uid="uid://ck2srl31dxoy2" path="res://player/player_raycast_3d.gd" id="4_8t03j"]
+[ext_resource type="PackedScene" uid="uid://clc3miucdly1l" path="res://player/player_body.tscn" id="2_yllr7"]
 [ext_resource type="PackedScene" uid="uid://cjew08elm562t" path="res://gui/gui.tscn" id="5_boad6"]
 [ext_resource type="Script" uid="uid://bvyrto2wfvoh4" path="res://inventory/inventory.gd" id="6_yllr7"]
+[ext_resource type="Script" uid="uid://dwnyccqt0r1c2" path="res://player/tracked_camear.gd" id="7_e7oew"]
 [ext_resource type="Script" uid="uid://xgc14u80w6pu" path="res://inventory/item_user.gd" id="7_kb6p2"]
-[ext_resource type="Material" uid="uid://byvayr8jwcepu" path="res://player/materials/retro_filter.tres" id="8_hg6s5"]
+[ext_resource type="Shader" uid="uid://b43ppjcv5in3e" path="res://player/materials/dither.gdshader" id="7_tqiix"]
+[ext_resource type="Texture2D" uid="uid://bv3hpe76swrmk" path="res://assets/player/player_vingette.png" id="8_32hag"]
 [ext_resource type="Script" uid="uid://bnbt62ete8km4" path="res://inventory/journal.gd" id="8_rgyib"]
-[ext_resource type="Animation" uid="uid://3iekuyht51r3" path="res://assets/player/animations/camera_sway.res" id="9_ebec5"]
-[ext_resource type="Script" uid="uid://clawryrmh60wq" path="res://player/message_handler.gd" id="10_8t03j"]
-[ext_resource type="Animation" uid="uid://ds2ipytexoe1q" path="res://assets/player/animations/camera_impact.res" id="10_yllr7"]
-[ext_resource type="Animation" uid="uid://djrqyxbnoaicn" path="res://assets/player/animations/camera_reset.res" id="11_kb6p2"]
-[ext_resource type="Script" uid="uid://c7vyaxwgerejy" path="res://player/camera_animation_tree.gd" id="12_ebec5"]
-[ext_resource type="AudioStream" uid="uid://bnji7bs7grmhs" path="res://assets/player/sound/footstep_2.wav" id="14_wodsf"]
+[ext_resource type="Material" uid="uid://cl4wjoty18yvj" path="res://player/materials/dither.tres" id="8_wodsf"]
+[ext_resource type="Material" uid="uid://csfsfuk3hnof4" path="res://player/materials/scanlines.tres" id="9_32hag"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_4juu5"]
 
@@ -46,65 +44,51 @@ gradient = SubResource("Gradient_kvi6p")
 width = 16
 height = 16
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8l6i1"]
-radius = 0.3
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_32hag"]
+shader = ExtResource("7_tqiix")
+shader_parameter/palette_bit_depth = 4
+shader_parameter/threshold_scale = 0.0
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_dgi16"]
-radius = 0.3
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_2ieo8"]
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_wodsf"]
-_data = {
-&"RESET": ExtResource("11_kb6p2"),
-&"impact": ExtResource("10_yllr7"),
-&"sway": ExtResource("9_ebec5")
-}
-
-[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_yllr7"]
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kb6p2"]
-animation = &"player_camera/impact"
-
-[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_ebec5"]
-mix_mode = 1
-break_loop_at_end = true
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_32hag"]
-animation = &"player_camera/RESET"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ebec5"]
-animation = &"player_camera/sway"
-
-[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_ebec5"]
-
-[sub_resource type="AnimationNodeTimeSeek" id="AnimationNodeTimeSeek_ebec5"]
-
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ebec5"]
-graph_offset = Vector2(-220.53894, -32.824303)
-nodes/output/position = Vector2(820, -40)
-nodes/BlendWalk/node = SubResource("AnimationNodeBlend2_yllr7")
-nodes/BlendWalk/position = Vector2(400, -140)
-nodes/Impact/node = SubResource("AnimationNodeAnimation_kb6p2")
-nodes/Impact/position = Vector2(340, 120)
-nodes/OneShotImpact/node = SubResource("AnimationNodeOneShot_ebec5")
-nodes/OneShotImpact/position = Vector2(600, -60)
-nodes/RESET/node = SubResource("AnimationNodeAnimation_32hag")
-nodes/RESET/position = Vector2(80, 0)
-nodes/Sway/node = SubResource("AnimationNodeAnimation_ebec5")
-nodes/Sway/position = Vector2(-240, -160)
-nodes/TimeScaleSway/node = SubResource("AnimationNodeTimeScale_ebec5")
-nodes/TimeScaleSway/position = Vector2(180, -180)
-nodes/TimeSeekSway/node = SubResource("AnimationNodeTimeSeek_ebec5")
-nodes/TimeSeekSway/position = Vector2(20, -180)
-node_connections = [&"output", 0, &"OneShotImpact", &"BlendWalk", 0, &"RESET", &"BlendWalk", 1, &"TimeScaleSway", &"OneShotImpact", 0, &"BlendWalk", &"OneShotImpact", 1, &"Impact", &"TimeScaleSway", 0, &"TimeSeekSway", &"TimeSeekSway", 0, &"Sway"]
-
-[node name="Player" type="CharacterBody3D" unique_id=2122152516 groups=["player"]]
-floor_max_angle = 0.87266463
+[node name="Player" type="Node" unique_id=1583103223 groups=["player"]]
 script = ExtResource("1_y2fp8")
-_override_up_dir_on_ready = false
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1415068424]
+[node name="PlayerBody" parent="." unique_id=222323715 node_paths=PackedStringArray("_camera") instance=ExtResource("2_yllr7")]
+unique_name_in_owner = true
+_camera = NodePath("../CanvasLayer/CameraSubViewportContainer/CameraSubViewport/PlayerCamera")
+
+[node name="Journal" type="Node" parent="." unique_id=2042895822]
+unique_name_in_owner = true
+script = ExtResource("8_rgyib")
+metadata/_custom_type_script = "uid://bnbt62ete8km4"
+
+[node name="Inventory" type="Node" parent="." unique_id=1545370011]
+unique_name_in_owner = true
+script = ExtResource("6_yllr7")
+_inventory_size = 6
+_toolbar_size = 2
+metadata/_custom_type_script = "uid://bvyrto2wfvoh4"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1905954674]
+
+[node name="CameraSubViewportContainer" type="SubViewportContainer" parent="CanvasLayer" unique_id=540922304]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 2
+
+[node name="CameraSubViewport" type="SubViewport" parent="CanvasLayer/CameraSubViewportContainer" unique_id=194002813]
+unique_name_in_owner = true
+handle_input_locally = false
+audio_listener_enable_3d = true
+oversampling = false
+size = Vector2i(320, 240)
+render_target_update_mode = 4
+
+[node name="PlayerCamera" type="Camera3D" parent="CanvasLayer/CameraSubViewportContainer/CameraSubViewport" unique_id=1415068424]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 cull_mask = 1047539
@@ -112,96 +96,73 @@ environment = ExtResource("2_xgxvm")
 attributes = SubResource("CameraAttributesPractical_4juu5")
 current = true
 fov = 90.0
-far = 20.0
+far = 30.0
+script = ExtResource("7_e7oew")
 
-[node name="PlayerRayCast3D" type="RayCast3D" parent="Camera3D" unique_id=1725491511]
-target_position = Vector3(0, 0, -2)
-collide_with_areas = true
-script = ExtResource("4_8t03j")
-metadata/_custom_type_script = "uid://ck2srl31dxoy2"
+[node name="CanvasLayer" type="CanvasLayer" parent="CanvasLayer/CameraSubViewportContainer/CameraSubViewport" unique_id=799433340]
 
-[node name="MessageHandler" type="Node" parent="." unique_id=1964573056]
-unique_name_in_owner = true
-script = ExtResource("10_8t03j")
-metadata/_custom_type_script = "uid://clawryrmh60wq"
-
-[node name="Journal" type="Node" parent="." unique_id=2042895822 node_paths=PackedStringArray("_message_handler")]
-unique_name_in_owner = true
-script = ExtResource("8_rgyib")
-_message_handler = NodePath("../MessageHandler")
-metadata/_custom_type_script = "uid://bnbt62ete8km4"
-
-[node name="Inventory" type="Node" parent="." unique_id=1545370011 node_paths=PackedStringArray("_message_handler")]
-unique_name_in_owner = true
-script = ExtResource("6_yllr7")
-_inventory_size = 6
-_toolbar_size = 2
-_message_handler = NodePath("../MessageHandler")
-metadata/_custom_type_script = "uid://bvyrto2wfvoh4"
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1905954674]
-
-[node name="Gui" parent="CanvasLayer" unique_id=64399052 node_paths=PackedStringArray("_crosshair_raycast", "_message_handler", "_journal", "_inventory", "_item_user") instance=ExtResource("5_boad6")]
-unique_name_in_owner = true
-_crosshair_raycast = NodePath("../../Camera3D/PlayerRayCast3D")
-_crosshair_textures = Dictionary[StringName, Texture2D]({
-&"chest": SubResource("GradientTexture2D_wodsf"),
-&"lever": SubResource("GradientTexture2D_s1h2m"),
-&"npc": SubResource("GradientTexture2D_xqkfk")
-})
-_message_handler = NodePath("../../MessageHandler")
-_journal = NodePath("../../Journal")
-_inventory = NodePath("../../Inventory")
-_item_user = NodePath("../../ItemUser")
-
-[node name="RetroFilter" type="ColorRect" parent="CanvasLayer" unique_id=2018018916]
+[node name="DitherFilter" type="ColorRect" parent="CanvasLayer/CameraSubViewportContainer/CameraSubViewport/CanvasLayer" unique_id=517660945]
 process_mode = 3
-material = ExtResource("8_hg6s5")
+material = ExtResource("8_wodsf")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+color = Color(0, 0, 0, 0)
 
-[node name="ItemUser" type="Node" parent="." unique_id=764778204]
+[node name="Gui" parent="CanvasLayer" unique_id=64399052 node_paths=PackedStringArray("_journal", "_inventory", "_item_user") instance=ExtResource("5_boad6")]
+unique_name_in_owner = true
+mouse_filter = 2
+_crosshair_textures = Dictionary[StringName, Texture2D]({
+&"chest": SubResource("GradientTexture2D_wodsf"),
+&"lever": SubResource("GradientTexture2D_s1h2m"),
+&"npc": SubResource("GradientTexture2D_xqkfk")
+})
+_journal = NodePath("../../Journal")
+_inventory = NodePath("../../Inventory")
+_item_user = NodePath("../../ItemUser")
+
+[node name="GuiColorLimit" type="ColorRect" parent="CanvasLayer" unique_id=1615969292]
+process_mode = 3
+z_index = 3
+material = SubResource("ShaderMaterial_32hag")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="ScanlineFilter" type="ColorRect" parent="CanvasLayer" unique_id=348638873]
+process_mode = 3
+z_index = 4
+material = ExtResource("9_32hag")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="vingette" type="TextureRect" parent="CanvasLayer" unique_id=214662888]
+process_mode = 3
+modulate = Color(1, 1, 1, 0.50980395)
+z_index = 5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("8_32hag")
+
+[node name="ItemUser" type="Node" parent="." unique_id=764778204 node_paths=PackedStringArray("_player_body", "_player_camera")]
 unique_name_in_owner = true
 script = ExtResource("7_kb6p2")
+_player_body = NodePath("../PlayerBody")
+_player_camera = NodePath("../CanvasLayer/CameraSubViewportContainer/CameraSubViewport/PlayerCamera")
 metadata/_custom_type_script = "uid://xgc14u80w6pu"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=823973827]
-unique_name_in_owner = true
-shape = SubResource("CapsuleShape3D_8l6i1")
-
-[node name="Body" type="MeshInstance3D" parent="." unique_id=2103892333]
-layers = 512
-cast_shadow = 0
-gi_mode = 0
-mesh = SubResource("CapsuleMesh_dgi16")
-skeleton = NodePath("")
-
-[node name="Footsteps" type="AudioStreamPlayer3D" parent="." unique_id=1721837365]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-stream = ExtResource("14_wodsf")
-volume_db = 3.0
-max_db = 6.0
-max_polyphony = 3
-bus = &"Game"
-
-[node name="CameraAnimationPlayer" type="AnimationPlayer" parent="." unique_id=891798889]
-libraries/ = SubResource("AnimationLibrary_2ieo8")
-libraries/player_camera = SubResource("AnimationLibrary_wodsf")
-
-[node name="CameraAnimationTree" type="AnimationTree" parent="." unique_id=119689546]
-unique_name_in_owner = true
-root_node = NodePath("%CameraAnimationTree/..")
-tree_root = SubResource("AnimationNodeBlendTree_ebec5")
-anim_player = NodePath("../CameraAnimationPlayer")
-parameters/BlendWalk/blend_amount = 0.0
-parameters/OneShotImpact/active = false
-parameters/OneShotImpact/internal_active = false
-parameters/OneShotImpact/request = 0
-parameters/TimeScaleSway/scale = 1.0
-parameters/TimeSeekSway/seek_request = -1.0
-script = ExtResource("12_ebec5")

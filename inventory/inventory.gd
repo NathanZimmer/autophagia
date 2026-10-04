@@ -8,7 +8,6 @@ const MAX_STACK_SIZE = 5
 
 @export var _inventory_size: int
 @export var _toolbar_size: int
-@export var _message_handler: MessageHandler
 
 var _items: Array[InventoryItem]
 
@@ -18,11 +17,14 @@ func _ready() -> void:
     for i in range(_inventory_size):
         _items[i] = InventoryItem.new()
 
-    if Utils.verify_component(self, _message_handler):
-        _message_handler.item_received.connect(_on_item_received)
 
-
-func _on_item_received(item: InventoryItem) -> void:
+## Add an item to the first available index (first index with this item or first empty
+## index). if `item.count` is higher than _`MAX_STACK_SIZE`, moves to next available
+## index.[br]
+## ## Parameters [br]
+## `item`: The item to add. Updates `item.count` with remainder if any items could not fit in this
+## inventory. [b]Note:[/b] This updates the source `InventoryItem` [br]
+func add_item(item: InventoryItem) -> void:
     var remainder := _add_item(item)
     if remainder != item.count:
         # Is there a better way to communicate this count change than
@@ -34,7 +36,7 @@ func _on_item_received(item: InventoryItem) -> void:
 ## index). if `item.count` is higher than _`MAX_STACK_SIZE`, moves to next available
 ## index.[br]
 ## ## Parameters [br]
-## `item`: The type of item to add [br]
+## `item`: The item to add [br]
 ## ## Returns [br]
 ## Count that couldn't be added to inventory
 func _add_item(item: InventoryItem) -> int:

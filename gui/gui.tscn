@@ -83,7 +83,6 @@ NodePath("MenuContainer/ScrollContainer/VBoxContainer/SoundButton"): NodePath("S
 }
 
 [node name="Background" type="ColorRect" parent="PauseMenu" unique_id=2047534197]
-z_index = -1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -91,13 +90,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.08, 0, 0.00933334, 0.419608)
+color = Color(0.078431375, 0, 0.007843138, 0.5882353)
 
 [node name="DialogMenu" parent="." unique_id=610682932 instance=ExtResource("5_bk7cs")]
 unique_name_in_owner = true
 process_mode = 4
 visible = false
 layout_mode = 1
+
+[node name="Background" type="ColorRect" parent="DialogMenu" unique_id=123719376]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.078431375, 0, 0.007843138, 0.5882353)
 
 [node name="NoteMenu" parent="." unique_id=2049027145 instance=ExtResource("6_kvi6p")]
 unique_name_in_owner = true
@@ -106,7 +115,6 @@ visible = false
 layout_mode = 1
 
 [node name="Background" type="ColorRect" parent="NoteMenu" unique_id=1960985994]
-z_index = -1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -114,7 +122,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.08, 0, 0.00933334, 0.419608)
+color = Color(0.078431375, 0, 0.007843138, 0.5882353)
 
 [node name="JournalMenu" parent="." unique_id=1792393436 instance=ExtResource("4_ytf3d")]
 unique_name_in_owner = true
@@ -123,7 +131,6 @@ visible = false
 layout_mode = 1
 
 [node name="Background" type="ColorRect" parent="JournalMenu" unique_id=948293748]
-z_index = -1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -131,7 +138,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.08, 0, 0.00933334, 0.419608)
+color = Color(0.078431375, 0, 0.007843138, 0.5882353)
 
 [node name="InventoryMenu" parent="." unique_id=717076251 instance=ExtResource("7_4q42c")]
 unique_name_in_owner = true
@@ -140,7 +147,6 @@ visible = false
 layout_mode = 1
 
 [node name="Background" type="ColorRect" parent="InventoryMenu" unique_id=1824888859]
-z_index = -1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -148,7 +154,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.08, 0, 0.00933334, 0.419608)
+color = Color(0.078431375, 0, 0.007843138, 0.5882353)
 
 [node name="Crosshair" type="TextureRect" parent="." unique_id=1460447375]
 unique_name_in_owner = true

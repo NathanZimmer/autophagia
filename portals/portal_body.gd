@@ -95,6 +95,7 @@ signal player_exited_portal
     get:
         return _collision_mask
 
+# TODO: Fix this needless duplicate by toggling local to scene or something??
 var _material: ShaderMaterial = preload("uid://b3gfilq0wguq8").duplicate()
 var _mesh: MeshInstance3D
 ## `Mesh` for viewing this portal through another portal. Useful
@@ -124,7 +125,9 @@ func _physics_process(_delta: float) -> void:
     if Engine.is_editor_hint():
         return
 
-    var current_frame_angle := global_basis.z.dot(global_position - _player.camera.global_position)
+    var current_frame_angle := global_basis.z.dot(
+        global_position - _player._camera_remote_transform.global_position
+    )
     var current_direction_sign := signf(current_frame_angle)
 
     # FIXME: If the player moves into and out of a portal on back-to-back frames they
@@ -207,11 +210,11 @@ func _setup() -> void:
         player_exited_portal.connect(func() -> void: _renderers[0].use_oblique_frustum = true)
         _reset_viewport_shader_param()
 
-    if is_instance_valid(_player) and is_instance_valid(_player.camera):
+    if is_instance_valid(_player) and is_instance_valid(_player._camera):
         var current_frame_angle := (
             0.0
             if not _player
-            else global_basis.z.dot(global_position - _player.camera.global_position)
+            else global_basis.z.dot(global_position - _player._camera.global_position)
         )
         _player_direction_sign = signf(current_frame_angle)
 
@@ -320,7 +323,9 @@ func _reset_viewport_shader_param() -> void:
 
 ## Set the position of the portal oposite the player along the z-plane of this Node
 func update_portal_pos() -> void:
-    var current_frame_angle := global_basis.z.dot(global_position - _player.camera.global_position)
+    var current_frame_angle := global_basis.z.dot(
+        global_position - _player._camera_remote_transform.global_position
+    )
     var current_direction_sign := signf(current_frame_angle)
     _mesh.position.z = current_direction_sign * size.z / 4
     _recursion_mesh.position.z = _mesh.position.z
@@ -332,8 +337,8 @@ func update_portal_pos() -> void:
 func prepare_for_teleport() -> void:
     update_portal_pos()
     _renderers[0].use_oblique_frustum = false
-    for renderer in _renderers:
-        renderer.update_camera_position()
+    # for renderer in _renderers:
+    #     renderer.update_camera_position()
 
 
 ## Return `true` if the player is in the portal's `Area3D`

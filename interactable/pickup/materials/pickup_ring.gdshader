@@ -8,11 +8,10 @@ uniform vec2 scroll_speed;
 uniform float gradient_factor = 3.0;
 uniform float gradient_offset = 0.8;
 
-uniform float jitter: hint_range(0, 1) = 0.5;
+uniform float jitter : hint_range(0, 1) = 0.5;
 uniform ivec2 resolution = ivec2(854, 480);
 
-vec4 snap_to_position(vec4 base_position)
-{
+vec4 snap_to_position(vec4 base_position) {
 	vec4 snapped_position = base_position;
 	snapped_position.xyz = base_position.xyz / base_position.w;
 
@@ -26,13 +25,13 @@ vec4 snap_to_position(vec4 base_position)
 
 void vertex() {
 	vec4 snapped_position = snap_to_position(PROJECTION_MATRIX * MODELVIEW_MATRIX * vec4(VERTEX, 1.0));
-    POSITION = snapped_position;
+	POSITION = snapped_position;
 }
 
 void fragment() {
 	vec2 offset = mod(UV + TIME * scroll_speed, 1.0);
-    vec4 alpha_tex = texture(scrolling_alpha_noise, offset);
-    float gradient = 1.0 - gradient_factor * pow(UV.y - gradient_offset, 2.0);
-    ALBEDO = color;
-    ALPHA = max(gradient, length(alpha_tex.rgb) * UV.y) * alpha_factor;
+	vec4 alpha_tex = texture(scrolling_alpha_noise, offset);
+	float gradient = 1.0 - gradient_factor * pow(UV.y - gradient_offset, 2.0);
+	ALBEDO = color;
+	ALPHA = max(gradient, length(alpha_tex.rgb) * UV.y) * alpha_factor;
 }

@@ -4,14 +4,10 @@ class_name iGui extends Control
 
 ## Raycast to use for setting crosshair icons
 @export_group("GUI")
-## Raycast to use for picking crosshair texture
-@export var _crosshair_raycast: RayCast3D
 ## Map of group name -> texture to display when `_crosshair_raycast` collides
 ## with that group
 @export var _crosshair_textures: Dictionary[StringName, Texture2D]
 @export_group("Player Components")
-## Player's message handler component
-@export var _message_handler: MessageHandler
 ## Player's journal component
 @export var _journal: Journal
 ## Player's inventory component
@@ -19,15 +15,14 @@ class_name iGui extends Control
 ## Player's item user component
 @export var _item_user: ItemUser
 
-## Whether the player can open all non-settings menus
-var interact_menus_enabled := false
+## Whether the player can open interaction menus. I.e, Dialog and Inventory
+var _interact_menus_enabled := false
 
-var _raycast_collided: Object
 var _default_crosshair_texture: Texture2D
 ## Handle race condition between multiple menus attempting to open in the same frame
 var _pause_lock: iMenuControl
 
-## Root pause menus
+## Root menus
 @onready var _pause_menu: iMenuControl = %PauseMenu
 @onready var _journal_menu: iJournalMenuControl = %JournalMenu
 @onready var _dialog_menu: iDialogMenuControl = %DialogMenu
@@ -46,12 +41,7 @@ func _ready() -> void:
     _inventory_menu.menu_exited.connect(_unpause.bind(_inventory_menu))
 
     _note_menu.journal_button_pressed.connect(_pass_pause.bind(_note_menu, _journal_menu))
-    _journal_menu.note_button_pressed.connect(_open_note_menu.bind(true))
-
-    if Utils.verify_component(self, _message_handler):
-        _message_handler.dialog_recieved.connect(_open_dialog_menu)
-        _message_handler.note_received.connect(_open_note_menu)
-        _message_handler.inventory_received.connect(_open_chest)
+    _journal_menu.note_button_pressed.connect(open_note_menu.bind(true))
 
     if Utils.verify_component(self, _journal):
         _journal.note_discovered.connect(_journal_menu.add_note)
@@ -68,11 +58,6 @@ func _ready() -> void:
 
     Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
     _default_crosshair_texture = _crosshair.texture
-
-
-func _physics_process(_delta: float) -> void:
-    if Utils.verify_component(self, _crosshair_raycast):
-        _set_crosshair_texture()
 
 
 func _shortcut_input(event: InputEvent) -> void:
@@ -99,7 +84,7 @@ func _handle_hotkeys(event: InputEvent) -> void:
         _pause(_journal_menu)
         accept_event()
 
-    elif interact_menus_enabled and event.is_action_pressed(InputActions.Ui.INVENTORY):
+    elif _interact_menus_enabled and event.is_action_pressed(InputActions.Ui.INVENTORY):
         _pause(_inventory_menu)
         accept_event()
 
@@ -147,8 +132,8 @@ func _pass_pause(from: iMenuControl, to: iMenuControl) -> void:
 
 
 ## Open the dialog menu with the given `DialogTree`
-func _open_dialog_menu(dialog: DialogTree) -> void:
-    if not interact_menus_enabled or _pause_lock:
+func open_dialog_menu(dialog: DialogTree) -> void:
+    if not _interact_menus_enabled or _pause_lock:
         return
     _dialog_menu.set_dialog(dialog)
     _pause(_dialog_menu)
@@ -158,7 +143,7 @@ func _open_dialog_menu(dialog: DialogTree) -> void:
 ## ## Parameters [br]
 ## `title`: Title of entry to open [br]
 ## `from_journal`: If true, closing the menu will bring you back to `_journal_menu`
-func _open_note_menu(title: Journal.Title, from_journal: bool = false) -> void:
+func open_note_menu(title: Journal.Title, from_journal: bool = false) -> void:
     if from_journal or not _pause_lock:
         var image: Texture2D = (
             _journal.get_note_texture(title) if _journal else PlaceholderTexture2D.new()
@@ -174,29 +159,27 @@ func _open_note_menu(title: Journal.Title, from_journal: bool = false) -> void:
 
 
 ## Pass chest to and open `_inventory_menu`
-func _open_chest(chest: Inventory) -> void:
-    if not interact_menus_enabled or _pause_lock:
+func open_chest(chest: Inventory) -> void:
+    if not _interact_menus_enabled or _pause_lock:
         return
     _inventory_menu.set_chest(chest)
     _pause(_inventory_menu)
 
 
-func _set_crosshair_texture() -> void:
-    if not _crosshair.visible:
-        return
-
-    var collided := _crosshair_raycast.get_collider()
-    if _raycast_collided == collided:
-        return
-    _raycast_collided = collided
-
-    if not _raycast_collided:
+## Set crosshair texture based on `_crosshair_textures`
+func set_crosshair_texture(collided: Object) -> void:
+    if not collided:
         _crosshair.texture = _default_crosshair_texture
         return
 
-    var overlap := _crosshair_textures.keys().filter(_raycast_collided.is_in_group)
+    var overlap := _crosshair_textures.keys().filter(collided.is_in_group)
     if not overlap:
         _crosshair.texture = _default_crosshair_texture
         return
 
     _crosshair.texture = _crosshair_textures[overlap[0]]
+
+
+## Set whether the player can open the "interaction menus" (Dialog and Inventory)
+func set_interact_menus_enabled(enabled: bool) -> void:
+    _interact_menus_enabled = enabled

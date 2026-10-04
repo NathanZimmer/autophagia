@@ -1,8 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bn2tmn3fg0c2c"]
+[gd_scene format=3 uid="uid://bn2tmn3fg0c2c"]
 
 [ext_resource type="Environment" uid="uid://cbgre4uktxw6d" path="res://common/main_world_env.tres" id="1_dxi5e"]
 [ext_resource type="Material" uid="uid://yk4x16701e40" path="res://common/placeholder_triplanar.tres" id="2_h4lmq"]
-[ext_resource type="PackedScene" uid="uid://dnhp4dcugklq6" path="res://player/player.tscn" id="3_1fe4l"]
+[ext_resource type="Script" uid="uid://87305unriadp" path="res://player/player_proxy.gd" id="3_dxi5e"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_e121w"]
 
@@ -14,24 +14,26 @@ points = PackedVector3Array(-10, 0, -10, -10, 0, 10, 10, 0, -10, 10, 0, 10)
 
 [sub_resource type="BoxMesh" id="BoxMesh_03x48"]
 
-[node name="Test" type="Node3D"]
+[node name="Test" type="Node3D" unique_id=737397952]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1010687418]
 environment = ExtResource("1_dxi5e")
 camera_attributes = SubResource("CameraAttributesPractical_e121w")
 
-[node name="Floor" type="MeshInstance3D" parent="."]
+[node name="Floor" type="MeshInstance3D" parent="." unique_id=783915003]
 material_override = ExtResource("2_h4lmq")
 mesh = SubResource("PlaneMesh_e121w")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor" unique_id=239142508]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D" unique_id=283329961]
 shape = SubResource("ConvexPolygonShape3D_03x48")
 
-[node name="Player" parent="." instance=ExtResource("3_1fe4l")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 9)
-
-[node name="Cube" type="MeshInstance3D" parent="."]
+[node name="Cube" type="MeshInstance3D" parent="." unique_id=1354377479]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("BoxMesh_03x48")
+
+[node name="PlayerProxy" type="Node3D" parent="." unique_id=756597044]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 7)
+script = ExtResource("3_dxi5e")
+metadata/_custom_type_script = "uid://87305unriadp"

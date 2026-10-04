@@ -17,6 +17,7 @@ metadata/_custom_type_script = "uid://cxqrgtmjxn1l5"
 
 [node name="MenuContainer" type="VBoxContainer" parent="." unique_id=547814788]
 unique_name_in_owner = true
+z_index = 1
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
