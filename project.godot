@@ -30,7 +30,7 @@ InputActions="*res://game_settings/input_actions.gd"
 Overrides="*res://game_settings/overrides.gd"
 AudioManager="*res://audio/audio_manager.gd"
 Utils="*uid://cyjm15klrck67"
-PlayerInterface="*uid://dnhp4dcugklq6"
+Player="*uid://dnhp4dcugklq6"
 PortalViewportServer="*uid://chsmgyci43p05"
 
 [debug]

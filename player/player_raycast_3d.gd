@@ -2,7 +2,8 @@ class_name PlayerRayCast3D extends RayCast3D
 ## When an input event is received, pipes input to the first `ClickTrigger` node
 ## that is colliding with this raycast
 
-## TODO
+## Emitted when the body this raycast is colliding with changes. Will be `null` if moving to no
+## collision
 signal collision_changed(body: Object)
 
 var _old_collider: Object

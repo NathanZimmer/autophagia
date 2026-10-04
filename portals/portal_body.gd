@@ -95,7 +95,7 @@ signal player_exited_portal
     get:
         return _collision_mask
 
-## TODO: Fix this needless duplicate by toggling local to scene or something??
+# TODO: Fix this needless duplicate by toggling local to scene or something??
 var _material: ShaderMaterial = preload("uid://b3gfilq0wguq8").duplicate()
 var _mesh: MeshInstance3D
 ## `Mesh` for viewing this portal through another portal. Useful

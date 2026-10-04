@@ -10,6 +10,7 @@ class_name ItemUser extends Node
 
 # FIXME: Make this properly block pause menu and allow canceling the placement,
 # AKA: putting the item back in your inventory
+
 ## TODO
 signal item_place_mode(enabled: bool)
 
@@ -25,7 +26,7 @@ var Pickup := preload("uid://u87ws5522ov")
 ## Player body node. Used for dropping item pickups
 @export var _player_body: iPlayerBody
 ## Player camera node. Used for item placing mechanic
-@export var _player_camera: PlayerCamera
+@export var _player_camera: TrackedCamera
 
 # TODO: Add a "item placer mode" for when used items need to be positioned in the world.
 var _block_menuing := false

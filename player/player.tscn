@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://dnhp4dcugklq6"]
 
-[ext_resource type="Script" uid="uid://s78jbdfnoudb" path="res://player/player_interface.gd" id="1_y2fp8"]
+[ext_resource type="Script" uid="uid://s78jbdfnoudb" path="res://player/player.gd" id="1_y2fp8"]
 [ext_resource type="Environment" uid="uid://cbgre4uktxw6d" path="res://common/main_world_env.tres" id="2_xgxvm"]
 [ext_resource type="PackedScene" uid="uid://clc3miucdly1l" path="res://player/player_body.tscn" id="2_yllr7"]
 [ext_resource type="PackedScene" uid="uid://cjew08elm562t" path="res://gui/gui.tscn" id="5_boad6"]
 [ext_resource type="Script" uid="uid://bvyrto2wfvoh4" path="res://inventory/inventory.gd" id="6_yllr7"]
-[ext_resource type="Script" uid="uid://dwnyccqt0r1c2" path="res://player/player_camera.gd" id="7_e7oew"]
+[ext_resource type="Script" uid="uid://dwnyccqt0r1c2" path="res://player/tracked_camear.gd" id="7_e7oew"]
 [ext_resource type="Script" uid="uid://xgc14u80w6pu" path="res://inventory/item_user.gd" id="7_kb6p2"]
 [ext_resource type="Shader" uid="uid://b43ppjcv5in3e" path="res://player/materials/dither.gdshader" id="7_tqiix"]
 [ext_resource type="Texture2D" uid="uid://bv3hpe76swrmk" path="res://assets/player/player_vingette.png" id="8_32hag"]

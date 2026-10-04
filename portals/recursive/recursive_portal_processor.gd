@@ -1,5 +1,5 @@
 # TODO: Make this work with player changes, updated to use stencil buffer, update recursion cameras
-# To use PlayerCamera class for _notification() signal support
+# To use TrackedCamera class for _notification() signal support
 
 # @tool
 # class_name RecursivePortalProcessor extends PortalProcessor

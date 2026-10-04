@@ -8,7 +8,7 @@ const _OBLIQUE_FRUSTUM_ENABLED = true
 
 @export_group("Reference Targets")
 ## Camera to follow relative position of
-@export var _target_cam: PlayerCamera
+@export var _target_cam: TrackedCamera
 ## Node to follow _target_cam relative to
 @export var _target_reference_node: Node3D
 ## Node to position this renderer's camera relative to

@@ -59,8 +59,8 @@ func _ready() -> void:
         return
 
     if not _target_cam:
-        _target_cam = PlayerInterface.get_camera()
-    _target_body = PlayerInterface.get_body()
+        _target_cam = Player.get_camera()
+    _target_body = Player.get_body()
 
 
     var portals: Array[PortalBody]

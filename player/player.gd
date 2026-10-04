@@ -1,9 +1,9 @@
 extends Node
-## TODO
+## Interface for accessing to Player data and components
 
 @onready var _gui: iGui = %Gui
 @onready var _player_body: iPlayerBody = %PlayerBody
-@onready var _camera: PlayerCamera = %PlayerCamera
+@onready var _camera: TrackedCamera = %PlayerCamera
 @onready var _inventory: Inventory = %Inventory
 @onready var _journal: Journal = %Journal
 
@@ -51,16 +51,16 @@ func _connect_signals() -> void:
         handler.item_received.connect(_inventory.add_item)
 
 
-## TODO
+## Get the body of the player in the scene tree
 func get_body() -> iPlayerBody:
     return _player_body
 
 
-## TODO
-func retrieve_body() -> void:
+## Remove body from scene tree and add as child
+func _retrieve_body() -> void:
     add_child(_player_body)
 
 
-## TODO
-func get_camera() -> PlayerCamera:
+## Get the Player's camera
+func get_camera() -> TrackedCamera:
     return _camera

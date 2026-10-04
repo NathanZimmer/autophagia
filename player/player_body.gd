@@ -11,7 +11,7 @@ signal is_on_floor_changed(is_on_floor: bool)
 
 @export_group("Camera settings")
 # @export_range(1, 100, 1) var _mouse_sensitivity := 50
-@export var _camera: PlayerCamera
+@export var _camera: TrackedCamera
 @export var _min_x_rotation := -89.0
 @export var _max_x_rotation := 89.0
 
@@ -200,6 +200,6 @@ func _set_fov(value: int) -> void:
     _camera.fov = value
 
 
-## TODO
+## Get `collision_changed` signal from `PlayerRaycast` component
 func get_raycast_collision_signal() -> Signal:
     return _player_ray_cast_3d.collision_changed

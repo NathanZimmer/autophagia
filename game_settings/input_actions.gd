@@ -1,9 +1,13 @@
 extends Node
 ## Constants for input map strings
 
+# NOTE: We do this to avoid a name conflict with the global Player class bc GDScript does not have
+# namespaces ≡(▔﹏▔)≡
+## Constants for the player_* input actions
+const Player := _Player
 
 ## Constants for the player_* input actions
-class Player:
+class _Player:
     const LEFT := &"player_left"
     const RIGHT := &"player_right"
     const FORWARD := &"player_forward"

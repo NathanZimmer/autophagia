@@ -13,7 +13,8 @@ var _viewport_use: Dictionary[PortalViewport, bool]
 
 class PortalViewport:
     extends RefCounted
-    ## TODO
+    ## Holds a `SubViewport` and `Camera3D` configured to match the Player's camera/viewport
+    ## configuration
 
     const _ENVIRONMENT_OVERRIDES: Dictionary[String, Variant] = {
         "tonemap_mode": Environment.TONE_MAPPER_LINEAR,
@@ -21,12 +22,11 @@ class PortalViewport:
     }
     const _SUB_VIEWPORT_PROP_IGNORE_LIST = ["owner", "canvas_transform"]
 
-    ## TODO
+    ## This container's SubViewport
     var viewport: SubViewport
-    ## TODO
+    ## This container's Camera3D
     var camera: Camera3D
 
-    ## TODO
     func _init(
         viewport: SubViewport,
         camera: Camera3D,
@@ -65,7 +65,7 @@ var _main_viewport: Viewport
 
 func _ready() -> void:
     pass
-    var main_camera := PlayerInterface.get_camera()
+    var main_camera := Player.get_camera()
     _main_viewport = main_camera.get_viewport()
 
     for i in range(_NUM_WARM_VIEWPORTS):
