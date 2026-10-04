@@ -1,4 +1,6 @@
 shader_type canvas_item;
+// NOTE: This is meant to be run with the main viewport set to 3x the resolution of the game
+// viewport
 
 uniform sampler2D screen_texture : hint_screen_texture,
 								   repeat_disable,
@@ -25,8 +27,8 @@ void fragment() {
 			tb_color, min(color[position_in_pixel.x] * 3.0, 1), tb_color);
 	COLOR[position_in_pixel.x] = pixel_colors[position_in_pixel.y];
 	COLOR = mix(color, COLOR, pixel_rgb_mix);
-	int v_pos = int(FRAGCOORD.y);
-	if (v_pos % 6 == 3 || v_pos % 6 == 4 || v_pos % 6 == 5) {
+	int v_pos = int(FRAGCOORD.y) % 6;
+	if (v_pos >= 3 && v_pos <= 5) {
 		COLOR = mix(COLOR, vec4(scanline_color, 1), scanline_darken_mix);
 	}
 }
