@@ -60,11 +60,6 @@ func _ready() -> void:
     _default_crosshair_texture = _crosshair.texture
 
 
-# func _physics_process(_delta: float) -> void:
-    # if Utils.verify_component(self, _crosshair_raycast):
-    #     _set_crosshair_texture()
-
-
 func _shortcut_input(event: InputEvent) -> void:
     if not event is InputEventKey:
         return

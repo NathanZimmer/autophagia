@@ -30,7 +30,6 @@
 # var _bp_secondary_targets: Dictionary[PortalBody, Camera3D]
 # var _pair_parent: PortalPair
 
-
 # func _setup(portals: Array[PortalBody]) -> void:
 #     super._setup(portals)
 
@@ -53,7 +52,6 @@
 #     connect_teleport_signals()
 #     connect_viewport_activation_signals()
 
-
 # ## Recurse down the tree and set render layers and cull masks to such that each set of
 # ## portals can see their parent and children, but not themselves [br]
 # ## ## Parameters [br]
@@ -74,7 +72,6 @@
 #     for pair in _child_pairs:
 #         pair.ping_pong_layers(cull_mask, render_layers)
 
-
 # ## Recurse down the tree and set back pass viewport activation order. Activates root
 # ## viewport first.
 # func set_viewport_activation_order() -> void:
@@ -85,7 +82,6 @@
 #     for pair in _child_pairs:
 #         pair.set_viewport_activation_order()
 
-
 # ## Recurse down the tree and set secondary cameras for forward pass and back pass
 # ## renderers
 # func set_secondary_cameras() -> void:
@@ -94,7 +90,6 @@
 #         _bp_secondary_targets[pair.bp_portal] = pair.bp_renderer.camera
 #         pair.set_secondary_cameras()
 
-
 # ## Recurse down the tree and connect `portal_entered_screen` signals to set camera usage
 # ## down the tree
 # func connect_screen_enter_signals() -> void:
@@ -102,7 +97,6 @@
 #     bp_portal.portal_entered_screen.connect(set_secondary_cam_from_map.bind(false, null))
 #     for pair in _child_pairs:
 #         pair.connect_screen_enter_signals()
-
 
 # ## Recurse down the tree and set special case camera usage signals for the frame that the
 # ## player teleports
@@ -128,7 +122,6 @@
 #         pair.back_pass_secondary_cam_updated.connect(set_secondary_cam_from_map)
 #         pair.connect_teleport_signals()
 
-
 # ## Set Whether or not to use the secondary camera for the forward pass. Recurses down the
 # ## tree with `use_secondary_target = True` [br]
 # ## ## Parameters [br]
@@ -137,7 +130,6 @@
 #     fp_renderer.set_use_secondary_target(use_secondary_target)
 #     for pair in _child_pairs:
 #         pair.set_use_secondary_target(true)
-
 
 # ## Set Whether or not to use the secondary camera for the back pass. Signals up the tree
 # ## with `use_secondary_target = True, portal = self.bp_portal` [br]
@@ -148,7 +140,6 @@
 #     bp_renderer.secondary_target_cam = _bp_secondary_targets.get(portal)
 #     bp_renderer.set_use_secondary_target(use_secondary_target)
 #     back_pass_secondary_cam_updated.emit(true, bp_portal)
-
 
 # ## Recurse down the tree and connect signals needed to enable/disable viewports
 # func connect_viewport_activation_signals() -> void:
@@ -176,7 +167,6 @@
 #         pair.connect_viewport_activation_signals()
 #         pair.back_pass_cam_visibilty_changed.connect(set_up_chain_viewports_active)
 
-
 # ## Set forward pass viewport active based on `fp_portal` visibility. Calls down the tree
 # ## with `override_active` set based on `fp_portal` visibility [br]
 # ## ## Parameters [br]
@@ -193,7 +183,6 @@
 #     fp_renderer.get_sub_viewport().render_target_update_mode = render_target_update_mode
 #     for pair in _child_pairs:
 #         pair.set_down_chain_viewports_active(active)
-
 
 # ## Set back pass viewport active based on `bp_portal` visibility. Calls up the tree
 # ## with `override_active` set based on `bp_portal` visibility [br]
@@ -212,7 +201,6 @@
 #     bp_renderer.get_sub_viewport().render_target_update_mode = render_target_update_mode
 
 #     back_pass_cam_visibilty_changed.emit(active)
-
 
 # ## Returns `True` if the forward pass portal for this pair is on the screen
 # func fp_portal_on_screen() -> bool:

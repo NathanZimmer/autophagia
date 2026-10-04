@@ -64,7 +64,6 @@ var _main_viewport: Viewport
 
 
 func _ready() -> void:
-    pass
     var main_camera := Player.get_camera()
     _main_viewport = main_camera.get_viewport()
 
@@ -76,8 +75,7 @@ func _ready() -> void:
 ## Get `count` viewports. Viewports are returned in the order they will render in
 func get_viewports(count: int) -> Array[PortalViewport]:
     var available_viewports := _portal_viewports.filter(
-        func(portal_viewport: PortalViewport) -> bool:
-            return not _viewport_use[portal_viewport]
+        func(portal_viewport: PortalViewport) -> bool: return not _viewport_use[portal_viewport]
     )
     if available_viewports.size() < count:
         push_error(

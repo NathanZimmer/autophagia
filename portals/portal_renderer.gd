@@ -101,11 +101,11 @@ func _setup() -> void:
 ## * `_target_reference_node` [br]
 ## * `_reference_node` [br]
 func update_camera_position(reference_transform: Transform3D) -> void:
-    _camera.global_transform = Utils.get_relative_transform(
+    _camera.global_transform = (Utils.get_relative_transform(
         reference_transform,
         _target_reference_node.global_transform,
-        _reference_node.global_transform,
-    )
+        _reference_node.global_transform
+    ))
     _camera.orthonormalize()
 
 

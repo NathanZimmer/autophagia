@@ -1,13 +1,13 @@
 class_name iPlayerBody extends CharacterBody3D
 ## Handles player controls and movement
 
+## Emitted when `is_on_floor()` changes
+signal is_on_floor_changed(is_on_floor: bool)
+
 const TERMINAL_VELOCITY := 50.0
 ## If true, this script will control mouse capture mode with "ui_cancel" input.
 ## Use for scenes where the gui scripts aren't loaded and input isn't captured.
 const DEBUG_CAPTURE_MOUSE := false
-
-## Emitted when `is_on_floor()` changes
-signal is_on_floor_changed(is_on_floor: bool)
 
 @export_group("Camera settings")
 # @export_range(1, 100, 1) var _mouse_sensitivity := 50
@@ -45,6 +45,7 @@ var _was_on_floor := false
 # @onready var _camera_animation_player: AnimationPlayer = %CameraAnimationPlayer
 @onready var _camera_animation_tree: iCameraAnimationTree = %CameraAnimationTree
 @onready var _player_ray_cast_3d: PlayerRayCast3D = %PlayerRayCast3D
+
 
 func _ready() -> void:
     # Input.set_use_accumulated_input(false)
@@ -183,7 +184,9 @@ func _rotate_cam(event: InputEventMouseMotion) -> void:
         Vector3.LEFT, deg_to_rad(-1 * motion.y if _mouse_inverted else motion.y)
     )
     _camera_remote_transform.rotation.x = clamp(
-        _camera_remote_transform.rotation.x, deg_to_rad(_min_x_rotation), deg_to_rad(_max_x_rotation)
+        _camera_remote_transform.rotation.x,
+        deg_to_rad(_min_x_rotation),
+        deg_to_rad(_max_x_rotation)
     )
     _camera_remote_transform.orthonormalize()
 

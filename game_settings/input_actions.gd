@@ -4,7 +4,8 @@ extends Node
 # NOTE: We do this to avoid a name conflict with the global Player class bc GDScript does not have
 # namespaces ≡(▔﹏▔)≡
 ## Constants for the player_* input actions
-const Player := _Player
+var Player := _Player
+
 
 ## Constants for the player_* input actions
 class _Player:

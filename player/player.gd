@@ -1,13 +1,14 @@
 extends Node
 ## Interface for accessing to Player data and components
 
+var _to_repace: Array[PlayerProxy]
+
 @onready var _gui: iGui = %Gui
 @onready var _player_body: iPlayerBody = %PlayerBody
 @onready var _camera: TrackedCamera = %PlayerCamera
 @onready var _inventory: Inventory = %Inventory
 @onready var _journal: Journal = %Journal
 
-var _to_repace: Array[PlayerProxy]
 
 func _enter_tree() -> void:
     get_tree().node_added.connect(
@@ -26,7 +27,7 @@ func _add_body_to_scene() -> void:
     if _to_repace.size() == 0:
         push_warning("No PlayerProxy node found. Player not added to sceme")
         return
-    elif _to_repace.size() > 1:
+    if _to_repace.size() > 1:
         push_error("attempting to insert player into scene multiple times")
 
     var node := _to_repace[-1]

@@ -10,7 +10,6 @@
 
 # var _main_portal: PortalBody
 
-
 # func _setup(portals: Array[PortalBody]) -> void:
 #     if portals.size() < 2:
 #         push_warning("Incorrect number of PortalBody children. This node will not process.")
@@ -65,13 +64,11 @@
 #         portal.player_entered_portal.connect(func() -> void: _main_portal.teleport_target = portal)
 #         portal.player_entered_portal.connect(main_renderer.set_reference_node.bind(portal))
 
-
 # ## Call `prepare_for_teleport` on the current target
 # ## of `_main_portal`
 # func _ready_teleport_target() -> void:
 #     var target := _main_portal.teleport_target
 #     target.prepare_for_teleport()
-
 
 # ## Show warning if we don't have 2 portal children
 # func _get_configuration_warnings() -> PackedStringArray:

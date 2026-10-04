@@ -54,6 +54,7 @@ class_name PortalProcessor extends Node3D
 var _target_body: PhysicsBody3D
 var _portal_viewports: Array[PortalViewportServer.PortalViewport]
 
+
 func _ready() -> void:
     if Engine.is_editor_hint():
         return
@@ -61,7 +62,6 @@ func _ready() -> void:
     if not _target_cam:
         _target_cam = Player.get_camera()
     _target_body = Player.get_body()
-
 
     var portals: Array[PortalBody]
     portals.assign(find_children("*", "PortalBody", false))

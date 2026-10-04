@@ -14,7 +14,7 @@ signal move_button_pressed
 ## Emit when the drop button is pressed.
 signal drop_button_pressed
 
-enum MenuContext { INVENTORY, CHEST}
+enum MenuContext { INVENTORY, CHEST }
 
 ## Text to display in place of the item desc when no item is selected
 const NO_ITEM_SELECTED_TEXT = "[select an item]"

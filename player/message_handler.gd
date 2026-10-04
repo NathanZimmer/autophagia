@@ -9,7 +9,6 @@ signal inventory_received(inventory: Inventory)
 
 ## Send message to this handler
 func send_message(object: Variant) -> void:
-
     var signal_to_emit: Signal
     if object is DialogTree:
         signal_to_emit = dialog_recieved

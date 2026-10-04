@@ -340,6 +340,7 @@ func prepare_for_teleport() -> void:
     # for renderer in _renderers:
     #     renderer.update_camera_position()
 
+
 ## Return `true` if the player is in the portal's `Area3D`
 func is_player_in_portal() -> bool:
     return _player_in_portal

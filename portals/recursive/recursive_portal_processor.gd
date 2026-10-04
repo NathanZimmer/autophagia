@@ -34,7 +34,6 @@
 # ## Render layers for the recursion mesh of the back pass portals
 # @export_flags_3d_render var _back_pass_render_layers := 8
 
-
 # ## Reset child PortalBody objects and create PortalRenderers for each portal
 # ## and each level of recursion
 # func _setup(portals: Array[PortalBody]) -> void:
@@ -138,7 +137,6 @@
 #             portals[i - 1],
 #             _target_cam.get_parent()
 #         )
-
 
 # ## Show warning if we don't have % 2 portal children
 # func _get_configuration_warnings() -> PackedStringArray:

@@ -21,12 +21,12 @@ const _PICKUP_SPAWN_RANGE := Vector3(0.25, 0, 0.25)
 ## Distance along foward vector to place items
 const _ITEM_SPAWN_DISTANCE := -1
 
-var Pickup := preload("uid://u87ws5522ov")
-
 ## Player body node. Used for dropping item pickups
 @export var _player_body: iPlayerBody
 ## Player camera node. Used for item placing mechanic
 @export var _player_camera: TrackedCamera
+
+var Pickup := preload("uid://u87ws5522ov")
 
 # TODO: Add a "item placer mode" for when used items need to be positioned in the world.
 var _block_menuing := false
