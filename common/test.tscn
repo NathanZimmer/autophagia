@@ -3,6 +3,7 @@
 [ext_resource type="Environment" uid="uid://cbgre4uktxw6d" path="res://common/main_world_env.tres" id="1_dxi5e"]
 [ext_resource type="Material" uid="uid://yk4x16701e40" path="res://common/placeholder_triplanar.tres" id="2_h4lmq"]
 [ext_resource type="Script" uid="uid://87305unriadp" path="res://player/player_proxy.gd" id="3_dxi5e"]
+[ext_resource type="Script" uid="uid://76qkomp1is87" path="res://rp_culling/portal.gd" id="5_1fe4l"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_e121w"]
 
@@ -37,3 +38,10 @@ mesh = SubResource("BoxMesh_03x48")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 7)
 script = ExtResource("3_dxi5e")
 metadata/_custom_type_script = "uid://87305unriadp"
+
+[node name="Portal" type="Node3D" parent="." unique_id=1959025778]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 3.5)
+script = ExtResource("5_1fe4l")
+_size = Vector3(2, 3, 1)
+_groups = Array[StringName]([&"player"])
+metadata/_custom_type_script = "uid://76qkomp1is87"

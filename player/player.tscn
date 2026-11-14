@@ -69,6 +69,7 @@ _toolbar_size = 2
 metadata/_custom_type_script = "uid://bvyrto2wfvoh4"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1905954674]
+unique_name_in_owner = true
 
 [node name="CameraSubViewportContainer" type="SubViewportContainer" parent="CanvasLayer" unique_id=540922304]
 texture_filter = 1

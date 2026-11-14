@@ -7,7 +7,7 @@ class_name BTGImporter extends EditorScenePostImportPlugin
 var _run_btg_import := false
 
 
-func _get_import_options(path):
+func _get_import_options(path: String) -> void:
     if path.get_extension() in ["blend", "glb"]:
         _run_btg_import = true
         add_import_option_advanced(
@@ -15,15 +15,15 @@ func _get_import_options(path):
         )
 
 
-func _post_process(scene):
+func _post_process(scene: Node) -> void:
     var entity_definition_path = get_option_value("blender_to_godot/entity_definition")
     if entity_definition_path.is_empty():
-        return scene
+        return
 
     var godot_import_file = FileAccess.open(entity_definition_path, FileAccess.READ)
     if godot_import_file == null:
         push_error(error_string(FileAccess.get_open_error()))
-        return scene
+        return
 
     var import_text = godot_import_file.get_as_text()
 
@@ -35,7 +35,7 @@ func _post_process(scene):
     if num_failures > 0:
         print("Finished import with %d failures (see warnings)" % num_failures)
 
-    return scene
+    return
 
 
 ## Recursively Navigate down node tree and assign classes/variables based on the
@@ -176,7 +176,7 @@ static func _import_entities_from_def(
     return num_failures
 
 
-static func _cast_to_type(value, type: String):
+static func _cast_to_type(value: Variant, type: String) -> Variant:
     if type == "list":
         return str_to_var(value)
     if type == "Vector3":

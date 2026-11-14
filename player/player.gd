@@ -8,6 +8,8 @@ var _to_repace: Array[PlayerProxy]
 @onready var _camera: TrackedCamera = %PlayerCamera
 @onready var _inventory: Inventory = %Inventory
 @onready var _journal: Journal = %Journal
+## CanvasLayer that GUI and player camera subviewport are rendered to
+@onready var _canvas_layer: CanvasLayer = %CanvasLayer
 
 
 func _enter_tree() -> void:
@@ -19,14 +21,22 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
-    _add_body_to_scene()
-    _connect_signals()
+    var body_added := _add_body_to_scene()
+    if body_added:
+        _connect_signals()
 
 
-func _add_body_to_scene() -> void:
+## Replace first instance of `PlayerProxy` in the scene tree with `_player_body` [br]
+## ## Returns [br]
+## `true` if player body is added to the scene, false otherwise
+func _add_body_to_scene() -> bool:
     if _to_repace.size() == 0:
         push_warning("No PlayerProxy node found. Player not added to sceme")
-        return
+        _player_body.hide()
+        _player_body.process_mode = PROCESS_MODE_DISABLED
+        _camera.process_mode = PROCESS_MODE_DISABLED
+        _canvas_layer.hide()
+        return false
     if _to_repace.size() > 1:
         push_error("attempting to insert player into scene multiple times")
 
@@ -36,6 +46,7 @@ func _add_body_to_scene() -> void:
     node.replace_by(_player_body)
     _player_body.global_transform = transform
     node.queue_free()
+    return true
 
 
 ## Connect signals between `_player_body` and local nodes

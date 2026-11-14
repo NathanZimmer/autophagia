@@ -16,7 +16,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="Autophagia"
 run/main_scene="uid://coctnof2reudh"
-config/features=PackedStringArray("4.6", "Forward Plus")
+config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="uid://3n2x0n62fk53"
 
 [audio]
@@ -31,7 +31,6 @@ Overrides="*res://game_settings/overrides.gd"
 AudioManager="*res://audio/audio_manager.gd"
 Utils="*uid://cyjm15klrck67"
 Player="*uid://dnhp4dcugklq6"
-PortalViewportServer="*uid://chsmgyci43p05"
 
 [debug]
 

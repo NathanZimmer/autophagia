@@ -1,4 +1,4 @@
-class_name PortalBodyGizmo extends EditorNode3DGizmoPlugin
+class_name PortalGizmo extends EditorNode3DGizmoPlugin
 
 const COLOR_0 = Color.BLUE
 const COLOR_1 = Color.ORANGE
@@ -24,7 +24,7 @@ func _init() -> void:
 
 
 func _create_gizmo(node: Node3D) -> EditorNode3DGizmo:
-    if not (node is PortalBody):
+    if not (node is Portal):
         return null
 
     var gizmo = EditorNode3DGizmo.new()
@@ -38,7 +38,7 @@ func _redraw(gizmo: EditorNode3DGizmo) -> void:
 
 
 func _draw_gizmo(gizmo: EditorNode3DGizmo) -> void:
-    var size = gizmo.get_node_3d().size
+    var size = gizmo.get_node_3d()._size
 
     var mesh_0 = BoxMesh.new()
     mesh_0.size = Vector3(size.x, size.y, size.z / 2)
@@ -57,8 +57,8 @@ func _draw_gizmo(gizmo: EditorNode3DGizmo) -> void:
 
 
 func _get_gizmo_name() -> String:
-    return "PortalBodyGizmo"
+    return "PortalGizmo"
 
 
 func _has_gizmo(node: Node3D) -> bool:
-    return node is PortalBody
+    return node is Portal
